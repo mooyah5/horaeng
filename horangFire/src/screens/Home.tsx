@@ -1,27 +1,26 @@
 import React from 'react';
-import {Button, StyleSheet, Text, View} from 'react-native';
-import { color, font } from '../styles/theme';
+import {ImageBackground, StyleSheet, Text, View} from 'react-native';
+import {color, font} from '../styles/colorAndFontTheme';
 
 const styles = StyleSheet.create({
-  btn: {
-    backgroundColor: color.MAIN,
-  },
   text: {
     fontFamily: font.beeBold,
     fontSize: 100,
-    backgroundColor: color.MAIN
+    color: color.BLACK_3A,
+  },
+  body: {
+    width: '100%',
+    height: '100%',
   }
 });
 
-const Home = ({navigation}: any) => {
-  // console.log('home');
+const Home = () => {
   return (
-      <Text style={styles.text}>
-        안녕하세요
-      </Text>
-      // <Button
-      //   title="dddddddd"
-      //   onPress={() => navigation.navigate('Login')} />
+    <ImageBackground source={require("../assets/image/background1.png")}>
+      <View style={styles.body}>
+        <Text style={styles.text}>안녕하세요</Text>
+      </View>
+    </ImageBackground>
   );
 };
 
