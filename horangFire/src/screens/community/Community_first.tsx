@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
 const Community_first = () => {
   return (
     <View style={styles.container}>
-      <TitleText title="커뮤니티다" subTitle="아래에 작성하세요" />
+      <TitleText title="community" subTitle="커뮤니티" />
     </View>
   );
 };
