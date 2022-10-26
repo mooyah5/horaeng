@@ -9,7 +9,7 @@ const Stack = createStackNavigator();
 const StackNavigation = () => {
   return (
     <Stack.Navigator
-      initialRouteName="Home"
+      initialRouteName="Community"
       screenOptions={{
         headerShown: false,
         cardStyle: {
