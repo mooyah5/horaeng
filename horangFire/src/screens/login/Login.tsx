@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const Login = ({navigation}: any) => {
   return (
     <>
-      <View><Text>ddd</Text></View>
+      <View><Text>login</Text></View>
       {/* <Button title="dd" onPress={() => navigation.navigate('Home')} /> */}
     </>
   );

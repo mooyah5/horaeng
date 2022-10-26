@@ -16,9 +16,9 @@ const styles = StyleSheet.create({
 
 const Collection = ({navigation}: any) => {
   return (
-    <ImageBackground source={require("../assets/image/background1.png")}>
+    <ImageBackground source={require("../../assets/image/background1.png")}>
       <View style={styles.body}>
-        <Text style={styles.text}>안녕하세요</Text>
+        <Text style={styles.text}>collection</Text>
         <Button title="login" onPress={() => navigation.navigate('Login')} />
       </View>
     </ImageBackground>

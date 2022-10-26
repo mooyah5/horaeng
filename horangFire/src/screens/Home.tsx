@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     fontFamily: font.beeBold,
     fontSize: 100,
     color: color.BLACK_3A,
+    textAlign: 'center',
   },
   body: {
     width: '100%',
