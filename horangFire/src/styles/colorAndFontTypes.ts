@@ -16,7 +16,7 @@ export interface colorTheme {
   KAKAO_YELLOW: string;
   KAKAO_BROWN: string;
   RED: string;
-};
+}
 
 export interface fontTheme {
   preBold: string;
@@ -26,4 +26,4 @@ export interface fontTheme {
   preExtra: string;
   beeMid: string;
   beeBold: string;
-};
+}

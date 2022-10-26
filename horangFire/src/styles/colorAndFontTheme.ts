@@ -1,5 +1,4 @@
-import { colorTheme, fontTheme } from "./styled";
-
+import {colorTheme, fontTheme} from './colorAndFontTypes';
 
 export const color: colorTheme = {
   MAIN: '#F0801A',
@@ -19,7 +18,7 @@ export const color: colorTheme = {
   KAKAO_YELLOW: '#FDE500',
   KAKAO_BROWN: '#3C1E1E',
   RED: '#FF0000',
-}
+};
 
 export const font: fontTheme = {
   preBold: 'Pretendard-Bold',
@@ -29,4 +28,4 @@ export const font: fontTheme = {
   preExtra: 'Pretendard-ExtraBold',
   beeMid: 'UhBeemysen',
   beeBold: 'UhBeemysenBold',
-}
+};
