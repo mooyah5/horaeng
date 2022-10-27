@@ -16,6 +16,7 @@ export interface colorTheme {
   KAKAO_YELLOW: string;
   KAKAO_BROWN: string;
   RED: string;
+  WHITE_OPAC: string;
 }
 
 export interface fontTheme {
