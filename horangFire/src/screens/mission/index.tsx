@@ -1,40 +1,74 @@
 import React from 'react';
-import {
-  Alert,
-  Button,
-  Image,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import {Image, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import {color, font} from '../../styles/colorAndFontTheme';
 import TitleText from '../../components/common/TitleText';
-import Btn from '../../components/common/Btn_short';
+import Btn from '../../components/common/Btn_long';
 const styles = StyleSheet.create({
   container: {
     width: '100%',
     height: '100%',
     backgroundColor: color.BACK_SUB,
-    paddingBottom: 80,
+    paddingBottom: 60,
     paddingHorizontal: 24,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  cont1: {
+    flex: 2,
+  },
+  cont2: {
+    alignItems: 'center',
+    marginTop: 30,
+    flex: 6,
+  },
+  txtBox: {
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   btns: {
     flex: 1,
     flexDirection: 'row',
   },
+  txt: {
+    fontFamily: font.beeBold,
+    fontSize: 30,
+    color: color.BLACK_3A,
+    position: 'absolute',
+    paddingBottom: 30,
+  },
 });
 const MissonHome = ({navigation}: any) => {
-  const click = () => {
-    console.log('ss');
-  };
+  const missionTxt = '종이를 아끼기';
+
   return (
     <SafeAreaView style={{backgroundColor: color.BACK_SUB}}>
       <View style={styles.container}>
-        <TitleText title="위에 작성" subTitle="아래에 작성하세요" />
+        <View style={styles.cont1}>
+          <TitleText title="호랭이 이름" subTitle="미션 수행하기" />
+        </View>
+
+        <View style={styles.cont2}>
+          <View style={styles.txtBox}>
+            <Image
+              source={require('../../assets/image/textBox.png')}
+              style={{marginBottom: 20}}
+            />
+            <Text style={styles.txt}>나를 위해 {missionTxt}!</Text>
+          </View>
+          <Image
+            source={require('../../assets/image/character/tiger.png')}
+            style={{width: 228, height: 242}}
+          />
+        </View>
         <View style={styles.btns}>
-          <Btn txt="이전으로" clickEvent={click} />
-          <Btn txt="다음으로" clickEvent={click} />
+          <Btn
+            txt="메인 미션 진행"
+            clickEvent={() => navigation.navigate('MainMission')}
+          />
+          <Btn
+            txt="공통 미션 진행"
+            clickEvent={() => navigation.navigate('LookCommon')}
+          />
         </View>
       </View>
     </SafeAreaView>

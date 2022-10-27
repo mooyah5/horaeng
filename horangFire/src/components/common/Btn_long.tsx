@@ -18,14 +18,14 @@ const styles = StyleSheet.create({
     // height: '100%',
   },
   img: {
-    width: 105,
+    width: 160,
     height: 59,
     overflow: 'hidden',
   },
   txt: {
     position: 'absolute',
     fontFamily: font.beeBold,
-    fontSize: 28,
+    fontSize: 24,
     color: color.BROWN_47,
     paddingHorizontal: 15,
     paddingVertical: 12,
@@ -43,7 +43,7 @@ const Btn = ({txt, clickEvent}: btnTypes) => {
       <View>
         <Image
           style={styles.img}
-          source={require('../../assets/image/btn_short.png')}
+          source={require('../../assets/image/btn_long.png')}
         />
       </View>
       <Text style={styles.txt}>{txt}</Text>
