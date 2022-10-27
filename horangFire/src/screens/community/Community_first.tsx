@@ -1,4 +1,3 @@
-import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {color, font} from '../../styles/colorAndFontTheme';
 import TitleText from '../../components/common/TitleText';

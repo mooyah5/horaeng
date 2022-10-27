@@ -1,6 +1,7 @@
 import React from 'react';
 import {Button, ImageBackground, StyleSheet, Text, View} from 'react-native';
 import {color, font} from '../../styles/colorAndFontTheme';
+import CommuTitleText from '../../components/common/CommuTitleText';
 
 const styles = StyleSheet.create({
   text: {
@@ -21,7 +22,7 @@ const Community = ({navigation}: any) => {
   return (
     <ImageBackground source={require("../../assets/image/commuBack.png")}>
       <View style={styles.body}>
-        <Text style={styles.text}>커뮤니티</Text>
+      <CommuTitleText title="뱅갈호랑이 | 공지사항" subTitle="Community" />
         <Button title="커뮤페이지로" onPress={() => navigation.navigate('Community_first')} />
       </View>
     </ImageBackground>
