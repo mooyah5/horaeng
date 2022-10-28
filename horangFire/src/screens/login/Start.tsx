@@ -14,24 +14,25 @@ const styles = StyleSheet.create({
 
 const Start = ({navigation}: any) => {
   return (
-    // <ImageBackground source={require('../../../assets/image/intro.png')}>
-    <View style={styles.body}>
-      <View style={styles.section_1}></View>
-      <View style={styles.section_2}>
-        <Image
-          source={require('../../assets/image/logoText.png')}
-          style={styles.title}
-        />
+    <ImageBackground source={require('../../assets/image/intro.png')}>
+      <View style={styles.body}>
+        <View style={styles.section_1}></View>
+        <View style={styles.section_2}>
+          <Image
+            source={require('../../assets/image/logoText.png')}
+            style={styles.title}
+          />
+        </View>
+        <View style={styles.section_3}></View>
+        <View style={styles.section_4}></View>
+        <View style={styles.section_5}>
+          <Image
+            source={require('../../assets/image/start.png')}
+            style={styles.start}
+          />
+        </View>
       </View>
-      <View style={styles.section_3}></View>
-      <View style={styles.section_4}></View>
-      <View style={styles.section_5}>
-        <Image
-          source={require('../../assets/image/start.png')}
-          style={styles.start}
-        />
-      </View>
-    </View>
+    </ImageBackground>
   );
 };
 

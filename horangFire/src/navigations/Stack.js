@@ -11,37 +11,49 @@ import Community from '../screens/community/index';
 import SelectAnimal from '../screens/selectAnimal/index';
 import Collection from '../screens/collection/index';
 import Community_first from '../screens/community/Community_first';
+import Option from '../components/options/Options';
+import BackgroundOption from '../components/options/BackgroundOption';
 import CommonMission from '../screens/mission/commonMission';
 import LookCommon from '../screens/mission/lookCommon';
+import SelectModal from '../components/options/SelectModal';
+import ApplyModal from '../components/options/ApplyModal';
 
 const Stack = createStackNavigator();
 
 const StackNavigation = () => {
   return (
     <Stack.Navigator
-      initialRouteName="Home"
+      initialRouteName="Option"
       screenOptions={{
         headerShown: false,
-        presentation: 'card',
       }}>
-      <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="Start" component={Start} />
-      <Stack.Screen name="Login" component={Login} />
+      <Stack.Group screenOptions={{presentation: 'card'}}>
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Start" component={Start} />
+        <Stack.Screen name="Login" component={Login} />
 
-      {/* mission page */}
+        {/* mission page */}
 
-      <Stack.Screen name="MissionHome" component={MissonHome} />
-      <Stack.Screen name="MainMission" component={MainMission} />
-      <Stack.Screen name="SubmitMission" component={SubmitMission} />
-      <Stack.Screen name="LookCommon" component={LookCommon} />
-      <Stack.Screen name="CommonMission" component={CommonMission} />
+        <Stack.Screen name="MissionHome" component={MissonHome} />
+        <Stack.Screen name="MainMission" component={MainMission} />
+        <Stack.Screen name="SubmitMission" component={SubmitMission} />
+        <Stack.Screen name="LookCommon" component={LookCommon} />
+        <Stack.Screen name="CommonMission" component={CommonMission} />
 
-      {/* community page  */}
+        {/* community page  */}
 
-      <Stack.Screen name="Community" component={Community} />
-      <Stack.Screen name="SelectAnimal" component={SelectAnimal} />
-      <Stack.Screen name="Collection" component={Collection} />
-      <Stack.Screen name="Community_first" component={Community_first} />
+        <Stack.Screen name="Community" component={Community} />
+        <Stack.Screen name="SelectAnimal" component={SelectAnimal} />
+        <Stack.Screen name="Collection" component={Collection} />
+        <Stack.Screen name="Community_first" component={Community_first} />
+        <Stack.Screen name="Option" component={Option} />
+        <Stack.Screen name="BackgroundOption" component={BackgroundOption} />
+      </Stack.Group>
+
+      <Stack.Group screenOptions={{presentation: 'transparentModal'}}>
+        <Stack.Screen name="SelectModal" component={SelectModal} />
+        <Stack.Screen name="ApplyModal" component={ApplyModal} />
+      </Stack.Group>
     </Stack.Navigator>
   );
 };
