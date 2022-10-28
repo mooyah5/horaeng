@@ -1,13 +1,11 @@
 import React from 'react';
 import {
-  Button,
   Image,
   ImageBackground,
   StyleSheet,
   TouchableOpacity,
   View,
 } from 'react-native';
-import styled from 'styled-components';
 
 const styles = StyleSheet.create({
   body: {width: '100%', height: '100%'},
@@ -23,29 +21,29 @@ const styles = StyleSheet.create({
 
 const Login = ({navigation}: any) => {
   return (
-    // <ImageBackground source={require('../../assets/image/intro.png')}>
-    <View style={styles.body}>
-      <View style={styles.section_1}></View>
-      <View style={styles.section_2}>
-        <Image
-          source={require('../../assets/image/logoText.png')}
-          style={styles.title}
-        />
-      </View>
-      <View style={styles.section_3}></View>
-      <View style={styles.section_4}>
-        <TouchableOpacity
-          style={styles.loginBox}
-          onPress={() => navigation.navigate('Home')}>
+    <ImageBackground source={require('../../assets/image/intro.png')}>
+      <View style={styles.body}>
+        <View style={styles.section_1}></View>
+        <View style={styles.section_2}>
           <Image
-            source={require('../../assets/image/kakaoLogin.png')}
-            style={styles.loginButton}
+            source={require('../../assets/image/logoText.png')}
+            style={styles.title}
           />
-        </TouchableOpacity>
+        </View>
+        <View style={styles.section_3}></View>
+        <View style={styles.section_4}>
+          <TouchableOpacity
+            style={styles.loginBox}
+            onPress={() => navigation.navigate('Home')}>
+            <Image
+              source={require('../../assets/image/kakaoLogin.png')}
+              style={styles.loginButton}
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.section_5}></View>
       </View>
-      <View style={styles.section_5}></View>
-    </View>
-    // </ImageBackground>
+    </ImageBackground>
   );
 };
 
