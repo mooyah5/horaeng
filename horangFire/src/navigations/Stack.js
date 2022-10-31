@@ -1,28 +1,34 @@
 import {createStackNavigator} from '@react-navigation/stack';
-import React from 'react';
+
 import Home from '../screens/Home';
+
 import Start from '../screens/login/Start';
 import Login from '../screens/login/Login';
-import MissonHome from '../screens/mission/';
-import MainMission from '../screens/mission/mainMission';
-import SubmitMission from '../screens/mission/submitMission';
-import Community from '../screens/community/index';
 import SelectAnimal from '../screens/selectAnimal/index';
-import Collection from '../screens/collection/Collection';
-import Community_first from '../screens/community/Community_first';
 import AnimalNameForm from '../screens/selectAnimal/AnimalNameForm';
 import AnimalNameConfirm from '../screens/selectAnimal/AnimalNameConfirm';
 import MissionIntro from '../screens/selectAnimal/MissionIntro';
-import Option from '../components/options/Options';
-import BackgroundOption from '../components/options/BackgroundOption';
+
+import MissonHome from '../screens/mission/';
+import MainMission from '../screens/mission/mainMission';
 import CommonMission from '../screens/mission/commonMission';
 import LookCommon from '../screens/mission/lookCommon';
-import SelectModal from '../components/options/SelectModal';
-import ApplyModal from '../components/options/ApplyModal';
+import SubmitMission from '../screens/mission/submitMission';
+
+import Community from '../screens/community/index';
+import Community_first from '../screens/community/Community_first';
+
+import Collection from '../screens/collection/Collection';
 import CollectionDetail from '../screens/collection/CollectionDetail';
 import InfoOfAnimal from '../components/collection/InfoOfAnimal';
 import ListOfDiaries from '../components/collection/ListOfDiaries';
 import DiaryDetail from '../components/collection/DiaryDetail';
+
+import SelectModal from '../components/options/SelectModal';
+import ApplyModal from '../components/options/ApplyModal';
+
+import Option from '../components/options/Options';
+import BackgroundOption from '../components/options/BackgroundOption';
 
 const Stack = createStackNavigator();
 
