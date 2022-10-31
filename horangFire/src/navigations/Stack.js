@@ -3,13 +3,16 @@ import React from 'react';
 import Home from '../screens/Home';
 import Start from '../screens/login/Start';
 import Login from '../screens/login/Login';
-import MissonHome from '../screens/mission';
+import MissonHome from '../screens/mission/';
 import MainMission from '../screens/mission/mainMission';
 import SubmitMission from '../screens/mission/submitMission';
 import Community from '../screens/community/index';
 import SelectAnimal from '../screens/selectAnimal/index';
 import Collection from '../screens/collection/Collection';
 import Community_first from '../screens/community/Community_first';
+import AnimalNameForm from '../screens/selectAnimal/AnimalNameForm';
+import AnimalNameConfirm from '../screens/selectAnimal/AnimalNameConfirm';
+import MissionIntro from '../screens/selectAnimal/MissionIntro';
 import Option from '../components/options/Options';
 import BackgroundOption from '../components/options/BackgroundOption';
 import CommonMission from '../screens/mission/commonMission';
@@ -26,15 +29,19 @@ const Stack = createStackNavigator();
 const StackNavigation = () => {
   return (
     <Stack.Navigator
-      initialRouteName="Collection"
+      initialRouteName="Home"
       screenOptions={{
         headerShown: false,
       }}>
+      {/* mission page */}
       <Stack.Group screenOptions={{presentation: 'card'}}>
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Start" component={Start} />
         <Stack.Screen name="Login" component={Login} />
 
+        <Stack.Screen name="AnimalNameForm" component={AnimalNameForm} />
+        <Stack.Screen name="AnimalNameConfirm" component={AnimalNameConfirm} />
+        <Stack.Screen name="MissonIntro" component={MissionIntro} />
         {/* mission page */}
 
         <Stack.Screen name="MissionHome" component={MissonHome} />

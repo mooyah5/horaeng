@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {color, font} from '../../styles/colorAndFontTheme';
 import TitleText from '../../components/common/TitleText';
 import Btn from '../../components/common/Btn_short';
@@ -123,10 +123,11 @@ const LookCommon = ({navigation}: any) => {
           <View style={styles.select}>
             {/* {numList.length && numList.map(num => <Text>{num}</Text>)} */}
             {missionList.length &&
-              missionList.map(name => (
+              missionList.map((name, idx) => (
                 <TouchableOpacity
+                  key={idx}
                   style={styles.btn}
-                  onPress={() => navigation.navigate('CommonMission')}>
+                  onPress={() => navigation.navigate('MissonHome')}>
                   <Text style={styles.list}>{name}</Text>
                   <Text style={styles.move}>Go</Text>
                 </TouchableOpacity>
