@@ -14,10 +14,7 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: auth-service
-          uri: lb://AUTH-SERVICE
+        - id: user-service
+          uri: lb://USER-SERVICE
           predicates:
-            - Path=/auth-service/**
-          filters:
-            - AddRequestHeader=first-request, first-requests-header2
-            - AddResponseHeader=first-response, first-response-header2
+            - Path=/user-service/**
