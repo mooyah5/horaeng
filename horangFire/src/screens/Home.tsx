@@ -239,7 +239,9 @@ const Home = ({navigation}: Props) => {
                 source={require('../assets/image/setting.png')}
               />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.leftIconsContainer}>
+            <TouchableOpacity
+              style={styles.leftIconsContainer}
+              onPress={() => navigation.navigate('Option')}>
               <Image
                 style={styles.settingIcon}
                 source={require('../assets/image/setting.png')}
@@ -247,13 +249,17 @@ const Home = ({navigation}: Props) => {
             </TouchableOpacity>
           </View>
           <View style={styles.iconContainer2}>
-            <TouchableOpacity style={styles.rightIconsContainer}>
+            <TouchableOpacity
+              style={styles.rightIconsContainer}
+              onPress={() => navigation.navigate('BackgroundOption')}>
               <Image
                 style={styles.backgroundIcon}
                 source={require('../assets/image/setting.png')}
               />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.rightIconsContainer}>
+            <TouchableOpacity
+              style={styles.rightIconsContainer}
+              onPress={() => navigation.navigate('Community')}>
               <Image
                 style={styles.communityIcon}
                 source={require('../assets/image/setting.png')}
@@ -261,7 +267,9 @@ const Home = ({navigation}: Props) => {
             </TouchableOpacity>
           </View>
           <View style={styles.iconContainer3}>
-            <TouchableOpacity style={styles.bottomIconContainer}>
+            <TouchableOpacity
+              style={styles.bottomIconContainer}
+              onPress={() => navigation.navigate('Collection')}>
               <Image
                 style={styles.journalIcon}
                 source={require('../assets/image/setting.png')}
