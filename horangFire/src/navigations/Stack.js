@@ -4,7 +4,12 @@ import Home from '../screens/Home';
 
 import Start from '../screens/login/Start';
 import Login from '../screens/login/Login';
+import Notice from '../screens/community/Notice';
+import NoticeDetail from '../screens/community/NoticeDetail';
+import ReportModal from '../components/options/ReportModal';
+import ReportApplyModal from '../components/options/ReportApplyModal';
 import SelectAnimal from '../screens/selectAnimal/index';
+import CommunityDetail from '../screens/community/CommunityDetail';
 import AnimalNameForm from '../screens/selectAnimal/AnimalNameForm';
 import AnimalNameConfirm from '../screens/selectAnimal/AnimalNameConfirm';
 import MissionIntro from '../screens/selectAnimal/MissionIntro';
@@ -59,8 +64,11 @@ const StackNavigation = () => {
         {/* community page  */}
 
         <Stack.Screen name="Community" component={Community} />
+        <Stack.Screen name="Notice" component={Notice} />
+        <Stack.Screen name="NoticeDetail" component={NoticeDetail} />
         <Stack.Screen name="SelectAnimal" component={SelectAnimal} />
         <Stack.Screen name="Community_first" component={Community_first} />
+        <Stack.Screen name="CommunityDetail" component={CommunityDetail} />
 
         {/* option page */}
         <Stack.Screen name="Option" component={Option} />
@@ -74,6 +82,8 @@ const StackNavigation = () => {
       <Stack.Group screenOptions={{presentation: 'transparentModal'}}>
         <Stack.Screen name="SelectModal" component={SelectModal} />
         <Stack.Screen name="ApplyModal" component={ApplyModal} />
+        <Stack.Screen name="ReportModal" component={ReportModal} />
+        <Stack.Screen name="ReportApplyModal" component={ReportApplyModal} />
         <Stack.Screen name="InfoOfAnimal" component={InfoOfAnimal} />
         <Stack.Screen name="ListOfDiaries" component={ListOfDiaries} />
         <Stack.Screen name="DiaryDetail" component={DiaryDetail} />

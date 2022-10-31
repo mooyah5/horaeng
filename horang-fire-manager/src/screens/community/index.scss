@@ -1,0 +1,15 @@
+#commu {
+  //   height: 100%;
+  //   width: 1440px;
+  padding-top: 40px;
+  .container {
+    width: 1440px;
+    // background-color: red;
+    .commu {
+      &_title {
+        padding-bottom: 24px;
+        color: #5a5a5a;
+      }
+    }
+  }
+}
