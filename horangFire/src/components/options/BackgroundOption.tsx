@@ -1,8 +1,8 @@
-import {useState} from 'react';
+import {ParamListBase} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
 import {View, StyleSheet, Image, Text, TouchableOpacity} from 'react-native';
 import {color, font} from '../../styles/colorAndFontTheme';
 import Btn from '../common/Btn_short';
-import SelectModal from './SelectModal';
 
 const styles = StyleSheet.create({
   // selected
@@ -71,16 +71,15 @@ const styles = StyleSheet.create({
   },
 });
 
-const BackgroundOption = ({navigation}: any) => {
-  const [isSelect, setIsSelect] = useState<boolean>(true);
-  const buyBackground = () => {
-    navigation.navigate('SelectModal');
-  };
+interface Props {
+  navigation: StackNavigationProp<ParamListBase, 'BackgroundOption'>;
+}
 
+const BackgroundOption = ({navigation}: Props) => {
   return (
     <>
       <View style={styles.body}>
-        <View style={styles.section1}></View>
+        <View style={styles.section1} />
         <View style={styles.section2}>
           <Image
             source={require('../../assets/image/background_option.png')}
@@ -108,9 +107,9 @@ const BackgroundOption = ({navigation}: any) => {
             />
             <Btn txt={'닫기'} clickEvent={() => navigation.navigate('Home')} />
           </View>
-          <View style={styles.subSection4}></View>
+          <View style={styles.subSection4} />
         </View>
-        <View style={styles.section3}></View>
+        <View style={styles.section3} />
       </View>
     </>
   );

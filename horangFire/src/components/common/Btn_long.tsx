@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  Image,
-  ImageBackground,
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-} from 'react-native';
+import {Image, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import {color, font} from '../../styles/colorAndFontTheme';
 
 const styles = StyleSheet.create({

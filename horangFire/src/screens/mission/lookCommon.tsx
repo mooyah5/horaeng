@@ -10,6 +10,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {ParamListBase} from '@react-navigation/native';
 
 const styles = StyleSheet.create({
   container: {
@@ -91,7 +93,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const LookCommon = ({navigation}: any) => {
+interface Props {
+  navigation: StackNavigationProp<ParamListBase, 'LookCommon'>;
+}
+
+const LookCommon = ({navigation}: Props) => {
   const missionList = [
     '하나. 종이 아끼기',
     '두울. 종이 안아끼기',

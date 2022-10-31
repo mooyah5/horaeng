@@ -3,6 +3,9 @@ import {Image, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import {color, font} from '../../styles/colorAndFontTheme';
 import TitleText from '../../components/common/TitleText';
 import Btn from '../../components/common/Btn_long';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {ParamListBase} from '@react-navigation/native';
+
 const styles = StyleSheet.create({
   container: {
     width: '100%',
@@ -37,7 +40,12 @@ const styles = StyleSheet.create({
     paddingBottom: 30,
   },
 });
-const MissonHome = ({navigation}: any) => {
+
+interface Props {
+  navigation: StackNavigationProp<ParamListBase, 'MissionHome'>;
+}
+
+const MissonHome = ({navigation}: Props) => {
   const missionTxt = '종이를 아끼기';
 
   return (

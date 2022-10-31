@@ -1,4 +1,6 @@
-import React, {useState} from 'react';
+import {ParamListBase} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
+import React, {useEffect, useState} from 'react';
 import {FlatList, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import Btn from '../../components/common/Btn_short';
 import {color, font} from '../../styles/colorAndFontTheme';
@@ -30,10 +32,20 @@ const styles = StyleSheet.create({
   flatList: {paddingHorizontal: 24},
 });
 
-const Collection = ({navigation}: any) => {
-  const [data, setData] = useState<number[]>([
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
-  ]);
+interface Props {
+  navigation: StackNavigationProp<ParamListBase, 'Collection'>;
+}
+
+const Collection = ({navigation}: Props) => {
+  const [data, setData] = useState<number[]>([]);
+
+  const handleData = () => {
+    setData([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+  };
+
+  useEffect(() => {
+    handleData();
+  }, []);
 
   return (
     <SafeAreaView style={styles.body}>
@@ -44,7 +56,7 @@ const Collection = ({navigation}: any) => {
       <View style={styles.section3}>
         <FlatList
           data={data}
-          renderItem={item => {
+          renderItem={() => {
             return <CollectionPhotoFrame navigation={navigation} />;
           }}
           numColumns={3}

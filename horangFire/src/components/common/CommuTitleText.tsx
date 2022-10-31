@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   },
   brown: {
     color: color.BROWN_78,
-  }
+  },
 });
 
 const CommuTitleText = ({title, subTitle}: titleProps) => {

@@ -11,6 +11,8 @@ import {
   Pressable,
 } from 'react-native';
 import {scriptIntro} from '../../script/scriptIntro';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {ParamListBase} from '@react-navigation/native';
 
 const styles = StyleSheet.create({
   section1: {
@@ -65,7 +67,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const MissionIntro = ({navigation}: any) => {
+interface Props {
+  navigation: StackNavigationProp<ParamListBase, 'MissionIntro'>;
+}
+
+const MissionIntro = ({navigation}: Props) => {
   const [scriptNum, setScriptNum] = useState<number>(1);
 
   const handleScriptNum = () => {
@@ -86,7 +92,7 @@ const MissionIntro = ({navigation}: any) => {
 
   return (
     <SafeAreaView style={styles.backgroundColor}>
-      <View style={styles.section1}></View>
+      <View style={styles.section1} />
       <Pressable onPress={handleScriptNum} style={styles.section2}>
         <Image
           style={styles.missionBack}

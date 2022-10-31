@@ -3,6 +3,8 @@ import {color, font} from '../../styles/colorAndFontTheme';
 import TitleText from '../../components/common/TitleText';
 import {Image, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import Btn from '../../components/common/Btn_long';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {ParamListBase} from '@react-navigation/native';
 
 const styles = StyleSheet.create({
   container: {
@@ -40,7 +42,12 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
 });
-const SubmitMission = ({navigation}: any) => {
+
+interface Props {
+  navigation: StackNavigationProp<ParamListBase, 'LookCommon'>;
+}
+
+const SubmitMission = ({navigation}: Props) => {
   const mission = '종이 아끼기';
   const days = 1;
   const success = '일차 미션을 성공적으로 마쳤네! \n 고마워!! :)';

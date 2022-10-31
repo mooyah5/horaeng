@@ -11,6 +11,8 @@ import {
 } from 'react-native';
 import {color, font} from '../styles/colorAndFontTheme';
 import TitleText from '../components/common/TitleText';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {ParamListBase} from '@react-navigation/native';
 
 const styles = StyleSheet.create({
   backgroundImage: {
@@ -190,7 +192,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const Home = ({navigation}: any) => {
+interface Props {
+  navigation: StackNavigationProp<ParamListBase, 'Login'>;
+}
+
+const Home = ({navigation}: Props) => {
   return (
     <ImageBackground
       source={require('../assets/image/background1.png')}

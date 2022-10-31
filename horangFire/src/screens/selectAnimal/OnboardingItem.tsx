@@ -4,11 +4,13 @@ import {
   Text,
   StyleSheet,
   Image,
-  useWindowDimensions,
+  Dimensions,
   TouchableOpacity,
   Platform,
 } from 'react-native';
 import {color, font} from '../../styles/colorAndFontTheme';
+
+const width = Number(Dimensions.get('screen'));
 
 const styles = StyleSheet.create({
   text: {
@@ -25,6 +27,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 20,
+    resizeMode: 'contain',
+    width: width,
   },
   characterName: {
     fontFamily: font.beeBold,
@@ -70,10 +74,9 @@ const styles = StyleSheet.create({
 });
 
 const OnboardingItem = ({item, navigation}: any) => {
-  const {width} = useWindowDimensions();
-  const [selectedMission, setMission] = useState('');
+  const [selectedMission, setSelectedMission] = useState('');
   const setMissionFun = (name: string) => {
-    setMission(name);
+    setSelectedMission(name);
     navigation.navigate('AnimalNameForm');
   };
   return (
@@ -81,10 +84,7 @@ const OnboardingItem = ({item, navigation}: any) => {
       <View>
         <Text style={[styles.characterName]}>{item.name}</Text>
       </View>
-      <Image
-        source={item.image}
-        style={[styles.image, {width, resizeMode: 'contain'}]}
-      />
+      <Image source={item.image} style={styles.image} />
       <Image source={item.backImage} style={styles.backImage} />
       <TouchableOpacity
         onPress={() => setMissionFun(item.name)}
@@ -92,7 +92,7 @@ const OnboardingItem = ({item, navigation}: any) => {
         <Text style={styles.missionTitle}>MISSION START!</Text>
         <Text style={styles.missionInner}>{item.mission}</Text>
       </TouchableOpacity>
-      <Text style={styles.text}></Text>
+      <Text style={styles.text} />
     </View>
   );
 };

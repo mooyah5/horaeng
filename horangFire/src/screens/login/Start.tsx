@@ -12,19 +12,19 @@ const styles = StyleSheet.create({
   start: {height: '100%', width: '50%', resizeMode: 'contain'},
 });
 
-const Start = ({navigation}: any) => {
+const Start = () => {
   return (
     <ImageBackground source={require('../../assets/image/intro.png')}>
       <View style={styles.body}>
-        <View style={styles.section_1}></View>
+        <View style={styles.section_1} />
         <View style={styles.section_2}>
           <Image
             source={require('../../assets/image/logoText.png')}
             style={styles.title}
           />
         </View>
-        <View style={styles.section_3}></View>
-        <View style={styles.section_4}></View>
+        <View style={styles.section_3} />
+        <View style={styles.section_4} />
         <View style={styles.section_5}>
           <Image
             source={require('../../assets/image/start.png')}

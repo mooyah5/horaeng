@@ -1,7 +1,9 @@
-import React from "react";
-import { View, StyleSheet, Text, SafeAreaView } from 'react-native'
+import React from 'react';
+import {View, StyleSheet, Text, SafeAreaView} from 'react-native';
 import {color, font} from '../../styles/colorAndFontTheme';
 import Btn from '../../components/common/Btn_long';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {ParamListBase} from '@react-navigation/native';
 
 const styles = StyleSheet.create({
   backgroundColor: {
@@ -24,10 +26,14 @@ const styles = StyleSheet.create({
   btns: {
     flexDirection: 'row',
     paddingHorizontal: 24,
-  }
-})
+  },
+});
 
-const AnimalNameConfirm = ({navigation}: any) => {
+interface Props {
+  navigation: StackNavigationProp<ParamListBase, 'LookCommon'>;
+}
+
+const AnimalNameConfirm = ({navigation}: Props) => {
   return (
     <View style={styles.backgroundColor}>
       <SafeAreaView>
@@ -36,14 +42,15 @@ const AnimalNameConfirm = ({navigation}: any) => {
           <Text style={styles.text1}>미션을 시작해 볼까?</Text>
         </View>
         <View style={styles.btns}>
-          <Btn txt="이전으로" 
-            clickEvent={() => navigation.goBack()} />
-          <Btn txt="다음으로" 
-            clickEvent={() => navigation.navigate('MissonIntro')} />
+          <Btn txt="이전으로" clickEvent={() => navigation.goBack()} />
+          <Btn
+            txt="다음으로"
+            clickEvent={() => navigation.navigate('MissonIntro')}
+          />
         </View>
       </SafeAreaView>
     </View>
-  )
+  );
 };
 
-export default AnimalNameConfirm
+export default AnimalNameConfirm;

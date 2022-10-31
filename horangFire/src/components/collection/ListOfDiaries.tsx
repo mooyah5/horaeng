@@ -1,4 +1,6 @@
-import {useState} from 'react';
+import {ParamListBase} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {useEffect, useState} from 'react';
 import {Image, SafeAreaView, ScrollView, StyleSheet, View} from 'react-native';
 import Btn from '../common/Btn_short';
 import DiaryItem from './DiaryItem';
@@ -41,16 +43,27 @@ const styles = StyleSheet.create({
     height: '100%',
     paddingHorizontal: 20,
   },
+  emptyArea: {flex: 2},
 });
 
-const ListOfDiaries = ({navigation}: any) => {
-  const [diaries, setDiaries] = useState<number[]>([
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-  ]);
+interface Props {
+  navigation: StackNavigationProp<ParamListBase, 'ListOfDiaries'>;
+}
+
+const ListOfDiaries = ({navigation}: Props) => {
+  const [diaries, setDiaries] = useState<number[]>([]);
+
+  const handleDiaries = () => {
+    setDiaries([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+  };
+
+  useEffect(() => {
+    handleDiaries();
+  }, []);
 
   return (
     <SafeAreaView style={styles.body}>
-      <View style={styles.section1}></View>
+      <View style={styles.section1} />
       <View style={styles.section2}>
         <Image
           source={require('../../assets/image/box_large.png')}
@@ -107,7 +120,7 @@ const ListOfDiaries = ({navigation}: any) => {
         </ScrollView>
       </View>
       <View style={styles.section3}>
-        <View style={{flex: 2}} />
+        <View style={styles.emptyArea} />
         <Btn txt="창 닫기" clickEvent={navigation.goBack} />
       </View>
     </SafeAreaView>

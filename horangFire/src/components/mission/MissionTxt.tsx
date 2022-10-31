@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, StyleSheet, Text, TextInput, View} from 'react-native';
+import {StyleSheet, Text, TextInput, View} from 'react-native';
 import {color, font} from '../../styles/colorAndFontTheme';
 
 type missionProps = {
@@ -8,6 +8,7 @@ type missionProps = {
   isMain: boolean;
   setDiary: React.Dispatch<React.SetStateAction<string>>;
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

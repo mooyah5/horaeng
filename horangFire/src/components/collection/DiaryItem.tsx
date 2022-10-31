@@ -1,3 +1,5 @@
+import {ParamListBase} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
 import {
   Image,
   StyleSheet,
@@ -16,7 +18,12 @@ const styles = StyleSheet.create({
   text: {fontFamily: font.beeBold, fontSize: 20},
 });
 
-const DiaryItem = ({navigation, day}: any) => {
+interface Props {
+  navigation: StackNavigationProp<ParamListBase, 'ListOfDiaries'>;
+  day: number;
+}
+
+const DiaryItem = ({navigation, day}: Props) => {
   const goDiaryDetail = () => {
     navigation.goBack();
     navigation.navigate('DiaryDetail');
