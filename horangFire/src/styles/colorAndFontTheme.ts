@@ -18,7 +18,7 @@ export const color: colorTheme = {
   KAKAO_YELLOW: '#FDE500',
   KAKAO_BROWN: '#3C1E1E',
   RED: '#FF0000',
-  WHITE_OPAC: 'FFF9ED',
+  WHITE_OPAC: '#FFF9ED',
 };
 
 export const font: fontTheme = {

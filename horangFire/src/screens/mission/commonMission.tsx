@@ -70,6 +70,7 @@ const CommonMission = ({navigation}: Props) => {
   const [diary, setDiary] = useState('');
   const info =
     '1. 예시 사진과 동일하게 종이를 아끼는 모습을 담은 사진을 찍어주세요. \n 2. 부적합한 사진 업로드시 포인트가 차감될 수 있습니다.';
+
   const submit = () => {
     navigation.navigate('SubmitMission');
   };
