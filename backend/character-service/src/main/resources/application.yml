@@ -1,0 +1,26 @@
+server:
+  port: 8030
+
+spring:
+  application:
+    name: character-service
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://k7c108.p.ssafy.io:9030/character?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: dool
+  jpa:
+    database: mysql
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+      format_sql: true
+    generate-ddl: true
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8760/eureka
+
