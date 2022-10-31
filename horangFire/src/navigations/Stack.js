@@ -5,11 +5,10 @@ import Start from '../screens/login/Start';
 import Login from '../screens/login/Login';
 import MissonHome from '../screens/mission';
 import MainMission from '../screens/mission/mainMission';
-import commonMission from '../screens/mission/commonMission';
 import SubmitMission from '../screens/mission/submitMission';
 import Community from '../screens/community/index';
 import SelectAnimal from '../screens/selectAnimal/index';
-import Collection from '../screens/collection/index';
+import Collection from '../screens/collection/Collection';
 import Community_first from '../screens/community/Community_first';
 import Option from '../components/options/Options';
 import BackgroundOption from '../components/options/BackgroundOption';
@@ -17,13 +16,17 @@ import CommonMission from '../screens/mission/commonMission';
 import LookCommon from '../screens/mission/lookCommon';
 import SelectModal from '../components/options/SelectModal';
 import ApplyModal from '../components/options/ApplyModal';
+import CollectionDetail from '../screens/collection/CollectionDetail';
+import InfoOfAnimal from '../components/collection/InfoOfAnimal';
+import ListOfDiaries from '../components/collection/ListOfDiaries';
+import DiaryDetail from '../components/collection/DiaryDetail';
 
 const Stack = createStackNavigator();
 
 const StackNavigation = () => {
   return (
     <Stack.Navigator
-      initialRouteName="Option"
+      initialRouteName="Collection"
       screenOptions={{
         headerShown: false,
       }}>
@@ -44,15 +47,23 @@ const StackNavigation = () => {
 
         <Stack.Screen name="Community" component={Community} />
         <Stack.Screen name="SelectAnimal" component={SelectAnimal} />
-        <Stack.Screen name="Collection" component={Collection} />
         <Stack.Screen name="Community_first" component={Community_first} />
+
+        {/* option page */}
         <Stack.Screen name="Option" component={Option} />
         <Stack.Screen name="BackgroundOption" component={BackgroundOption} />
+
+        {/* collection page */}
+        <Stack.Screen name="Collection" component={Collection} />
+        <Stack.Screen name="CollectionDetail" component={CollectionDetail} />
       </Stack.Group>
 
       <Stack.Group screenOptions={{presentation: 'transparentModal'}}>
         <Stack.Screen name="SelectModal" component={SelectModal} />
         <Stack.Screen name="ApplyModal" component={ApplyModal} />
+        <Stack.Screen name="InfoOfAnimal" component={InfoOfAnimal} />
+        <Stack.Screen name="ListOfDiaries" component={ListOfDiaries} />
+        <Stack.Screen name="DiaryDetail" component={DiaryDetail} />
       </Stack.Group>
     </Stack.Navigator>
   );
