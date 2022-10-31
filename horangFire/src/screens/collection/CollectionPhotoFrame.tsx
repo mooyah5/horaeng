@@ -1,3 +1,5 @@
+import {ParamListBase} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
 import {
   Dimensions,
   Image,
@@ -17,7 +19,11 @@ const styles = StyleSheet.create({
   bottomText: {fontFamily: font.beeBold, fontSize: 18},
 });
 
-const CollectionPhotoFrame = ({navigation}: any) => {
+interface Props {
+  navigation: StackNavigationProp<ParamListBase, 'Collection'>;
+}
+
+const CollectionPhotoFrame = ({navigation}: Props) => {
   return (
     <TouchableOpacity
       style={styles.frame}

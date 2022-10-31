@@ -1,3 +1,5 @@
+import {ParamListBase} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
 import {
   Image,
   SafeAreaView,
@@ -47,9 +49,14 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     marginVertical: 20,
   },
+  emptyArea: {flex: 2},
 });
 
-const DiaryDetail = ({navigation}: any) => {
+interface Props {
+  navigation: StackNavigationProp<ParamListBase, 'DiaryDetail'>;
+}
+
+const DiaryDetail = ({navigation}: Props) => {
   const onBackButton = () => {
     navigation.goBack();
     navigation.navigate('ListOfDiaries');
@@ -57,7 +64,7 @@ const DiaryDetail = ({navigation}: any) => {
 
   return (
     <SafeAreaView style={styles.body}>
-      <View style={styles.section1}></View>
+      <View style={styles.section1} />
       <View style={styles.section2}>
         <Image
           source={require('../../assets/image/longPostBox.png')}
@@ -78,7 +85,7 @@ const DiaryDetail = ({navigation}: any) => {
         </ScrollView>
       </View>
       <View style={styles.section3}>
-        <View style={{flex: 2}} />
+        <View style={styles.emptyArea} />
         <Btn txt="이전으로" clickEvent={onBackButton} />
       </View>
     </SafeAreaView>

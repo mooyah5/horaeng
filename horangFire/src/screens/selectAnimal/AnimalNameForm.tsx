@@ -1,7 +1,16 @@
-import React, { useState } from "react";
-import { View, StyleSheet, Text, SafeAreaView, TextInput, Platform} from 'react-native';
+import React, {useState} from 'react';
+import {
+  View,
+  StyleSheet,
+  Text,
+  SafeAreaView,
+  TextInput,
+  Platform,
+} from 'react-native';
 import {color, font} from '../../styles/colorAndFontTheme';
 import Btn from '../../components/common/Btn_long';
+import {ParamListBase} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 const styles = StyleSheet.create({
   backgroundColor: {
@@ -30,7 +39,7 @@ const styles = StyleSheet.create({
         borderTopColor: '#FFD783',
         borderLeftColor: '#FFD783',
         borderRightColor: '#FFD783',
-        borderBottomColor: color.BROWN_47,  
+        borderBottomColor: color.BROWN_47,
       },
       ios: {
         width: '55%',
@@ -38,8 +47,8 @@ const styles = StyleSheet.create({
         borderTopColor: '#FFD783',
         borderLeftColor: '#FFD783',
         borderRightColor: '#FFD783',
-      }
-    })
+      },
+    }),
   },
   userInput: {
     ...Platform.select({
@@ -55,17 +64,21 @@ const styles = StyleSheet.create({
         color: color.BROWN_47,
         textAlign: 'center',
         fontSize: 40,
-      }
-    })
+      },
+    }),
   },
   btns: {
     flexDirection: 'row',
     paddingHorizontal: 24,
-  }
-})
+  },
+});
 
-const AnimalNameForm = ({navigation}: any) => {
-  const [animalName, setAnimalName] = useState('')
+interface Props {
+  navigation: StackNavigationProp<ParamListBase, 'AnimalNameForm'>;
+}
+
+const AnimalNameForm = ({navigation}: Props) => {
+  const [animalName, setAnimalName] = useState('');
 
   return (
     <View style={styles.backgroundColor}>
@@ -73,19 +86,23 @@ const AnimalNameForm = ({navigation}: any) => {
         <View style={styles.textContainer}>
           <Text style={styles.text1}>내 벵갈 호랑이의 이름은</Text>
           <View style={styles.textInputContainer}>
-            <TextInput style={styles.userInput}
-            onChangeText={setAnimalName}></TextInput>
+            <TextInput
+              style={styles.userInput}
+              onChangeText={setAnimalName}
+              value={animalName}
+            />
           </View>
         </View>
         <View style={styles.btns}>
-          <Btn txt="이전으로" 
-            clickEvent={() => navigation.goBack()} />
-          <Btn txt="다음으로" 
-            clickEvent={() => navigation.navigate('AnimalNameConfirm')} />
+          <Btn txt="이전으로" clickEvent={() => navigation.goBack()} />
+          <Btn
+            txt="다음으로"
+            clickEvent={() => navigation.navigate('AnimalNameConfirm')}
+          />
         </View>
       </SafeAreaView>
     </View>
-  )
+  );
 };
 
-export default AnimalNameForm
+export default AnimalNameForm;

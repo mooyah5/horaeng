@@ -1,3 +1,5 @@
+import {ParamListBase} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
 import {Image, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import {font} from '../../styles/colorAndFontTheme';
 import Btn from '../common/Btn_short';
@@ -35,12 +37,17 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     marginVertical: 20,
   },
+  emptyArea: {flex: 2},
 });
 
-const InfoOfAnimal = ({navigation}: any) => {
+interface Props {
+  navigation: StackNavigationProp<ParamListBase, 'InfoOfAnimal'>;
+}
+
+const InfoOfAnimal = ({navigation}: Props) => {
   return (
     <SafeAreaView style={styles.body}>
-      <View style={styles.section1}></View>
+      <View style={styles.section1} />
       <View style={styles.section2}>
         <Image
           source={require('../../assets/image/box_large.png')}
@@ -59,7 +66,7 @@ const InfoOfAnimal = ({navigation}: any) => {
         </View>
       </View>
       <View style={styles.section3}>
-        <View style={{flex: 2}} />
+        <View style={styles.emptyArea} />
         <Btn txt="창 닫기" clickEvent={navigation.goBack} />
       </View>
     </SafeAreaView>

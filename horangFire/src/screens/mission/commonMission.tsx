@@ -12,6 +12,8 @@ import {
 import Btn from '../../components/common/Btn_short';
 import MissionTxt from '../../components/mission/MissionTxt';
 import HelpTxt from '../../components/mission/HelpTxt';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {ParamListBase} from '@react-navigation/native';
 
 const styles = StyleSheet.create({
   container: {
@@ -57,13 +59,17 @@ const styles = StyleSheet.create({
     backgroundColor: color.WHITE_OPAC,
   },
 });
-const CommonMission = ({navigation}: any) => {
+
+interface Props {
+  navigation: StackNavigationProp<ParamListBase, 'CommonMission'>;
+}
+
+const CommonMission = ({navigation}: Props) => {
   const [clickHelp, setClickHelp] = useState(false);
-  const mission: string = '종이 아끼기';
+  const mission = '종이 아끼기';
   const [diary, setDiary] = useState('');
   const info =
     '1. 예시 사진과 동일하게 종이를 아끼는 모습을 담은 사진을 찍어주세요. \n 2. 부적합한 사진 업로드시 포인트가 차감될 수 있습니다.';
-  const isMain = useState(false);
   const submit = () => {
     navigation.navigate('SubmitMission');
   };

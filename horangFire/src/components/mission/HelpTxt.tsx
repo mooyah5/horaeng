@@ -1,11 +1,12 @@
 import React from 'react';
-import {Image, StyleSheet, Text, TextInput, View} from 'react-native';
+import {Image, StyleSheet, Text, View} from 'react-native';
 import {color, font} from '../../styles/colorAndFontTheme';
 
 type missionProps = {
   mission: string;
   info: string;
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

@@ -1,11 +1,6 @@
-import {
-  Image,
-  ImageBackground,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import {ParamListBase} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {Image, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import Btn from '../../components/common/Btn_long';
 import TitleText from '../../components/common/TitleText';
 import {color, font} from '../../styles/colorAndFontTheme';
@@ -37,7 +32,11 @@ const styles = StyleSheet.create({
   text: {fontSize: 18, fontFamily: font.beeBold, paddingTop: 5},
 });
 
-const CollectionDetail = ({navigation}: any) => {
+interface Props {
+  navigation: StackNavigationProp<ParamListBase, 'CollectionDetail'>;
+}
+
+const CollectionDetail = ({navigation}: Props) => {
   return (
     <SafeAreaView style={styles.body}>
       <View style={styles.section1}>

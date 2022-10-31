@@ -3,6 +3,8 @@ import {color, font} from '../../styles/colorAndFontTheme';
 import Btn from '../common/Btn_short';
 import {useState} from 'react';
 import Slider from '@react-native-community/slider';
+import {ParamListBase} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 const styles = StyleSheet.create({
   // main area
@@ -64,7 +66,11 @@ const styles = StyleSheet.create({
   optionSwitch: {justifyContent: 'flex-start'},
 });
 
-const Option = ({navigation}: any) => {
+interface Props {
+  navigation: StackNavigationProp<ParamListBase, 'Option'>;
+}
+
+const Option = ({navigation}: Props) => {
   const [isEnabled, setIsEnabled] = useState<boolean>(false);
 
   const toggleSwitch = () => {
@@ -81,17 +87,17 @@ const Option = ({navigation}: any) => {
 
   return (
     <View style={styles.body}>
-      <View style={styles.section1}></View>
+      <View style={styles.section1} />
       <View style={styles.section2}>
         <Image
           source={require('../../assets/image/optionBox.png')}
           style={styles.optionBox}
         />
-        <View style={styles.subSection1}></View>
+        <View style={styles.subSection1} />
         <View style={styles.subSection2}>
           <Text style={styles.optionTitle}>환경설정</Text>
         </View>
-        <View style={styles.subSection3}></View>
+        <View style={styles.subSection3} />
         <View style={styles.subSection4}>
           <Text style={styles.optionSliderName}>배경음</Text>
           <Slider
@@ -118,14 +124,14 @@ const Option = ({navigation}: any) => {
             value={isEnabled}
           />
         </View>
-        <View style={styles.subSection7}></View>
+        <View style={styles.subSection7} />
       </View>
       <View style={styles.section3}>
         <Btn txt={'적용하기'} clickEvent={clickButton} />
         <Btn txt={'돌아가기'} clickEvent={clickButton} />
         <Btn txt={'로그아웃'} clickEvent={logout} />
       </View>
-      <View style={styles.section4}></View>
+      <View style={styles.section4} />
     </View>
   );
 };

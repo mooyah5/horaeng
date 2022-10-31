@@ -1,3 +1,5 @@
+import {ParamListBase} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
 import {StyleSheet, View, Text, Image} from 'react-native';
 import {font} from '../../styles/colorAndFontTheme';
 import Btn from '../common/Btn_short';
@@ -28,7 +30,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const SelectModal = ({navigation}: any) => {
+interface Props {
+  navigation: StackNavigationProp<ParamListBase, 'Option'>;
+}
+
+const SelectModal = ({navigation}: Props) => {
   const selecApply = () => {
     navigation.goBack();
     navigation.navigate('ApplyModal');

@@ -1,3 +1,5 @@
+import {ParamListBase} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
 import React from 'react';
 import {
   Image,
@@ -19,18 +21,22 @@ const styles = StyleSheet.create({
   loginButton: {height: '100%', width: '100%', resizeMode: 'contain'},
 });
 
-const Login = ({navigation}: any) => {
+interface Props {
+  navigation: StackNavigationProp<ParamListBase, 'Login'>;
+}
+
+const Login = ({navigation}: Props) => {
   return (
     <ImageBackground source={require('../../assets/image/intro.png')}>
       <View style={styles.body}>
-        <View style={styles.section_1}></View>
+        <View style={styles.section_1} />
         <View style={styles.section_2}>
           <Image
             source={require('../../assets/image/logoText.png')}
             style={styles.title}
           />
         </View>
-        <View style={styles.section_3}></View>
+        <View style={styles.section_3} />
         <View style={styles.section_4}>
           <TouchableOpacity
             style={styles.loginBox}
@@ -41,7 +47,7 @@ const Login = ({navigation}: any) => {
             />
           </TouchableOpacity>
         </View>
-        <View style={styles.section_5}></View>
+        <View style={styles.section_5} />
       </View>
     </ImageBackground>
   );
