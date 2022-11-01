@@ -1,14 +1,15 @@
 package com.dool.characterservice.api.service;
 
-import com.dool.characterservice.db.domain.CharacterMission;
+import com.dool.characterservice.db.domain.CharacterDialog;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class CharacterMissionServiceImpl implements CharacterMissionService {
+public class CharacterDialogServiceImpl implements CharacterDialogService{
+
     @Override
-    public CharacterMission getMission(Long id) {
+    public CharacterDialog getDialog(Long id) {
         return null;
     }
 }

@@ -22,4 +22,7 @@ public class CharacterMission {
     @ManyToOne
     @JoinColumn(name = "character_id", referencedColumnName = "id")
     private UserCharacter userCharacter;
+    @ManyToOne
+    @JoinColumn(name = "mission_id", referencedColumnName = "id")
+    private Mission mission;
 }

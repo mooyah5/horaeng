@@ -23,6 +23,6 @@ public class UserCharacter extends BaseTimeEntity{
     private Long userId;
     private Long characterId;
     private String name;
-    private String level;
+    private CharacterLevel level;
     private String background;
 }
