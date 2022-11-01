@@ -1,6 +1,8 @@
 package com.dool.userservice.api.controller;
 
+import com.dool.userservice.api.request.CreateUserDto;
 import com.dool.userservice.api.service.UserService;
+import com.dool.userservice.db.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,14 +20,19 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/{userId}")
-    public ResponseEntity getUser(@RequestParam("userId") Long userId){
-        return null;
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUser(@PathVariable("id") String id){
+        User user = userService.getUser(id);
+
+        return ResponseEntity.status(200).body(user);
     }
 
-    @PostMapping("/")
-    public ResponseEntity createUser(){
-        return null;
+    @PostMapping("/create")
+    public ResponseEntity<User> createUser(@RequestBody CreateUserDto request){
+        User inputUser = new User(request.getEmail(), request.getPassword());
+        User user = userService.createUser(inputUser);
+
+        return ResponseEntity.status(200).body(user);
     }
 
     @PostMapping("/logout")
@@ -33,7 +40,7 @@ public class UserController {
         return null;
     }
 
-    @DeleteMapping("/")
+    @DeleteMapping("/delete")
     public ResponseEntity deleteUser(){
         return null;
     }
