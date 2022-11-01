@@ -1,5 +1,6 @@
 package com.dool.userservice.api.service;
 
+import com.dool.userservice.api.request.CreateUserRequest;
 import com.dool.userservice.db.domain.User;
 import com.dool.userservice.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,20 +18,21 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User getUser(String id) {
-        return userRepository.findById(id);
+        return userRepository.get(id);
     }
 
     @Override
-    public User createUser(User user) {
-        userRepository.add(user);
+    public User createUser(CreateUserRequest request) {
+        User user = new User(request.getId(), request.getPassword());
+        userRepository.create(user);
 
-        return userRepository.findById(user.getId());
+        return userRepository.get(user.getId());
     }
 
     @Override
     public void deleteUser(String id) {
 
-        userRepository.del(id);
+        userRepository.delete(id);
     }
 
     @Override

@@ -1,13 +1,12 @@
 package com.dool.userservice.api.controller;
 
-import com.dool.userservice.api.request.CreateUserDto;
+import com.dool.userservice.api.request.CreateUserRequest;
 import com.dool.userservice.api.service.UserService;
 import com.dool.userservice.db.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.ws.rs.core.Response;
 
 @RestController
 @RequestMapping("/user-service/user")
@@ -24,15 +23,22 @@ public class UserController {
     public ResponseEntity<User> getUser(@PathVariable("id") String id){
         User user = userService.getUser(id);
 
-        return ResponseEntity.status(200).body(user);
+        if(user == null){
+            ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<User> createUser(@RequestBody CreateUserDto request){
-        User inputUser = new User(request.getEmail(), request.getPassword());
-        User user = userService.createUser(inputUser);
+    @PostMapping
+    public ResponseEntity<User> createUser(@RequestBody CreateUserRequest request){
+        User user = userService.createUser(request);
 
-        return ResponseEntity.status(200).body(user);
+        if(user == null){
+            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 
     @PostMapping("/logout")
@@ -40,10 +46,10 @@ public class UserController {
         return null;
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity deleteUser(@PathVariable("id") String id){
         userService.deleteUser(id);
 
-        return ResponseEntity.status(200).body(null);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
     }
 }

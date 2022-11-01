@@ -26,6 +26,7 @@ public class User {
 
 
     public User(String id, String password) {
+        super();
         this.id = id;
         this.password = password;
         this.role = RoleType.User;
