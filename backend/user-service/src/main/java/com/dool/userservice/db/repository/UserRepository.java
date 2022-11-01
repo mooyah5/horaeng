@@ -13,17 +13,17 @@ public class UserRepository{
 
     private final EntityManager em;
 
-    public User findById(String id){
+    public User get(String id){
         User user = em.find(User.class, id);
 
         return user;
     }
 
-    public void add(User user){
+    public void create(User user){
         em.persist(user);
     }
 
-    public void del(String id){
+    public void delete(String id){
         User user = em.find(User.class, id);
         em.remove(user);
     }
