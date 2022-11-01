@@ -1,9 +1,15 @@
 package com.dool.userservice.api.controller;
 
+import com.dool.userservice.api.request.BuyBackgroundRequest;
+import com.dool.userservice.api.response.UserBackgroundResponse;
 import com.dool.userservice.api.service.UserBackgroundService;
+import com.dool.userservice.db.domain.UserBackground;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/user-service/user-background")
@@ -15,13 +21,22 @@ public class UserBackgroundController {
         this.userBackgroundService = userBackgroundService;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity getUsersBackgrounds(){
-        return null;
+    @GetMapping("/{userId}")
+    public ResponseEntity<List<UserBackgroundResponse>> getUsersBackgrounds(@PathVariable("userId") String userId){
+        Iterable<UserBackground> list = userBackgroundService.getUsersBackground(userId);
+
+        List<UserBackgroundResponse> result = new ArrayList<>();
+        list.forEach(v ->{
+            result.add(UserBackgroundResponse.of(v));
+        });
+
+        return ResponseEntity.status(200).body(result);
     }
 
-    @PostMapping("/{id}")
-    public ResponseEntity buyBackground(){
-        return null;
+    @PostMapping
+    public ResponseEntity buyBackground(@RequestBody BuyBackgroundRequest request){
+        userBackgroundService.buyBackground(request);
+
+        return ResponseEntity.status(200).body(null);
     }
 }
