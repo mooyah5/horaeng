@@ -1,5 +1,7 @@
 package com.dool.characterservice.api.service;
 
-public interface CharacterMissionService {
+import com.dool.characterservice.db.domain.CharacterMission;
 
+public interface CharacterMissionService {
+    CharacterMission getMission(Long id);
 }
