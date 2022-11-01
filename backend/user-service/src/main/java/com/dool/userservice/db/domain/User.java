@@ -2,24 +2,36 @@ package com.dool.userservice.db.domain;
 
 import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @Setter
 @Table(name = "user")
 @Data
+@NoArgsConstructor
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String email;
+    private String id;
     private String password;
     private String name;
     private String refreshToken;
     private Long reportCnt;
     private Long point;
     private RoleType role;
+
+
+    public User(String id, String password) {
+        this.id = id;
+        this.password = password;
+        this.role = RoleType.User;
+        this.reportCnt = 0L;
+        this.point = 0L;
+        this.name = "random";
+        this.refreshToken = "";
+    }
 }
