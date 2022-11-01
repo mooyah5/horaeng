@@ -16,7 +16,7 @@ public class CharacterController {
 
     private final CharacterService characterService;
 
-    @GetMapping("/")
+    @GetMapping
     private List<CharacterResponseDto> findAll(){
         return null;
     }

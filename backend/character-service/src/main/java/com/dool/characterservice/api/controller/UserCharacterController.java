@@ -12,17 +12,17 @@ public class UserCharacterController {
 
     private final UserCharacterService characterUserService;
 
-    @PostMapping("/")
+    @PostMapping
     private ResponseEntity creatUserCharacter(){
         return null;
     }
 
-    @GetMapping("/")
+    @GetMapping
     private ResponseEntity getUserCharacter(){
         return null;
     }
 
-    @PatchMapping("/")
+    @PatchMapping
     private ResponseEntity patchUserCharacter(){
         return null;
     }
