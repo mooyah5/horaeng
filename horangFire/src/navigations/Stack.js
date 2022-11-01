@@ -14,7 +14,7 @@ import AnimalNameForm from '../screens/selectAnimal/AnimalNameForm';
 import AnimalNameConfirm from '../screens/selectAnimal/AnimalNameConfirm';
 import MissionIntro from '../screens/selectAnimal/MissionIntro';
 
-import MissonHome from '../screens/mission/';
+import MissonHome from '../screens/mission/index';
 import MainMission from '../screens/mission/mainMission';
 import CommonMission from '../screens/mission/commonMission';
 import LookCommon from '../screens/mission/lookCommon';
@@ -34,6 +34,7 @@ import ApplyModal from '../components/options/ApplyModal';
 
 import Option from '../components/options/Options';
 import BackgroundOption from '../components/options/BackgroundOption';
+import MissionHome from '../screens/mission/index';
 
 const Stack = createStackNavigator();
 
@@ -55,7 +56,7 @@ const StackNavigation = () => {
         <Stack.Screen name="MissonIntro" component={MissionIntro} />
         {/* mission page */}
 
-        <Stack.Screen name="MissionHome" component={MissonHome} />
+        <Stack.Screen name="MissionHome" component={MissionHome} />
         <Stack.Screen name="MainMission" component={MainMission} />
         <Stack.Screen name="SubmitMission" component={SubmitMission} />
         <Stack.Screen name="LookCommon" component={LookCommon} />

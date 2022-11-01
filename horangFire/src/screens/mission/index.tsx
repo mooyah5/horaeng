@@ -45,7 +45,7 @@ interface Props {
   navigation: StackNavigationProp<ParamListBase, 'MissionHome'>;
 }
 
-const MissonHome = ({navigation}: Props) => {
+const MissionHome = ({navigation}: Props) => {
   const missionTxt = '종이를 아끼기';
 
   return (
@@ -83,4 +83,4 @@ const MissonHome = ({navigation}: Props) => {
   );
 };
 
-export default MissonHome;
+export default MissionHome;

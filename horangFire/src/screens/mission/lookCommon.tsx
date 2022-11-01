@@ -133,7 +133,7 @@ const LookCommon = ({navigation}: Props) => {
                 <TouchableOpacity
                   key={idx}
                   style={styles.btn}
-                  onPress={() => navigation.navigate('MissonHome')}>
+                  onPress={() => navigation.navigate('MissionHome')}>
                   <Text style={styles.list}>{name}</Text>
                   <Text style={styles.move}>Go</Text>
                 </TouchableOpacity>
