@@ -1,4 +1,4 @@
-#commu {
+#mission {
   padding-top: 60px;
   .line {
     height: 1px;
@@ -7,7 +7,7 @@
   }
   .container {
     width: 1000px;
-    .commu {
+    .mission {
       &_title {
         padding-bottom: 40px;
         color: #3c3c3c;
@@ -43,7 +43,8 @@
   }
 }
 
-#commu_items {
+#mission_items {
+  // width: 80%;
   margin-bottom: 100px;
   .list_table {
     width: 100%;
@@ -56,25 +57,22 @@
     }
     ul > li:first-child {
       height: 40px;
-      width: 8%;
+      width: 10%;
     }
     ul > li:first-child + li {
       height: 40px;
-      width: 15%;
+      width: 50%;
       // background-color: red;
     }
     ul > li:first-child + li + li {
       height: 40px;
-      width: 50%;
+      width: 20%;
     }
     ul > li:first-child + li + li + li {
       height: 40px;
       width: 20%;
     }
-    ul > li:first-child + li + li + li + li {
-      height: 40px;
-      width: 7%;
-    }
+
     &_items {
       &_subject {
         cursor: pointer;

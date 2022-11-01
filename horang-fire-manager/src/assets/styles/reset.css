@@ -150,7 +150,7 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: "";
+  content: '';
   content: none;
 }
 table {
@@ -168,5 +168,5 @@ body > div:first-child,
 div#__next,
 div#__next > div {
   height: 100%;
-  overflow: hidden;
+  overflow: auto;
 }

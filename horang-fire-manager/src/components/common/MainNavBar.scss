@@ -1,9 +1,3 @@
-.homeClick {
-  // background-color: transparent;
-}
-.noneClick {
-  //
-}
 #MainNavBar {
   // position: fixed;
   width: 100%;
@@ -11,27 +5,19 @@
   z-index: 100;
   padding: 0 (50px);
   background-color: #ffffff;
-  box-shadow: 0 (2px) 0 rgba(181, 146, 146, 0.25);
+  box-shadow: 0 (2px) 0 rgba(181, 146, 146, 0.2);
 
   .nav-container {
     width: 100%;
     justify-content: space-between;
 
     .nav-left {
-      &_img {
+      &_home {
         margin-right: 30px;
+        color: #3c3c3c;
       }
       a {
         margin-right: 32px;
-      }
-
-      &_text__link + .nav-left_text__link {
-        .btn--active {
-          color: #f0801a;
-        }
-        .btn--unactive {
-          color: #3a3a3a;
-        }
       }
     }
   }
