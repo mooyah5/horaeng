@@ -6,6 +6,6 @@ import org.springframework.stereotype.Service;
 public interface UserService {
     public User getUser(String id);
     public User createUser(User user);
-    public void deleteUser();
+    public void deleteUser(String id);
     public void logoutUser();
 }

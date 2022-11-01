@@ -23,4 +23,9 @@ public class UserRepository{
         em.persist(user);
     }
 
+    public void del(String id){
+        User user = em.find(User.class, id);
+        em.remove(user);
+    }
+
 }

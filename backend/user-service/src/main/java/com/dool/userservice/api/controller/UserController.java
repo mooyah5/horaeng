@@ -40,8 +40,10 @@ public class UserController {
         return null;
     }
 
-    @DeleteMapping("/delete")
-    public ResponseEntity deleteUser(){
-        return null;
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity deleteUser(@PathVariable("id") String id){
+        userService.deleteUser(id);
+
+        return ResponseEntity.status(200).body(null);
     }
 }
