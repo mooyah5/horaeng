@@ -1,5 +1,7 @@
 package com.dool.characterservice.api.controller;
 
+import com.dool.characterservice.api.request.UserCharacterRequestDto;
+import com.dool.characterservice.api.response.UserCharacterResponseDto;
 import com.dool.characterservice.api.service.UserCharacterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -10,20 +12,19 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/character-service/user-character")
 public class UserCharacterController {
 
-    private final UserCharacterService characterUserService;
+    private final UserCharacterService userCharacterService;
 
     @PostMapping
-    private ResponseEntity creatUserCharacter(){
-        return null;
+    private ResponseEntity creatUserCharacter(@RequestBody UserCharacterRequestDto requestDto){
+        UserCharacterResponseDto userCharacterResponseDto = userCharacterService.creatUserCharacter(requestDto);
+
+        return ResponseEntity.status(200).body(userCharacterResponseDto);
     }
 
-    @GetMapping
-    private ResponseEntity getUserCharacter(){
-        return null;
-    }
+    @GetMapping("{id}")
+    private ResponseEntity getUserCharacter(@PathVariable("id") Long id){
+        UserCharacterResponseDto userCharacterResponseDto = userCharacterService.getUserCharacter(id);
 
-    @PatchMapping
-    private ResponseEntity patchUserCharacter(){
-        return null;
+        return ResponseEntity.status(200).body(userCharacterResponseDto);
     }
 }

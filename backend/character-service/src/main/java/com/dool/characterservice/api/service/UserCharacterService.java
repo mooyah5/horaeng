@@ -1,7 +1,10 @@
 package com.dool.characterservice.api.service;
 
+import com.dool.characterservice.api.request.UserCharacterRequestDto;
+import com.dool.characterservice.api.response.UserCharacterResponseDto;
+
 public interface UserCharacterService {
-    Long creatUserCharacter(Long user_id, Long character_id);
-    Long getUserCharacter(Long id);
+    UserCharacterResponseDto creatUserCharacter(UserCharacterRequestDto requestDto);
+    UserCharacterResponseDto getUserCharacter(Long id);
     Long setBackground(Long id, String background);
 }

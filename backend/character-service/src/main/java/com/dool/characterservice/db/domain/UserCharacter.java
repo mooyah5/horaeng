@@ -5,10 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Builder
@@ -21,8 +19,10 @@ public class UserCharacter extends BaseTimeEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long userId;
-    private Long characterId;
-    private String name;
+    @ManyToOne
+    @JoinColumn(name = "characters_id", referencedColumnName = "id")
+    private Characters characters;
+    private String nickname;
     private CharacterLevel level;
-    private String background;
+    private LocalDateTime createdDate;
 }

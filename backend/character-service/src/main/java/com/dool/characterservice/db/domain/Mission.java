@@ -19,6 +19,8 @@ public class Mission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String title;
     private String content;
     private MissionType type;
+    private String img;
 }

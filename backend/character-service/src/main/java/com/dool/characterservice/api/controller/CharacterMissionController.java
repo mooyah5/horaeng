@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/character-service/character-mission")
+@RequestMapping("/character-service/main-mission")
 public class CharacterMissionController {
 
     private CharacterMissionService characterMissionService;
 
     @GetMapping("/{id}")
-    private ResponseEntity getMission(@PathVariable("id") String id){
+    private ResponseEntity getMission(@PathVariable("id") Long id){
+        characterMissionService.getMission(id);
         return null;
     }
-
 }
