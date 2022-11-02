@@ -8,21 +8,24 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
+@Setter@Getter
+
 @Data
-@Getter
-@Setter
-@Table(name = "notice")
+@Entity
+@Table(name = "diary")
 @NoArgsConstructor
-public class Notice {
+public class Diary {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String title;
-    private String content;
-    private LocalDateTime createDate;
 
+    private Long charactersId;
     private String userId;
+    private Long userCharacterId;
+    private String content;
+    private String imgUrl;
+    private String title;
+    private LocalDateTime createDate;
 
     @PrePersist
     public void createDate(){

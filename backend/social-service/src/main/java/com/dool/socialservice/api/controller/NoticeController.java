@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/user-service/notice")
+@RequestMapping("/social-service/notice")
 public class NoticeController {
 
     private final NoticeService noticeService;
