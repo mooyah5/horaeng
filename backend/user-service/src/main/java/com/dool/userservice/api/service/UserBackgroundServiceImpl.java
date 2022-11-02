@@ -29,7 +29,7 @@ public class UserBackgroundServiceImpl implements UserBackgroundService {
     public void buyBackground(BuyBackgroundRequest request) {
         UserBackground userBackground = new UserBackground();
         Background background = backgroundRepository.get(request.getBackgroundId());
-        User user = userRepository.findById(request.getUserId());
+        User user = userRepository.get(request.getUserId());
 
         if(user.getPoint() >= background.getPrice()){
             // 유저 포인트 깎는 api 필요

@@ -6,6 +6,7 @@ import com.dool.userservice.db.domain.Background;
 import com.netflix.discovery.converters.Auto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,22 +26,31 @@ public class BackgroundController {
         this.backgroundService = backgroundService;
     }
 
-    @GetMapping("/background")
+    @GetMapping
     public ResponseEntity<List<BackgroundResponse>> getAll(){
         Iterable<Background> list = backgroundService.getAll();
         List<BackgroundResponse> result = new ArrayList<>();
+
         list.forEach(v -> {
-            result.add(BackgroundResponse.of(v.getId(), v.getImgUrl(), v.getPrice()));
+            result.add(BackgroundResponse.of(v));
         });
 
-        return ResponseEntity.status(200).body(result);
+        if(result.size() == 0){
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
-    @GetMapping("/background/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<BackgroundResponse> get(@PathVariable("id") Long id){
         Background background = backgroundService.get(id);
 
-        return ResponseEntity.status(200).body(BackgroundResponse.of(background.getId(), background.getImgUrl(), background.getPrice()));
+        if(background == null){
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(BackgroundResponse.of(background));
 
     }
 }
