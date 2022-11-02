@@ -22,3 +22,11 @@ spring:
           uri: lb://AUTH-SERVICE
           predicates:
             - Path=/auth-service/**
+        - id: social-service
+          uri: lb://SOCIAL-SERVICE
+          predicates:
+            - Path=/social-service/**
+        - id: character-service
+          uri: lb://CHARACTER-SERVICE
+          predicates:
+            - Path=/character-service/**
