@@ -39,7 +39,7 @@ public class UserCharacterServiceImpl implements UserCharacterService{
                 .user_id(userCharacter.getUserId())
                 .characterLevel(userCharacter.getLevel())
                 .nickname(userCharacter.getNickname())
-                .createdDate(userCharacter.getCreatedDate())
+                .created_date(userCharacter.getCreatedDate())
                 .build();
     }
 
@@ -51,7 +51,7 @@ public class UserCharacterServiceImpl implements UserCharacterService{
                 .id(userCharacter.getId())
                 .character_id(userCharacter.getCharacters().getId())
                 .user_id(userCharacter.getUserId())
-                .createdDate(userCharacter.getCreatedDate())
+                .created_date(userCharacter.getCreatedDate())
                 .nickname(userCharacter.getNickname())
                 .characterLevel(userCharacter.getLevel())
                 .build();
