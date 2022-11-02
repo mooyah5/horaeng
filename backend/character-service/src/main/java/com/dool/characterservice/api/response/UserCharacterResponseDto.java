@@ -12,7 +12,7 @@ public class UserCharacterResponseDto {
     private Long id;
     private Long user_id;
     private Long character_id;
-    private LocalDateTime createdDate;
+    private LocalDateTime created_date;
     private String nickname;
     private CharacterLevel characterLevel;
 }

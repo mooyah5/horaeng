@@ -20,5 +20,5 @@ public class CharacterDialog {
     @JoinColumn(name = "character_id", referencedColumnName = "id")
     private Characters characters;
     private String dialog;
-    private String type;
+    private CharacterDialogType type;
 }

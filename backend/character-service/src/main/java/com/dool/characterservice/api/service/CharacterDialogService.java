@@ -1,7 +1,9 @@
 package com.dool.characterservice.api.service;
 
-import com.dool.characterservice.db.domain.CharacterDialog;
+import com.dool.characterservice.api.response.CharacterDialogResponseDto;
+
+import java.util.List;
 
 public interface CharacterDialogService {
-    CharacterDialog getDialog(Long id);
+    List<CharacterDialogResponseDto> getDialog(Long id);
 }
