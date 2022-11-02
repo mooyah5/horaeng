@@ -6,7 +6,8 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-public class SocialServiceApplication {
+public class
+SocialServiceApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(SocialServiceApplication.class, args);
