@@ -15,7 +15,7 @@ public class NoticeResponse {
     private String userId;
     private String title;
     private String content;
-    private LocalDateTime createAt;
+    private LocalDateTime createDate;
 
     public static NoticeResponse of(Notice notice){
         NoticeResponse response = NoticeResponse.builder()
@@ -23,7 +23,7 @@ public class NoticeResponse {
                 .userId(notice.getUserId())
                 .title(notice.getTitle())
                 .content(notice.getContent())
-                .createAt(notice.getCreateAt())
+                .createDate(notice.getCreateDate())
                 .build();
         return response;
     }
