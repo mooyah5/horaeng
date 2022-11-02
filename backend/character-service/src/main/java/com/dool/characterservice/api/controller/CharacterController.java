@@ -1,8 +1,9 @@
 package com.dool.characterservice.api.controller;
 
-import com.dool.characterservice.api.response.CharacterResponseDto;
-import com.dool.characterservice.api.service.CharacterService;
+import com.dool.characterservice.api.response.CharactersResponseDto;
+import com.dool.characterservice.api.service.CharactersService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,10 +15,12 @@ import java.util.List;
 @RequestMapping("/character-service/character")
 public class CharacterController {
 
-    private final CharacterService characterService;
+    private final CharactersService characterService;
 
     @GetMapping
-    private List<CharacterResponseDto> findAll(){
-        return null;
+    private ResponseEntity<List<CharactersResponseDto>> findAll(){
+        List<CharactersResponseDto> charactersList = characterService.getCharacters();
+
+        return ResponseEntity.status(200).body(charactersList);
     }
 }

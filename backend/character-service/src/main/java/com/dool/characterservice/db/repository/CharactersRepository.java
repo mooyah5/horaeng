@@ -3,5 +3,8 @@ package com.dool.characterservice.db.repository;
 import com.dool.characterservice.db.domain.Characters;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CharacterRepository extends JpaRepository<Characters, Long> {
+import java.util.Optional;
+
+public interface CharactersRepository extends JpaRepository<Characters, Long> {
+    Characters findFirstById(Long id);
 }
