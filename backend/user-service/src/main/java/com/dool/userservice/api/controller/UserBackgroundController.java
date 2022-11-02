@@ -5,6 +5,7 @@ import com.dool.userservice.api.response.UserBackgroundResponse;
 import com.dool.userservice.api.service.UserBackgroundService;
 import com.dool.userservice.db.domain.UserBackground;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,13 +31,17 @@ public class UserBackgroundController {
             result.add(UserBackgroundResponse.of(v));
         });
 
-        return ResponseEntity.status(200).body(result);
+        if(result.size() == 0){
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @PostMapping
     public ResponseEntity buyBackground(@RequestBody BuyBackgroundRequest request){
         userBackgroundService.buyBackground(request);
 
-        return ResponseEntity.status(200).body(null);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
     }
 }
