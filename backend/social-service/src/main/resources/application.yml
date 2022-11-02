@@ -1,11 +1,10 @@
-
 server:
   port: 8020
 
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://k7108.p.ssafy.io:9020/social?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://k7c108.p.ssafy.io:9020/social?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8
     username: root
     password: dool
   jpa:
