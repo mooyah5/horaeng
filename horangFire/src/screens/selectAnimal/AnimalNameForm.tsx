@@ -83,6 +83,7 @@ const AnimalNameForm = ({navigation}: Props) => {
   return (
     <View style={styles.backgroundColor}>
       <SafeAreaView>
+        <View style={styles.section1}></View>
         <View style={styles.textContainer}>
           <Text style={styles.text1}>내 벵갈 호랑이의 이름은</Text>
           <View style={styles.textInputContainer}>

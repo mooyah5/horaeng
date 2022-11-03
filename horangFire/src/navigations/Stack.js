@@ -28,6 +28,8 @@ import CollectionDetail from '../screens/collection/CollectionDetail';
 import InfoOfAnimal from '../components/collection/InfoOfAnimal';
 import ListOfDiaries from '../components/collection/ListOfDiaries';
 import DiaryDetail from '../components/collection/DiaryDetail';
+import Points from '../components/points/Points';
+import MissionComplete from '../screens/selectAnimal/MissionComplete';
 
 import SelectModal from '../components/options/SelectModal';
 import ApplyModal from '../components/options/ApplyModal';
@@ -41,7 +43,7 @@ const Stack = createStackNavigator();
 const StackNavigation = () => {
   return (
     <Stack.Navigator
-      initialRouteName="Home"
+      initialRouteName="MissionComplete"
       screenOptions={{
         headerShown: false,
       }}>
@@ -53,7 +55,8 @@ const StackNavigation = () => {
 
         <Stack.Screen name="AnimalNameForm" component={AnimalNameForm} />
         <Stack.Screen name="AnimalNameConfirm" component={AnimalNameConfirm} />
-        <Stack.Screen name="MissonIntro" component={MissionIntro} />
+        <Stack.Screen name="MissionIntro" component={MissionIntro} />
+        <Stack.Screen name="MissionComplete" component={MissionComplete} />
         {/* mission page */}
 
         <Stack.Screen name="MissionHome" component={MissionHome} />
@@ -88,6 +91,7 @@ const StackNavigation = () => {
         <Stack.Screen name="InfoOfAnimal" component={InfoOfAnimal} />
         <Stack.Screen name="ListOfDiaries" component={ListOfDiaries} />
         <Stack.Screen name="DiaryDetail" component={DiaryDetail} />
+        <Stack.Screen name="Points" component={Points} />
       </Stack.Group>
     </Stack.Navigator>
   );
