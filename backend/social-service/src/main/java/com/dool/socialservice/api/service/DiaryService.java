@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface DiaryService {
     public Diary getDiary(Long id);
+    public List<Diary> getDiaryByCharacters(Long charactersId);
     public List<Diary> getAllDiary();
     public Diary updateDiary(UpdateDiaryRequest request);
     public Diary createDiary(CreateDiaryRequest request);

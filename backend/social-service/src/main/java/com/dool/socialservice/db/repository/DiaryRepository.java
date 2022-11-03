@@ -16,6 +16,11 @@ public class DiaryRepository {
         return em.find(Diary.class, id);
     }
 
+    public List<Diary> getByCharacters(Long charactersId){
+        return em.createQuery("select d from Diary d where d.charactersId = :charactersId")
+                .setParameter("charactersId", charactersId)
+                .getResultList();
+    }
     public List<Diary> getAll(){
         return em.createQuery("select d from Diary d").getResultList();
     }
