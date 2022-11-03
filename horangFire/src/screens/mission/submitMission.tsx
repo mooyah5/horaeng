@@ -15,22 +15,25 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     alignItems: 'center',
     justifyContent: 'center',
+    // flex: 1,
+    overflow: 'visible',
   },
   cont1: {
-    flex: 2,
+    flex: 1.5,
   },
   cont2: {
-    flex: 2,
+    flex: 3,
     alignItems: 'center',
+    justifyContent: 'center',
   },
   btns: {
-    flex: 2,
+    flex: 1.5,
     flexDirection: 'row',
   },
   txtTitle: {
     fontFamily: font.beeBold,
     fontSize: 32,
-    paddingTop: 40,
+    // paddingTop: 40,
     paddingBottom: 20,
   },
   txtSub: {
@@ -40,6 +43,9 @@ const styles = StyleSheet.create({
   },
   box: {
     position: 'absolute',
+    width: '100%',
+    height: '100%',
+    resizeMode: 'contain',
   },
 });
 

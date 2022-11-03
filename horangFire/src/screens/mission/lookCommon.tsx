@@ -33,8 +33,8 @@ const styles = StyleSheet.create({
     paddingBottom: 30,
   },
   btns: {
-    width: '90%',
-    alignItems: 'flex-end',
+    width: '85%',
+    alignItems: 'flex-start',
     flex: 1,
   },
   box: {

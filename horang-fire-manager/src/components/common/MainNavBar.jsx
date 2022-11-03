@@ -25,7 +25,7 @@ function MainNavBar() {
     >
       <div className="nav-container flex align-center">
         <nav className="nav-left preMid flex align-center">
-          <Link to="/" className="nav-left_img fs-24 preBold ">
+          <Link to="/" className="nav-left_home fs-24 preBold ">
             성냥팔이 호랭이
           </Link>
           <>
