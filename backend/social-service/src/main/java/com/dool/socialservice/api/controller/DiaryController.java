@@ -51,6 +51,23 @@ public class DiaryController {
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
+    @GetMapping("/diary/user/{userCharacterId}")
+    public ResponseEntity<List<DiaryResponse>> getDiaryByUserCharacter(@PathVariable("userCharacterId") Long userCharacterId){
+        List<Diary> list = diaryService.getDiaryByUserCharacter(userCharacterId);
+
+        List<DiaryResponse> result = new ArrayList<>();
+
+        list.forEach(v->{
+            result.add(DiaryResponse.of(v));
+        });
+
+        if(list.size() == 0){
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
     @GetMapping
     public ResponseEntity<List<DiaryResponse>> getAllDiary(){
         Iterable<Diary> list = diaryService.getAllDiary();

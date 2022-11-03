@@ -21,6 +21,12 @@ public class DiaryRepository {
                 .setParameter("charactersId", charactersId)
                 .getResultList();
     }
+
+    public List<Diary> getByUserCharacter(Long userCharacterId){
+        return em.createQuery("select d from Diary d where d.userCharacterId = :userCharacterId")
+                .setParameter("userCharacterId", userCharacterId)
+                .getResultList();
+    }
     public List<Diary> getAll(){
         return em.createQuery("select d from Diary d").getResultList();
     }
