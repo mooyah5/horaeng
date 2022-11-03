@@ -40,7 +40,7 @@ function CommuHome() {
                 setClickFinished(true);
                 setClickNotyet(false);
               }}>
-              접수 완료
+              처리완료
             </button>
             <button
               type="button"
@@ -50,12 +50,12 @@ function CommuHome() {
                 setClickFinished(false);
                 setClickNotyet(true);
               }}>
-              미접수
+              미처리
             </button>
           </div>
-          <div>
+          {/* <div>
             <WriteBtn txt={'글작성'} clickEvent={() => navigate('/')} />
-          </div>
+          </div> */}
         </div>
 
         <div className="commu_list">

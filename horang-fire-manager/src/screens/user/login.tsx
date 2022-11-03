@@ -1,46 +1,70 @@
-import React, {useState} from 'react';
-// import style from './login.sass';
-
-// const styles = {
-//   title: {
-//     textAlign: 'center',
-//   },
-//   input: {
-//     border: 'solid 1px black',
-//   } as React.CSSProperties,
-// };
+import React, {useState, ChangeEvent} from 'react';
+import './login.scss';
 
 function Login() {
-  // const [email, setEmail] = useState('');
-  // const [password, setPassword] = useState();
-  // const emailHandle = (e: any) => {
-  //   setEmail(e.target.value);
-  // };
-  // const passwordHandle = (e: any) => {
-  //   setPassword(e.target.value);
-  // };
-  // const submitHandle = () => {
-  //   console.log(email, password);
-  // };
-  // return (
-  //   <>
-  //     <div className="">
-  //       <div>
-  //         <p style={styles.title}>로그인</p>
-  //       </div>
-  //       <div>
-  //         <p>이메일</p>
-  //         <input style={styles.input} type="text" onChange={emailHandle} />
-  //         <p>비밀번호</p>
-  //         <input style={styles.input} type="text" onChange={passwordHandle} />
-  //       </div>
-  //       <div>
-  //         <button onClick={submitHandle}>로그인</button>
-  //       </div>
-  //     </div>
-  //   </>
-  // );
-  return <div>dd</div>;
+  const [inputs, setInputs] = useState({
+    email: '',
+    password: '',
+  });
+  const {email, password} = inputs;
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const {name, value} = e.target;
+    setInputs({
+      ...inputs,
+      [name]: value,
+    });
+  };
+  // 입력값 모두 작성 여부 검사
+  const isValidInput = email.length >= 1 && password.length >= 1;
+
+  const SubmitHandle = () => {
+    if (!isValidInput) {
+      alert('모든 내용을 입력해 주세요.');
+    } else {
+      return;
+    }
+  };
+  return (
+    <div id="login">
+      <div className="login_container">
+        <div>
+          <p className="title">관리자 로그인</p>
+        </div>
+        <div>
+          <div className="input-box">
+            <p className="input-text">아이디</p>
+            <input
+              className="input"
+              type="text"
+              onChange={onChange}
+              required
+              placeholder="아이디를 입력해 주세요."
+              name="email"
+            />
+          </div>
+          <div className="input-box">
+            <p className="input-text">패스워드</p>
+            <input
+              className="input"
+              type="password"
+              onChange={onChange}
+              required
+              placeholder="비밀번호를 입력해 주세요."
+              name="password"
+            />
+          </div>
+        </div>
+        <div className="login-btn-div">
+          <button
+            type="button"
+            className="login-btn flex align-center justify-center preMid fs-16"
+            onClick={SubmitHandle}>
+            LOGIN
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default Login;

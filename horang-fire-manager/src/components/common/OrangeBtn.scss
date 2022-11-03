@@ -1,0 +1,12 @@
+.title-box-submit-btndiv-btn {
+  margin: 0 0 0 5px;
+  padding: 5px 30px;
+  max-height: 36px;
+  // border: solid red 1px;
+  background-color: #f0801a;
+  border-radius: 30px;
+  color: #ffffff;
+  &:hover {
+    opacity: 0.8;
+  }
+}

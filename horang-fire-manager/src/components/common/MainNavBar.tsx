@@ -6,8 +6,8 @@ function MainNavBar() {
   const {pathname} = useLocation();
   console.log(pathname);
 
-  const [isActive, setIsActive] = useState(false);
-
+  // // todo (나중에 추가할 코드)
+  // const [isActive, setIsActive] = useState<boolean>(false);
   // const activeTabClassName = active => {
   //   const prefix = 'nav-left-text__link fs-16 btn--';
   //   return active ? `${prefix}active` : `${prefix}unactive`;
@@ -58,7 +58,12 @@ function MainNavBar() {
           </>
         </nav>
         <nav className="nav-right">
-          <NavLink className="nav-right preMid fs-16" to="/login">
+          <NavLink
+            className="nav-right preMid fs-16"
+            to="/login"
+            style={
+              pathname === '/login' ? {color: '#f0801a'} : {color: '#3a3a3a'}
+            }>
             로그인
           </NavLink>
         </nav>

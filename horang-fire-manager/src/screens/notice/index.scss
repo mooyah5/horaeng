@@ -1,36 +1,49 @@
 #notice {
   padding-top: 60px;
+
   .line {
     height: 1px;
     width: 100%;
     background-color: #dbdbdb;
   }
+
   .container {
     width: 1000px;
+
     .notice {
       &_title {
         padding-bottom: 40px;
         color: #3c3c3c;
       }
+
+      &_top {
+        height: 80px;
+      }
+
       &_select {
         color: #5a5a5a;
+
         :nth-child(n) {
           padding: 10px 20px;
           margin-right: 16px;
           border-radius: 30px;
         }
+
         margin-bottom: 40px;
 
         &_btns {
           cursor: pointer;
+
           &_active {
             background-color: #f0801a;
             border-radius: 30px;
             color: #ffffff;
           }
+
           &_unactive {
             background-color: #dbdbdb;
           }
+
           &_active,
           &_unactive {
             &:hover {
@@ -46,29 +59,34 @@
 #notice_items {
   // width: 80%;
   margin-bottom: 100px;
+
   .list_table {
     width: 100%;
 
-    &_top > ul > li {
+    &_top>ul>li {
       text-align: center;
       height: 50px;
       border-bottom: 1px solid #4a4a4a;
       margin-bottom: 10px;
     }
-    ul > li:first-child {
+
+    ul>li:first-child {
       height: 40px;
       width: 10%;
     }
-    ul > li:first-child + li {
+
+    ul>li:first-child+li {
       height: 40px;
       width: 50%;
       // background-color: red;
     }
-    ul > li:first-child + li + li {
+
+    ul>li:first-child+li+li {
       height: 40px;
       width: 20%;
     }
-    ul > li:first-child + li + li + li {
+
+    ul>li:first-child+li+li+li {
       height: 40px;
       width: 20%;
     }
@@ -76,6 +94,7 @@
     &_items {
       &_subject {
         cursor: pointer;
+
         &:hover {
           opacity: 0.5;
         }

@@ -5,6 +5,7 @@ import MissionList from '../../components/mission/missionList';
 import './index.scss';
 
 function MissionHome() {
+  const id = 1;
   const [clickAll, setClickAll] = useState<boolean>(false);
   const [clickToday, setClickToday] = useState<boolean>(true);
 
@@ -41,7 +42,10 @@ function MissionHome() {
             </button>
           </div>
           <div>
-            <WriteBtn txt={'글 작성'} clickEvent={() => navigate('/')} />
+            <WriteBtn
+              txt={'글 작성'}
+              clickEvent={() => navigate(`/mission/create/${id}`)}
+            />
           </div>
         </div>
 

@@ -21,7 +21,6 @@ import LookCommon from '../screens/mission/lookCommon';
 import SubmitMission from '../screens/mission/submitMission';
 
 import Community from '../screens/community/index';
-import Community_first from '../screens/community/Community_first';
 
 import Collection from '../screens/collection/Collection';
 import CollectionDetail from '../screens/collection/CollectionDetail';
@@ -71,7 +70,6 @@ const StackNavigation = () => {
         <Stack.Screen name="Notice" component={Notice} />
         <Stack.Screen name="NoticeDetail" component={NoticeDetail} />
         <Stack.Screen name="SelectAnimal" component={SelectAnimal} />
-        <Stack.Screen name="Community_first" component={Community_first} />
         <Stack.Screen name="CommunityDetail" component={CommunityDetail} />
 
         {/* option page */}

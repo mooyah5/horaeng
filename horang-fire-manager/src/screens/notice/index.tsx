@@ -9,6 +9,7 @@ function NoticeHome() {
   const [clickDelete, setClickDelete] = useState<boolean>(false);
 
   const navigate = useNavigate();
+  const id = 1;
   const activeBtns = (active: boolean): string => {
     const prefix =
       'flex align-center justify-center preMid fs-16 notice_select_btns_';
@@ -21,7 +22,8 @@ function NoticeHome() {
         <div className="notice_title fs-32 preBold">공지사항</div>
         <div className="notice_top flex justify-space-between">
           <div className="notice_select flex preMid fs-18">
-            <button
+            <div className=""></div>
+            {/* <button
               type="button"
               className={activeBtns(clickNow)}
               onClick={() => {
@@ -38,10 +40,13 @@ function NoticeHome() {
                 setClickDelete(true);
               }}>
               삭제된 공지 보기
-            </button>
+            </button> */}
           </div>
           <div>
-            <WriteBtn txt={'글 작성'} clickEvent={() => navigate('/')} />
+            <WriteBtn
+              txt={'글 작성'}
+              clickEvent={() => navigate(`/notice/create/${id}`)}
+            />
           </div>
         </div>
 

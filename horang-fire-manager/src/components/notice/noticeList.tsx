@@ -5,6 +5,7 @@ import '../../screens/notice/index.scss';
 
 function NoticeList() {
   const navigate = useNavigate();
+  const id = 1;
   const list = [
     [1, '제목', '작성자', '2022-03-19'],
     [2, '제목2', '작성자2', '2022-03-19'],
@@ -33,7 +34,9 @@ function NoticeList() {
                   <button
                     type="button"
                     className="preReg fs-14"
-                    onClick={() => navigate('/')}>
+                    onClick={() => {
+                      navigate(`/notice/detail/${id}`);
+                    }}>
                     {item[1]}
                   </button>
                 </li>
