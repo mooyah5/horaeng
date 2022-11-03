@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.ws.rs.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +23,7 @@ public class DiaryController {
         this.diaryService = diaryService;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/item/{id}")
     public ResponseEntity<DiaryResponse> getDiary(@PathVariable("id") Long id){
         Diary diary = diaryService.getDiary(id);
 
@@ -33,6 +32,23 @@ public class DiaryController {
         }
 
         return ResponseEntity.status(HttpStatus.OK).body(DiaryResponse.of(diary));
+    }
+
+    @GetMapping("/characters/{characters_id}")
+    public ResponseEntity<List<DiaryResponse>> getDiaryByCharacters(@PathVariable("characters_id") Long charactersId){
+        List<Diary> list = diaryService.getDiaryByCharacters(charactersId);
+
+        List<DiaryResponse> result = new ArrayList<>();
+
+        list.forEach(v->{
+            result.add(DiaryResponse.of(v));
+        });
+
+        if(list.size() == 0){
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @GetMapping

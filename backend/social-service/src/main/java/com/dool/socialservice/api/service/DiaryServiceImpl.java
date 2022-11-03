@@ -23,6 +23,11 @@ public class DiaryServiceImpl implements DiaryService {
     }
 
     @Override
+    public List<Diary> getDiaryByCharacters(Long charactersId){
+        return diaryRepository.getByCharacters(charactersId);
+    }
+
+    @Override
     public List<Diary> getAllDiary() {
         return diaryRepository.getAll();
     }
