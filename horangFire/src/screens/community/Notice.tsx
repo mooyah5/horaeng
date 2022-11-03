@@ -109,10 +109,7 @@ const Notice = ({navigation}: any) => {
             />
           </View>
           <View style={styles.btns}>
-            <Btn
-              txt="이전으로"
-              clickEvent={() => navigation.navigate('Home')}
-            />
+            <Btn txt="이전으로" clickEvent={() => navigation.goBack()} />
           </View>
         </View>
       </View>

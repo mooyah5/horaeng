@@ -1,6 +1,7 @@
 import {StyleSheet, View, Text, Image} from 'react-native';
 import {font} from '../../styles/colorAndFontTheme';
 import Btn from '../common/Btn_short';
+import RadioBtn from '../community/RadioBtn';
 
 const styles = StyleSheet.create({
   body: {
@@ -44,7 +45,9 @@ const ReportModal = ({navigation}: any) => {
       <View style={styles.section1}>
         <Text style={styles.title}>신고하기</Text>
       </View>
-      <View style={styles.section2} />
+      <View style={styles.section2}>
+        <RadioBtn />
+      </View>
       <View style={styles.section3}>
         <Btn txt="이전으로" clickEvent={navigation.goBack} />
         <Btn txt="제출하기" clickEvent={ReportHandle} />

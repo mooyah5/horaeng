@@ -4,6 +4,7 @@ import '../../screens/community/index.scss';
 
 function CommuList() {
   const navigate = useNavigate();
+  const id = 1;
   const list = [
     [1, '새', '제목', '작성자'],
     [2, '고양이', '제목2', '작성자2'],
@@ -35,7 +36,7 @@ function CommuList() {
                   <button
                     type="button"
                     className="preReg fs-14"
-                    onClick={() => navigate('/')}>
+                    onClick={() => navigate(`/commu/detail/${id}`)}>
                     {item[2]}
                   </button>
                 </li>
