@@ -2,7 +2,7 @@ FROM openjdk:17-jdk
 
 WORKDIR /app/user-service
 
-COPY build/libs/*.jar user-service-0.0.1-SNAPSHOT.jar
+COPY build/libs/user-service-0.0.1-SNAPSHOT.jar user-service-0.0.1-SNAPSHOT.jar
 
 EXPOSE 8010
 
