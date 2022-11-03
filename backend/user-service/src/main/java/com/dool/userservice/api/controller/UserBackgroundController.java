@@ -38,10 +38,4 @@ public class UserBackgroundController {
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
-    @PostMapping
-    public ResponseEntity buyBackground(@RequestBody BuyBackgroundRequest request){
-        userBackgroundService.buyBackground(request);
-
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
-    }
 }

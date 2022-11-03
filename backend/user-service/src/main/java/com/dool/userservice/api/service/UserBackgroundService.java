@@ -5,5 +5,5 @@ import com.dool.userservice.db.domain.UserBackground;
 
 public interface UserBackgroundService {
     Iterable<UserBackground> getUsersBackground(String userId);
-    void buyBackground(BuyBackgroundRequest request);
+    void createUserBackground(BuyBackgroundRequest request);
 }
