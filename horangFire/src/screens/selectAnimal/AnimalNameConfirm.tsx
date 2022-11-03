@@ -45,7 +45,7 @@ const AnimalNameConfirm = ({navigation}: Props) => {
           <Btn txt="이전으로" clickEvent={() => navigation.goBack()} />
           <Btn
             txt="다음으로"
-            clickEvent={() => navigation.navigate('MissonIntro')}
+            clickEvent={() => navigation.navigate('MissionIntro')}
           />
         </View>
       </SafeAreaView>

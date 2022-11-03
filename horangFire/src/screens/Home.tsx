@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   ImageBackground,
   StyleSheet,
@@ -7,188 +7,120 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Image,
-  Platform,
 } from 'react-native';
 import {color, font} from '../styles/colorAndFontTheme';
-import TitleText from '../components/common/TitleText';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {ParamListBase} from '@react-navigation/native';
+import {scriptMain} from '../script/scriptMain';
 
 const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
   },
-  container: {
-    width: '100%',
-    height: '100%',
-    padding: 24,
-    paddingTop: 40,
-  },
-  text: {
-    fontFamily: font.beeBold,
-    fontSize: 30,
-    color: color.BLACK_3A,
-    textAlign: 'center',
-  },
-  iconContainer1: {
-    marginTop: 30,
-    flexDirection: 'row',
-    position: 'absolute',
-    marginLeft: 24,
-    width: '100%',
-  },
-  iconContainer2: {
-    position: 'absolute',
-    marginLeft: 24,
-    marginTop: 60,
-    width: '100%',
-  },
-  iconContainer3: {
-    position: 'absolute',
-    flexDirection: 'row',
-    bottom: 20,
-    marginLeft: 24,
-    width: '100%',
-  },
-  fuseIconContainer: {
-    width: '50%',
-  },
-  bottomIconContainer: {
-    width: '50%',
-  },
-  fuseIcon: {
-    width: 30,
-    height: 30,
-  },
-  leftIconsContainer: {
-    width: '50%',
-    flexDirection: 'row-reverse',
-  },
-  rightIconsContainer: {
-    flexDirection: 'row-reverse',
-    marginTop: 16,
-  },
-  settingIcon: {
-    width: 30,
-    height: 30,
-  },
-  backgroundIcon: {
-    width: 30,
-    height: 30,
-  },
-  communityIcon: {
-    width: 30,
-    height: 30,
-  },
-  journalIcon: {
-    width: 30,
-    height: 30,
-  },
-  collectionIcon: {
-    width: 30,
-    height: 30,
-    right: 0,
-    position: 'absolute',
-  },
-  characterContainer: {
+  safeArea: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    top: -130,
   },
-  character: {
-    ...Platform.select({
-      ios: {
-        width: '70%',
-        height: '70%',
-      },
-      android: {
-        top: 15,
-        width: '65%',
-        height: '65%',
-      },
-    }),
+  section0: {
+    flex: 2,
+    borderColor: 'red',
   },
-  textContainer: {
-    position: 'absolute',
-    top: 120,
-    width: '100%',
-    height: '50%',
-    marginLeft: 24,
+  section1: {
+    flex: 3,
+    borderColor: 'red',
+  },
+  section2: {
+    flex: 4,
+    paddingHorizontal: 24,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  characterText1: {
-    fontFamily: font.beeBold,
-    fontSize: 25,
-    color: color.BLACK_3A,
-    textAlign: 'center',
-    position: 'relative',
-    top: -110,
+  section3: {
+    flex: 9,
   },
-  characterText2: {
-    fontFamily: font.beeBold,
-    fontSize: 25,
-    color: color.BLACK_3A,
-    textAlign: 'center',
-    position: 'relative',
-    top: -100,
+  section4: {
+    flex: 4,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  missionContainer: {
-    position: 'absolute',
-    width: '100%',
+  section5: {
+    flex: 2,
+  },
+  section0BtnContainer: {
+    paddingHorizontal: 16,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     height: '100%',
-    marginLeft: 24,
+  },
+  section0BtnContainerRight: {
+    paddingHorizontal: 24,
+    flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'center',
+    height: '100%',
   },
-  missionImage: {
-    ...Platform.select({
-      ios: {
-        width: '70%',
-        height: 100,
-      },
-      android: {
-        width: '70%',
-        height: 90,
-      },
-    }),
+  buttonTouchable: {
+    width: 30,
+    height: 30,
+  },
+  buttons: {
+    width: '100%',
+    height: '100%',
     resizeMode: 'contain',
   },
-  missionText1: {
+  characterText: {
     fontFamily: font.beeBold,
-    color: color.BLACK_3A,
-    position: 'absolute',
-    ...Platform.select({
-      ios: {
-        fontSize: 35,
-        bottom: 40,
-        left: -50,
-      },
-      android: {
-        left: -50,
-        fontSize: 30,
-        bottom: 40,
-      },
-    }),
+    fontSize: 40,
+    color: color.BROWN_47,
+    paddingLeft: '10%',
   },
-  missionText2: {
+  buttonTouchableNone: {
+    backfaceVisibility: 'hidden',
+  },
+  missionBack: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    resizeMode: 'stretch',
+  },
+  missionText: {
+    paddingHorizontal: 50,
+    fontFamily: font.beeBold,
+    fontSize: 25,
+    color: color.BROWN_47,
+    textAlign: 'center',
+    paddingBottom: '5%',
+  },
+  missionBottomText1: {
     fontFamily: font.beeBold,
     fontSize: 30,
-    color: color.BLACK_3A,
+    color: color.BROWN_47,
+    textAlign: 'center',
+  },
+  missionBottomText2: {
+    fontFamily: font.beeBold,
+    fontSize: 27,
+    color: color.BROWN_47,
+    textAlign: 'center',
+  },
+  imageContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  characterImage: {
+    width: '70%',
+    height: '100%',
+  },
+  mainBottomImage: {
     position: 'absolute',
-    ...Platform.select({
-      ios: {
-        fontSize: 35,
-        bottom: 7,
-        left: -50,
-      },
-      android: {
-        left: -50,
-        fontSize: 30,
-        bottom: 10,
-      },
-    }),
+    width: '90%',
+    height: '90%',
+    resizeMode: 'contain',
+  },
+  messageBox: {
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
   },
 });
 
@@ -197,87 +129,125 @@ interface Props {
 }
 
 const Home = ({navigation}: Props) => {
+  const [scriptNum, setScriptNum] = useState<number>(1);
+
+  const handleScriptNum = () => {
+    if (scriptNum < 6) {
+      setScriptNum(prev => prev + 1);
+    }
+    if (scriptNum === 6) {
+      setScriptNum(1);
+    }
+  };
   return (
     <ImageBackground
-      source={require('../assets/image/background1.png')}
+      source={require('../../src/assets/image/background1.png')}
       style={styles.backgroundImage}>
-      <SafeAreaView>
-        <View style={styles.container}>
-          {/* 동물 정보 - 공통 컴포넌트*/}
-          <TitleText title={'n일차 호랑이'} subTitle={'내호랭이 쵝오'} />
-          {/* 동물 상단 대사 */}
-          <View style={styles.textContainer}>
-            <Image source={require('../assets/image/b.png')} />
-            <Text style={styles.characterText1}>
-              종이를 아끼는 가장 좋은 방법은
-            </Text>
-            <Text style={styles.characterText2}>이면지를 사용하는 거당!</Text>
+      <SafeAreaView style={styles.safeArea}>
+        <View style={styles.section0}>
+          <View style={styles.section0BtnContainer}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Points')}
+              style={styles.buttonTouchable}>
+              <Image
+                style={styles.buttons}
+                source={require('../assets/image/setting.png')}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              // 선혁님 페이지 - 환경설정
+              onPress={() => navigation.navigate('Option')}
+              style={styles.buttonTouchable}>
+              <Image
+                style={styles.buttons}
+                source={require('../assets/image/setting.png')}
+              />
+            </TouchableOpacity>
           </View>
-          {/* 동물 이미지 */}
-          <View style={styles.characterContainer}>
+        </View>
+        <View style={styles.section0}>
+          <View style={styles.section0BtnContainer}>
+            <View style={styles.buttonTouchableNone}></View>
+            <View>
+              <Text style={styles.characterText}>n일차</Text>
+            </View>
+            <TouchableOpacity
+              //선혁님 페이지 배경화면 설정
+              onPress={() => navigation.navigate('BackgroundOption')}
+              style={styles.buttonTouchable}>
+              <Image
+                style={styles.buttons}
+                source={require('../assets/image/setting.png')}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View style={styles.section0}>
+          <View style={styles.section0BtnContainer}>
+            <View style={styles.buttonTouchableNone} />
+            <View>
+              <Text style={styles.characterText}>내호랭이최고</Text>
+            </View>
+            <TouchableOpacity
+              //한나언니 페이지 커뮤니티
+              onPress={() => navigation.navigate('Community')}
+              style={styles.buttonTouchable}>
+              <Image
+                style={styles.buttons}
+                source={require('../assets/image/setting.png')}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View style={styles.section2}>
+          <View style={styles.messageBox}>
             <Image
-              style={styles.character}
+              style={styles.missionBack}
+              source={require('../../src/assets/image/b.png')}
+            />
+            <TouchableOpacity onPress={handleScriptNum}>
+              <Text style={styles.missionText}>
+                {scriptMain.tiger[`${scriptNum}`]}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View style={styles.section3}>
+          <View style={styles.imageContainer}>
+            <Image
+              style={styles.characterImage}
               source={require('../assets/image/character/tiger.png')}
             />
           </View>
-          {/* 동물 하단 미션 */}
-          <View style={styles.missionContainer}>
-            <Image
-              style={styles.missionImage}
-              source={require('../assets/image/mainbottom.png')}
-            />
+        </View>
+        <View style={styles.section4}>
+          <Image
+            style={styles.mainBottomImage}
+            source={require('../assets/image/mainbottom.png')}
+          />
+          <TouchableOpacity onPress={() => navigation.navigate('MissionHome')}>
+            <Text style={styles.missionBottomText1}>MISSION</Text>
+            <Text style={styles.missionBottomText2}>
+              마스크 올바르게 버리기!
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.section0}>
+          <View style={styles.section0BtnContainer}>
             <TouchableOpacity
-              onPress={() => navigation.navigate('MissionHome')}>
-              <Text style={styles.missionText1}>MISSION</Text>
-              <Text style={styles.missionText2}>종이 아끼기</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.iconContainer1}>
-            <TouchableOpacity style={styles.fuseIconContainer}>
+              //선혁님 페이지 동물도감
+              onPress={() => navigation.navigate('Collection')}
+              style={styles.buttonTouchable}>
               <Image
-                style={styles.fuseIcon}
+                style={styles.buttons}
                 source={require('../assets/image/setting.png')}
               />
             </TouchableOpacity>
             <TouchableOpacity
-              style={styles.leftIconsContainer}
-              onPress={() => navigation.navigate('Option')}>
+              onPress={() => navigation.navigate('ListOfDiaries')}
+              style={styles.buttonTouchable}>
               <Image
-                style={styles.settingIcon}
-                source={require('../assets/image/setting.png')}
-              />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.iconContainer2}>
-            <TouchableOpacity
-              style={styles.rightIconsContainer}
-              onPress={() => navigation.navigate('BackgroundOption')}>
-              <Image
-                style={styles.backgroundIcon}
-                source={require('../assets/image/setting.png')}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.rightIconsContainer}
-              onPress={() => navigation.navigate('Community')}>
-              <Image
-                style={styles.communityIcon}
-                source={require('../assets/image/setting.png')}
-              />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.iconContainer3}>
-            <TouchableOpacity
-              style={styles.bottomIconContainer}
-              onPress={() => navigation.navigate('Collection')}>
-              <Image
-                style={styles.journalIcon}
-                source={require('../assets/image/setting.png')}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.bottomIconContainer}>
-              <Image
-                style={styles.collectionIcon}
+                style={styles.buttons}
                 source={require('../assets/image/setting.png')}
               />
             </TouchableOpacity>
