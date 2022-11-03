@@ -26,17 +26,13 @@ public class UserBackgroundServiceImpl implements UserBackgroundService {
     }
 
     @Override
-    public void buyBackground(BuyBackgroundRequest request) {
+    public void createUserBackground(BuyBackgroundRequest request) {
+
         UserBackground userBackground = new UserBackground();
-        Background background = backgroundRepository.get(request.getBackgroundId());
-        User user = userRepository.get(request.getUserId());
+        userBackground.setUser(userRepository.get(request.getUserId()));
+        userBackground.setBackground(backgroundRepository.get(request.getBackgroundId()));
 
-        if(user.getPoint() >= background.getPrice()){
-            // 유저 포인트 깎는 api 필요
-            userBackground.setUser(user);
-            userBackground.setBackground(background);
+        userBackgroundRepository.add(userBackground);
 
-            userBackgroundRepository.add(userBackground);
-        }
     }
 }
