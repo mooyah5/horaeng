@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Service
 @RequiredArgsConstructor
@@ -23,12 +24,15 @@ public class UserCharacterServiceImpl implements UserCharacterService{
     public UserCharacterResponseDto creatUserCharacter(UserCharacterRequestDto requestDto) {
         Characters characters = charactersRepository.findById(requestDto.getCharacter_id()).get();
 
+        LocalDateTime date = LocalDateTime.now();
+        date.format(DateTimeFormatter.BASIC_ISO_DATE);
+
         UserCharacter userCharacter = UserCharacter.builder()
                 .userId(requestDto.getUser_id())
                 .characters(characters)
                 .nickname(requestDto.getNickname())
                 .level(CharacterLevel.LEVEL_1)
-                .createdDate(LocalDateTime.now())
+                .createdDate(date)
                 .build();
 
         userCharacterRepository.save(userCharacter);

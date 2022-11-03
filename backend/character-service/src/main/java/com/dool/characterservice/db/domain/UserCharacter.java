@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class UserCharacter extends BaseTimeEntity{
+public class UserCharacter{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

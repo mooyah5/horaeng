@@ -2,7 +2,6 @@ package com.dool.characterservice.api.service;
 
 import com.dool.characterservice.api.request.CharacterMissionRequestDto;
 import com.dool.characterservice.api.response.CharacterMissionResponseDto;
-import com.dool.characterservice.api.response.MissionResponseDto;
 import com.dool.characterservice.db.domain.CharacterMission;
 import com.dool.characterservice.db.domain.Mission;
 import com.dool.characterservice.db.domain.UserCharacter;
@@ -13,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 @Service
@@ -20,7 +20,7 @@ import java.util.Optional;
 public class CharacterMissionServiceImpl implements CharacterMissionService {
     private final UserCharacterRepository userCharacterRepository;
     private final CharacterMissionRepository characterMissionRepository;
-    private final MissionRepository missionRespository;
+    private final MissionRepository missionRepository;
     @Override
     public CharacterMissionResponseDto getMission(Long id) {
 
@@ -33,12 +33,15 @@ public class CharacterMissionServiceImpl implements CharacterMissionService {
     @Override
     public CharacterMissionResponseDto postMission(CharacterMissionRequestDto requestDto) {
         UserCharacter userCharacter = userCharacterRepository.findById(requestDto.getUser_character_id()).get();
-        Mission mission = missionRespository.findById(userCharacter.getCharacters().getMissionId()).get();
+        Mission mission = missionRepository.findById(userCharacter.getCharacters().getMissionId()).get();
+
+        LocalDateTime date = LocalDateTime.now();
+        date.format(DateTimeFormatter.BASIC_ISO_DATE);
 
         CharacterMission characterMission = CharacterMission.builder()
                 .userCharacter(userCharacter)
                 .mission(mission)
-                .createdDate(LocalDateTime.now())
+                .createdDate(date)
                 .isClear(false)
                 .build();
 
@@ -52,5 +55,16 @@ public class CharacterMissionServiceImpl implements CharacterMissionService {
                 .is_clear(characterMission.isClear())
                 .user_character_id(characterMission.getUserCharacter().getId())
                 .build();
+    }
+
+    @Override
+    public Long countMission(Long userCharacterId) {
+        LocalDateTime date = LocalDateTime.now();
+        date.format(DateTimeFormatter.BASIC_ISO_DATE);
+        Optional<UserCharacter> userCharacter = userCharacterRepository.findById(userCharacterId);
+
+        Long count = characterMissionRepository.countAllByUserCharacterAndCreatedDateLessThanAndClearIsFalse(userCharacter.get(), date);
+
+        return count;
     }
 }
