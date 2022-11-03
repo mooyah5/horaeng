@@ -1,9 +1,9 @@
 FROM openjdk:17-jdk
 
-WORKDIR /app/user
+WORKDIR /app/user-service
 
-COPY build/libs/*.jar user-0.0.1-SNAPSHOT.jar
+COPY build/libs/*.jar user-service-0.0.1-SNAPSHOT.jar
 
 EXPOSE 8010
 
-CMD ["java", "-jar", "user-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "user-service-0.0.1-SNAPSHOT.jar"]
