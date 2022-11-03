@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {color, font} from '../../styles/colorAndFontTheme';
 import TitleText from '../../components/common/TitleText';
 import {
@@ -8,6 +8,7 @@ import {
   Text,
   View,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import Btn from '../../components/common/Btn_short';
 import MissionTxt from '../../components/mission/MissionTxt';
@@ -72,8 +73,20 @@ const MainMission = ({navigation}: Props) => {
     '1. 예시 사진과 동일하게 종이를 아끼는 모습을 담은 사진을 찍어주세요. \n 2. 부적합한 사진 업로드시 포인트가 차감될 수 있습니다.';
 
   const submit = () => {
-    navigation.navigate('SubmitMission');
+    if (diary !== '') {
+      // 제출 api 호출
+      navigation.navigate('SubmitMission');
+    } else {
+      Alert.alert('성냥팔이 호랭이', '작성된 내용이 없어요ㅠㅠ', [
+        {text: '돌아가기'},
+      ]);
+    }
   };
+
+  useEffect(() => {
+    console.log('change');
+  }, [diary]);
+
   return (
     <SafeAreaView style={{backgroundColor: color.BACK_SUB}}>
       <View style={styles.container}>
@@ -86,21 +99,16 @@ const MainMission = ({navigation}: Props) => {
             style={styles.box}
             source={require('../../assets/image/box_large.png')}
           />
-          <TouchableOpacity
-            style={styles.help}
-            onPress={() => setClickHelp(!clickHelp)}>
-            <View style={styles.helpBtn}>
+          {/* 물음표 버튼 */}
+          <View style={styles.help}>
+            <TouchableOpacity
+              style={styles.helpBtn}
+              onPress={() => setClickHelp(!clickHelp)}>
               <Text>{clickHelp ? 'X' : '?'}</Text>
-            </View>
-          </TouchableOpacity>
-          {!clickHelp && (
-            <MissionTxt
-              mission={mission}
-              diary={diary}
-              setDiary={setDiary}
-              isMain={true}
-            />
-          )}
+            </TouchableOpacity>
+          </View>
+          {/* 안에 들어갈 텍스트 내용 */}
+          {!clickHelp && <MissionTxt mission={mission} setDiary={setDiary} />}
           {clickHelp && <HelpTxt mission={mission} info={info} />}
         </View>
 
