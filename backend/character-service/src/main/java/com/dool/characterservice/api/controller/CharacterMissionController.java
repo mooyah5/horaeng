@@ -1,7 +1,6 @@
 package com.dool.characterservice.api.controller;
 
 import com.dool.characterservice.api.request.CharacterMissionRequestDto;
-import com.dool.characterservice.api.response.CharacterMissionCountResponseDto;
 import com.dool.characterservice.api.response.CharacterMissionResponseDto;
 import com.dool.characterservice.api.service.CharacterMissionService;
 import lombok.RequiredArgsConstructor;

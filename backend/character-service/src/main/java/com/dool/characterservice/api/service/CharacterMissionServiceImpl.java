@@ -4,6 +4,7 @@ import com.dool.characterservice.api.request.CharacterMissionRequestDto;
 import com.dool.characterservice.api.response.CharacterMissionResponseDto;
 import com.dool.characterservice.db.domain.CharacterMission;
 import com.dool.characterservice.db.domain.Mission;
+import com.dool.characterservice.db.domain.MissionType;
 import com.dool.characterservice.db.domain.UserCharacter;
 import com.dool.characterservice.db.repository.CharacterMissionRepository;
 import com.dool.characterservice.db.repository.MissionRepository;
@@ -28,8 +29,7 @@ public class CharacterMissionServiceImpl implements CharacterMissionService {
         LocalDateTime date = LocalDateTime.now();
         String today = date.format(DateTimeFormatter.BASIC_ISO_DATE);
 
-        Optional<UserCharacter> userCharacter = userCharacterRepository.findById(user_character_id);
-        CharacterMission characterMission = characterMissionRepository.findTopByUserCharacterAndIsClearTrueOrderByCreatedDateDesc(userCharacter.get());
+        CharacterMission characterMission = characterMissionRepository.findTopByUserCharacter_IdAndIsClearTrueAndMission_TypeOrderByCreatedDateDesc(user_character_id, MissionType.Personal);
 
         System.out.println(characterMission.getCreatedDate().format(DateTimeFormatter.BASIC_ISO_DATE));
         if(today.equals(characterMission.getCreatedDate().format(DateTimeFormatter.BASIC_ISO_DATE))){
@@ -72,7 +72,7 @@ public class CharacterMissionServiceImpl implements CharacterMissionService {
         date.format(DateTimeFormatter.BASIC_ISO_DATE);
         Optional<UserCharacter> userCharacter = userCharacterRepository.findById(user_character_id);
 
-        Long count = characterMissionRepository.countAllByUserCharacterAndCreatedDateLessThanAndIsClearTrue(userCharacter.get(), date) + 1;
+        Long count = characterMissionRepository.countAllByUserCharacter_IdAndCreatedDateLessThanAndIsClearTrueAndMission_Type(user_character_id, date, MissionType.Personal) + 1;
 
         return count;
     }
