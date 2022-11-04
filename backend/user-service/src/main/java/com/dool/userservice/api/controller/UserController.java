@@ -1,5 +1,6 @@
 package com.dool.userservice.api.controller;
 
+import com.dool.userservice.api.request.BuyBackgroundRequest;
 import com.dool.userservice.api.request.CreateUserRequest;
 import com.dool.userservice.api.service.UserService;
 import com.dool.userservice.db.domain.User;
@@ -53,5 +54,10 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
     }
 
+    @PostMapping("/background")
+    public ResponseEntity buyBackground(@RequestBody BuyBackgroundRequest request){
+        userService.buyBackground(request);
 
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+    }
 }
