@@ -1,16 +1,8 @@
 import {ParamListBase} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-  FlatList,
-  Image,
-} from 'react-native';
+import {StyleSheet, Text, View, SafeAreaView, Image} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {color, font} from '../../styles/colorAndFontTheme';
-
 const styles = StyleSheet.create({
   backgroundColor: {
     backgroundColor: color.BACK_SUB,
