@@ -1,7 +1,6 @@
 package com.dool.socialservice.api.service;
 
 import com.dool.socialservice.api.request.CreateDiaryRequest;
-import com.dool.socialservice.api.request.UpdateDiaryRequest;
 import com.dool.socialservice.db.domain.Diary;
 import com.dool.socialservice.db.repository.DiaryRepository;
 import lombok.RequiredArgsConstructor;
@@ -38,23 +37,8 @@ public class DiaryServiceImpl implements DiaryService {
     }
 
     @Override
-    public Diary updateDiary(UpdateDiaryRequest request) {
-        Diary diary = diaryRepository.get(request.getId());
-
-        if(diary != null){
-            diary.setContent(request.getContent());
-            diary.setImgUrl(request.getImgUrl());
-            diary.setTitle(request.getTitle());
-        }
-
-        return diary;
-
-    }
-
-    @Override
     public Diary createDiary(CreateDiaryRequest request) {
         Diary diary = new Diary();
-        diary.setTitle(request.getTitle());
         diary.setUserId(request.getUserId());
         diary.setImgUrl(request.getImgUrl());
         diary.setContent(request.getContent());

@@ -24,7 +24,6 @@ public class Diary {
     private Long userCharacterId;
     private String content;
     private String imgUrl;
-    private String title;
     private LocalDateTime createDate;
 
     @PrePersist
