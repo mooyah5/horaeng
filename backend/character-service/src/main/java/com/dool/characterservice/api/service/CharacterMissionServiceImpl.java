@@ -22,12 +22,21 @@ public class CharacterMissionServiceImpl implements CharacterMissionService {
     private final CharacterMissionRepository characterMissionRepository;
     private final MissionRepository missionRepository;
     @Override
-    public CharacterMissionResponseDto getMission(Long id) {
+    public boolean getMission(Long user_character_id) {
+        boolean statue = false;
 
-        CharacterMission mission = characterMissionRepository.findById(id).get();
+        LocalDateTime date = LocalDateTime.now();
+        String today = date.format(DateTimeFormatter.BASIC_ISO_DATE);
 
+        Optional<UserCharacter> userCharacter = userCharacterRepository.findById(user_character_id);
+        CharacterMission characterMission = characterMissionRepository.findTopByUserCharacterAndIsClearTrueOrderByCreatedDateDesc(userCharacter.get());
 
-        return null;
+        System.out.println(characterMission.getCreatedDate().format(DateTimeFormatter.BASIC_ISO_DATE));
+        if(today.equals(characterMission.getCreatedDate().format(DateTimeFormatter.BASIC_ISO_DATE))){
+            statue = true;
+        }
+
+        return statue;
     }
 
     @Override
@@ -58,12 +67,12 @@ public class CharacterMissionServiceImpl implements CharacterMissionService {
     }
 
     @Override
-    public Long countMission(Long userCharacterId) {
+    public Long countMission(Long user_character_id) {
         LocalDateTime date = LocalDateTime.now();
         date.format(DateTimeFormatter.BASIC_ISO_DATE);
-        Optional<UserCharacter> userCharacter = userCharacterRepository.findById(userCharacterId);
+        Optional<UserCharacter> userCharacter = userCharacterRepository.findById(user_character_id);
 
-        Long count = characterMissionRepository.countAllByUserCharacterAndCreatedDateLessThanAndClearIsFalse(userCharacter.get(), date);
+        Long count = characterMissionRepository.countAllByUserCharacterAndCreatedDateLessThanAndIsClearTrue(userCharacter.get(), date) + 1;
 
         return count;
     }
