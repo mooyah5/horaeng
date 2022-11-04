@@ -20,8 +20,27 @@
 	<string>1.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>kakao297532d35a71139a06030a19aa85b7e9</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>KAKAO_APP_KEY</key>
+	<string>297532d35a71139a06030a19aa85b7e9</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>kakaokompassauth</string>
+		<string>storykompassauth</string>
+		<string>kakaolink</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -35,8 +54,26 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>$(PRODUCT_NAME) would like to use your camera</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>$(PRODUCT_NAME) would like to use your microphone (for videos)</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>$(PRODUCT_NAME) would like to save photos to your photo gallery</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>$(PRODUCT_NAME) would like access to your photo gallery</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>fonts/Pretendard-Black.otf</string>
+		<string>fonts/Pretendard-Bold.otf</string>
+		<string>fonts/Pretendard-ExtraBold.otf</string>
+		<string>fonts/Pretendard-Medium.otf</string>
+		<string>fonts/Pretendard-Regular.otf</string>
+		<string>fonts/UhBeemysen.ttf</string>
+		<string>fonts/UhBeemysenBold.ttf</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -49,25 +86,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>UIAppFonts</key>
-	<array>
-		<string>fonts/Pretendard-Black.otf</string>
-		<string>fonts/Pretendard-Bold.otf</string>
-		<string>fonts/Pretendard-ExtraBold.otf</string>
-		<string>fonts/Pretendard-Medium.otf</string>
-		<string>fonts/Pretendard-Regular.otf</string>
-		<string>fonts/UhBeemysen.ttf</string>
-		<string>fonts/UhBeemysenBold.ttf</string>
-	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSPhotoLibraryUsageDescription</key>
-  	<string>$(PRODUCT_NAME) would like access to your photo gallery</string>
-  	<key>NSCameraUsageDescription</key>
-  	<string>$(PRODUCT_NAME) would like to use your camera</string>
-  	<key>NSPhotoLibraryAddUsageDescription</key>
-  	<string>$(PRODUCT_NAME) would like to save photos to your photo gallery</string>
-  	<key>NSMicrophoneUsageDescription</key>
-  	<string>$(PRODUCT_NAME) would like to use your microphone (for videos)</string>
 </dict>
 </plist>
