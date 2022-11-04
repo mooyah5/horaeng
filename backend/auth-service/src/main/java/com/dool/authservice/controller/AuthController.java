@@ -1,26 +1,39 @@
 package com.dool.authservice.controller;
 
+import com.dool.authservice.request.LoginRequest;
+import com.dool.authservice.response.TokenResponse;
+import com.dool.authservice.service.AuthService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+import java.net.http.HttpResponse;
 
 @RestController
-@RequestMapping("/auth-service")
+@RequestMapping("/auth-service/auth")
 public class AuthController {
 
-    @PostMapping("/auth/login")
-    public ResponseEntity login(){
-        return null;
+    AuthService authService;
+
+    @Autowired
+    public AuthController(AuthService authService) {
+        this.authService = authService;
     }
 
-    @PostMapping("/auth/kakao")
-    public ResponseEntity kakaoLogin(){
-        return null;
+    @PostMapping("/login")
+    public ResponseEntity login(@RequestBody LoginRequest request, HttpServletResponse httpServletResponse){
+        authService.userLogin(request, httpServletResponse);
+        return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 
-    @PostMapping("/auth/token")
+
+    @PostMapping("/token")
     public ResponseEntity refresh(){
         return null;
     }
+
 }
