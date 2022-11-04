@@ -30,22 +30,28 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
-  navigation: StackNavigationProp<ParamListBase, 'LookCommon'>;
+  navigation: StackNavigationProp<ParamListBase, 'AnimalNameConfirm'>;
+  route: any;
 }
-
-const AnimalNameConfirm = ({navigation}: Props) => {
+const AnimalNameConfirm = ({navigation, route}: Props) => {
+  const {params} = route;
+  const characterName = params.animalName;
+  function nickNameConfirm(name: string) {
+    // 닉네임 post 요청
+    navigation.navigate('MissionIntro', {animalName: name});
+  }
   return (
     <View style={styles.backgroundColor}>
       <SafeAreaView>
         <View style={styles.textContainer}>
-          <Text style={styles.text1}>동물이름(이)와</Text>
+          <Text style={styles.text1}>{characterName}(이)랑 함께</Text>
           <Text style={styles.text1}>미션을 시작해 볼까?</Text>
         </View>
         <View style={styles.btns}>
           <Btn txt="이전으로" clickEvent={() => navigation.goBack()} />
           <Btn
             txt="다음으로"
-            clickEvent={() => navigation.navigate('MissionIntro')}
+            clickEvent={() => nickNameConfirm(characterName)}
           />
         </View>
       </SafeAreaView>

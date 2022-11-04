@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
-  navigation: StackNavigationProp<ParamListBase, 'Login'>;
+  navigation: StackNavigationProp<ParamListBase, 'Home'>;
 }
 
 const Home = ({navigation}: Props) => {

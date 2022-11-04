@@ -69,9 +69,13 @@ const styles = StyleSheet.create({
 
 interface Props {
   navigation: StackNavigationProp<ParamListBase, 'MissionIntro'>;
+  route: any;
 }
 
-const MissionIntro = ({navigation}: Props) => {
+const MissionIntro = ({navigation, route}: Props) => {
+  const {params} = route;
+  const characterName = params.animalName;
+
   const [scriptNum, setScriptNum] = useState<number>(1);
 
   const handleScriptNum = () => {
@@ -108,7 +112,7 @@ const MissionIntro = ({navigation}: Props) => {
             style={styles.characterImage}
             source={require('../../assets/image/character/tiger.png')}
           />
-          <Text style={styles.characterName}>기여운 나의 호랭이</Text>
+          <Text style={styles.characterName}>{characterName}</Text>
         </View>
       </View>
       <View style={styles.section4}>{startButton()}</View>

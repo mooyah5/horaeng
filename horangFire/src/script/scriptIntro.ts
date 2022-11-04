@@ -1,6 +1,6 @@
 export const scriptIntro: any = {
   tiger: {
-    '1': '크와앙. 화가난다앙. 집이없어지고있다앙ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd.',
+    '1': '크와앙. 화가난다앙. 집이없어지고있다앙.',
     '2': '인간들이 또 나무를 베어갔당!',
     '3': '사라지는 우리집을 구해주랑!',
     '4': '방법은 아주 간단하당!',

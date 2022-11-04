@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   TextInput,
   Platform,
+  Alert,
 } from 'react-native';
 import {color, font} from '../../styles/colorAndFontTheme';
 import Btn from '../../components/common/Btn_long';
@@ -80,10 +81,19 @@ interface Props {
 const AnimalNameForm = ({navigation}: Props) => {
   const [animalName, setAnimalName] = useState('');
 
+  const nickName = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]+$/;
+  const nickNameChk = (name: string) => {
+    const result: boolean = nickName.test(name);
+    if (result) {
+      navigation.navigate('AnimalNameConfirm', {animalName: animalName});
+    } else {
+      Alert.alert('닉네임은 한글,영어,숫자 포함 8자리 이하만 가능합니다.');
+    }
+  }
+
   return (
     <View style={styles.backgroundColor}>
       <SafeAreaView>
-        <View style={styles.section1}></View>
         <View style={styles.textContainer}>
           <Text style={styles.text1}>내 벵갈 호랑이의 이름은</Text>
           <View style={styles.textInputContainer}>
@@ -91,15 +101,13 @@ const AnimalNameForm = ({navigation}: Props) => {
               style={styles.userInput}
               onChangeText={setAnimalName}
               value={animalName}
+              maxLength={8}
             />
           </View>
         </View>
         <View style={styles.btns}>
           <Btn txt="이전으로" clickEvent={() => navigation.goBack()} />
-          <Btn
-            txt="다음으로"
-            clickEvent={() => navigation.navigate('AnimalNameConfirm')}
-          />
+          <Btn txt="다음으로" clickEvent={() => nickNameChk(animalName)} />
         </View>
       </SafeAreaView>
     </View>
