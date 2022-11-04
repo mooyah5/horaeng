@@ -25,4 +25,11 @@ public class UserCharacter{
     private String nickname;
     private CharacterLevel level;
     private LocalDateTime createdDate;
+
+    private boolean status;
+
+    @PrePersist
+    void setStatus(){
+        this.status = false;
+    }
 }
