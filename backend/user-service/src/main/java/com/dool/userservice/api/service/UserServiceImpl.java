@@ -52,7 +52,9 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void logoutUser() {
+    public void logoutUser(String id) {
+        User user = userRepository.get(id);
 
+        user.setRefreshToken("");
     }
 }

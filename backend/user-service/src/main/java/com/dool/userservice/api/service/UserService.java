@@ -9,7 +9,7 @@ public interface UserService {
     public User createUser(CreateUserRequest request);
     public void deleteUser(String id);
     public void buyBackground(BuyBackgroundRequest request);
-    public void logoutUser();
+    public void logoutUser(String id);
 
 
 }

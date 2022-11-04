@@ -41,8 +41,8 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 
-    @PostMapping("/logout")
-    public ResponseEntity logoutUser(){
+    @PostMapping("/logout/{id}")
+    public ResponseEntity logoutUser(@PathVariable("id") String id){
         return null;
     }
 
