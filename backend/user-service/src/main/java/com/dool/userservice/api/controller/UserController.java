@@ -2,10 +2,14 @@ package com.dool.userservice.api.controller;
 
 import com.dool.userservice.api.request.BuyBackgroundRequest;
 import com.dool.userservice.api.request.CreateUserRequest;
-import com.dool.userservice.api.response.UserBackgroundResponse;
-import com.dool.userservice.api.service.UserBackgroundService;
+<<<<<<< backend/user-service/src/main/java/com/dool/userservice/api/controller/UserController.java
+import com.dool.userservice.api.request.LoginRequest;
+import com.dool.userservice.api.request.TokenRequest;
+import com.dool.userservice.api.response.UserResponse;
 import com.dool.userservice.api.service.UserService;
 import com.dool.userservice.db.domain.User;
+import com.dool.userservice.api.response.UserBackgroundResponse;
+import com.dool.userservice.api.service.UserBackgroundService;
 import com.dool.userservice.db.domain.UserBackground;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,14 +33,14 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUser(@PathVariable("id") String id){
+    public ResponseEntity<UserResponse> getUser(@PathVariable("id") String id){
         User user = userService.getUser(id);
 
         if(user == null){
             ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
 
-        return ResponseEntity.status(HttpStatus.OK).body(user);
+        return ResponseEntity.status(HttpStatus.OK).body(UserResponse.of(user));
     }
 
     @PostMapping
@@ -70,6 +74,21 @@ public class UserController {
         userService.buyBackground(request);
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+    }
+
+    @PostMapping("/token")
+    public ResponseEntity inputToken(@RequestBody TokenRequest request){
+        userService.inputToken(request);
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+    }
+
+    @PostMapping("/isUser")
+    public ResponseEntity<Boolean> isUser(@RequestBody LoginRequest request){
+        if(userService.isUser(request)){
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(true);
+        }
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(false);
     }
 
     @GetMapping("/background/{id}")
