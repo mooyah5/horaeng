@@ -8,5 +8,6 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 public interface CharacterMissionRepository extends JpaRepository<CharacterMission, Long> {
-    Long countAllByUserCharacterAndCreatedDateLessThanAndClearIsFalse(UserCharacter userCharacter, LocalDateTime date);
+    CharacterMission findTopByUserCharacterAndIsClearTrueOrderByCreatedDateDesc(UserCharacter user_character_id);
+    Long countAllByUserCharacterAndCreatedDateLessThanAndIsClearTrue(UserCharacter user_character_id, LocalDateTime date);
 }
