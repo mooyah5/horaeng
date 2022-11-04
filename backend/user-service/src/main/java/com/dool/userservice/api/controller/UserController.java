@@ -2,10 +2,10 @@ package com.dool.userservice.api.controller;
 
 import com.dool.userservice.api.request.BuyBackgroundRequest;
 import com.dool.userservice.api.request.CreateUserRequest;
-<<<<<<< backend/user-service/src/main/java/com/dool/userservice/api/controller/UserController.java
 import com.dool.userservice.api.request.LoginRequest;
 import com.dool.userservice.api.request.TokenRequest;
 import com.dool.userservice.api.response.UserResponse;
+import com.dool.userservice.api.response.ValidResponse;
 import com.dool.userservice.api.service.UserService;
 import com.dool.userservice.db.domain.User;
 import com.dool.userservice.api.response.UserBackgroundResponse;
@@ -84,11 +84,14 @@ public class UserController {
     }
 
     @PostMapping("/isUser")
-    public ResponseEntity<Boolean> isUser(@RequestBody LoginRequest request){
+    public ResponseEntity<ValidResponse> isUser(@RequestBody LoginRequest request){
+        ValidResponse validResponse = new ValidResponse();
         if(userService.isUser(request)){
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(true);
+            validResponse.setUser(true);
+            return ResponseEntity.status(HttpStatus.OK).body(validResponse);
         }
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(false);
+        validResponse.setUser(false);
+        return ResponseEntity.status(HttpStatus.OK).body(validResponse);
     }
 
     @GetMapping("/background/{id}")
