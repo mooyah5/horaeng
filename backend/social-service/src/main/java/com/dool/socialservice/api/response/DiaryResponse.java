@@ -17,7 +17,6 @@ public class DiaryResponse {
     private String content;
     private String imgUrl;
     private LocalDateTime createDate;
-    private String title;
 
     static public DiaryResponse of(Diary diary){
         DiaryResponse response = DiaryResponse.builder()
@@ -28,7 +27,6 @@ public class DiaryResponse {
                 .content(diary.getContent())
                 .imgUrl(diary.getImgUrl())
                 .createDate(diary.getCreateDate())
-                .title(diary.getTitle())
                 .build();
         return response;
     }

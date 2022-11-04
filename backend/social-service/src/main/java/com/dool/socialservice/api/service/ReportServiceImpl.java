@@ -1,7 +1,6 @@
 package com.dool.socialservice.api.service;
 
 import com.dool.socialservice.api.request.CreateReportRequest;
-import com.dool.socialservice.api.request.UpdateReportRequest;
 import com.dool.socialservice.db.domain.Diary;
 import com.dool.socialservice.db.domain.Report;
 import com.dool.socialservice.db.domain.ReportStatus;
