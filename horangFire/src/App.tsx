@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import StackNavigation from './navigations/Stack';
+import SplashScreen from 'react-native-splash-screen';
 
 const styles = StyleSheet.create({
   outer: {
@@ -14,6 +15,16 @@ const styles = StyleSheet.create({
 });
 
 export default function App() {
+  useEffect(() => {
+    try {
+      setTimeout(() => {
+        SplashScreen.hide();
+      }, 2000);
+    } catch (err) {
+      console.error(err);
+    }
+  }, []);
+
   return (
     <View style={styles.outer}>
       <NavigationContainer>
