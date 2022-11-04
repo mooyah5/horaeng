@@ -42,7 +42,7 @@ const Stack = createStackNavigator();
 const StackNavigation = () => {
   return (
     <Stack.Navigator
-      initialRouteName="Community"
+      initialRouteName="Login"
       screenOptions={{
         headerShown: false,
       }}>
