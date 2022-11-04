@@ -5,7 +5,6 @@ import lombok.Setter;
 
 @Setter @Getter
 public class CreateDiaryRequest {
-    private String title;
     private String content;
     private String imgUrl;
     private String userId;
