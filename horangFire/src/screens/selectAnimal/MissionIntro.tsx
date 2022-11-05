@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {color, font} from '../../styles/colorAndFontTheme';
 import Btn from '../../components/common/Btn_short';
 
@@ -9,6 +9,8 @@ import {
   SafeAreaView,
   Image,
   Pressable,
+  Alert,
+  BackHandler,
 } from 'react-native';
 import {scriptIntro} from '../../script/scriptIntro';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -75,9 +77,29 @@ interface Props {
 const MissionIntro = ({navigation, route}: Props) => {
   const {params} = route;
   const characterName = params.animalName;
+  const selectedCharacterSpecies = params.selectedCharacterSpecies;
 
   const [scriptNum, setScriptNum] = useState<number>(1);
 
+  useEffect(() => {
+    const backAction = () => {
+      Alert.alert('성냥팔이 호랭이', '앱을 종료하시겠습니까?', [
+        {
+          text: '취소',
+          onPress: () => null,
+        },
+        {text: '확인', onPress: () => BackHandler.exitApp()},
+      ]);
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, []);
   const handleScriptNum = () => {
     if (scriptNum < 7) {
       setScriptNum(prev => prev + 1);
@@ -103,17 +125,17 @@ const MissionIntro = ({navigation, route}: Props) => {
           source={require('../../../src/assets/image/b.png')}
         />
         <Text style={styles.missionText}>
-          {scriptIntro.tiger[`${scriptNum}`]}
+          {scriptIntro[selectedCharacterSpecies][`${scriptNum}`]}
         </Text>
       </Pressable>
       <View style={styles.section3}>
-        <View style={styles.imageContainer}>
+        <Pressable style={styles.imageContainer} onPress={handleScriptNum}>
           <Image
             style={styles.characterImage}
             source={require('../../assets/image/character/tiger.png')}
           />
           <Text style={styles.characterName}>{characterName}</Text>
-        </View>
+        </Pressable>
       </View>
       <View style={styles.section4}>{startButton()}</View>
     </SafeAreaView>

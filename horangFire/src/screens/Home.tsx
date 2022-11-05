@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   ImageBackground,
   StyleSheet,
@@ -7,6 +7,8 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Image,
+  Alert,
+  BackHandler,
 } from 'react-native';
 import {color, font} from '../styles/colorAndFontTheme';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -139,6 +141,25 @@ const Home = ({navigation}: Props) => {
       setScriptNum(1);
     }
   };
+  useEffect(() => {
+    const backAction = () => {
+      Alert.alert('성냥팔이 호랭이', '앱을 종료하시겠습니까?', [
+        {
+          text: '취소',
+          onPress: () => null,
+        },
+        {text: '확인', onPress: () => BackHandler.exitApp()},
+      ]);
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, []);
   return (
     <ImageBackground
       source={require('../../src/assets/image/background1.png')}
@@ -146,16 +167,8 @@ const Home = ({navigation}: Props) => {
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.section0}>
           <View style={styles.section0BtnContainer}>
+            <View style={styles.buttonTouchableNone}></View>
             <TouchableOpacity
-              onPress={() => navigation.navigate('Points')}
-              style={styles.buttonTouchable}>
-              <Image
-                style={styles.buttons}
-                source={require('../assets/image/setting.png')}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              // 선혁님 페이지 - 환경설정
               onPress={() => navigation.navigate('Option')}
               style={styles.buttonTouchable}>
               <Image
@@ -172,7 +185,6 @@ const Home = ({navigation}: Props) => {
               <Text style={styles.characterText}>n일차</Text>
             </View>
             <TouchableOpacity
-              //선혁님 페이지 배경화면 설정
               onPress={() => navigation.navigate('BackgroundOption')}
               style={styles.buttonTouchable}>
               <Image
