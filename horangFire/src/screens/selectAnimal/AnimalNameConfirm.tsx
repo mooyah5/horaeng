@@ -36,10 +36,16 @@ interface Props {
 const AnimalNameConfirm = ({navigation, route}: Props) => {
   const {params} = route;
   const characterName = params.animalName;
-  function nickNameConfirm(name: string) {
-    // 닉네임 post 요청
-    navigation.navigate('MissionIntro', {animalName: name});
-  }
+  const selectedCharacterId = params.selectedCharacterId;
+  const selectedCharacterSpecies = params.selectedCharacterSpecies;
+
+  const nickNameConfirm = (name: string) => {
+    // http://{{character-service}}/character-service/user-character 여기다가 보내자!
+    navigation.navigate('MissionIntro', {
+      animalName: name,
+      selectedCharacterSpecies: selectedCharacterSpecies,
+    });
+  };
   return (
     <View style={styles.backgroundColor}>
       <SafeAreaView>

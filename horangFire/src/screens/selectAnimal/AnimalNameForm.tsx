@@ -76,26 +76,38 @@ const styles = StyleSheet.create({
 
 interface Props {
   navigation: StackNavigationProp<ParamListBase, 'AnimalNameForm'>;
+  route: any;
 }
 
-const AnimalNameForm = ({navigation}: Props) => {
+const AnimalNameForm = ({navigation, route}: Props) => {
   const [animalName, setAnimalName] = useState('');
+  const {params} = route;
+
+  const selectedCharacterId = params.selectedCharacterId;
+  const selectedCharacterName = params.selectedCharacterName;
+  const selectedCharacterSpecies = params.selectedCharacterSpecies;
 
   const nickName = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]+$/;
   const nickNameChk = (name: string) => {
     const result: boolean = nickName.test(name);
     if (result) {
-      navigation.navigate('AnimalNameConfirm', {animalName: animalName});
+      navigation.navigate('AnimalNameConfirm', {
+        animalName: animalName,
+        selectedCharacterId: selectedCharacterId,
+        selectedCharacterSpecies: selectedCharacterSpecies,
+      });
     } else {
       Alert.alert('닉네임은 한글,영어,숫자 포함 8자리 이하만 가능합니다.');
     }
-  }
+  };
 
   return (
     <View style={styles.backgroundColor}>
       <SafeAreaView>
         <View style={styles.textContainer}>
-          <Text style={styles.text1}>내 벵갈 호랑이의 이름은</Text>
+          <Text style={styles.text1}>
+            내 {selectedCharacterName}(이)의 이름은
+          </Text>
           <View style={styles.textInputContainer}>
             <TextInput
               style={styles.userInput}
