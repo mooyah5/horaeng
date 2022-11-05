@@ -1,5 +1,7 @@
 package com.dool.authservice.client;
 
+import com.dool.authservice.domain.User;
+import com.dool.authservice.request.CreateUserRequest;
 import com.dool.authservice.request.LoginRequest;
 import com.dool.authservice.request.TokenRequest;
 import com.dool.authservice.response.ValidResponse;
@@ -14,5 +16,8 @@ public interface UserServiceClient {
 
     @PostMapping("/user-service/user/token")
     void inputToken(@RequestBody TokenRequest request);
+
+    @PostMapping("/user-service/user")
+    User createUser(@RequestBody CreateUserRequest request);
 
 }
