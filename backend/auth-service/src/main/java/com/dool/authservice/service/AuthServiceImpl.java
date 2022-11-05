@@ -6,6 +6,7 @@ import com.dool.authservice.request.LoginRequest;
 import com.dool.authservice.request.TokenRequest;
 import com.dool.authservice.response.TokenResponse;
 import com.dool.authservice.response.UserResponse;
+import com.dool.authservice.response.ValidResponse;
 import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,47 +23,47 @@ public class AuthServiceImpl implements AuthService {
     final JwtTokenProvider jwtTokenProvider;
 
     @Override
-    public TokenResponse userLogin(LoginRequest request, HttpServletResponse httpServletResponse){
+    public void userLogin(LoginRequest request, HttpServletResponse httpServletResponse){
+
+
+        String accessToken = jwtTokenProvider.createAccessToken("id",request.getId());
+        String refreshToken = jwtTokenProvider.createRefreshToken("id",request.getId());
 
         // 관리자 로그인
-        if(request.getRole() == RoleType.Admin){
-            if(userServiceClient.isUser(request)){
-                TokenResponse tokenResponse = getToken(request.getId());
-                jwtTokenProvider.setHeaderAccessToken(httpServletResponse, tokenResponse.getAccessToken());
-                return tokenResponse;
-            }else{
-                return null;
+        if(request.getRole().equals(RoleType.Admin)){
+            ValidResponse res = userServiceClient.isUser(request);
+            if(res.isUser()){
+                // refresh token db 저장
+                TokenRequest tokenRequest = new TokenRequest();
+                tokenRequest.setId(request.getId());
+                tokenRequest.setToken(refreshToken);
+                userServiceClient.inputToken(tokenRequest);
+
+                // header와 cookie에 각각 저장
+                jwtTokenProvider.setHeaderAccessToken(httpServletResponse, accessToken);
+                jwtTokenProvider.setCookieRefreshToken(httpServletResponse, refreshToken);
             }
         }
 
         // 카카오 로그인
-        if(request.getRole() == RoleType.User){
-            if(!userServiceClient.isUser(request)){
+        if(request.getRole().equals(RoleType.User)){
+            ValidResponse res = userServiceClient.isUser(request);
+            if(!res.isUser()){
                 // 회원가입 필요
-
+                System.out.println("회원가입");
             }
 
-            TokenResponse response = getToken(request.getId());
-            jwtTokenProvider.setHeaderAccessToken(httpServletResponse, response.getAccessToken());
-            return response;
+            // refresh token db 저장
+            TokenRequest tokenRequest = new TokenRequest();
+            tokenRequest.setId(request.getId());
+            tokenRequest.setToken(refreshToken);
+            userServiceClient.inputToken(tokenRequest);
+
+            // header와 cookie에 각각 저장
+            jwtTokenProvider.setHeaderAccessToken(httpServletResponse, accessToken);
+            jwtTokenProvider.setCookieRefreshToken(httpServletResponse, refreshToken);
         }
-        return null;
     }
 
-    public TokenResponse getToken(String id ){
-        String accessToken = jwtTokenProvider.createAccessToken(id);
-        String refreshToken = jwtTokenProvider.createRefreshToken(id);
-
-        TokenRequest request = new TokenRequest();
-        request.setId(id);
-        request.setToken(refreshToken);
-        userServiceClient.inputToken(request);
-
-        TokenResponse response = new TokenResponse();
-        response.setAccessToken(accessToken);
-        response.setRefreshToken(refreshToken);
-
-        return response;
-    }
 
 }

@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.net.http.HttpResponse;
 
 public interface AuthService {
-    public TokenResponse userLogin(LoginRequest request, HttpServletResponse httpServletResponse);
+    public void userLogin(LoginRequest request, HttpServletResponse httpServletResponse);
 
 
 }
