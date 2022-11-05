@@ -7,7 +7,6 @@ import com.dool.userservice.api.request.TokenRequest;
 import com.dool.userservice.db.domain.Background;
 import com.dool.userservice.db.domain.RoleType;
 import com.dool.userservice.db.domain.User;
-import com.dool.userservice.db.domain.UserBackground;
 import com.dool.userservice.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -31,7 +30,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User createUser(CreateUserRequest request) {
-        User user = new User(request.getId(), request.getPassword());
+        User user = new User(request.getId());
         userRepository.create(user);
 
         return userRepository.get(user.getId());
