@@ -25,10 +25,10 @@ public class User {
     private RoleType role;
 
 
-    public User(String id, String password) {
+    public User(String id) {
         super();
         this.id = id;
-        this.password = password;
+        this.password = "";
         this.role = RoleType.User;
         this.reportCnt = 0L;
         this.point = 0L;

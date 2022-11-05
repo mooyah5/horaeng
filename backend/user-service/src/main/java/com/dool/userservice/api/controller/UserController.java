@@ -21,6 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/user-service/user")
+@CrossOrigin("*")
 public class UserController {
 
     UserService userService;
