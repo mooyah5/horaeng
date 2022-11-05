@@ -1,5 +1,6 @@
 package com.dool.authservice.controller;
 
+import com.dool.authservice.common.BaseResponse;
 import com.dool.authservice.request.LoginRequest;
 import com.dool.authservice.response.TokenResponse;
 import com.dool.authservice.service.AuthService;
@@ -25,9 +26,9 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody LoginRequest request, HttpServletResponse httpServletResponse){
+    public ResponseEntity<BaseResponse> login(@RequestBody LoginRequest request, HttpServletResponse httpServletResponse){
         authService.userLogin(request, httpServletResponse);
-        return ResponseEntity.status(HttpStatus.OK).body(null);
+        return ResponseEntity.status(HttpStatus.OK).body(BaseResponse.of(HttpStatus.OK, "로그인 성공"));
     }
 
 
