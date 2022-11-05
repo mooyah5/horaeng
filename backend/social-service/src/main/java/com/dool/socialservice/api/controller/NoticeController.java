@@ -15,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/social-service/notice")
+@CrossOrigin("*")
 public class NoticeController {
 
     private final NoticeService noticeService;

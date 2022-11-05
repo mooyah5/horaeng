@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/social-service/diary")
+@CrossOrigin("*")
 public class DiaryController {
     final DiaryService diaryService;
 

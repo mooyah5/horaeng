@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/social-service/report")
+@CrossOrigin("*")
 public class ReportController {
 
     final private ReportService reportService;
