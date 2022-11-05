@@ -16,6 +16,7 @@ import java.net.http.HttpResponse;
 
 @RestController
 @RequestMapping("/auth-service/auth")
+@CrossOrigin("*")
 public class AuthController {
 
     AuthService authService;
