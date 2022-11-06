@@ -31,7 +31,6 @@ public class CharacterMissionServiceImpl implements CharacterMissionService {
 
         CharacterMission characterMission = characterMissionRepository.findTopByUserCharacter_IdAndIsClearTrueAndMission_TypeOrderByCreatedDateDesc(user_character_id, MissionType.Personal);
 
-        System.out.println(characterMission.getCreatedDate().format(DateTimeFormatter.BASIC_ISO_DATE));
         if(today.equals(characterMission.getCreatedDate().format(DateTimeFormatter.BASIC_ISO_DATE))){
             statue = true;
         }

@@ -1,9 +1,6 @@
 package com.dool.characterservice.db.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -11,7 +8,7 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
 public class CharacterDialog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

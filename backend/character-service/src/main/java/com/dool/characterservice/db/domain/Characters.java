@@ -11,7 +11,7 @@ import javax.persistence.Id;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
 public class Characters {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
