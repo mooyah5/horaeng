@@ -6,6 +6,6 @@ import com.dool.characterservice.api.response.UserCharacterResponseDto;
 public interface UserCharacterService {
     UserCharacterResponseDto creatUserCharacter(UserCharacterRequestDto requestDto);
     UserCharacterResponseDto getUserCharacter(Long id);
-    UserCharacterResponseDto getUserCharacterByUserId(Long user_id);
+    UserCharacterResponseDto getUserCharacterByUserId(String user_id);
     Long setBackground(Long id, String background);
 }

@@ -38,7 +38,7 @@ public class UserCharacterController {
     }
 
     @GetMapping("/user/{user_id}")
-    private ResponseEntity<?> getCharacterInfos(@PathVariable("user_id") Long user_id){
+    private ResponseEntity<?> getCharacterInfos(@PathVariable("user_id") String user_id){
         Map<String, Object> result = new HashMap<>();
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
         try {

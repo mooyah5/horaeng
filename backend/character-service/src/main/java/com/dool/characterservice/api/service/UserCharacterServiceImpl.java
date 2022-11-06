@@ -65,7 +65,7 @@ public class UserCharacterServiceImpl implements UserCharacterService{
 
     // 유저 아이디로 유저 캐릭터 찾아오기
     @Override
-    public UserCharacterResponseDto getUserCharacterByUserId(Long user_id) {
+    public UserCharacterResponseDto getUserCharacterByUserId(String user_id) {
 //        Optional<UserCharacter> object = userCharacterRepository.findByUserId_IdAndStatusFalse(user_id);
         UserCharacter userCharacter = userCharacterRepository.findByUserIdAndStatusFalse(user_id);
 

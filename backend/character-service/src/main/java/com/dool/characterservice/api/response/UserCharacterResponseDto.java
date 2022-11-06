@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Builder
 public class UserCharacterResponseDto {
     private Long id;
-    private Long user_id;
+    private String user_id;
     private Long character_id;
     private LocalDate created_date;
     private String nickname;
