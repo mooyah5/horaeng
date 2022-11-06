@@ -1,9 +1,6 @@
 package com.dool.characterservice.db.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,7 +9,7 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
 public class CharacterMission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,18 +1,16 @@
 package com.dool.characterservice.db.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
 public class UserCharacter{
 
     @Id
@@ -24,12 +22,6 @@ public class UserCharacter{
     private Characters characters;
     private String nickname;
     private CharacterLevel level;
-    private LocalDateTime createdDate;
-
+    private LocalDate createdDate;
     private boolean status;
-
-    @PrePersist
-    void setStatus(){
-        this.status = false;
-    }
 }

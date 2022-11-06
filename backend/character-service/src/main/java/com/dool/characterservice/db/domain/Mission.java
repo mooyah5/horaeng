@@ -1,9 +1,6 @@
 package com.dool.characterservice.db.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +11,7 @@ import javax.persistence.Id;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
 public class Mission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
