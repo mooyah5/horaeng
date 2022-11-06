@@ -16,7 +16,7 @@ public class UserCharacter{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long userId;
+    private String userId;
     @ManyToOne
     @JoinColumn(name = "characters_id", referencedColumnName = "id")
     private Characters characters;
