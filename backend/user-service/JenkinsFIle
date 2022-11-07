@@ -1,0 +1,32 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('build'){
+            steps{
+                script{
+                    try {
+                        sh 'chmod +x gradlew'
+                        sh './gradlew clean build'
+
+                        sh 'docker stop user-service'
+                        sh 'docker rm user-service'
+                        sh 'docker rmi user-service'
+                    } catch (e) {
+                        sh 'echo "user-service stop중 실패"'
+                    }
+                    try{
+                        sh 'docker build -t user-service ./backend/user-service'
+                    }catch(e){
+                        sh 'echo "docker 이미지빌드중 실패"'
+                    }
+                }
+            }
+        }
+        stage("run"){
+            steps {
+                sh 'docker run -d -p 8010:8010 --network msa --name user-service user-service'
+            }
+        }
+    }
+}
