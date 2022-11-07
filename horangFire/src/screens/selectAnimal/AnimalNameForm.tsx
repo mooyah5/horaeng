@@ -88,6 +88,7 @@ const AnimalNameForm = ({navigation, route}: Props) => {
   const selectedCharacterSpecies = params.selectedCharacterSpecies;
 
   const nickName = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]+$/;
+
   const nickNameChk = (name: string) => {
     const result: boolean = nickName.test(name);
     if (result) {

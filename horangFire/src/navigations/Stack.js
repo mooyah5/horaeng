@@ -14,11 +14,12 @@ import AnimalNameForm from '../screens/selectAnimal/AnimalNameForm';
 import AnimalNameConfirm from '../screens/selectAnimal/AnimalNameConfirm';
 import MissionIntro from '../screens/selectAnimal/MissionIntro';
 
-import MissonHome from '../screens/mission/index';
+// mission page & modal
 import MainMission from '../screens/mission/mainMission';
 import CommonMission from '../screens/mission/commonMission';
 import LookCommon from '../screens/mission/lookCommon';
 import SubmitMission from '../screens/mission/submitMission';
+import CameraModal from '../components/mission/CameraModal';
 
 import Community from '../screens/community/index';
 
@@ -29,6 +30,7 @@ import ListOfDiaries from '../components/collection/ListOfDiaries';
 import DiaryDetail from '../components/collection/DiaryDetail';
 import MissionComplete from '../screens/selectAnimal/MissionComplete';
 
+// option Modal
 import SelectModal from '../components/options/SelectModal';
 import ApplyModal from '../components/options/ApplyModal';
 
@@ -41,7 +43,7 @@ const Stack = createStackNavigator();
 const StackNavigation = () => {
   return (
     <Stack.Navigator
-      initialRouteName="Login"
+      initialRouteName="SelectAnimal"
       screenOptions={{
         headerShown: false,
       }}>
@@ -63,8 +65,8 @@ const StackNavigation = () => {
           options={{gestureEnabled: false}}
         />
         <Stack.Screen name="MissionComplete" component={MissionComplete} />
-        {/* mission page */}
 
+        {/* mission page */}
         <Stack.Screen name="MissionHome" component={MissionHome} />
         <Stack.Screen name="MainMission" component={MainMission} />
         <Stack.Screen name="SubmitMission" component={SubmitMission} />
@@ -96,6 +98,7 @@ const StackNavigation = () => {
         <Stack.Screen name="InfoOfAnimal" component={InfoOfAnimal} />
         <Stack.Screen name="ListOfDiaries" component={ListOfDiaries} />
         <Stack.Screen name="DiaryDetail" component={DiaryDetail} />
+        <Stack.Screen name="CameraModal" component={CameraModal} />
       </Stack.Group>
     </Stack.Navigator>
   );

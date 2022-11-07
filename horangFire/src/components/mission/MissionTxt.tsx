@@ -1,3 +1,5 @@
+import {ParamListBase} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
 import React from 'react';
 import {StyleSheet, Text, TextInput, View} from 'react-native';
 import {color, font} from '../../styles/colorAndFontTheme';
@@ -6,6 +8,7 @@ import ImagePicker from './ImagePicker';
 type missionProps = {
   mission: string;
   setDiary: React.Dispatch<React.SetStateAction<string>>;
+  navigation: StackNavigationProp<ParamListBase, 'MainMission'>;
 };
 
 const styles = StyleSheet.create({
@@ -52,12 +55,12 @@ const styles = StyleSheet.create({
     height: 430,
   },
 });
-const MissionTxt = ({mission, setDiary}: missionProps) => {
+const MissionTxt = ({mission, setDiary, navigation}: missionProps) => {
   // function changeInput() {}
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>'{mission}' 미션</Text>
-      <ImagePicker />
+      <Text style={styles.title}>{mission} 미션</Text>
+      <ImagePicker navigation={navigation} />
 
       <TextInput
         style={styles.input}

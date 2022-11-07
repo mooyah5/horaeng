@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
-// import { View } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {ParamListBase} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
 import {Image, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {color, font} from '../../styles/colorAndFontTheme';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import imagesPath from '../../assets/image/constants/imagesPath';
+// import imagesPath from '../../assets/image/constants/imagesPath';
+import {useSelector} from 'react-redux';
+import {selectMainFile} from '../../store/mission';
 
 const styles = StyleSheet.create({
   photo: {
@@ -30,11 +32,14 @@ const styles = StyleSheet.create({
   },
 });
 
-function ImagePicker() {
+interface Props {
+  navigation: StackNavigationProp<ParamListBase, 'MainMission'>;
+}
+
+const ImagePicker = ({navigation}: Props) => {
   const [fileImage, setFileImage] = useState('');
-  const clickEvent = () => {
-    console.log('zz');
-  };
+
+  // const fileUrl = useSelector(setFile{file});
 
   //   async function takeImageHandler() {
   //     const result = await launchCamera({
@@ -46,21 +51,18 @@ function ImagePicker() {
   //     console.log(result);
   //   }
 
-  function showPicker() {
-    //  사용자 앨범 접근
-    launchImageLibrary({}, res => {
-      //   const formdata = new FormData();
-      //   formdata.append('file', res.assets[0].uri);
-      //   console.log(res.assets[0]);
+  // const img = useSelector(
+  //   (state: {mainMission: missionType}) => state.mainMission,
+  // );
+  const img = useSelector(selectMainFile);
+  useEffect(() => {
+    console.log(img);
+    setFileImage(img);
+  }, [img]);
 
-      // 취소 버튼을 누르면
-      if (!res.didCancel) {
-        // 사진을 누르면
-        setFileImage(res.assets[0].uri);
-      } else {
-        console.log('취소!'); // 취소 누를시
-      }
-    });
+  function showPicker() {
+    // 모달 창 보여주기
+    navigation.navigate('CameraModal');
   }
 
   return (
@@ -74,14 +76,7 @@ function ImagePicker() {
       {fileImage !== '' && (
         <Image style={styles.preview} source={{uri: fileImage}} />
       )}
-
-      {/* {!isMain && (
-        <Text style={styles.photoTxt}>
-          공통 미션에는 {'\n'} 사진 업로드가 필수야!{'\n'}
-          (? 버튼으로 자세한 사항을 확인해봐!)
-        </Text>
-      )} */}
     </TouchableOpacity>
   );
-}
+};
 export default ImagePicker;

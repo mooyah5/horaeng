@@ -1,6 +1,8 @@
 import {ParamListBase} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
+import {useEffect, useState} from 'react';
 import {StyleSheet, Text, View, SafeAreaView, FlatList} from 'react-native';
+import api from '../../api/api_controller';
 import {color, font} from '../../styles/colorAndFontTheme';
 import OnboardingItem from './Onboarding';
 
@@ -68,7 +70,7 @@ interface Props {
 }
 
 interface ANIMAL {
-  id: string;
+  id: number;
   name: string;
   species: string;
   image: string;
@@ -77,7 +79,7 @@ interface ANIMAL {
 }
 const animal: ANIMAL[] = [
   {
-    id: '1',
+    id: 1,
     name: '벵갈호랑이',
     species: 'tiger',
     image: require('../../assets/image/character/tiger.png'),
@@ -85,7 +87,7 @@ const animal: ANIMAL[] = [
     mission: '종이 아끼기',
   },
   {
-    id: '2',
+    id: 2,
     name: '오목눈이',
     species: 'bird',
     image: require('../../assets/image/character/tiger.png'),
@@ -93,7 +95,7 @@ const animal: ANIMAL[] = [
     mission: '마스크 올바르게 버리기',
   },
   {
-    id: '3',
+    id: 3,
     name: '아프리카코끼리',
     species: 'elephant',
     image: require('../../assets/image/character/tiger.png'),
@@ -101,7 +103,7 @@ const animal: ANIMAL[] = [
     mission: '화석연료 사용 줄이기',
   },
   {
-    id: '4',
+    id: 4,
     name: '바다거북이',
     species: 'turtle',
     image: require('../../assets/image/character/tiger.png'),
@@ -109,7 +111,7 @@ const animal: ANIMAL[] = [
     mission: '플라스틱 줄이기',
   },
   {
-    id: '5',
+    id: 5,
     name: '펭귄',
     species: 'penguin',
     image: require('../../assets/image/character/tiger.png'),
@@ -119,14 +121,34 @@ const animal: ANIMAL[] = [
 ];
 
 const SelectAnimal = ({navigation}: Props) => {
+  const [characterList, setCharacterList] = useState<ANIMAL[]>([]);
+
+  const getCharacterList = async () => {
+    try {
+      const response = await api.character.getCharacterList();
+      setCharacterList(response.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // 동물리스트 조회
+  useEffect(() => {
+    getCharacterList();
+  }, []);
+
+  useEffect(() => {
+    console.log(characterList);
+  }, [characterList]);
+
   return (
     <SafeAreaView style={styles.backgroundColor}>
-      <View style={styles.section1}></View>
+      <View style={styles.section1} />
       <View style={styles.section2}>
         <Text style={styles.text1}>어떤동물과함께할까?</Text>
         <Text style={styles.text2}>21일동안 함께 할 동물을 골라봐!</Text>
       </View>
-      <View style={styles.section3}></View>
+      <View style={styles.section3} />
       <View style={styles.section4}>
         <FlatList
           data={animal}
@@ -138,8 +160,8 @@ const SelectAnimal = ({navigation}: Props) => {
           pagingEnabled
         />
       </View>
-      <View style={styles.section5}></View>
-      <View style={styles.section6}></View>
+      <View style={styles.section5} />
+      <View style={styles.section6} />
     </SafeAreaView>
   );
 };

@@ -5,6 +5,8 @@ import {Image, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import Btn from '../../components/common/Btn_long';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {ParamListBase} from '@react-navigation/native';
+import {useSelector} from 'react-redux';
+import {selectName} from '../../store/character';
 
 const styles = StyleSheet.create({
   container: {
@@ -29,6 +31,9 @@ const styles = StyleSheet.create({
   btns: {
     flex: 1.5,
     flexDirection: 'row',
+  },
+  btn: {
+    paddingHorizontal: 6,
   },
   txtTitle: {
     fontFamily: font.beeBold,
@@ -56,12 +61,13 @@ interface Props {
 const SubmitMission = ({navigation}: Props) => {
   const mission = '종이 아끼기';
   const days = 1;
+  const name = useSelector(selectName);
   const success = '일차 미션을 성공적으로 마쳤네! \n 고마워!! :)';
   return (
     <SafeAreaView style={{backgroundColor: color.BACK_SUB}}>
       <View style={styles.container}>
         <View style={styles.cont1}>
-          <TitleText title="호랭이 이름" subTitle="기본 미션 수행 완료!" />
+          <TitleText title={name} subTitle="기본 미션 수행 완료!" />
         </View>
         <View style={styles.cont2}>
           <Image
@@ -75,14 +81,18 @@ const SubmitMission = ({navigation}: Props) => {
           </Text>
         </View>
         <View style={styles.btns}>
-          <Btn
-            txt="메인 화면으로"
-            clickEvent={() => navigation.navigate('MissionHome')}
-          />
-          <Btn
-            txt="작성 일지 보기"
-            clickEvent={() => navigation.navigate('MissionHome')}
-          />
+          <View style={styles.btn}>
+            <Btn
+              txt="메인 화면으로"
+              clickEvent={() => navigation.navigate('MissionHome')}
+            />
+          </View>
+          <View style={styles.btn}>
+            <Btn
+              txt="작성 일지 보기"
+              clickEvent={() => navigation.navigate('MissionHome')}
+            />
+          </View>
         </View>
       </View>
     </SafeAreaView>
