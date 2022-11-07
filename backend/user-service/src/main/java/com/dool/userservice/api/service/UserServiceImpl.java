@@ -68,12 +68,6 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void inputToken(TokenRequest request ){
-        User user = userRepository.get(request.getId());
-        user.setRefreshToken(request.getToken());
-    }
-
-    @Override
     public boolean isUser(LoginRequest request){
 
         if(request.getRole() == RoleType.User){

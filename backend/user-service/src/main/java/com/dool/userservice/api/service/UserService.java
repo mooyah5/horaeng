@@ -13,7 +13,6 @@ public interface UserService {
     public void buyBackground(BuyBackgroundRequest request);
     void inputToken(TokenRequest request);
     public void logoutUser(String id);
-    public void inputToken(TokenRequest request);
     public boolean isUser(LoginRequest request);
 
 
