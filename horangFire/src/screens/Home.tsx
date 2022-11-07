@@ -14,6 +14,8 @@ import {color, font} from '../styles/colorAndFontTheme';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {ParamListBase} from '@react-navigation/native';
 import {scriptMain} from '../script/scriptMain';
+import {useSelector} from 'react-redux';
+import {selectBackgroundNumber} from '../store/background';
 
 const styles = StyleSheet.create({
   backgroundImage: {
@@ -126,12 +128,19 @@ const styles = StyleSheet.create({
   },
 });
 
+export const BACKGROUND = [
+  require('../assets/image/background/snow_background.png'),
+  require('../assets/image/background/forest_background.png'),
+  require('../assets/image/background/london_background.png'),
+];
+
 interface Props {
   navigation: StackNavigationProp<ParamListBase, 'Home'>;
 }
 
 const Home = ({navigation}: Props) => {
   const [scriptNum, setScriptNum] = useState<number>(1);
+  const backgroundNumber = useSelector(selectBackgroundNumber);
 
   const handleScriptNum = () => {
     if (scriptNum < 6) {
@@ -167,7 +176,7 @@ const Home = ({navigation}: Props) => {
 
   return (
     <ImageBackground
-      source={require('../../src/assets/image/background/london_background.png')}
+      source={BACKGROUND[backgroundNumber]}
       style={styles.backgroundImage}>
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.section0}>

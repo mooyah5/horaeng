@@ -2,6 +2,12 @@ import {ParamListBase} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {useState} from 'react';
 import {View, StyleSheet, Image, Text, TouchableOpacity} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
+import {BACKGROUND} from '../../screens/Home';
+import {
+  selectBackgroundNumber,
+  setBackgroundNumber,
+} from '../../store/background';
 import {color, font} from '../../styles/colorAndFontTheme';
 import Btn from '../common/Btn_short';
 
@@ -76,14 +82,11 @@ interface Props {
   navigation: StackNavigationProp<ParamListBase, 'BackgroundOption'>;
 }
 
-export const BACKGROUND = [
-  require('../../assets/image/background/snow_background.png'),
-  require('../../assets/image/background/forest_background.png'),
-  require('../../assets/image/background/london_background.png'),
-];
-
 const BackgroundOption = ({navigation}: Props) => {
-  const [selectedBackground, setSelectedBackground] = useState<number>(0);
+  const dispatch = useDispatch();
+  const backgroundNumber = useSelector(selectBackgroundNumber);
+  const [selectedBackground, setSelectedBackground] =
+    useState<number>(backgroundNumber);
 
   const handleRightButton = () => {
     setSelectedBackground(prev => (prev + 1) % 3);
@@ -91,6 +94,11 @@ const BackgroundOption = ({navigation}: Props) => {
 
   const handleLeftButton = () => {
     setSelectedBackground(prev => (prev + 2) % 3);
+  };
+
+  const handleApplyButton = () => {
+    dispatch(setBackgroundNumber(selectedBackground));
+    navigation.navigate('Home');
   };
 
   return (
@@ -122,10 +130,7 @@ const BackgroundOption = ({navigation}: Props) => {
             </TouchableOpacity>
           </View>
           <View style={styles.subSection3}>
-            <Btn
-              txt={'적용하기'}
-              clickEvent={() => navigation.navigate('SelectModal')}
-            />
+            <Btn txt={'적용하기'} clickEvent={handleApplyButton} />
             <Btn txt={'닫기'} clickEvent={() => navigation.navigate('Home')} />
           </View>
           <View style={styles.subSection4} />
