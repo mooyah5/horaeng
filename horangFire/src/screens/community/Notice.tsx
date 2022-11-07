@@ -5,6 +5,7 @@ import {color, font} from '../../styles/colorAndFontTheme';
 import Btn from '../../components/common/Btn_short';
 import CommunityTitleText from '../../components/community/CommunityTitleText';
 import NoticeItem from '../../components/community/NoticeItem';
+import api from '../../api/api_controller';
 
 export interface valueType {
   id: number;
@@ -64,8 +65,31 @@ const styles = StyleSheet.create({
   },
 });
 
+interface Notice {
+  id: number;
+  userId: string;
+  title: string;
+  content: string;
+  createDate: string;
+}
+
 const Notice = ({navigation}: any) => {
   const route = useRoute();
+  const [noticeArticle, setNoticeArticle] = useState<Notice[]>([]);
+
+  console.log(noticeArticle);
+  const getNoticeAll = async () => {
+    try {
+      const response = await api.notice.getNoticeAll();
+      setNoticeArticle(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getNoticeAll();
+  }, []);
 
   const data: valueType[] = [
     {id: 0, name: '전체'},

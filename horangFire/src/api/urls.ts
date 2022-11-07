@@ -42,6 +42,16 @@ const urls = {
     getCharacterDialog: (id: number) =>
       HOST + CHARACTER + 'character-dialog/' + `${id}`,
   },
+  community: {
+    getCommunityAll: () => HOST + SOCIAL + 'diary',
+    getCommunityDetail: (id: number) =>
+      HOST + SOCIAL + 'diary/' + 'item' + `${id}`,
+    report: () => HOST + SOCIAL + REPORT,
+  },
+  notice: {
+    getNoticeAll: () => HOST + SOCIAL + NOTICE,
+    getNoticeDetail: (id: number) => HOST + SOCIAL + NOTICE + `${id}`,
+  },
 };
 
 export default urls;

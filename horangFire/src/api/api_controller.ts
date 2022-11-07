@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {CharacterInfo} from './apiDataType';
+import {CharacterInfo, Report} from './apiDataType';
 import urls from './urls';
 
 const api = {
@@ -73,6 +73,54 @@ const api = {
     getUserInfo: async (userId: string) => {
       const response = await axios({
         url: urls.user.getUserInfo(userId),
+        method: 'get',
+      });
+
+      return response;
+    },
+  },
+
+  community: {
+    getCommunityAll: async () => {
+      const response = await axios({
+        url: urls.community.getCommunityAll(),
+        method: 'get',
+      });
+
+      return response;
+    },
+
+    getCommunityDetail: async (id: number) => {
+      const response = await axios({
+        url: urls.community.getCommunityDetail(id),
+        method: 'get',
+      });
+
+      return response;
+    },
+
+    report: async (data: Report) => {
+      console.log(data);
+      const response = await axios({
+        url: urls.community.report(),
+        method: 'post',
+      });
+      return response;
+    },
+  },
+
+  notice: {
+    getNoticeAll: async () => {
+      const response = await axios({
+        url: urls.notice.getNoticeAll(),
+        method: 'get',
+      });
+
+      return response;
+    },
+    getNoticeDetail: async (id: number) => {
+      const response = await axios({
+        url: urls.notice.getNoticeDetail(id),
         method: 'get',
       });
 

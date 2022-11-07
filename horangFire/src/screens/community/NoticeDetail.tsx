@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import {color, font} from '../../styles/colorAndFontTheme';
 import CommuDetailTitleText from '../../components/community/CommuDetailTitleText';
 import Btn from '../../components/common/Btn_short';
+import api from '../../api/api_controller';
 // import ReportModal from '../../components/options/ReportModal';
 // import SCREEN_WIDTH from '../../assets/image/constants/index'
 
@@ -52,7 +53,34 @@ const styles = StyleSheet.create({
   },
 });
 
+interface NoticeDetail {
+  id: number;
+  userId: string;
+  title: string;
+  content: string;
+  createDate: string;
+}
+
 const NoticeDetail = ({navigation}: any) => {
+  const [noticeDetail, setNoticeDetail] = useState<NoticeDetail[]>([]);
+
+  const getNoticeDetail = async () => {
+    try {
+      const response = await api.notice.getNoticeDetail(3);
+      setNoticeDetail(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getNoticeDetail();
+  }, []);
+
+  useEffect(() => {
+    console.log(noticeDetail);
+  }, [noticeDetail]);
+
   return (
     <View>
       <View style={styles.body}>

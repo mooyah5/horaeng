@@ -196,7 +196,11 @@ const styles = StyleSheet.create({
     paddingRight: 40,
   },
   optionSlider: {flex: 13},
-  optionSwitchName: {fontSize: 20, fontFamily: font.beeBold, paddingRight: 30},
+  optionSwitchName: {
+    fontSize: 20,
+    fontFamily: font.beeBold,
+    marginRight: '18%',
+  },
   optionSwitch: {justifyContent: 'flex-start'},
 });
 

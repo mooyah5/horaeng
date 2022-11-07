@@ -34,7 +34,6 @@ const ReportModal = ({navigation}: any) => {
   const ReportHandle = () => {
     navigation.goBack();
     navigation.navigate('ReportApplyModal');
-    console.log('asdf');
   };
   return (
     <View style={styles.body}>
