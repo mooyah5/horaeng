@@ -1,0 +1,32 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('build'){
+            steps{
+                script{
+                    try {
+                        sh 'chmod +x gradlew'
+                        sh './gradlew clean build'
+
+                        sh 'docker stop gateway'
+                        sh 'docker rm gateway'
+                        sh 'docker rmi gateway'
+                    } catch (e) {
+                        sh 'echo "gateway stop중 실패"'
+                    }
+                    try{
+                        sh 'docker build -t gateway ./backend/gateway'
+                    }catch(e){
+                        sh 'echo "docker 이미지빌드중 실패"'
+                    }
+                }
+            }
+        }
+        stage("run"){
+            steps {
+                sh 'docker run -d -p 8000:8000 --network msa --name gateway gateway'
+            }
+        }
+    }
+}
