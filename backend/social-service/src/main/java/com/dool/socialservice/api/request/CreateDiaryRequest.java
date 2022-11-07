@@ -10,4 +10,5 @@ public class CreateDiaryRequest {
     private String userId;
     private Long userCharacterId;
     private Long charactersId;
+    private Long characterMissionId;
 }

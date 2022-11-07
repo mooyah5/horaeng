@@ -23,12 +23,12 @@ public class DiaryRepository {
     }
 
     public List<Diary> getByUserCharacter(Long userCharacterId){
-        return em.createQuery("select d from Diary d where d.userCharacterId = :userCharacterId")
+        return em.createQuery("select d from Diary d where d.userCharacterId = :userCharacterId order by d.id desc")
                 .setParameter("userCharacterId", userCharacterId)
                 .getResultList();
     }
     public List<Diary> getAll(){
-        return em.createQuery("select d from Diary d").getResultList();
+        return em.createQuery("select d from Diary d order by d.id desc").getResultList();
     }
 
     public void create(Diary diary){
