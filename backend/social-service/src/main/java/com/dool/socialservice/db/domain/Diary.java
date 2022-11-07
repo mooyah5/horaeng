@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Setter@Getter
@@ -19,10 +20,15 @@ public class Diary {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     private Long charactersId;
+    @NotNull
     private String userId;
+    @NotNull
     private Long userCharacterId;
+    @NotNull
     private String content;
+    @NotNull
     private String imgUrl;
     private LocalDateTime createDate;
 
