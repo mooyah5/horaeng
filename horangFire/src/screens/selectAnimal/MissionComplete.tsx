@@ -102,6 +102,7 @@ const MissionComplete = ({navigation}: Props) => {
           source={require('../../../src/assets/image/b.png')}
         />
         <Text style={styles.missionText}>
+          {/* tiger = 리덕스에서 가져오는걸로 변경하기 !*/}
           {scriptMissionComplete.tiger[`${scriptNum}`]}
         </Text>
       </Pressable>

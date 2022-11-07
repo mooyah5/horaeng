@@ -15,6 +15,7 @@ import {
 import {scriptIntro} from '../../script/scriptIntro';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {ParamListBase} from '@react-navigation/native';
+import api from '../../api/api_controller';
 
 const styles = StyleSheet.create({
   section1: {
@@ -74,12 +75,39 @@ interface Props {
   route: any;
 }
 
+interface Dialog {
+  id: number;
+  dialog: string;
+  characters_id: number;
+  characterDialogType: string;
+}
+
 const MissionIntro = ({navigation, route}: Props) => {
+  const [characterDialog, setCharacterDialog] = useState<Dialog[]>([]);
   const {params} = route;
   const characterName = params.animalName;
   const selectedCharacterSpecies = params.selectedCharacterSpecies;
+  const selectedCharacterId = params.selectedCharacterId;
 
   const [scriptNum, setScriptNum] = useState<number>(1);
+  const getCharacterDialog = async () => {
+    try {
+      const response = await api.character.getCharacterDialog(
+        selectedCharacterId,
+      );
+      setCharacterDialog(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getCharacterDialog();
+  }, []);
+
+  useEffect(() => {
+    console.log(characterDialog);
+  }, [characterDialog]);
 
   useEffect(() => {
     const backAction = () => {

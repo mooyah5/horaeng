@@ -160,6 +160,11 @@ const Home = ({navigation}: Props) => {
 
     return () => backHandler.remove();
   }, []);
+
+  const missionStatus = () => {
+    return false;
+  };
+
   return (
     <ImageBackground
       source={require('../../src/assets/image/background1.png')}
@@ -167,7 +172,7 @@ const Home = ({navigation}: Props) => {
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.section0}>
           <View style={styles.section0BtnContainer}>
-            <View style={styles.buttonTouchableNone}></View>
+            <View style={styles.buttonTouchableNone} />
             <TouchableOpacity
               onPress={() => navigation.navigate('Option')}
               style={styles.buttonTouchable}>
@@ -180,7 +185,7 @@ const Home = ({navigation}: Props) => {
         </View>
         <View style={styles.section0}>
           <View style={styles.section0BtnContainer}>
-            <View style={styles.buttonTouchableNone}></View>
+            <View style={styles.buttonTouchableNone} />
             <View>
               <Text style={styles.characterText}>n일차</Text>
             </View>
@@ -237,12 +242,19 @@ const Home = ({navigation}: Props) => {
             style={styles.mainBottomImage}
             source={require('../assets/image/mainbottom.png')}
           />
-          <TouchableOpacity onPress={() => navigation.navigate('MissionHome')}>
-            <Text style={styles.missionBottomText1}>MISSION</Text>
-            <Text style={styles.missionBottomText2}>
-              마스크 올바르게 버리기!
-            </Text>
-          </TouchableOpacity>
+          {missionStatus() ? (
+            <TouchableOpacity
+              onPress={() => navigation.navigate('MissionComplete')}>
+              <Text style={styles.missionBottomText1}>MISSION</Text>
+              <Text style={styles.missionBottomText2}>COMPLETE!!</Text>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              onPress={() => navigation.navigate('MissionHome')}>
+              <Text style={styles.missionBottomText1}>MISSION</Text>
+              <Text style={styles.missionBottomText2}>현재미션이름</Text>
+            </TouchableOpacity>
+          )}
         </View>
         <View style={styles.section0}>
           <View style={styles.section0BtnContainer}>

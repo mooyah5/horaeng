@@ -7,13 +7,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    // width: '100%',
-    // height: '100%',
   },
   img: {
     width: 105,
     height: 59,
-    overflow: 'hidden',
+    resizeMode: 'contain',
   },
   txt: {
     position: 'absolute',
@@ -33,12 +31,10 @@ type btnTypes = {
 const Btn = ({txt, clickEvent}: btnTypes) => {
   return (
     <TouchableOpacity style={styles.container} onPress={() => clickEvent()}>
-      <View>
-        <Image
-          style={styles.img}
-          source={require('../../assets/image/btn_short.png')}
-        />
-      </View>
+      <Image
+        style={styles.img}
+        source={require('../../assets/image/btn_short.png')}
+      />
       <Text style={styles.txt}>{txt}</Text>
     </TouchableOpacity>
   );

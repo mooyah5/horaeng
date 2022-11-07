@@ -1,10 +1,12 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Image, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import {color, font} from '../../styles/colorAndFontTheme';
 import TitleText from '../../components/common/TitleText';
 import Btn from '../../components/common/Btn_long';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {ParamListBase} from '@react-navigation/native';
+import {checkTodaysMission} from '../../store/character';
+import {useSelector} from 'react-redux';
 
 const styles = StyleSheet.create({
   container: {
@@ -32,6 +34,9 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
   },
+  btn: {
+    paddingHorizontal: 6,
+  },
   txt: {
     fontFamily: font.beeBold,
     fontSize: 30,
@@ -46,7 +51,29 @@ interface Props {
 }
 
 const MissionHome = ({navigation}: Props) => {
+  const isDone: boolean = useSelector(checkTodaysMission);
+
   const missionTxt = '종이를 아끼기';
+  const [charSays, setCharSays] = useState<string>('나를 위해 ' + missionTxt);
+  const canDoMain = () => {
+    if (!isDone) {
+      navigation.navigate('MainMission');
+    } else {
+      setCharSays('이미 메인 미션을 완료했어!');
+    }
+  };
+
+  const canDoCommon = () => {
+    if (isDone) {
+      navigation.navigate('LookCommon');
+    } else {
+      setCharSays('메인 미션 먼저 해결해줘!');
+    }
+  };
+
+  useEffect(() => {
+    console.log('aa');
+  }, [charSays]);
 
   return (
     <SafeAreaView style={{backgroundColor: color.BACK_SUB}}>
@@ -61,7 +88,7 @@ const MissionHome = ({navigation}: Props) => {
               source={require('../../assets/image/textBox.png')}
               style={{marginBottom: 20}}
             />
-            <Text style={styles.txt}>나를 위해 {missionTxt}!</Text>
+            <Text style={styles.txt}>{charSays}</Text>
           </View>
           <Image
             source={require('../../assets/image/character/tiger.png')}
@@ -69,14 +96,12 @@ const MissionHome = ({navigation}: Props) => {
           />
         </View>
         <View style={styles.btns}>
-          <Btn
-            txt="메인 미션 진행"
-            clickEvent={() => navigation.navigate('MainMission')}
-          />
-          <Btn
-            txt="공통 미션 진행"
-            clickEvent={() => navigation.navigate('LookCommon')}
-          />
+          <View style={styles.btn}>
+            <Btn txt="메인 미션 진행" clickEvent={canDoMain} />
+          </View>
+          <View style={styles.btn}>
+            <Btn txt="공통 미션 진행" clickEvent={canDoCommon} />
+          </View>
         </View>
       </View>
     </SafeAreaView>
