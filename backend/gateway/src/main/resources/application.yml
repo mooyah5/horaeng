@@ -7,12 +7,15 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://eureka:8760/eureka
-
 spring:
   application:
     name: gateway
   cloud:
     gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
       routes:
         - id: auth-service
           uri: lb://AUTH-SERVICE
