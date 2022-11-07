@@ -18,6 +18,7 @@ export const getDataInLocalStorage = async (key: string) => {
     }
   } catch (err) {
     console.error(err);
+    return false;
   }
 };
 

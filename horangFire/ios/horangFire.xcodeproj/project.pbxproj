@@ -16,6 +16,7 @@
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		D445156F2914DC9E00F9CAC2 /* splash.png in Resources */ = {isa = PBXBuildFile; fileRef = D445156E2914DC9E00F9CAC2 /* splash.png */; };
 		D49BFB2A291487DD007C86A7 /* SwiftBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49BFB29291487DD007C86A7 /* SwiftBridge.swift */; };
+		D4C436922916B84100F7CEB6 /* example_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4C436912916B84100F7CEB6 /* example_sound.mp3 */; };
 		D4C89E0B2906F8C700139696 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = D4C89E0A2906F8C700139696 /* fonts */; };
 /* End PBXBuildFile section */
 
@@ -49,6 +50,7 @@
 		D445156E2914DC9E00F9CAC2 /* splash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash.png; sourceTree = "<group>"; };
 		D49BFB28291487DD007C86A7 /* horangFire-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "horangFire-Bridging-Header.h"; sourceTree = "<group>"; };
 		D49BFB29291487DD007C86A7 /* SwiftBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftBridge.swift; sourceTree = "<group>"; };
+		D4C436912916B84100F7CEB6 /* example_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = example_sound.mp3; path = "../../../../Library/Mobile Documents/com~apple~CloudDocs/example_sound.mp3"; sourceTree = "<group>"; };
 		D4C89E0A2906F8C700139696 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -126,6 +128,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				D4C436912916B84100F7CEB6 /* example_sound.mp3 */,
 				D4C89E0A2906F8C700139696 /* fonts */,
 				13B07FAE1A68108700A75B9A /* horangFire */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -253,6 +256,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4C436922916B84100F7CEB6 /* example_sound.mp3 in Resources */,
 				D445156F2914DC9E00F9CAC2 /* splash.png in Resources */,
 				D4C89E0B2906F8C700139696 /* fonts in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
@@ -448,6 +452,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = Z863K4RHF6;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -464,7 +469,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.horangfire;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/horangFire.app/horangFire";
 			};
@@ -477,6 +482,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = Z863K4RHF6;
 				INFOPLIST_FILE = horangFireTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -489,7 +495,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.horangfire;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/horangFire.app/horangFire";
 			};
@@ -502,6 +508,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Z863K4RHF6;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = horangFire/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "성냥팔이 호랭이";
@@ -530,6 +537,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Z863K4RHF6;
 				INFOPLIST_FILE = horangFire/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "성냥팔이 호랭이";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -582,6 +590,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				"EXCLUDED_ARCHS[sdk=iphoneos*]" = i386;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -654,6 +663,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -674,6 +684,7 @@
 					"\"$(inherited)\"",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-DFOLLY_NO_CONFIG",

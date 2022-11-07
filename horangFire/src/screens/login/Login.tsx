@@ -1,6 +1,6 @@
 import {ParamListBase} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {
   Image,
   ImageBackground,
@@ -16,52 +16,86 @@ import {
   getDataInLocalStorage,
   saveDataInLocalStorage,
 } from '../../store/AsyncService';
+import api from '../../api/api_controller';
+import {selectUser, User} from '../../store/user';
+import {useDispatch, useSelector} from 'react-redux';
+import {setUserObject} from '../../store/user';
+import {setMyCharacter} from '../../store/character';
 
 interface Props {
   navigation: StackNavigationProp<ParamListBase, 'Login'>;
 }
 
 const Login = ({navigation}: Props) => {
-  const [result, setResult] = useState<string>('');
-  const [profile, setProfile] = useState<string>('');
-  const [val, setVal] = useState<string | null>(null);
+  const dispatch = useDispatch();
+  const user: User = useSelector(selectUser);
 
   const signInWithKakao = async (): Promise<void> => {
     try {
-      const token = await login();
-      setResult(JSON.stringify(token));
-      getProfile();
+      await login();
+      await getProfileId();
     } catch (err) {
-      console.log('Login Error');
+      console.error(err);
     }
   };
 
-  const getProfile = async (): Promise<void> => {
+  const getProfileId = async (): Promise<void> => {
     try {
       const profileResult = await getKakaoProfile();
-      setProfile(profileResult.id);
+      const response = await api.auth.login(profileResult.id);
+      const token = response.headers.token;
+
+      await saveDataInLocalStorage('id', profileResult.id);
+      await saveDataInLocalStorage('token', token);
+
+      getUserData();
     } catch (err) {
-      console.log('Profile error');
+      console.error(err);
+    }
+  };
+
+  const getUserData = async () => {
+    /**
+     * 로그인 돼있는지 확인하고 로그인 돼있으면
+     * 키우는 동물 있으면 홈으로, 없으면 동물선택
+     * 로그인 안 돼있으면 로그인 페이지 유지
+     */
+
+    // const isLoggedIn = await getDataInLocalStorage('token');
+
+    const profileId = await getDataInLocalStorage('id');
+    if (profileId) {
+      const response = await api.user.getUserInfo(profileId);
+      dispatch(setUserObject({user: response.data}));
+    }
+
+    // 프로필 id(토큰)이 없으면 그냥 로그인 페이지 유지
+  };
+
+  const getNowUserCharacter = async (id: string) => {
+    const response = await api.character.getNowUserCharacter(id);
+
+    if (response.data.userCharacter) {
+      dispatch(setMyCharacter(response.data.userCharacter));
+      navigation.navigate('Home');
+    } else {
+      navigation.navigate('SelectAnimal');
     }
   };
 
   useEffect(() => {
-    const saveAndGetData = async () => {
-      await saveDataInLocalStorage('id', profile);
-      const data = await getDataInLocalStorage('id');
-      setVal(data);
-    };
-
-    if (profile) {
-      saveAndGetData();
-    }
-  }, [profile]);
+    getUserData();
+  }, []);
 
   useEffect(() => {
-    if (val) {
-      console.log(val);
+    if (user?.id) {
+      try {
+        getNowUserCharacter(user.id);
+      } catch (err) {
+        console.error(err);
+      }
     }
-  }, [val]);
+  }, [user]);
 
   return (
     <ImageBackground source={require('../../assets/image/intro.png')}>

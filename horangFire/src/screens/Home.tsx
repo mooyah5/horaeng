@@ -167,7 +167,7 @@ const Home = ({navigation}: Props) => {
 
   return (
     <ImageBackground
-      source={require('../../src/assets/image/background1.png')}
+      source={require('../../src/assets/image/background/london_background.png')}
       style={styles.backgroundImage}>
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.section0}>

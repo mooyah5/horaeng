@@ -1,10 +1,144 @@
 import {View, StyleSheet, Image, Text, Switch} from 'react-native';
 import {color, font} from '../../styles/colorAndFontTheme';
 import Btn from '../common/Btn_short';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import Slider from '@react-native-community/slider';
 import {ParamListBase} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
+import {
+  getDataInLocalStorage,
+  removeDataInLocalStorage,
+  saveDataInLocalStorage,
+} from '../../store/AsyncService';
+import {sound} from '../../App';
+
+interface Props {
+  navigation: StackNavigationProp<ParamListBase, 'Option'>;
+}
+
+const Option = ({navigation}: Props) => {
+  const [isEnabled, setIsEnabled] = useState<boolean>(false);
+  const [backgroundVolume, setBackgroundVolume] = useState<number>(1);
+  const [effectVolume, setEffectVolume] = useState<number>(1);
+
+  const [initialBgmVolume, setInitialVolume] = useState<number>(1);
+  const [initialEfVolume, setInitialEfVolume] = useState<number>(1);
+
+  const toggleSwitch = () => {
+    setIsEnabled(prev => !prev);
+  };
+
+  const onClickCancelButton = () => {
+    setBackgroundVolume(initialBgmVolume);
+    setEffectVolume(initialEfVolume);
+    navigation.navigate('Home');
+  };
+
+  const onClickApplyButton = () => {
+    setLocalVolume(backgroundVolume);
+    setLocalEfVolume(effectVolume);
+
+    setInitialVolume(backgroundVolume);
+    setInitialEfVolume(effectVolume);
+
+    navigation.navigate('Home');
+  };
+
+  const logout = async () => {
+    await removeDataInLocalStorage('id');
+    await removeDataInLocalStorage('token');
+    navigation.navigate('Login');
+  };
+
+  const initailSetting = async () => {
+    const bgmVolume = await getDataInLocalStorage('bgmVolume');
+    const efVolume = await getDataInLocalStorage('efVolume');
+
+    if (typeof bgmVolume === 'number') {
+      setBackgroundVolume(bgmVolume);
+      setInitialVolume(bgmVolume);
+    }
+
+    if (typeof efVolume === 'number') {
+      setEffectVolume(efVolume);
+      setInitialEfVolume(efVolume);
+    }
+  };
+
+  const setLocalVolume = async (volume: number) => {
+    await saveDataInLocalStorage('bgmVolume', volume);
+  };
+
+  const setLocalEfVolume = async (volume: number) => {
+    await saveDataInLocalStorage('efVolume', volume);
+  };
+
+  useEffect(() => {
+    initailSetting();
+  }, []);
+
+  useEffect(() => {
+    sound.setVolume(backgroundVolume);
+  }, [backgroundVolume]);
+
+  return (
+    <View style={styles.body}>
+      <View style={styles.section1} />
+      <View style={styles.section2}>
+        <Image
+          source={require('../../assets/image/optionBox.png')}
+          style={styles.optionBox}
+        />
+        <View style={styles.subSection1} />
+        <View style={styles.subSection2}>
+          <Text style={styles.optionTitle}>환경설정</Text>
+        </View>
+        <View style={styles.subSection3} />
+        <View style={styles.subSection4}>
+          <Text style={styles.optionSliderName}>배경음</Text>
+          <Slider
+            style={styles.optionSlider}
+            thumbTintColor={color.MAIN}
+            minimumTrackTintColor={color.BROWN_47}
+            minimumValue={0}
+            maximumValue={1}
+            value={backgroundVolume}
+            onValueChange={setBackgroundVolume}
+          />
+        </View>
+        <View style={styles.subSection5}>
+          <Text style={styles.optionSliderName}>효과음</Text>
+          <Slider
+            style={styles.optionSlider}
+            thumbTintColor={color.MAIN}
+            minimumTrackTintColor={color.BROWN_47}
+            minimumValue={0}
+            maximumValue={1}
+            value={effectVolume}
+            onValueChange={setEffectVolume}
+          />
+        </View>
+        <View style={styles.subSection6}>
+          <Text style={styles.optionSwitchName}>Push 알림</Text>
+          <Switch
+            style={styles.optionSwitch}
+            trackColor={{false: color.MODAL_SUB, true: color.BROWN_47}}
+            thumbColor={color.MAIN}
+            onValueChange={toggleSwitch}
+            value={isEnabled}
+          />
+        </View>
+        <View style={styles.subSection7} />
+      </View>
+      <View style={styles.section3}>
+        <Btn txt={'적용하기'} clickEvent={onClickApplyButton} />
+        <Btn txt={'돌아가기'} clickEvent={onClickCancelButton} />
+        <Btn txt={'로그아웃'} clickEvent={logout} />
+      </View>
+      <View style={styles.section4} />
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   // main area
@@ -65,75 +199,5 @@ const styles = StyleSheet.create({
   optionSwitchName: {fontSize: 20, fontFamily: font.beeBold, paddingRight: 30},
   optionSwitch: {justifyContent: 'flex-start'},
 });
-
-interface Props {
-  navigation: StackNavigationProp<ParamListBase, 'Option'>;
-}
-
-const Option = ({navigation}: Props) => {
-  const [isEnabled, setIsEnabled] = useState<boolean>(false);
-
-  const toggleSwitch = () => {
-    setIsEnabled(prev => !prev);
-  };
-
-  const clickButton = () => {
-    navigation.navigate('Home');
-  };
-
-  const logout = () => {
-    navigation.navigate('Login');
-  };
-
-  return (
-    <View style={styles.body}>
-      <View style={styles.section1} />
-      <View style={styles.section2}>
-        <Image
-          source={require('../../assets/image/optionBox.png')}
-          style={styles.optionBox}
-        />
-        <View style={styles.subSection1} />
-        <View style={styles.subSection2}>
-          <Text style={styles.optionTitle}>환경설정</Text>
-        </View>
-        <View style={styles.subSection3} />
-        <View style={styles.subSection4}>
-          <Text style={styles.optionSliderName}>배경음</Text>
-          <Slider
-            style={styles.optionSlider}
-            thumbTintColor={color.MAIN}
-            minimumTrackTintColor={color.BROWN_47}
-          />
-        </View>
-        <View style={styles.subSection5}>
-          <Text style={styles.optionSliderName}>효과음</Text>
-          <Slider
-            style={styles.optionSlider}
-            thumbTintColor={color.MAIN}
-            minimumTrackTintColor={color.BROWN_47}
-          />
-        </View>
-        <View style={styles.subSection6}>
-          <Text style={styles.optionSwitchName}>Push 알림</Text>
-          <Switch
-            style={styles.optionSwitch}
-            trackColor={{false: color.MODAL_SUB, true: color.BROWN_47}}
-            thumbColor={color.MAIN}
-            onValueChange={toggleSwitch}
-            value={isEnabled}
-          />
-        </View>
-        <View style={styles.subSection7} />
-      </View>
-      <View style={styles.section3}>
-        <Btn txt={'적용하기'} clickEvent={clickButton} />
-        <Btn txt={'돌아가기'} clickEvent={clickButton} />
-        <Btn txt={'로그아웃'} clickEvent={logout} />
-      </View>
-      <View style={styles.section4} />
-    </View>
-  );
-};
 
 export default Option;
