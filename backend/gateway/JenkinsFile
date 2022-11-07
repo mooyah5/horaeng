@@ -26,7 +26,7 @@ pipeline {
         }
         stage("run"){
             steps {
-                sh 'docker run -d -p 8000:8000 --network msa --name gateway gateway'
+                sh 'docker run -d -p 443:443 --network msa --name gateway gateway'
             }
         }
     }

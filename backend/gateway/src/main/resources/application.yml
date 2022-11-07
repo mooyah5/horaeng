@@ -3,7 +3,6 @@ server:
   ssl:
     key-store: classpath:keystore.p12
     key-store-type: PKCS12
-    enabled: true
     key-store-password:
 
 eureka:
@@ -11,7 +10,8 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://eureka:8760/eureka
+#      defaultZone: http://eureka:8760/eureka
+      defaultZone: http://localhost:8760/eureka
 spring:
   application:
     name: gateway
