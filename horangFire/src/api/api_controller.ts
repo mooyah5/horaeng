@@ -6,7 +6,7 @@ const api = {
   auth: {
     login: async (socialId: string) => {
       const response = await axios({
-        url: urls.user.login(),
+        url: urls.auth.login(),
         method: 'post',
         data: {
           id: socialId,
@@ -76,31 +76,6 @@ const api = {
         method: 'get',
       });
 
-      return response;
-    },
-  },
-
-  diary: {
-    submitMain: async (diary: any) => {
-      console.log(diary);
-      const res = await axios({
-        url: urls.diary.submit(),
-        method: 'post',
-        data: {
-          ...diary,
-        },
-      });
-      console.log(res);
-      return res;
-    },
-  },
-
-  character: {
-    getNowUserCharacter: async (userId: string) => {
-      const response = await axios({
-        url: urls.character.getNowUserCharacter(userId),
-        method: 'get',
-      });
       return response;
     },
   },
