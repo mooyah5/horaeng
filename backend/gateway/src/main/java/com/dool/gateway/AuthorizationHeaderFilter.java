@@ -1,7 +1,10 @@
 package com.dool.gateway;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwt;
 import io.jsonwebtoken.Jwts;
-import org.apache.http.HttpHeaders;
+
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.HttpStatus;
@@ -11,11 +14,14 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import java.io.UnsupportedEncodingException;
+
+
 
 @Component
 public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<AuthorizationHeaderFilter.Config> {
 
-
+    private static final String SALT = "doolSecret";
     public AuthorizationHeaderFilter() {
         super(Config.class);
     }
@@ -32,14 +38,13 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
             if(!request.getHeaders().containsKey("token")){
                 return onError(exchange, "No authorization header", HttpStatus.UNAUTHORIZED);
             }
-
             String authorizationHeader = request.getHeaders().get("token").get(0);
             String jwt = authorizationHeader.replace("Bearer", "");
 
             if(!isJwtValid(jwt)){
                 return onError(exchange, "JWT token is not valid", HttpStatus.UNAUTHORIZED);
             }
-
+            System.out.println("통과!!");
             return chain.filter(exchange);
         }));
     }
@@ -47,20 +52,28 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
     private boolean isJwtValid(String jwt){
         boolean returnValue = true;
 
-        String subject = null;
-
         try{
-            subject = Jwts.parserBuilder().setSigningKey("doolSecret").build()
-                    .parseClaimsJws(jwt).getBody()
-                    .getSubject();
-        }catch(Exception e){
+            Jws<Claims> claims = Jwts.parser().setSigningKey(this.generateKey())
+                    .parseClaimsJws(jwt);
+        }catch(Exception e) {
+            e.printStackTrace();
             returnValue = false;
         }
-        if(subject == null || subject.isEmpty()){
-            returnValue = false;
+        System.out.println(returnValue);
+        return returnValue;
+    }
+
+    private byte[] generateKey() {
+        byte[] key = null;
+        try {
+            //byte 코드로 인코딩 해주기
+            //캐릭터셋 인자로 안주면 사용자 플랫폼의 기본 인코딩 설정대로 인코딩
+            key = SALT.getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
 
-        return returnValue;
+        return key;
     }
 
     private Mono<Void> onError(ServerWebExchange exchange, String err, HttpStatus httpStatus){
