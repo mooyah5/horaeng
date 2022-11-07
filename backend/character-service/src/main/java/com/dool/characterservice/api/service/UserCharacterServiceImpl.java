@@ -65,19 +65,22 @@ public class UserCharacterServiceImpl implements UserCharacterService{
 
     // 유저 아이디로 유저 캐릭터 찾아오기
     @Override
-    public UserCharacterResponseDto getUserCharacterByUserId(String user_id) {
-//        Optional<UserCharacter> object = userCharacterRepository.findByUserId_IdAndStatusFalse(user_id);
-        UserCharacter userCharacter = userCharacterRepository.findByUserIdAndStatusFalse(user_id);
+    public Optional<UserCharacterResponseDto> getUserCharacterByUserId(String user_id) {
+        Optional<UserCharacter> userCharacter = userCharacterRepository.findByUserIdAndStatusFalse(user_id);
 
-        return UserCharacterResponseDto.builder()
-                .id(userCharacter.getId())
-                .character_id(userCharacter.getCharacters().getId())
-                .user_id(userCharacter.getUserId())
-                .created_date(userCharacter.getCreatedDate())
-                .nickname(userCharacter.getNickname())
-                .characterLevel(userCharacter.getLevel())
-                .status(userCharacter.isStatus())
-                .build();
+        System.out.println(userCharacter);
+        if(userCharacter.isEmpty()){
+            return null;
+        }
+        return Optional.ofNullable(UserCharacterResponseDto.builder()
+                .id(userCharacter.get().getId())
+                .character_id(userCharacter.get().getCharacters().getId())
+                .user_id(userCharacter.get().getUserId())
+                .created_date(userCharacter.get().getCreatedDate())
+                .nickname(userCharacter.get().getNickname())
+                .characterLevel(userCharacter.get().getLevel())
+                .status(userCharacter.get().isStatus())
+                .build());
     }
 
     @Override

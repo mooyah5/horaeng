@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @CrossOrigin("*")
 @RequiredArgsConstructor
@@ -42,18 +43,21 @@ public class UserCharacterController {
         Map<String, Object> result = new HashMap<>();
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
         try {
-            UserCharacterResponseDto userCharacterResponseDto = userCharacterService.getUserCharacterByUserId(user_id);
-            boolean todayMission = characterMissionService.getMission(userCharacterResponseDto.getId());
-            Long countMission = characterMissionService.countMission(userCharacterResponseDto.getId());
+            Optional<UserCharacterResponseDto> userCharacterResponseDto = userCharacterService.getUserCharacterByUserId(user_id);
 
             result.put("userCharacter", userCharacterResponseDto);
-            result.put("today", todayMission);
-            result.put("count", countMission);
-            result.put("message", SUCCESS);
+
+            if(userCharacterResponseDto != null) {
+                boolean todayMission = characterMissionService.getMission(userCharacterResponseDto.get().getId());
+                Long countMission = characterMissionService.countMission(userCharacterResponseDto.get().getId());
+
+                result.put("today", todayMission);
+                result.put("count", countMission);
+            }
             status = HttpStatus.OK;
+            result.put("message", SUCCESS);
         } catch (Exception e){
             result.put("message", FAIL);
-            result.put("userCharacter", null);
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
 
