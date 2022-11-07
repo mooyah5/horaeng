@@ -1,6 +1,6 @@
 package com.dool.socialservice.api.request;
 
-import com.dool.socialservice.db.domain.ReportType;
+import  com.dool.socialservice.db.domain.ReportType;
 import com.sun.istack.NotNull;
 import lombok.Data;
 import lombok.Getter;
