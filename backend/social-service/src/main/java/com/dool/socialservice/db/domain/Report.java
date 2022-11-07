@@ -22,6 +22,7 @@ public class Report {
     @JoinColumn(name = "diaryId", referencedColumnName = "id")
     private Diary diary;
     private ReportStatus reportStatus;
+    private ReportType reportType;
 
     @PrePersist
     public void reportStatus(){

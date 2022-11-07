@@ -43,6 +43,7 @@ public class ReportServiceImpl implements ReportService{
         Report report = new Report();
         report.setUserId(request.getUserId());
         report.setDiary(diary);
+        report.setReportType(request.getReportType());
 
         reportRepository.create(report);
 
