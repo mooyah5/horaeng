@@ -5,7 +5,9 @@ import {
   View,
   TouchableOpacity,
   Image,
+  Text,
 } from 'react-native';
+import {Community} from './CommunityContent';
 
 const {width} = Dimensions.get('window');
 const WIDTH = (width - 78) / 3;
@@ -38,7 +40,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const CommunityGalleryItem = ({navigation}: any) => {
+interface Props {
+  navigation: any;
+  item: Community;
+}
+
+const CommunityGalleryItem = ({navigation, item}: Props) => {
   return (
     <TouchableOpacity
       style={styles.imageWrap}

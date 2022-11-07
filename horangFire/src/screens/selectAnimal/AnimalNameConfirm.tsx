@@ -41,16 +41,9 @@ const AnimalNameConfirm = ({navigation, route}: Props) => {
   const selectedCharacterId = params.selectedCharacterId;
   const selectedCharacterSpecies = params.selectedCharacterSpecies;
   const createCharacter = async () => {
-    // http://{{character-service}}/character-service/user-character 여기다가 보내자!
-    //   {
-    //     "user_id" : 2,
-    //     "character_id" : 1,
-    //     "nickname" : "jeong"
-    //    }
-
     try {
       const response = await api.character.create({
-        user_id: 2,
+        user_id: 'test12716872', //리덕스에서유저아이디값가져와서껴넣자
         character_id: selectedCharacterId,
         nickname: selectedCharacterName,
       });
