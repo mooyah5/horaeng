@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface UserCharacterRepository extends JpaRepository<UserCharacter, Long> {
-    UserCharacter findByUserIdAndStatusFalse(String user_id);
+    Optional<UserCharacter> findByUserIdAndStatusFalse(String user_id);
 }
