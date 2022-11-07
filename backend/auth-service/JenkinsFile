@@ -6,7 +6,7 @@ pipeline {
             steps{
                 script{
                     try {
-                        sh 'chmod +x gradlew'
+                        sh 'chmod +x ./gradlew'
                         sh './gradlew clean build'
 
                         sh 'docker stop auth-service'
