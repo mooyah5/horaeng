@@ -12,9 +12,7 @@ import com.dool.characterservice.db.repository.UserCharacterRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Optional;
+import java.time.LocalDate;
 
 @Service
 @RequiredArgsConstructor
@@ -24,18 +22,16 @@ public class CharacterMissionServiceImpl implements CharacterMissionService {
     private final MissionRepository missionRepository;
     @Override
     public boolean getMission(Long user_character_id) {
-        boolean statue = false;
+        boolean status = false;
 
-        LocalDateTime date = LocalDateTime.now();
-        String today = date.format(DateTimeFormatter.BASIC_ISO_DATE);
-
+        LocalDate today = LocalDate.now();
         CharacterMission characterMission = characterMissionRepository.findTopByUserCharacter_IdAndIsClearTrueAndMission_TypeOrderByCreatedDateDesc(user_character_id, MissionType.Personal);
 
-        if(today.equals(characterMission.getCreatedDate().format(DateTimeFormatter.BASIC_ISO_DATE))){
-            statue = true;
+        if(today.equals(characterMission.getCreatedDate())){
+            status = true;
         }
 
-        return statue;
+        return status;
     }
 
     @Override
@@ -43,13 +39,12 @@ public class CharacterMissionServiceImpl implements CharacterMissionService {
         UserCharacter userCharacter = userCharacterRepository.findById(requestDto.getUser_character_id()).get();
         Mission mission = missionRepository.findById(userCharacter.getCharacters().getMissionId()).get();
 
-        LocalDateTime date = LocalDateTime.now();
-        date.format(DateTimeFormatter.BASIC_ISO_DATE);
+        LocalDate today = LocalDate.now();
 
         CharacterMission characterMission = CharacterMission.builder()
                 .userCharacter(userCharacter)
                 .mission(mission)
-                .createdDate(date)
+                .createdDate(today)
                 .isClear(false)
                 .build();
 
@@ -67,9 +62,7 @@ public class CharacterMissionServiceImpl implements CharacterMissionService {
 
     @Override
     public Long countMission(Long user_character_id) {
-        LocalDateTime date = LocalDateTime.now();
-        date.format(DateTimeFormatter.BASIC_ISO_DATE);
-        Optional<UserCharacter> userCharacter = userCharacterRepository.findById(user_character_id);
+        LocalDate date = LocalDate.now();
 
         Long count = characterMissionRepository.countAllByUserCharacter_IdAndCreatedDateLessThanAndIsClearTrueAndMission_Type(user_character_id, date, MissionType.Personal) + 1;
 
