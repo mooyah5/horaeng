@@ -23,11 +23,14 @@ public class CharacterMissionServiceImpl implements CharacterMissionService {
     @Override
     public boolean getMission(Long user_character_id) {
         boolean status = false;
-
         LocalDate today = LocalDate.now();
-        CharacterMission characterMission = characterMissionRepository.findTopByUserCharacter_IdAndIsClearTrueAndMission_TypeOrderByCreatedDateDesc(user_character_id, MissionType.Personal);
 
-        if(today.equals(characterMission.getCreatedDate())){
+        CharacterMission characterMission = characterMissionRepository.findTopByUserCharacter_IdAndMission_TypeOrderByCreatedDateDesc(user_character_id, MissionType.Personal).orElseGet(() ->
+            postMission(CharacterMissionRequestDto.builder()
+                    .user_character_id(user_character_id)
+                    .build()));
+
+        if(characterMission.isClear() && today.equals(characterMission.getCreatedDate())){
             status = true;
         }
 
@@ -35,7 +38,7 @@ public class CharacterMissionServiceImpl implements CharacterMissionService {
     }
 
     @Override
-    public CharacterMissionResponseDto postMission(CharacterMissionRequestDto requestDto) {
+    public CharacterMission postMission(CharacterMissionRequestDto requestDto) {
         UserCharacter userCharacter = userCharacterRepository.findById(requestDto.getUser_character_id()).get();
         Mission mission = missionRepository.findById(userCharacter.getCharacters().getMissionId()).get();
 
@@ -50,21 +53,14 @@ public class CharacterMissionServiceImpl implements CharacterMissionService {
 
         characterMissionRepository.save(characterMission);
 
-
-        return CharacterMissionResponseDto.builder()
-                .id(characterMission.getId())
-                .mission_id(characterMission.getId())
-                .created_date(characterMission.getCreatedDate())
-                .is_clear(characterMission.isClear())
-                .user_character_id(characterMission.getUserCharacter().getId())
-                .build();
+        return characterMission;
     }
 
     @Override
     public Long countMission(Long user_character_id) {
         LocalDate date = LocalDate.now();
 
-        Long count = characterMissionRepository.countAllByUserCharacter_IdAndCreatedDateLessThanAndIsClearTrueAndMission_Type(user_character_id, date, MissionType.Personal) + 1;
+        Long count = characterMissionRepository.countAllByUserCharacter_IdAndCreatedDateLessThanAndIsClearTrueAndMission_Type(user_character_id, date, MissionType.Personal).orElse(0L) + 1;
 
         return count;
     }

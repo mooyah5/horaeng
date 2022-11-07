@@ -43,13 +43,13 @@ public class UserCharacterController {
         Map<String, Object> result = new HashMap<>();
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
         try {
-            Optional<UserCharacterResponseDto> userCharacterResponseDto = userCharacterService.getUserCharacterByUserId(user_id);
+            UserCharacterResponseDto userCharacterResponseDto = userCharacterService.getUserCharacterByUserId(user_id);
 
             result.put("userCharacter", userCharacterResponseDto);
 
             if(userCharacterResponseDto != null) {
-                boolean todayMission = characterMissionService.getMission(userCharacterResponseDto.get().getId());
-                Long countMission = characterMissionService.countMission(userCharacterResponseDto.get().getId());
+                boolean todayMission = characterMissionService.getMission(userCharacterResponseDto.getId());
+                Long countMission = characterMissionService.countMission(userCharacterResponseDto.getId());
 
                 result.put("today", todayMission);
                 result.put("count", countMission);

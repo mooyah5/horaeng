@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -23,18 +24,23 @@ public class UserCharacterServiceImpl implements UserCharacterService{
     // 유저 캐릭터 만들기
     @Override
     public UserCharacterResponseDto creatUserCharacter(UserCharacterRequestDto requestDto) {
+
         Characters characters = charactersRepository.findById(requestDto.getCharacter_id()).get();
         LocalDate date = LocalDate.now();
 
-        UserCharacter userCharacter = UserCharacter.builder()
-                .userId(requestDto.getUser_id())
-                .characters(characters)
-                .nickname(requestDto.getNickname())
-                .level(CharacterLevel.LEVEL_1)
-                .createdDate(date)
-                .build();
+        UserCharacter userCharacter = userCharacterRepository.findByUserIdAndStatusFalse(requestDto.getUser_id()).orElseGet(() -> {
+            UserCharacter character = UserCharacter.builder()
+                    .userId(requestDto.getUser_id())
+                    .characters(characters)
+                    .nickname(requestDto.getNickname())
+                    .level(CharacterLevel.LEVEL_1)
+                    .createdDate(date)
+                    .build();
 
-        userCharacterRepository.save(userCharacter);
+            userCharacterRepository.save(character);
+
+            return character;
+        });
 
         return UserCharacterResponseDto.builder()
                 .id(userCharacter.getId())
@@ -65,22 +71,24 @@ public class UserCharacterServiceImpl implements UserCharacterService{
 
     // 유저 아이디로 유저 캐릭터 찾아오기
     @Override
-    public Optional<UserCharacterResponseDto> getUserCharacterByUserId(String user_id) {
-        Optional<UserCharacter> userCharacter = userCharacterRepository.findByUserIdAndStatusFalse(user_id);
+    public UserCharacterResponseDto getUserCharacterByUserId(String user_id) {
+        Optional<UserCharacter> find = userCharacterRepository.findByUserIdAndStatusFalse(user_id);
 
-        System.out.println(userCharacter);
-        if(userCharacter.isEmpty()){
+        UserCharacter userCharacter = find.orElseGet(() -> null);
+
+        if(userCharacter == null){
             return null;
         }
-        return Optional.ofNullable(UserCharacterResponseDto.builder()
-                .id(userCharacter.get().getId())
-                .character_id(userCharacter.get().getCharacters().getId())
-                .user_id(userCharacter.get().getUserId())
-                .created_date(userCharacter.get().getCreatedDate())
-                .nickname(userCharacter.get().getNickname())
-                .characterLevel(userCharacter.get().getLevel())
-                .status(userCharacter.get().isStatus())
-                .build());
+
+        return UserCharacterResponseDto.builder()
+                .id(userCharacter.getId())
+                .character_id(userCharacter.getCharacters().getId())
+                .user_id(userCharacter.getUserId())
+                .created_date(userCharacter.getCreatedDate())
+                .nickname(userCharacter.getNickname())
+                .characterLevel(userCharacter.getLevel())
+                .status(userCharacter.isStatus())
+                .build();
     }
 
     @Override
