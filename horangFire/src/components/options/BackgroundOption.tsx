@@ -1,5 +1,6 @@
 import {ParamListBase} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
+import {useState} from 'react';
 import {View, StyleSheet, Image, Text, TouchableOpacity} from 'react-native';
 import {color, font} from '../../styles/colorAndFontTheme';
 import Btn from '../common/Btn_short';
@@ -75,7 +76,23 @@ interface Props {
   navigation: StackNavigationProp<ParamListBase, 'BackgroundOption'>;
 }
 
+export const BACKGROUND = [
+  require('../../assets/image/background/snow_background.png'),
+  require('../../assets/image/background/forest_background.png'),
+  require('../../assets/image/background/london_background.png'),
+];
+
 const BackgroundOption = ({navigation}: Props) => {
+  const [selectedBackground, setSelectedBackground] = useState<number>(0);
+
+  const handleRightButton = () => {
+    setSelectedBackground(prev => (prev + 1) % 3);
+  };
+
+  const handleLeftButton = () => {
+    setSelectedBackground(prev => (prev + 2) % 3);
+  };
+
   return (
     <>
       <View style={styles.body}>
@@ -89,14 +106,18 @@ const BackgroundOption = ({navigation}: Props) => {
             <Text style={styles.title}>배경화면 설정</Text>
           </View>
           <View style={styles.subSection2}>
-            <TouchableOpacity style={styles.leftArrowArea}>
+            <TouchableOpacity
+              style={styles.leftArrowArea}
+              onPress={handleLeftButton}>
               <Image source={require('../../assets/image/leftArrow.png')} />
             </TouchableOpacity>
             <Image
               style={styles.background}
-              source={require('../../assets/image/background1.png')}
+              source={BACKGROUND[selectedBackground]}
             />
-            <TouchableOpacity style={styles.rightArrowArea}>
+            <TouchableOpacity
+              style={styles.rightArrowArea}
+              onPress={handleRightButton}>
               <Image source={require('../../assets/image/rightArrow.png')} />
             </TouchableOpacity>
           </View>

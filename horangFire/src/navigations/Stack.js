@@ -4,24 +4,27 @@ import Home from '../screens/Home';
 
 import Start from '../screens/login/Start';
 import Login from '../screens/login/Login';
-import Notice from '../screens/community/Notice';
-import NoticeDetail from '../screens/community/NoticeDetail';
+
 import ReportModal from '../components/options/ReportModal';
 import ReportApplyModal from '../components/options/ReportApplyModal';
+
 import SelectAnimal from '../screens/selectAnimal/index';
-import CommunityDetail from '../screens/community/CommunityDetail';
 import AnimalNameForm from '../screens/selectAnimal/AnimalNameForm';
 import AnimalNameConfirm from '../screens/selectAnimal/AnimalNameConfirm';
 import MissionIntro from '../screens/selectAnimal/MissionIntro';
 
 // mission page & modal
+import MissionHome from '../screens/mission/index';
 import MainMission from '../screens/mission/mainMission';
 import CommonMission from '../screens/mission/commonMission';
 import LookCommon from '../screens/mission/lookCommon';
 import SubmitMission from '../screens/mission/submitMission';
 import CameraModal from '../components/mission/CameraModal';
 
+import Notice from '../screens/community/Notice';
+import NoticeDetail from '../screens/community/NoticeDetail';
 import Community from '../screens/community/index';
+import CommunityDetail from '../screens/community/CommunityDetail';
 
 import Collection from '../screens/collection/Collection';
 import CollectionDetail from '../screens/collection/CollectionDetail';
@@ -36,14 +39,13 @@ import ApplyModal from '../components/options/ApplyModal';
 
 import Option from '../components/options/Options';
 import BackgroundOption from '../components/options/BackgroundOption';
-import MissionHome from '../screens/mission/index';
 
 const Stack = createStackNavigator();
 
 const StackNavigation = () => {
   return (
     <Stack.Navigator
-      initialRouteName="SelectAnimal"
+      initialRouteName="Home"
       screenOptions={{
         headerShown: false,
       }}>
@@ -57,6 +59,7 @@ const StackNavigation = () => {
         <Stack.Screen name="Start" component={Start} />
         <Stack.Screen name="Login" component={Login} />
 
+        <Stack.Screen name="SelectAnimal" component={SelectAnimal} />
         <Stack.Screen name="AnimalNameForm" component={AnimalNameForm} />
         <Stack.Screen name="AnimalNameConfirm" component={AnimalNameConfirm} />
         <Stack.Screen
@@ -78,7 +81,6 @@ const StackNavigation = () => {
         <Stack.Screen name="Community" component={Community} />
         <Stack.Screen name="Notice" component={Notice} />
         <Stack.Screen name="NoticeDetail" component={NoticeDetail} />
-        <Stack.Screen name="SelectAnimal" component={SelectAnimal} />
         <Stack.Screen name="CommunityDetail" component={CommunityDetail} />
 
         {/* option page */}

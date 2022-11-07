@@ -4,12 +4,13 @@ import urls from './urls';
 
 const api = {
   auth: {
-    login: async (formData: any) => {
+    login: async (socialId: string) => {
       const response = await axios({
         url: urls.user.login(),
         method: 'post',
         data: {
-          token: formData.data,
+          id: socialId,
+          role: 'User',
         },
       });
       return response;
@@ -62,6 +63,42 @@ const api = {
       console.log(id);
       const response = await axios({
         url: urls.character.getCharacterDialog(id),
+        method: 'get',
+      });
+      return response;
+    },
+  },
+
+  user: {
+    getUserInfo: async (userId: string) => {
+      const response = await axios({
+        url: urls.user.getUserInfo(userId),
+        method: 'get',
+      });
+
+      return response;
+    },
+  },
+
+  diary: {
+    submitMain: async (diary: any) => {
+      console.log(diary);
+      const res = await axios({
+        url: urls.diary.submit(),
+        method: 'post',
+        data: {
+          ...diary,
+        },
+      });
+      console.log(res);
+      return res;
+    },
+  },
+
+  character: {
+    getNowUserCharacter: async (userId: string) => {
+      const response = await axios({
+        url: urls.character.getNowUserCharacter(userId),
         method: 'get',
       });
       return response;
