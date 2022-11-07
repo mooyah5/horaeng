@@ -6,7 +6,8 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://eureka:8760/eureka
+      #      defaultZone: http://eureka:8760/eureka
+      defaultZone: http://localhost:8760/eureka
 
 spring:
   application:
@@ -14,19 +15,46 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: user-service
-          uri: lb://USER-SERVICE
-          predicates:
-            - Path=/user-service/**
         - id: auth-service
           uri: lb://AUTH-SERVICE
           predicates:
             - Path=/auth-service/**
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/user-background,/user-service/background
+          filters:
+            - AuthorizationHeaderFilter
+
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/user,/user-service/user/isUser, /user-service/user/token
+            - Method=Post
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/user/**
+            - Method=Get,Delete
+          filters:
+            - AuthorizationHeaderFilter
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/user/logout/**, /user-service/user/background
+            - Method=Post
+          filters:
+            - AuthorizationHeaderFilter
         - id: social-service
           uri: lb://SOCIAL-SERVICE
           predicates:
             - Path=/social-service/**
+          filters:
+            - AuthorizationHeaderFilter
+
         - id: character-service
           uri: lb://CHARACTER-SERVICE
           predicates:
             - Path=/character-service/**
+          filters:
+            - AuthorizationHeaderFilter
