@@ -1,5 +1,4 @@
-import React, {useEffect, useState} from 'react';
-import {useRoute} from '@react-navigation/native';
+import React, {useState} from 'react';
 import {ImageBackground, StyleSheet, Text, View, FlatList} from 'react-native';
 import {color, font} from '../../styles/colorAndFontTheme';
 import Btn from '../../components/common/Btn_short';
@@ -65,8 +64,6 @@ const styles = StyleSheet.create({
 });
 
 const Notice = ({navigation}: any) => {
-  const route = useRoute();
-
   const data: valueType[] = [
     {id: 0, name: '전체'},
     {id: 1, name: '뱅갈호랑이'},
@@ -103,7 +100,7 @@ const Notice = ({navigation}: any) => {
             <FlatList
               style={styles.tableBox}
               data={noticeData}
-              renderItem={item => <NoticeItem navigation={navigation} />}
+              renderItem={() => <NoticeItem navigation={navigation} />}
               key={null}
               // columnWrapperStyle={styles.flatList}
             />

@@ -2,11 +2,12 @@ import React, {useState} from 'react';
 import {StyleSheet, Text, View, Pressable, Image} from 'react-native';
 import {color, font} from '../../styles/colorAndFontTheme';
 
-interface Props {
-  id: number;
-  value: string;
-  label: string;
-}
+// interface Props {
+//   id: number;
+//   value: string;
+//   label: string;
+// }
+
 const styles = StyleSheet.create({
   radioBox: {
     flex: 1,
@@ -29,6 +30,7 @@ const styles = StyleSheet.create({
     // textAlign: 'center',
   },
 });
+
 export default function ReactSimpleButton() {
   const [checked, setChecked] = useState<number>(1);
 

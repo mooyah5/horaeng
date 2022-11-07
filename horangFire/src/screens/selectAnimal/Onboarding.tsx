@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
     flex: 3.5,
     justifyContent: 'center',
     alignItems: 'center',
+    resizeMode: 'contain',
   },
   characterName: {
     fontFamily: font.beeBold,
@@ -81,10 +82,7 @@ const OnboardingItem = ({item, navigation}: any) => {
       <View style={styles.section1}>
         <Text style={styles.characterName}>{item.name}</Text>
       </View>
-      <Image
-        source={item.image}
-        style={[styles.image, {width, resizeMode: 'contain'}]}
-      />
+      <Image source={item.image} style={styles.image} />
       <View style={styles.section3}>
         <Image source={item.backImage} style={styles.backImage} />
         <TouchableOpacity
