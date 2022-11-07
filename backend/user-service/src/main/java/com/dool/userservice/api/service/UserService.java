@@ -11,6 +11,7 @@ public interface UserService {
     public User createUser(CreateUserRequest request);
     public void deleteUser(String id);
     public void buyBackground(BuyBackgroundRequest request);
+    void inputToken(TokenRequest request);
     public void logoutUser(String id);
     public void inputToken(TokenRequest request);
     public boolean isUser(LoginRequest request);

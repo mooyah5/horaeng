@@ -77,23 +77,25 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
     }
 
+    @PostMapping("/isUser")
+    ResponseEntity<ValidResponse> isUser(@RequestBody LoginRequest request){
+        ValidResponse result = new ValidResponse();
+        if(userService.getUser(request.getId()) == null){
+            result.setUser(false);
+        }else{
+            result.setUser(true);
+        }
+
+        return ResponseEntity.status(200).body(result);
+    }
+
     @PostMapping("/token")
-    public ResponseEntity inputToken(@RequestBody TokenRequest request){
+    ResponseEntity inputToken(@RequestBody TokenRequest request){
         userService.inputToken(request);
 
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        return ResponseEntity.status(200).body(null);
     }
 
-    @PostMapping("/isUser")
-    public ResponseEntity<ValidResponse> isUser(@RequestBody LoginRequest request){
-        ValidResponse validResponse = new ValidResponse();
-        if(userService.isUser(request)){
-            validResponse.setUser(true);
-            return ResponseEntity.status(HttpStatus.OK).body(validResponse);
-        }
-        validResponse.setUser(false);
-        return ResponseEntity.status(HttpStatus.OK).body(validResponse);
-    }
 
     @GetMapping("/background/{id}")
     public ResponseEntity<List<UserBackgroundResponse>> getUsersBackgrounds(@PathVariable("id") String userId){
