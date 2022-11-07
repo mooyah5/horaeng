@@ -5,8 +5,10 @@ import com.dool.characterservice.db.domain.MissionType;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 public interface CharacterMissionRepository extends JpaRepository<CharacterMission, Long> {
-    CharacterMission findTopByUserCharacter_IdAndIsClearTrueAndMission_TypeOrderByCreatedDateDesc(Long user_character_id, MissionType missionType);
-    Long countAllByUserCharacter_IdAndCreatedDateLessThanAndIsClearTrueAndMission_Type(Long user_character_id, LocalDate date, MissionType missionType);
+    Optional<CharacterMission> findTopByUserCharacter_IdAndIsClearTrueAndMission_TypeOrderByCreatedDateDesc(Long user_character_id, MissionType missionType);
+    Optional<Long> countAllByUserCharacter_IdAndCreatedDateLessThanAndIsClearTrueAndMission_Type(Long user_character_id, LocalDate date, MissionType missionType);
+    Optional<CharacterMission> findTopByUserCharacter_IdAndMission_TypeOrderByCreatedDateDesc(Long user_character_id, MissionType missionType);
 }

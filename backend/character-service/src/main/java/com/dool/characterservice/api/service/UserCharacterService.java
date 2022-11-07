@@ -8,6 +8,6 @@ import java.util.Optional;
 public interface UserCharacterService {
     UserCharacterResponseDto creatUserCharacter(UserCharacterRequestDto requestDto);
     UserCharacterResponseDto getUserCharacter(Long id);
-    Optional<UserCharacterResponseDto> getUserCharacterByUserId(String user_id);
+    UserCharacterResponseDto getUserCharacterByUserId(String user_id);
     Long setBackground(Long id, String background);
 }

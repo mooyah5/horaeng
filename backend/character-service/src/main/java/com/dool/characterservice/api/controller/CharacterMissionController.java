@@ -23,12 +23,12 @@ public class CharacterMissionController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @PostMapping
-    private ResponseEntity postMission(@RequestBody CharacterMissionRequestDto requestDto){
-        CharacterMissionResponseDto characterMissionResponseDto = characterMissionService.postMission(requestDto);
-
-        return ResponseEntity.status(HttpStatus.OK).body(characterMissionResponseDto);
-    }
+//    @PostMapping
+//    private ResponseEntity postMission(@RequestBody CharacterMissionRequestDto requestDto){
+//        CharacterMissionResponseDto characterMissionResponseDto = characterMissionService.postMission(requestDto);
+//
+//        return ResponseEntity.status(HttpStatus.OK).body(characterMissionResponseDto);
+//    }
 
     @GetMapping("/count/{user_character_id}")
     private ResponseEntity countMission(@PathVariable("user_character_id") Long user_character_id){
