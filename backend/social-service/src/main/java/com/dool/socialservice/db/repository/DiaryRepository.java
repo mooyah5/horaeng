@@ -17,13 +17,13 @@ public class DiaryRepository {
     }
 
     public List<Diary> getByCharacters(Long charactersId){
-        return em.createQuery("select d from Diary d where d.charactersId = :charactersId")
+        return em.createQuery("select d from Diary d where d.charactersId = :charactersId order by d.id desc")
                 .setParameter("charactersId", charactersId)
                 .getResultList();
     }
 
     public List<Diary> getByUserCharacter(Long userCharacterId){
-        return em.createQuery("select d from Diary d where d.userCharacterId = :userCharacterId order by d.id desc")
+        return em.createQuery("select d from Diary d where d.userCharacterId = :userCharacterId")
                 .setParameter("userCharacterId", userCharacterId)
                 .getResultList();
     }
