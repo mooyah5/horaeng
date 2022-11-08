@@ -78,10 +78,8 @@ const CommunityContent = ({navigation}: Props) => {
           />
         )} */}
         <FlatList
-          data={communityArticle}
-          renderItem={item => (
-            <CommunityGalleryItem navigation={navigation} item={item} />
-          )}
+          data={imageData}
+          renderItem={() => <CommunityGalleryItem navigation={navigation} />}
           numColumns={3}
           key={null}
         />

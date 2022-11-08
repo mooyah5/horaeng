@@ -1,5 +1,4 @@
-import React, {useEffect, useState} from 'react';
-import {useRoute} from '@react-navigation/native';
+import React, {useState} from 'react';
 import {ImageBackground, StyleSheet, Text, View, FlatList} from 'react-native';
 import {color, font} from '../../styles/colorAndFontTheme';
 import Btn from '../../components/common/Btn_short';
@@ -127,7 +126,7 @@ const Notice = ({navigation}: any) => {
             <FlatList
               style={styles.tableBox}
               data={noticeData}
-              renderItem={item => <NoticeItem navigation={navigation} />}
+              renderItem={() => <NoticeItem navigation={navigation} />}
               key={null}
               // columnWrapperStyle={styles.flatList}
             />
