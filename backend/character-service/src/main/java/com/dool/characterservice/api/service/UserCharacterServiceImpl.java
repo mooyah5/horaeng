@@ -91,8 +91,15 @@ public class UserCharacterServiceImpl implements UserCharacterService{
                 .build();
     }
 
-    @Override
-    public Long setBackground(Long id, String background) {
-        return null;
+        return UserCharacterResponseDto.builder()
+                .id(userCharacter.getId())
+                .character_id(userCharacter.getCharacters().getId())
+                .user_id(userCharacter.getUserId())
+                .created_date(userCharacter.getCreatedDate())
+                .nickname(userCharacter.getNickname())
+                .characterLevel(userCharacter.getLevel())
+                .status(userCharacter.isStatus())
+                .build();
     }
+
 }

@@ -1,5 +1,6 @@
 package com.dool.characterservice.api.service;
 
+import com.dool.characterservice.api.request.MissionRequest;
 import com.dool.characterservice.api.response.MissionResponseDto;
 import com.dool.characterservice.db.domain.Mission;
 import com.dool.characterservice.db.repository.MissionRepository;
@@ -42,5 +43,28 @@ public class MissionServiceImpl implements MissionService{
                     .build());
         });
         return missionResponseDtoList;
+    }
+
+    @Override
+    public MissionResponseDto creat(MissionRequest missionRequest) {
+        Mission mission = Mission.builder()
+                .title(missionRequest.getTitle())
+                .content(missionRequest.getContent())
+                .img(missionRequest.getImg())
+                .build();
+
+        Long id = missionRepository.save(mission).getId();
+
+        Mission saved = missionRepository.findById(id).orElseThrow();
+
+        MissionResponseDto result = MissionResponseDto.builder()
+                .id(saved.getId())
+                .content(saved.getContent())
+                .title(saved.getTitle())
+                .img(saved.getImg())
+                .type(saved.getType())
+                .build();
+
+        return result;
     }
 }
