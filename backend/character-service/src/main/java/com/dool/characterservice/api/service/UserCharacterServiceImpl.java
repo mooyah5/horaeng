@@ -92,16 +92,4 @@ public class UserCharacterServiceImpl implements UserCharacterService{
                 .status(userCharacter.isStatus())
                 .build();
     }
-
-        return UserCharacterResponseDto.builder()
-                .id(userCharacter.getId())
-                .character_id(userCharacter.getCharacters().getId())
-                .user_id(userCharacter.getUserId())
-                .created_date(userCharacter.getCreatedDate())
-                .nickname(userCharacter.getNickname())
-                .characterLevel(userCharacter.getLevel())
-                .status(userCharacter.isStatus())
-                .build();
-    }
-
 }
