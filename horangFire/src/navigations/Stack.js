@@ -2,7 +2,6 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import Home from '../screens/Home';
 
-import Start from '../screens/login/Start';
 import Login from '../screens/login/Login';
 
 import ReportModal from '../components/options/ReportModal';
@@ -56,7 +55,6 @@ const StackNavigation = () => {
           component={Home}
           options={{gestureEnabled: false}}
         />
-        <Stack.Screen name="Start" component={Start} />
         <Stack.Screen name="Login" component={Login} />
 
         <Stack.Screen name="SelectAnimal" component={SelectAnimal} />

@@ -44,7 +44,6 @@ const Login = ({navigation}: Props) => {
       const profileResult = await getKakaoProfile();
       const response = await api.auth.login(profileResult.id);
       const token = response.headers.token;
-
       await saveDataInLocalStorage('id', profileResult.id);
       await saveDataInLocalStorage('token', token);
 
@@ -55,28 +54,21 @@ const Login = ({navigation}: Props) => {
   };
 
   const getUserData = async () => {
-    /**
-     * 로그인 돼있는지 확인하고 로그인 돼있으면
-     * 키우는 동물 있으면 홈으로, 없으면 동물선택
-     * 로그인 안 돼있으면 로그인 페이지 유지
-     */
+    const token = await getDataInLocalStorage('token');
+    const kakaoId = await getDataInLocalStorage('id');
 
-    // const isLoggedIn = await getDataInLocalStorage('token');
+    if (token && kakaoId) {
+      const response = await api.user.getUserInfo(kakaoId);
 
-    const profileId = await getDataInLocalStorage('id');
-    if (profileId) {
-      const response = await api.user.getUserInfo(profileId);
       dispatch(setUserObject({user: response.data}));
     }
-
-    // 프로필 id(토큰)이 없으면 그냥 로그인 페이지 유지
   };
 
   const getNowUserCharacter = async (id: string) => {
     const response = await api.character.getNowUserCharacter(id);
 
     if (response.data.userCharacter) {
-      dispatch(setMyCharacter(response.data.userCharacter));
+      dispatch(setMyCharacter({character: response.data}));
       navigation.navigate('Home');
     } else {
       navigation.navigate('SelectAnimal');

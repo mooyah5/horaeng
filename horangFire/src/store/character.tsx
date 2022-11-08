@@ -9,7 +9,7 @@ import {createSlice} from '@reduxjs/toolkit';
  * @characterLevel 캐릭터의 현재 레벨
  * @status 미션을 3일차까지 모두 완료한 동물인가?
  */
-export interface charType {
+interface charType {
   id: number;
   user_id: string;
   character_id: number;
@@ -19,18 +19,25 @@ export interface charType {
   status: boolean;
 }
 
-export const charInitialState: charType | null = null;
+export interface CharacterResponseType {
+  today?: boolean;
+  count?: number;
+  message: string;
+  userCharacter: charType | null;
+}
+
+export const charInitialState: CharacterResponseType | null = null;
 
 export const charSlice = createSlice({
   name: 'character',
   initialState: charInitialState,
   reducers: {
-    setMyCharacter: (state: charType | null, action) => {
+    setMyCharacter: (state: CharacterResponseType | null, action) => {
       return action.payload.character;
     },
-    setTodaysMission: (state: charType | null, action) => {
+    setTodaysMission: (state: CharacterResponseType | null, action) => {
       if (state) {
-        state.status = action.payload.isDone;
+        state.today = action.payload.isDone;
       }
     },
   },
@@ -38,10 +45,11 @@ export const charSlice = createSlice({
 
 export const checkTodaysMission = (state: {character: {status: boolean}}) =>
   state.character?.status;
-export const selectName = (state: {character: {nickname: string}}) =>
-  state.character?.nickname;
-export const selectCharacter = (state: {character: charType | null}) =>
-  state.character;
+export const selectName = (state: {character: CharacterResponseType}) =>
+  state?.character?.userCharacter?.nickname;
+export const selectCharacter = (state: {
+  character: CharacterResponseType | null;
+}) => state.character;
 
 export const {setMyCharacter, setTodaysMission} = charSlice.actions;
 

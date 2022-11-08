@@ -16,8 +16,8 @@
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		D445156F2914DC9E00F9CAC2 /* splash.png in Resources */ = {isa = PBXBuildFile; fileRef = D445156E2914DC9E00F9CAC2 /* splash.png */; };
 		D49BFB2A291487DD007C86A7 /* SwiftBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49BFB29291487DD007C86A7 /* SwiftBridge.swift */; };
-		D4C436922916B84100F7CEB6 /* example_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4C436912916B84100F7CEB6 /* example_sound.mp3 */; };
 		D4C89E0B2906F8C700139696 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = D4C89E0A2906F8C700139696 /* fonts */; };
+		F9A50DF92919DEE800F4E35B /* example_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F9A50DF82919DEE800F4E35B /* example_sound.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,9 +50,9 @@
 		D445156E2914DC9E00F9CAC2 /* splash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash.png; sourceTree = "<group>"; };
 		D49BFB28291487DD007C86A7 /* horangFire-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "horangFire-Bridging-Header.h"; sourceTree = "<group>"; };
 		D49BFB29291487DD007C86A7 /* SwiftBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftBridge.swift; sourceTree = "<group>"; };
-		D4C436912916B84100F7CEB6 /* example_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = example_sound.mp3; path = "../../../../Library/Mobile Documents/com~apple~CloudDocs/example_sound.mp3"; sourceTree = "<group>"; };
 		D4C89E0A2906F8C700139696 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		F9A50DF82919DEE800F4E35B /* example_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = example_sound.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,7 +128,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				D4C436912916B84100F7CEB6 /* example_sound.mp3 */,
+				F9A50DF82919DEE800F4E35B /* example_sound.mp3 */,
 				D4C89E0A2906F8C700139696 /* fonts */,
 				13B07FAE1A68108700A75B9A /* horangFire */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -256,9 +256,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4C436922916B84100F7CEB6 /* example_sound.mp3 in Resources */,
 				D445156F2914DC9E00F9CAC2 /* splash.png in Resources */,
 				D4C89E0B2906F8C700139696 /* fonts in Resources */,
+				F9A50DF92919DEE800F4E35B /* example_sound.mp3 in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
