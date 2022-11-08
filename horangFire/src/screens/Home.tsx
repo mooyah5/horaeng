@@ -118,14 +118,20 @@ const styles = StyleSheet.create({
   },
   mainBottomImage: {
     position: 'absolute',
-    width: '90%',
-    height: '90%',
+    width: '70%',
+    height: '70%',
     resizeMode: 'contain',
   },
   messageBox: {
     width: '100%',
     height: '100%',
     justifyContent: 'center',
+  },
+  missionBottomText3: {
+    fontFamily: font.beeBold,
+    fontSize: 30,
+    color: color.BROWN_47,
+    textAlign: 'center',
   },
 });
 
@@ -277,8 +283,7 @@ const Home = ({navigation}: Props) => {
           ) : (
             <TouchableOpacity
               onPress={() => navigation.navigate('MissionHome')}>
-              <Text style={styles.missionBottomText1}>MISSION</Text>
-              <Text style={styles.missionBottomText2}>현재미션이름</Text>
+              <Text style={styles.missionBottomText3}>MISSION</Text>
             </TouchableOpacity>
           )}
         </View>
