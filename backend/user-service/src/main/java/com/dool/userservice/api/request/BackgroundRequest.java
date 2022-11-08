@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class BuyBackgroundRequest {
+public class BackgroundRequest {
     private Long backgroundId;
     private String userId;
 }

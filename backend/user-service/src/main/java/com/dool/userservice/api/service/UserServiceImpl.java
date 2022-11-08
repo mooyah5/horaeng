@@ -1,13 +1,13 @@
 package com.dool.userservice.api.service;
 
-import antlr.Token;
-import com.dool.userservice.api.request.BuyBackgroundRequest;
+import com.dool.userservice.api.request.BackgroundRequest;
 import com.dool.userservice.api.request.CreateUserRequest;
 import com.dool.userservice.api.request.LoginRequest;
 import com.dool.userservice.api.request.TokenRequest;
 import com.dool.userservice.db.domain.Background;
 import com.dool.userservice.db.domain.RoleType;
 import com.dool.userservice.db.domain.User;
+import com.dool.userservice.db.domain.UserBackground;
 import com.dool.userservice.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void buyBackground(BuyBackgroundRequest request){
+    public void buyBackground(BackgroundRequest request){
         User user = userRepository.get(request.getUserId());
 
         Background background = backgroundService.get(request.getBackgroundId());
@@ -68,22 +68,8 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public boolean isUser(LoginRequest request){
-
-        if(request.getRole() == RoleType.User){
-            User user = userRepository.get(request.getId());
-            if(user == null) return false;
-            return true;
-        }
-
-        else if(request.getRole() == RoleType.Admin){
-            User user = userRepository.get(request.getId());
-
-            if(user.getPassword().equals(request.getPassword())){
-                return true;
-            }
-        }
-
-        return false;
+    public void inputBackground(BackgroundRequest request) {
+        userBackgroundService.createUserBackground(request);
     }
+
 }
