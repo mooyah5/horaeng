@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('build'){
+            steps{
+                script{
+                    try {
+                        dir('./backend/character-service'){
+                            sh 'chmod +x gradlew'
+                            sh './gradlew clean build'
+                        }
+                        sh 'docker stop character-service'
+                        sh 'docker rm character-service'
+                        sh 'docker rmi character-service'
+                    } catch (e) {
+                        sh 'echo "character-service stop중 실패"'
+                    }
+                    try{
+                        sh 'docker build -t character-service ./backend/character-service'
+                    }catch(e){
+                        sh 'echo "docker 이미지빌드중 실패"'
+                    }
+                }
+            }
+        }
+        stage("run"){
+            steps {
+                sh 'docker run -d -p 8030:8030 --network msa --name character-service character-service'
+            }
+        }
+    }
+}
