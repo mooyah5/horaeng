@@ -43,14 +43,19 @@ export const charSlice = createSlice({
   },
 });
 
-export const checkTodaysMission = (state: {character: {status: boolean}}) =>
-  state.character?.status;
+export const selectTodaysMission = (state: {
+  character: CharacterResponseType;
+}) => state.character.today;
+export const selectCharMission = (state: {
+  character: CharacterResponseType;
+}) => {
+  state.character.userCharacter?.character_id;
+};
 export const selectName = (state: {character: CharacterResponseType}) =>
   state?.character?.userCharacter?.nickname;
 export const selectCharacter = (state: {
   character: CharacterResponseType | null;
 }) => state.character;
-
 export const {setMyCharacter, setTodaysMission} = charSlice.actions;
 
 export default charSlice.reducer;

@@ -22,26 +22,28 @@ const api = {
     submitMain: async (diary: any) => {
       console.log(diary);
       const res = await axios({
-        //url: urls.diary.submit(),
+        url: urls.diary.submit(),
         method: 'post',
+        headers: {
+          token: await getDataInLocalStorage('token'),
+        },
         data: {
           ...diary,
         },
       });
+      console.log(res);
       return res;
     },
     viewCharDiary: async (charId: number) => {
-      console.log(charId);
+      console.log('요청 보내기~~');
       const res = await axios({
         url: urls.diary.viewCharDiary(charId),
         headers: {
           token: await getDataInLocalStorage('token'),
-          // token:
-          //   'eyJ0eXAiOiJKV1QiLCJyZWdEYXRlIjoxNjY3ODg0NTM0Mjg2LCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2Njc4ODUxMzQsInN1YiI6ImFjY2Vzcy10b2tlbiIsImlkIjoiYWRtaW5UZXN0In0.batDv0_vwpUbjX6fza4dZilI2_DugCe5kxrpfg8k278',
         },
         method: 'get',
       });
-
+      console.log(res.data);
       return res.data;
     },
   },

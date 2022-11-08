@@ -5,8 +5,13 @@ import TitleText from '../../components/common/TitleText';
 import Btn from '../../components/common/Btn_long';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {ParamListBase} from '@react-navigation/native';
-import {checkTodaysMission} from '../../store/character';
 import {useSelector} from 'react-redux';
+import {
+  selectCharacter,
+  selectName,
+  selectTodaysMission,
+} from '../../store/character';
+import {charMission} from '../../script/charMission';
 
 const styles = StyleSheet.create({
   container: {
@@ -51,12 +56,15 @@ interface Props {
 }
 
 const MissionHome = ({navigation}: Props) => {
-  const isDone: boolean = useSelector(checkTodaysMission);
+  const isDone = useSelector(selectTodaysMission);
+  const name = useSelector(selectName);
+  const missionType = useSelector(selectCharacter)?.userCharacter?.character_id;
 
-  const missionTxt = '종이를 아끼기';
-  const [charSays, setCharSays] = useState<string>('나를 위해 ' + missionTxt);
+  const missionTxt = charMission[missionType][0];
+  console.log(missionTxt);
+  const [charSays, setCharSays] = useState<string>(missionTxt + '에 도전!');
   const canDoMain = () => {
-    if (!isDone) {
+    if (isDone) {
       navigation.navigate('MainMission');
     } else {
       setCharSays('이미 메인 미션을 완료했어!');
@@ -71,15 +79,13 @@ const MissionHome = ({navigation}: Props) => {
     }
   };
 
-  useEffect(() => {
-    console.log('aa');
-  }, [charSays]);
+  useEffect(() => {}, [charSays]);
 
   return (
     <SafeAreaView style={{backgroundColor: color.BACK_SUB}}>
       <View style={styles.container}>
         <View style={styles.cont1}>
-          <TitleText title="호랭이 이름" subTitle="미션 수행하기" />
+          <TitleText title={name} subTitle="미션 수행하기" />
         </View>
 
         <View style={styles.cont2}>

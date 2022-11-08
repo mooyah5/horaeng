@@ -1,6 +1,7 @@
 import {ParamListBase} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import {font, color} from '../../styles/colorAndFontTheme';
 import {
   Alert,
   Image,
@@ -8,10 +9,11 @@ import {
   ScrollView,
   StyleSheet,
   View,
+  Text,
 } from 'react-native';
 import {useSelector} from 'react-redux';
 import api from '../../api/api_controller';
-import {selectCharId} from '../../store/character';
+import {selectCharacter} from '../../store/character';
 import Btn from '../common/Btn_short';
 import DiaryItem from './DiaryItem';
 
@@ -25,11 +27,14 @@ const styles = StyleSheet.create({
   },
   section1: {flex: 5},
   section2: {flex: 16, paddingHorizontal: 24, paddingTop: 40},
-  section3: {flex: 4, flexDirection: 'row', paddingHorizontal: 24},
+  section3: {flex: 5, flexDirection: 'row', paddingHorizontal: 30},
 
-  scroll: {flex: 1, marginBottom: 60},
+  scroll: {
+    flex: 1,
+    marginBottom: 60,
+  },
 
-  subSection1: {flex: 1, height: '100%', backgroundColor: 'red'},
+  subSection1: {flex: 1, height: '100%'},
   subSection2: {
     flex: 1,
     height: '100%',
@@ -48,35 +53,51 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   diaryBox: {
-    width: '100%',
     flexDirection: 'row',
     height: '100%',
     paddingHorizontal: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   emptyArea: {flex: 2},
+  empty: {
+    fontFamily: font.beeBold,
+    fontSize: 30,
+    textAlign: 'center',
+  },
 });
 
 interface Props {
   navigation: StackNavigationProp<ParamListBase, 'ListOfDiaries'>;
 }
+interface ContentType {
+  charactersId: number;
+  content: string;
+  createDate: string;
+  id: number;
+  imgUrl: string;
+  userCharacterId: number;
+  userId: string;
+}
 
 const ListOfDiaries = ({navigation}: Props) => {
-  const [diaries, setDiaries] = useState([]);
-  // const charId = useSelector(selectCharId);
-  const charId = 1;
+  const [diaries, setDiaries] = useState<ContentType[]>([]);
+  const charId = useSelector(selectCharacter)?.userCharacter?.id;
 
   const handleDiaries = async () => {
-    try {
-      const res = await api.diary.viewCharDiary(charId);
-      setDiaries(res);
-    } catch (err) {
-      Alert.alert('오류 발생');
+    if (charId !== undefined) {
+      try {
+        const res = await api.diary.viewCharDiary(charId);
+        setDiaries(() => res);
+      } catch (err) {
+        // console.error(err);
+      }
     }
-    // setDiaries([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
   };
 
   useEffect(() => {
     handleDiaries();
+    console.log(diaries);
   }, []);
 
   return (
@@ -88,53 +109,63 @@ const ListOfDiaries = ({navigation}: Props) => {
           style={styles.infoBox}
         />
         <ScrollView style={styles.scroll}>
-          <View style={styles.diaryBox}>
-            <View style={styles.subSection1}>
-              {diaries.map((value, index) => {
-                if (index % 3 === 0) {
-                  return (
-                    <DiaryItem
-                      day={value}
-                      key={index}
-                      navigation={navigation}
-                    />
-                  );
-                } else {
-                  return;
-                }
-              })}
-            </View>
-            <View style={styles.subSection2}>
-              {diaries.map((value, index) => {
-                if (index % 3 === 1) {
-                  return (
-                    <DiaryItem
-                      day={value}
-                      key={index}
-                      navigation={navigation}
-                    />
-                  );
-                } else {
-                  return;
-                }
-              })}
-            </View>
-            <View style={styles.subSection3}>
-              {diaries.map((value, index) => {
-                if (index % 3 === 2) {
-                  return (
-                    <DiaryItem
-                      day={value}
-                      key={index}
-                      navigation={navigation}
-                    />
-                  );
-                } else {
-                  return;
-                }
-              })}
-            </View>
-          </View>
+          <>
+            {diaries.length !== 0 && (
+              <View style={styles.diaryBox}>
+                <View style={styles.subSection1}>
+                  {diaries.map((value, index) => {
+                    if (index % 3 === 0) {
+                      return (
+                        <DiaryItem
+                          key={index}
+                          day={index}
+                          value={value}
+                          navigation={navigation}
+                        />
+                      );
+                    } else {
+                      return;
+                    }
+                  })}
+                </View>
+                <View style={styles.subSection2}>
+                  {diaries.map((value, index) => {
+                    if (index % 3 === 1) {
+                      return (
+                        <DiaryItem
+                          value={value}
+                          day={index}
+                          key={index}
+                          navigation={navigation}
+                        />
+                      );
+                    } else {
+                      return;
+                    }
+                  })}
+                </View>
+                <View style={styles.subSection3}>
+                  {diaries.map((value, index) => {
+                    if (index % 3 === 2) {
+                      return (
+                        <DiaryItem
+                          value={value}
+                          day={index}
+                          key={index}
+                          navigation={navigation}
+                        />
+                      );
+                    } else {
+                      return;
+                    }
+                  })}
+                </View>
+              </View>
+            )}
+            {diaries.length === 0 && (
+              <Text style={styles.empty}>일지를 작성해 볼까요?</Text>
+            )}
+          </>
         </ScrollView>
       </View>
       <View style={styles.section3}>

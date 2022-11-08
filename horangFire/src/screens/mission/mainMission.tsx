@@ -17,9 +17,10 @@ import HelpTxt from '../../components/mission/HelpTxt';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {ParamListBase} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
-import {selectName} from '../../store/character';
+import {selectCharacter, selectName} from '../../store/character';
 import api from '../../api/api_controller';
 import {selectMainFile} from '../../store/mission';
+import {charMission} from '../../script/charMission';
 
 const styles = StyleSheet.create({
   container: {
@@ -55,6 +56,7 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingHorizontal: 50,
     paddingTop: 30,
+    marginBottom: 8,
   },
   helpBtn: {
     paddingVertical: 8,
@@ -73,10 +75,13 @@ interface Props {
 const MainMission = ({navigation}: Props) => {
   const dispatch = useDispatch();
   const name = useSelector(selectName);
-  const imgUrl = useSelector(selectMainFile);
+  const charInfo = useSelector(selectCharacter)?.userCharacter;
 
-  const [clickHelp, setClickHelp] = useState(false);
-  const mission = '종이 아끼기';
+  const imgUrl = useSelector(selectMainFile); // main 미션 이미지 url 저장
+
+  const [clickHelp, setClickHelp] = useState(false); // 안내 사항 확인?
+
+  const mission = charMission[charInfo?.character_id][0];
   const [diary, setDiary] = useState('');
   const info =
     '1. 예시 사진과 동일하게 종이를 아끼는 모습을 담은 사진을 찍어주세요. \n 2. 부적합한 사진 업로드시 포인트가 차감될 수 있습니다.';
@@ -89,9 +94,10 @@ const MainMission = ({navigation}: Props) => {
         await api.diary.submitMain({
           content: diary,
           imgUrl: imgUrl,
-          userId: 'test1', // user id
-          userCharacter: 1, // 캐릭터 id
-          charactersId: 1, // 동물 타입
+          userId: charInfo?.user_id, // user id
+          userCharacterId: charInfo?.id, // 캐릭터 id
+          charactersId: charInfo?.character_id, // 동물 타입
+          characterMissionId: 9, // 수정 예정
         });
         navigation.navigate('SubmitMission');
       } catch (err) {

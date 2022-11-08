@@ -6,7 +6,8 @@ import Btn from '../../components/common/Btn_long';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {ParamListBase} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
-import {selectName} from '../../store/character';
+import {selectCharacter, selectName} from '../../store/character';
+import {charMission} from '../../script/charMission';
 
 const styles = StyleSheet.create({
   container: {
@@ -59,8 +60,8 @@ interface Props {
 }
 
 const SubmitMission = ({navigation}: Props) => {
-  const mission = '종이 아끼기';
-  const days = 1;
+  const charInfo = useSelector(selectCharacter);
+  const days = charInfo?.count;
   const name = useSelector(selectName);
   const success = '일차 미션을 성공적으로 마쳤네! \n 고마워!! :)';
   return (
@@ -74,7 +75,9 @@ const SubmitMission = ({navigation}: Props) => {
             style={styles.box}
             source={require('../../assets/image/optionBox.png')}
           />
-          <Text style={styles.txtTitle}>{mission} 미션</Text>
+          <Text style={styles.txtTitle}>
+            {charMission[charInfo?.userCharacter?.character_id]} 미션
+          </Text>
           <Text style={styles.txtSub}>
             {days}
             {success}
