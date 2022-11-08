@@ -93,7 +93,7 @@ const Community = ({navigation}: any) => {
           </View>
           <View style={styles.box2}>
             <Text style={styles.midTitle}>{selectedItem.name}</Text>
-            <CommunityContent navigation={navigation} />
+            <CommunityContent navigation={navigation} isNotice={false} />
           </View>
           <View style={styles.btns}>
             <Btn txt="이전으로" clickEvent={() => navigation.goBack()} />

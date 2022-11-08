@@ -33,6 +33,13 @@ const api = {
   },
 
   character: {
+    getNowUserCharacter: async (userId: string) => {
+      const response = await axios({
+        url: urls.character.getNowUserCharacter(userId),
+        method: 'get',
+      });
+      return response;
+    },
     getCharacterList: async () => {
       const response = await axios({
         url: urls.character.getCharacterList(),

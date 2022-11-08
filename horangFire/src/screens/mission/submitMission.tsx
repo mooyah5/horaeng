@@ -74,7 +74,7 @@ const SubmitMission = ({navigation}: Props) => {
             style={styles.box}
             source={require('../../assets/image/optionBox.png')}
           />
-          <Text style={styles.txtTitle}>'{mission}' 미션</Text>
+          <Text style={styles.txtTitle}>{mission} 미션</Text>
           <Text style={styles.txtSub}>
             {days}
             {success}

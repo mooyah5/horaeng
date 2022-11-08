@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {color, font} from '../../styles/colorAndFontTheme';
 
 const styles = StyleSheet.create({
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
 
 type btnTypes = {
   txt: string;
-  clickEvent: Function;
+  clickEvent: () => void;
 };
 
 const Btn = ({txt, clickEvent}: btnTypes) => {
