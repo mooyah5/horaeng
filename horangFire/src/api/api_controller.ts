@@ -1,3 +1,4 @@
+import {getDataInLocalStorage} from './../store/AsyncService';
 import axios from 'axios';
 import {CharacterInfo} from './apiDataType';
 import urls from './urls';
@@ -27,8 +28,21 @@ const api = {
           ...diary,
         },
       });
-      console.log(res);
       return res;
+    },
+    viewCharDiary: async (charId: number) => {
+      console.log(charId);
+      const res = await axios({
+        url: urls.diary.viewCharDiary(charId),
+        headers: {
+          token: await getDataInLocalStorage('token'),
+          // token:
+          //   'eyJ0eXAiOiJKV1QiLCJyZWdEYXRlIjoxNjY3ODg0NTM0Mjg2LCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2Njc4ODUxMzQsInN1YiI6ImFjY2Vzcy10b2tlbiIsImlkIjoiYWRtaW5UZXN0In0.batDv0_vwpUbjX6fza4dZilI2_DugCe5kxrpfg8k278',
+        },
+        method: 'get',
+      });
+
+      return res.data;
     },
   },
 

@@ -42,6 +42,9 @@ export const selectName = (state: {character: {nickname: string}}) =>
   state.character?.nickname;
 export const selectCharacter = (state: {character: charType | null}) =>
   state.character;
+export const selectCharId = (state: {character: {id: number | null}}) => {
+  state.character.id;
+};
 
 export const {setMyCharacter, setTodaysMission} = charSlice.actions;
 

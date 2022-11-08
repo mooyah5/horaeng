@@ -1,7 +1,17 @@
 import {ParamListBase} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {useEffect, useState} from 'react';
-import {Image, SafeAreaView, ScrollView, StyleSheet, View} from 'react-native';
+import {
+  Alert,
+  Image,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  View,
+} from 'react-native';
+import {useSelector} from 'react-redux';
+import api from '../../api/api_controller';
+import {selectCharId} from '../../store/character';
 import Btn from '../common/Btn_short';
 import DiaryItem from './DiaryItem';
 
@@ -10,7 +20,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     width: '100%',
     height: '100%',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
     justifyContent: 'center',
   },
   section1: {flex: 5},
@@ -19,7 +29,7 @@ const styles = StyleSheet.create({
 
   scroll: {flex: 1, marginBottom: 60},
 
-  subSection1: {flex: 1, height: '100%'},
+  subSection1: {flex: 1, height: '100%', backgroundColor: 'red'},
   subSection2: {
     flex: 1,
     height: '100%',
@@ -51,10 +61,18 @@ interface Props {
 }
 
 const ListOfDiaries = ({navigation}: Props) => {
-  const [diaries, setDiaries] = useState<number[]>([]);
+  const [diaries, setDiaries] = useState([]);
+  // const charId = useSelector(selectCharId);
+  const charId = 1;
 
-  const handleDiaries = () => {
-    setDiaries([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+  const handleDiaries = async () => {
+    try {
+      const res = await api.diary.viewCharDiary(charId);
+      setDiaries(res);
+    } catch (err) {
+      Alert.alert('오류 발생');
+    }
+    // setDiaries([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
   };
 
   useEffect(() => {
