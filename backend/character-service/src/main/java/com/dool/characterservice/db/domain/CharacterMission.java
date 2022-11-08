@@ -10,6 +10,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 public class CharacterMission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

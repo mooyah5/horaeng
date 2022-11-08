@@ -36,4 +36,11 @@ public class CharacterMissionController {
 
         return ResponseEntity.status(HttpStatus.OK).body(characterMissionCountResponseDto);
     }
+
+    @PatchMapping("/{CMId}")
+    private ResponseEntity<?> complete(@PathVariable("CMId") Long CMId){
+        characterMissionService.complete(CMId);
+
+        return ResponseEntity.status(HttpStatus.OK).body(null);
+    }
 }

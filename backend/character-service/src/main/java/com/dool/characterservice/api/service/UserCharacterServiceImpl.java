@@ -10,12 +10,14 @@ import com.dool.characterservice.db.repository.UserCharacterRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class UserCharacterServiceImpl implements UserCharacterService{
 
     private final UserCharacterRepository userCharacterRepository;
