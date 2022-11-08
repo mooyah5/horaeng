@@ -36,7 +36,7 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
             ServerHttpRequest request = exchange.getRequest();
 
             if(!request.getHeaders().containsKey("token")){
-                return onError(exchange, "No authorization header", HttpStatus.UNAUTHORIZED);
+                return onError(exchange, "No authorization header", HttpStatus.BAD_GATEWAY);
             }
             String authorizationHeader = request.getHeaders().get("token").get(0);
             String jwt = authorizationHeader.replace("Bearer", "");
