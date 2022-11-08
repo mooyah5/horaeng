@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,9 +34,10 @@ public class UserController {
         this.userBackgroundService = userBackgroundService;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<UserResponse> getUser(@PathVariable("id") String id){
-        User user = userService.getUser(id);
+    @GetMapping
+    public ResponseEntity<UserResponse> getUser( HttpServletRequest httpServletRequest){
+
+        User user = userService.getUser(httpServletRequest.getHeader("userId"));
 
         if(user == null){
             ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
