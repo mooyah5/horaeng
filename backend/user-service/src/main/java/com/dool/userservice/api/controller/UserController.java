@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class UserController {
     @GetMapping
     public ResponseEntity<UserResponse> getUser( HttpServletRequest httpServletRequest){
 
-        User user = userService.getUser(httpServletRequest.getHeader("userId"));
+        User user = userService.getUser(httpServletRequest.getHeader("user-id"));
 
         if(user == null){
             ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
