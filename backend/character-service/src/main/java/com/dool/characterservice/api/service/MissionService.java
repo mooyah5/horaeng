@@ -9,4 +9,7 @@ public interface MissionService {
     MissionResponseDto missionDetail(Long id);
     List<MissionResponseDto> getMission();
     MissionResponseDto creat(MissionRequest missionRequest);
+    void del(Long id);
+
+    boolean update(Long id, MissionRequest missionRequest);
 }

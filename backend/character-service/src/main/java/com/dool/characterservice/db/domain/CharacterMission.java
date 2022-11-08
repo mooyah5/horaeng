@@ -1,6 +1,8 @@
 package com.dool.characterservice.db.domain;
 
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -22,5 +24,6 @@ public class CharacterMission {
     private UserCharacter userCharacter;
     @ManyToOne
     @JoinColumn(name = "mission_id", referencedColumnName = "id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Mission mission;
 }

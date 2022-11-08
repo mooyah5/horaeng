@@ -57,7 +57,20 @@ public class MIssionController {
 
     @DeleteMapping("{id}")
     private ResponseEntity<?> del(@PathVariable("id") Long id){
-
+        missionService.del(id);
         return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
+    @PatchMapping("{id}")
+    private ResponseEntity<?> update(@PathVariable("id") Long id, @RequestBody MissionRequest missionRequest){
+        Map<String, Object> result = new HashMap<>();
+
+        if(missionService.update(id, missionRequest)){
+            result.put("message", SUCCESS);
+        } else {
+            result.put("message", FAIL);
+        }
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

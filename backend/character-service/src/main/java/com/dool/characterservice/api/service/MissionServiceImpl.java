@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -54,7 +55,7 @@ public class MissionServiceImpl implements MissionService{
                 .title(missionRequest.getTitle())
                 .content(missionRequest.getContent())
                 .img(missionRequest.getImg())
-                .type(MissionType.Personal)
+                .type(MissionType.Common)
                 .build();
 
         Long id = missionRepository.save(mission).getId();
@@ -70,5 +71,31 @@ public class MissionServiceImpl implements MissionService{
                 .build();
 
         return result;
+    }
+
+    @Override
+    public void del(Long id) {
+        missionRepository.delete(missionRepository.findById(id).orElseThrow());
+
+        return;
+    }
+
+    @Override
+    public boolean update(Long id, MissionRequest missionRequest) {
+        Optional<Mission> oMission = missionRepository.findById(id);
+        if(oMission.isPresent()){
+            Mission mission = oMission.get();
+            if(!missionRequest.getTitle().isBlank()) {
+                mission.setTitle(missionRequest.getTitle());
+            }
+            if(!missionRequest.getContent().isBlank()) {
+                mission.setContent(missionRequest.getContent());
+            }
+            if(!missionRequest.getImg().isBlank()) {
+                mission.setImg(missionRequest.getImg());
+            }
+            return true;
+        }
+        return false;
     }
 }
