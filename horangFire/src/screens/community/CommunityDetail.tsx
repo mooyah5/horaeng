@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View, ScrollView, Image} from 'react-native';
 import {color, font} from '../../styles/colorAndFontTheme';
 import CommuDetailTitleText from '../../components/community/CommuDetailTitleText';
 import Btn from '../../components/common/Btn_short';
+import api from '../../api/api_controller';
 // import ReportModal from '../../components/options/ReportModal';
 // import SCREEN_WIDTH from '../../assets/image/constants/index'
 
@@ -55,7 +56,36 @@ const styles = StyleSheet.create({
   },
 });
 
+interface CommunityDetail {
+  id: number;
+  charactersId: number;
+  userId: string;
+  userCharacterId: number;
+  content: string;
+  imgUrl: string;
+  createDate: string;
+}
+
 const CommunityDetail = ({navigation}: any) => {
+  const [communityDetail, setCommunityDetail] = useState<CommunityDetail[]>([]);
+
+  const getCommunityDetail = async () => {
+    try {
+      const response = await api.community.getCommunityDetail(1);
+      setCommunityDetail(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getCommunityDetail();
+  }, []);
+
+  useEffect(() => {
+    console.log(communityDetail);
+  }, [communityDetail]);
+
   return (
     <View>
       <View style={styles.body}>

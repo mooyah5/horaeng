@@ -5,6 +5,9 @@ import Btn from '../../components/common/Btn_long';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {ParamListBase} from '@react-navigation/native';
 import api from '../../api/api_controller';
+import {selectUser, User} from '../../store/user';
+import {useDispatch, useSelector} from 'react-redux';
+import {setMyCharacter} from '../../store/character';
 
 const styles = StyleSheet.create({
   backgroundColor: {
@@ -36,26 +39,33 @@ interface Props {
 }
 const AnimalNameConfirm = ({navigation, route}: Props) => {
   const {params} = route;
-
+  const user: User = useSelector(selectUser);
+  const dispatch = useDispatch();
   const selectedCharacterName = params.animalName;
   const selectedCharacterId = params.selectedCharacterId;
   const selectedCharacterSpecies = params.selectedCharacterSpecies;
   const createCharacter = async () => {
-    // http://{{character-service}}/character-service/user-character 여기다가 보내자!
-    //   {
-    //     "user_id" : 2,
-    //     "character_id" : 1,
-    //     "nickname" : "jeong"
-    //    }
-
     try {
       const response = await api.character.create({
-        user_id: 2,
+        user_id: user.id, //리덕스에서유저아이디값가져와서껴넣자
         character_id: selectedCharacterId,
         nickname: selectedCharacterName,
       });
 
       if (response.status === 200) {
+        try {
+          const characterResponse = await api.character.getNowUserCharacter(
+            user.id,
+          );
+          console.log(characterResponse.data.userCharacter);
+          if (characterResponse.data.userCharacter) {
+            dispatch(setMyCharacter({character: characterResponse.data}));
+          } else {
+            console.log('캐릭터를못가져온다!');
+          }
+        } catch (err) {
+          console.error(err);
+        }
         navigation.navigate('MissionIntro', {
           animalName: response.data.nickname,
           selectedCharacterSpecies: selectedCharacterSpecies,

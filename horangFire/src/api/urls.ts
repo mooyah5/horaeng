@@ -1,9 +1,4 @@
 const GATEWAY = 'https://k7c108.p.ssafy.io/';
-// // host 주소
-// const HOST = 'http://k7c108.p.ssafy.io:8000/';
-// const USER_HOST = 'http://k7c108.p.ssafy.io:8010/';
-// const SOCIAL_HOST = 'http://k7c108.p.ssafy.io:8020/';
-// const CHARACTER_HOST = 'http://k7c108.p.ssafy.io:8030/';
 
 // 대분류
 const AUTH = 'auth-service/';
@@ -13,14 +8,9 @@ const SOCIAL = 'social-service/';
 
 // 중분류
 const USER_INFO = 'user/';
-const BACKGROUND = 'background/';
 
-const DIARY = 'diary/';
 const REPORT = 'report/';
 const NOTICE = 'notice/';
-
-const MISSION = 'mission/';
-const CHARACTER_ADDR = 'character/';
 
 const USER_CHARACTER = 'user-character/';
 
@@ -29,7 +19,7 @@ const urls = {
     login: () => GATEWAY + AUTH + 'auth/login',
   },
   user: {
-    getUserInfo: (userId: string) => GATEWAY + USER + USER_INFO + userId,
+    getUserInfo: (kakaoId: string) => GATEWAY + USER + USER_INFO + kakaoId,
   },
   diary: {
     submit: () => GATEWAY + SOCIAL + 'diary', // 일지 제출
@@ -43,6 +33,16 @@ const urls = {
     create: () => GATEWAY + CHARACTER + USER_CHARACTER,
     getCharacterDialog: (id: number) =>
       GATEWAY + CHARACTER + 'character-dialog/' + `${id}`,
+  },
+  community: {
+    getCommunityAll: () => GATEWAY + SOCIAL + 'diary',
+    getCommunityDetail: (id: number) =>
+      GATEWAY + SOCIAL + 'diary/' + 'item' + `${id}`,
+    report: () => GATEWAY + SOCIAL + REPORT,
+  },
+  notice: {
+    getNoticeAll: () => GATEWAY + SOCIAL + NOTICE,
+    getNoticeDetail: (id: number) => GATEWAY + SOCIAL + NOTICE + `${id}`,
   },
 };
 
