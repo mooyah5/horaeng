@@ -62,5 +62,26 @@ public class AuthServiceImpl implements AuthService {
         }
     }
 
+    @Override
+    public boolean reIssueToken(String refreshToken, HttpServletResponse httpServletResponse) {
+        if(jwtTokenProvider.verifyToken(refreshToken)){
+            String userId = jwtTokenProvider.get(refreshToken, "id");
+            String newAccessToken = jwtTokenProvider.createAccessToken("id",userId);
+            String newRefreshToken = jwtTokenProvider.createRefreshToken("id",userId);
+
+            TokenRequest tokenRequest = new TokenRequest();
+            tokenRequest.setId(userId);
+            tokenRequest.setToken(newRefreshToken);
+            userServiceClient.inputToken(tokenRequest);
+
+            // header와 cookie에 각각 저장
+            jwtTokenProvider.setHeaderAccessToken(httpServletResponse, newAccessToken);
+            jwtTokenProvider.setCookieRefreshToken(httpServletResponse, newRefreshToken);
+
+            return true;
+        };
+        return false;
+    }
+
 
 }

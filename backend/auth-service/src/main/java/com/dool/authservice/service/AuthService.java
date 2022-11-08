@@ -7,7 +7,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.net.http.HttpResponse;
 
 public interface AuthService {
-    public void userLogin(LoginRequest request, HttpServletResponse httpServletResponse);
+    void userLogin(LoginRequest request, HttpServletResponse httpServletResponse);
+    boolean reIssueToken(String refreshToken, HttpServletResponse httpServletResponse);
 
 
 }

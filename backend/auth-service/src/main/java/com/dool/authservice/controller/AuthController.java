@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.net.http.HttpResponse;
 
@@ -34,8 +35,11 @@ public class AuthController {
 
 
     @PostMapping("/token")
-    public ResponseEntity refresh(){
-        return null;
+    public ResponseEntity<?> reIssueToken(@CookieValue("refresh-token")Cookie cookie, HttpServletResponse httpServletResponse){
+        if(authService.reIssueToken(cookie.getValue(), httpServletResponse)){
+            return ResponseEntity.status(HttpStatus.OK).body(BaseResponse.of(HttpStatus.OK, "재발급 성공"));
+        };
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(BaseResponse.of(HttpStatus.UNAUTHORIZED, "리프레쉬 토큰도 만료"));
     }
 
 }
