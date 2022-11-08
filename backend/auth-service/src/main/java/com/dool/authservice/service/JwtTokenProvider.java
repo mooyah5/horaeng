@@ -84,22 +84,8 @@ public class JwtTokenProvider {
         }
     }
 
-    public String decodeToken(String jwt) {
-        try {
-            //Json Web Signature? 서버에서 인증을 근거로 인증정보를 서버의 private key로 서명 한것을 토큰화 한것
-            //setSigningKey : JWS 서명 검증을 위한  secretkey 셋팅
-            //parseClaimsJws : 파싱하여 원본 jws 만들기
-            Jws<Claims> claims = Jwts.parser().setSigningKey(this.generateKey()).parseClaimsJws(jwt);
-            return claims.getBody().get("user_id").toString();
-        } catch (Exception e) {
-            return "access-token-invalid";
-        }
-    }
 
-    public Map<String, Object> get(String key) {
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
-                .getRequest();
-        String jwt = request.getHeader("access-token");
+    public String get(String jwt, String key) {
         Jws<Claims> claims = null;
         try {
             claims = Jwts.parser().setSigningKey(SALT.getBytes("UTF-8")).parseClaimsJws(jwt);
@@ -107,11 +93,8 @@ public class JwtTokenProvider {
             e.getMessage();
         }
         Map<String, Object> value = claims.getBody();
-        return value;
-    }
-
-    public String getUserId() {
-        return (String) this.get("user").get("userid");
+        System.out.println("claims :" + claims);
+        return (String)value.get(key);
     }
 
     public void setHeaderAccessToken(HttpServletResponse response, String accessToken) {
