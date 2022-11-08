@@ -82,7 +82,7 @@ public class CharacterMissionServiceImpl implements CharacterMissionService {
         for(int i : arr){
             randComm.add( CharacterMission.builder()
                     .userCharacter(userCharacter)
-                    .mission(list.get(arr[i]))
+                    .mission(list.get(i))
                     .createdDate(today)
                     .isClear(false)
                     .build());
