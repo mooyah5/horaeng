@@ -14,12 +14,16 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class CharacterMissionServiceImpl implements CharacterMissionService {
+    private final int randSize = 3;
     private final UserCharacterRepository userCharacterRepository;
     private final CharacterMissionRepository characterMissionRepository;
     private final MissionRepository missionRepository;
@@ -55,6 +59,38 @@ public class CharacterMissionServiceImpl implements CharacterMissionService {
                 .build();
 
         characterMissionRepository.save(characterMission);
+
+        long day = today.toEpochDay();
+        Random random = new Random(day);
+
+        List<Mission> list = missionRepository.findAllByType(MissionType.Common);
+        List<CharacterMission> randComm = new ArrayList<>();
+
+        int cnt = 0;
+        int[] arr = new int[randSize];
+
+        loop: while(cnt < randSize){
+            int r = random.nextInt(list.size());
+            for(int i = 0; i < cnt; i++){
+                if(arr[i] == r){
+                    continue loop;
+                }
+            }
+            arr[cnt++] = r;
+        }
+
+        for(int i : arr){
+            randComm.add( CharacterMission.builder()
+                    .userCharacter(userCharacter)
+                    .mission(list.get(arr[i]))
+                    .createdDate(today)
+                    .isClear(false)
+                    .build());
+        }
+
+        for(CharacterMission m : randComm){
+            characterMissionRepository.save(m);
+        }
 
         return characterMission;
     }

@@ -26,7 +26,7 @@ pipeline {
         }
         stage("run"){
             steps {
-                sh 'docker run -d -p 8030:8030 --network msa --name character-service character-service'
+                sh 'docker run -d -p 8030:8030 --network msa -e TZ=Asia/Seoul --name character-service character-service'
             }
         }
     }

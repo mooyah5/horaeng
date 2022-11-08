@@ -3,6 +3,7 @@ package com.dool.characterservice.api.service;
 import com.dool.characterservice.api.request.MissionRequest;
 import com.dool.characterservice.api.response.MissionResponseDto;
 import com.dool.characterservice.db.domain.Mission;
+import com.dool.characterservice.db.domain.MissionType;
 import com.dool.characterservice.db.repository.MissionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -32,7 +33,7 @@ public class MissionServiceImpl implements MissionService{
 
     @Override
     public List<MissionResponseDto> getMission() {
-        List<Mission> missionList = missionRepository.findAll();
+        List<Mission> missionList = missionRepository.findAllByType(MissionType.Common);
         List<MissionResponseDto> missionResponseDtoList = new ArrayList<>();
 
         missionList.forEach(v -> {
@@ -53,6 +54,7 @@ public class MissionServiceImpl implements MissionService{
                 .title(missionRequest.getTitle())
                 .content(missionRequest.getContent())
                 .img(missionRequest.getImg())
+                .type(MissionType.Personal)
                 .build();
 
         Long id = missionRepository.save(mission).getId();

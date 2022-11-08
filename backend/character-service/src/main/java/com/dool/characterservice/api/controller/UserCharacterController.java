@@ -40,10 +40,10 @@ public class UserCharacterController {
     }
 
     @GetMapping("/user/{user_id}")
-    private ResponseEntity<?> getCharacterInfos(@PathVariable("user_id") String user_id, HttpServletRequest request){
-//        String userId = request.getHeader("accessToken");
+    private ResponseEntity<?> getCharacterInfos(@PathVariable("user_id") String user_id){
         Map<String, Object> result = new HashMap<>();
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+
         try {
             UserCharacterResponseDto userCharacterResponseDto = userCharacterService.getUserCharacterByUserId(user_id);
 
