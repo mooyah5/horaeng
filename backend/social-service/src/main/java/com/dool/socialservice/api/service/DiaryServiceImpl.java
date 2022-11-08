@@ -1,5 +1,6 @@
 package com.dool.socialservice.api.service;
 
+import com.dool.socialservice.api.client.CharacterMissionServiceClient;
 import com.dool.socialservice.api.request.CreateDiaryRequest;
 import com.dool.socialservice.db.domain.Diary;
 import com.dool.socialservice.db.repository.DiaryRepository;
@@ -15,6 +16,7 @@ import java.util.List;
 public class DiaryServiceImpl implements DiaryService {
 
     private final DiaryRepository diaryRepository;
+    private final CharacterMissionServiceClient characterMissionServiceClient;
 
     @Override
     public Diary getDiary(Long id) {
@@ -46,7 +48,7 @@ public class DiaryServiceImpl implements DiaryService {
         diary.setUserCharacterId(request.getUserCharacterId());
 
         diaryRepository.create(diary);
-
+        characterMissionServiceClient.completeMission(request.getCharacterMissionId());
         return diary;
     }
 
