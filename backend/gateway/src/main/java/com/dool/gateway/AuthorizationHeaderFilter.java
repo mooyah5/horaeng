@@ -1,10 +1,12 @@
 package com.dool.gateway;
 
+import com.netflix.discovery.converters.Auto;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwt;
 import io.jsonwebtoken.Jwts;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.HttpStatus;
@@ -15,7 +17,7 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 import java.io.UnsupportedEncodingException;
-
+import java.util.Map;
 
 
 @Component
@@ -36,7 +38,7 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
             ServerHttpRequest request = exchange.getRequest();
 
             if(!request.getHeaders().containsKey("token")){
-                return onError(exchange, "No authorization header", HttpStatus.BAD_GATEWAY);
+                return onError(exchange, "No authorization header", HttpStatus.BAD_REQUEST);
             }
             String authorizationHeader = request.getHeaders().get("token").get(0);
             String jwt = authorizationHeader.replace("Bearer", "");
@@ -44,6 +46,8 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
             if(!isJwtValid(jwt)){
                 return onError(exchange, "JWT token is not valid", HttpStatus.UNAUTHORIZED);
             }
+
+            exchange.getResponse().getHeaders().set("userId", this.get(jwt,"id"));
             System.out.println("통과!!");
             return chain.filter(exchange);
         }));
@@ -81,6 +85,18 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
         response.setStatusCode(httpStatus);
 
         return response.setComplete();
+    }
+
+    public String get(String jwt, String key) {
+        Jws<Claims> claims = null;
+        try {
+            claims = Jwts.parser().setSigningKey(SALT.getBytes("UTF-8")).parseClaimsJws(jwt);
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        Map<String, Object> value = claims.getBody();
+        System.out.println("claims :" + claims);
+        return (String)value.get(key);
     }
 
 }
