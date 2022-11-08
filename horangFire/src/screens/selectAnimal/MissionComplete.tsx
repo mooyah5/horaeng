@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {color, font} from '../../styles/colorAndFontTheme';
 import Btn from '../../components/common/Btn_short';
 
@@ -69,9 +69,14 @@ const styles = StyleSheet.create({
 
 interface Props {
   navigation: StackNavigationProp<ParamListBase, 'MissionComplete'>;
+  route: any;
 }
 
-const MissionComplete = ({navigation}: Props) => {
+const MissionComplete = ({navigation, route}: Props) => {
+  const {params} = route;
+  const characterSpecies = params.characterSpecies;
+  const [specieName, setSpecieName] = useState<string>('tiger');
+
   const [scriptNum, setScriptNum] = useState<number>(1);
 
   const handleScriptNum = () => {
@@ -93,6 +98,33 @@ const MissionComplete = ({navigation}: Props) => {
     }
   };
 
+  useEffect(() => {
+    const characterName = () => {
+      let name = '';
+      switch (characterSpecies) {
+        case 1:
+          name = 'tiger';
+          break;
+        case 2:
+          name = 'bird';
+          break;
+        case 3:
+          name = 'elephant';
+          break;
+        case 4:
+          name = 'turtle';
+          break;
+        case 5:
+          name = 'penguin';
+          break;
+      }
+
+      return name;
+    };
+
+    setSpecieName(characterName());
+  }, [characterSpecies]);
+
   return (
     <SafeAreaView style={styles.backgroundColor}>
       <View style={styles.section1} />
@@ -103,7 +135,7 @@ const MissionComplete = ({navigation}: Props) => {
         />
         <Text style={styles.missionText}>
           {/* tiger = 리덕스에서 가져오는걸로 변경하기 !*/}
-          {scriptMissionComplete.tiger[`${scriptNum}`]}
+          {scriptMissionComplete[specieName][`${scriptNum}`]}
         </Text>
       </Pressable>
       <View style={styles.section3}>

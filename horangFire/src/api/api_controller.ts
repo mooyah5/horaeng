@@ -65,7 +65,6 @@ const api = {
           ...characterInfo,
         },
       });
-
       return response;
     },
     getCharacterDialog: async (id: number) => {
