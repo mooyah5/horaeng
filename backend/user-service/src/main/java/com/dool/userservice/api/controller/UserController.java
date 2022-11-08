@@ -1,6 +1,6 @@
 package com.dool.userservice.api.controller;
 
-import com.dool.userservice.api.request.BuyBackgroundRequest;
+import com.dool.userservice.api.request.BackgroundRequest;
 import com.dool.userservice.api.request.CreateUserRequest;
 import com.dool.userservice.api.request.LoginRequest;
 import com.dool.userservice.api.request.TokenRequest;
@@ -71,10 +71,20 @@ public class UserController {
     }
 
     @PostMapping("/background")
-    public ResponseEntity buyBackground(@RequestBody BuyBackgroundRequest request){
+    public ResponseEntity buyBackground(@RequestBody BackgroundRequest request){
         userService.buyBackground(request);
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+    }
+
+    @PostMapping("/background/{userId}/{backgroundId}")
+    public ResponseEntity inputUserBackground(@PathVariable("userId") String userId, @PathVariable("backgroundId")Long backgroundId){
+        BackgroundRequest request = new BackgroundRequest();
+        request.setUserId(userId);
+        request.setBackgroundId(backgroundId);
+        userService.inputBackground(request);
+
+        return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 
     @PostMapping("/isUser")

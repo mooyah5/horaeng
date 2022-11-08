@@ -1,8 +1,6 @@
 package com.dool.userservice.api.service;
 
-import com.dool.userservice.api.request.BuyBackgroundRequest;
-import com.dool.userservice.db.domain.Background;
-import com.dool.userservice.db.domain.User;
+import com.dool.userservice.api.request.BackgroundRequest;
 import com.dool.userservice.db.domain.UserBackground;
 import com.dool.userservice.db.repository.BackgroundRepository;
 import com.dool.userservice.db.repository.UserBackgroundRepository;
@@ -26,7 +24,7 @@ public class UserBackgroundServiceImpl implements UserBackgroundService {
     }
 
     @Override
-    public void createUserBackground(BuyBackgroundRequest request) {
+    public void createUserBackground(BackgroundRequest request) {
 
         UserBackground userBackground = new UserBackground();
         userBackground.setUser(userRepository.get(request.getUserId()));
