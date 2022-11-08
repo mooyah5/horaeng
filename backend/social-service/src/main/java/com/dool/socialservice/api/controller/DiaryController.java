@@ -51,7 +51,7 @@ public class DiaryController {
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
-    @GetMapping("/diary/user/{userCharacterId}")
+    @GetMapping("/user/{userCharacterId}")
     public ResponseEntity<List<DiaryResponse>> getDiaryByUserCharacter(@PathVariable("userCharacterId") Long userCharacterId){
         List<Diary> list = diaryService.getDiaryByUserCharacter(userCharacterId);
 
