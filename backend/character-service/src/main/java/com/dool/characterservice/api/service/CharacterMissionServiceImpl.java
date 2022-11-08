@@ -12,10 +12,13 @@ import com.dool.characterservice.db.repository.UserCharacterRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class CharacterMissionServiceImpl implements CharacterMissionService {
     private final UserCharacterRepository userCharacterRepository;
     private final CharacterMissionRepository characterMissionRepository;
@@ -63,5 +66,11 @@ public class CharacterMissionServiceImpl implements CharacterMissionService {
         Long count = characterMissionRepository.countAllByUserCharacter_IdAndCreatedDateLessThanAndIsClearTrueAndMission_Type(user_character_id, date, MissionType.Personal).orElse(0L) + 1;
 
         return count;
+    }
+
+    @Override
+    public void complete(Long CMId) {
+        CharacterMission characterMission = characterMissionRepository.findById(CMId).orElseThrow();
+        characterMission.setClear(true);
     }
 }

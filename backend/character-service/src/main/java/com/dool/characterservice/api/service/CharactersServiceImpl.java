@@ -7,11 +7,13 @@ import com.dool.characterservice.db.repository.MissionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class CharactersServiceImpl implements CharactersService{
 
     private final CharactersRepository charactersRepository;

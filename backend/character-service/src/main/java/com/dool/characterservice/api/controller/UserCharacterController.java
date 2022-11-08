@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -39,7 +40,8 @@ public class UserCharacterController {
     }
 
     @GetMapping("/user/{user_id}")
-    private ResponseEntity<?> getCharacterInfos(@PathVariable("user_id") String user_id){
+    private ResponseEntity<?> getCharacterInfos(@PathVariable("user_id") String user_id, HttpServletRequest request){
+//        String userId = request.getHeader("accessToken");
         Map<String, Object> result = new HashMap<>();
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
         try {

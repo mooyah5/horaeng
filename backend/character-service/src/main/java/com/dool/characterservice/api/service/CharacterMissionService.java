@@ -8,4 +8,5 @@ public interface CharacterMissionService {
     boolean getMission(Long user_character_id);
     CharacterMission postMission(CharacterMissionRequestDto requestDto);
     Long countMission(Long user_character_id);
+    void complete(Long CMId);
 }
