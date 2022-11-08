@@ -44,6 +44,7 @@ const Login = ({navigation}: Props) => {
       const profileResult = await getKakaoProfile();
       const response = await api.auth.login(profileResult.id);
       const token = response.headers.token;
+
       await saveDataInLocalStorage('id', profileResult.id);
       await saveDataInLocalStorage('token', token);
 

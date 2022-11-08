@@ -1,8 +1,6 @@
 import {ParamListBase} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {useEffect, useState} from 'react';
 import {StyleSheet, Text, View, SafeAreaView, FlatList} from 'react-native';
-import api from '../../api/api_controller';
 import {color, font} from '../../styles/colorAndFontTheme';
 import OnboardingItem from './Onboarding';
 
@@ -121,26 +119,6 @@ const animal: ANIMAL[] = [
 ];
 
 const SelectAnimal = ({navigation}: Props) => {
-  const [characterList, setCharacterList] = useState<ANIMAL[]>([]);
-
-  const getCharacterList = async () => {
-    try {
-      const response = await api.character.getCharacterList();
-      setCharacterList(response.data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  // 동물리스트 조회
-  useEffect(() => {
-    getCharacterList();
-  }, []);
-
-  useEffect(() => {
-    console.log(characterList);
-  }, [characterList]);
-
   return (
     <SafeAreaView style={styles.backgroundColor}>
       <View style={styles.section1} />
