@@ -12,6 +12,7 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 public class Mission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
