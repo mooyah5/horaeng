@@ -33,7 +33,7 @@ public class UserController {
         this.userBackgroundService = userBackgroundService;
     }
 
-    @GetMapping
+    @GetMapping("/{id}")
     public ResponseEntity<UserResponse> getUser(@PathVariable("id") String id){
         User user = userService.getUser(id);
 
