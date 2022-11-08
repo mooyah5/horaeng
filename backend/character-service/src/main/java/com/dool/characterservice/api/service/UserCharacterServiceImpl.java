@@ -1,5 +1,6 @@
 package com.dool.characterservice.api.service;
 
+import com.dool.characterservice.api.client.UserServiceClient;
 import com.dool.characterservice.api.request.UserCharacterRequestDto;
 import com.dool.characterservice.api.response.UserCharacterResponseDto;
 import com.dool.characterservice.db.domain.CharacterLevel;
@@ -22,6 +23,7 @@ public class UserCharacterServiceImpl implements UserCharacterService{
 
     private final UserCharacterRepository userCharacterRepository;
     private final CharactersRepository charactersRepository;
+    private final UserServiceClient userServiceClient;
 
     // 유저 캐릭터 만들기
     @Override
@@ -43,6 +45,8 @@ public class UserCharacterServiceImpl implements UserCharacterService{
 
             return character;
         });
+
+        userServiceClient.inputUserBackground(userCharacter.getUserId(), userCharacter.getCharacters().getBackgroundId());
 
         return UserCharacterResponseDto.builder()
                 .id(userCharacter.getId())

@@ -10,6 +10,6 @@ public class CharactersResponseDto {
     private String name;
     private String info;
     private Long missionId;
-    private String backgroundId;
+    private Long backgroundId;
     private String missionTitle;
 }

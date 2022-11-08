@@ -19,5 +19,5 @@ public class Characters {
     private String name;
     private String info;
     private Long missionId;
-    private String backgroundId;
+    private Long backgroundId;
 }

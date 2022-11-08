@@ -58,6 +58,6 @@ public class MIssionController {
     @DeleteMapping("{id}")
     private ResponseEntity<?> del(@PathVariable("id") Long id){
 
-        return null;
+        return new ResponseEntity<>(null, HttpStatus.OK);
     }
 }
