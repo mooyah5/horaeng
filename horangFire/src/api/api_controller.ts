@@ -35,7 +35,6 @@ const api = {
       return res;
     },
     viewCharDiary: async (charId: number) => {
-      console.log('요청 보내기~~');
       const res = await axios({
         url: urls.diary.viewCharDiary(charId),
         headers: {
@@ -43,7 +42,6 @@ const api = {
         },
         method: 'get',
       });
-      console.log(res.data);
       return res.data;
     },
   },
