@@ -1,5 +1,6 @@
 package com.dool.characterservice.api.controller;
 
+import com.dool.characterservice.api.response.CharacterMissionResponseDto;
 import com.dool.characterservice.api.service.CharacterMissionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -7,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @CrossOrigin("*")
@@ -22,9 +24,9 @@ public class CharacterMissionController {
     private ResponseEntity<?> getMission(@PathVariable("user_character_id") Long user_character_id){
         Map<String, Object> result = new HashMap<>();
         HttpStatus status;
+
         try {
             Long missionId = characterMissionService.mainId(user_character_id);
-
             result.put("characterMissionId", missionId);
             status = HttpStatus.OK;
             result.put("message", SUCCESS);
@@ -35,7 +37,24 @@ public class CharacterMissionController {
         return new ResponseEntity<>(result, status);
     }
 
+    @GetMapping("/common/{user_character_id}")
+    private ResponseEntity<?> getCommon(@PathVariable("user_character_id") Long user_character_id){
+        Map<String, Object> result = new HashMap<>();
+        HttpStatus status;
 
+        try{
+            List<CharacterMissionResponseDto> list = characterMissionService.commonMission(user_character_id);
+            result.put("commonMission", list);
+            result.put("size", list.size());
+            result.put("message", SUCCESS);
+            status = HttpStatus.OK;
+        }catch (Exception e){
+            result.put("message", FAIL);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<>(result, status);
+    }
 
 //    @PostMapping
 //    private ResponseEntity postMission(@RequestBody CharacterMissionRequestDto requestDto){

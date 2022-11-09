@@ -1,7 +1,6 @@
 package com.dool.characterservice.api.controller;
 
 import com.dool.characterservice.api.request.UserCharacterRequestDto;
-import com.dool.characterservice.api.response.CharacterMissionResponseDto;
 import com.dool.characterservice.api.response.UserCharacterResponseDto;
 import com.dool.characterservice.api.service.CharacterMissionService;
 import com.dool.characterservice.api.service.UserCharacterService;
@@ -10,10 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 @CrossOrigin("*")
 @RequiredArgsConstructor

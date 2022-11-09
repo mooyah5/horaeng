@@ -1,5 +1,6 @@
 package com.dool.characterservice.api.response;
 
+import com.dool.characterservice.db.domain.Mission;
 import lombok.Builder;
 import lombok.Data;
 
@@ -9,8 +10,7 @@ import java.time.LocalDate;
 @Builder
 public class CharacterMissionResponseDto {
     private Long id;
-    private Long user_character_id;
-    private Long mission_id;
+    private Mission mission;
     private LocalDate created_date;
     private boolean is_clear;
 }

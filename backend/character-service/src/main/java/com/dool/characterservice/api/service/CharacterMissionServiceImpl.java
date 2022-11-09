@@ -1,6 +1,5 @@
 package com.dool.characterservice.api.service;
 
-import com.dool.characterservice.api.request.CharacterMissionRequestDto;
 import com.dool.characterservice.api.response.CharacterMissionResponseDto;
 import com.dool.characterservice.db.domain.CharacterMission;
 import com.dool.characterservice.db.domain.Mission;
@@ -111,6 +110,23 @@ public class CharacterMissionServiceImpl implements CharacterMissionService {
     public Long mainId(Long user_character_id) {
         Long mainId = characterMissionRepository.findFirstByUserCharacter_IdAndMission_TypeAndCreatedDate(user_character_id, MissionType.Personal, LocalDate.now()).orElseThrow().getId();
         return mainId;
+    }
+
+    @Override
+    public List<CharacterMissionResponseDto> commonMission(Long user_character_id) {
+        List<CharacterMission> list = characterMissionRepository.findAllByUserCharacter_IdAndMission_TypeAndCreatedDate(user_character_id, MissionType.Common, LocalDate.now());
+        List<CharacterMissionResponseDto> result = new ArrayList<>();
+
+        list.forEach(v -> {
+            result.add(CharacterMissionResponseDto.builder()
+                            .id(v.getId())
+                            .mission(v.getMission())
+                            .created_date(v.getCreatedDate())
+                            .is_clear(v.isClear())
+                    .build());
+        });
+
+        return result;
     }
 
 
