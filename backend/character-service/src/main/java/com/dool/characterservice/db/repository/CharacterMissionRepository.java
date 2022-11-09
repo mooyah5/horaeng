@@ -11,4 +11,5 @@ public interface CharacterMissionRepository extends JpaRepository<CharacterMissi
     Optional<CharacterMission> findTopByUserCharacter_IdAndIsClearTrueAndMission_TypeOrderByCreatedDateDesc(Long user_character_id, MissionType missionType);
     Optional<Long> countAllByUserCharacter_IdAndCreatedDateLessThanAndIsClearTrueAndMission_Type(Long user_character_id, LocalDate date, MissionType missionType);
     Optional<CharacterMission> findTopByUserCharacter_IdAndMission_TypeOrderByCreatedDateDesc(Long user_character_id, MissionType missionType);
+    Optional<CharacterMission> findFirstByUserCharacter_IdAndMission_TypeAndCreatedDate(Long user_character_id, MissionType type, LocalDate date);
 }

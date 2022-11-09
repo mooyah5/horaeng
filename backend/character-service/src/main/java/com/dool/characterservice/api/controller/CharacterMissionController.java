@@ -1,27 +1,41 @@
 package com.dool.characterservice.api.controller;
 
-import com.dool.characterservice.api.request.CharacterMissionRequestDto;
-import com.dool.characterservice.api.response.CharacterMissionResponseDto;
 import com.dool.characterservice.api.service.CharacterMissionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @CrossOrigin("*")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/character-service/character-mission")
 public class CharacterMissionController {
-
+    private static final Object SUCCESS = "SUCCESS";
+    private static final Object FAIL = "FAIL";
     private final CharacterMissionService characterMissionService;
 
     @GetMapping("/main/{user_character_id}")
-    private ResponseEntity getMission(@PathVariable("user_character_id") Long user_character_id){
-        boolean response = characterMissionService.getMission(user_character_id);
+    private ResponseEntity<?> getMission(@PathVariable("user_character_id") Long user_character_id){
+        Map<String, Object> result = new HashMap<>();
+        HttpStatus status;
+        try {
+            Long missionId = characterMissionService.mainId(user_character_id);
 
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+            result.put("characterMissionId", missionId);
+            status = HttpStatus.OK;
+            result.put("message", SUCCESS);
+        } catch (Exception e){
+            result.put("message", FAIL);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return new ResponseEntity<>(result, status);
     }
+
+
 
 //    @PostMapping
 //    private ResponseEntity postMission(@RequestBody CharacterMissionRequestDto requestDto){
@@ -43,4 +57,5 @@ public class CharacterMissionController {
 
         return ResponseEntity.status(HttpStatus.OK).body(null);
     }
+
 }

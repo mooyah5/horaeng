@@ -28,14 +28,12 @@ public class CharacterMissionServiceImpl implements CharacterMissionService {
     private final CharacterMissionRepository characterMissionRepository;
     private final MissionRepository missionRepository;
     @Override
-    public boolean getMission(Long user_character_id) {
+    public boolean todayClear(Long user_character_id) {
         boolean status = false;
         LocalDate today = LocalDate.now();
 
         CharacterMission characterMission = characterMissionRepository.findTopByUserCharacter_IdAndMission_TypeOrderByCreatedDateDesc(user_character_id, MissionType.Personal).orElseGet(() ->
-            postMission(CharacterMissionRequestDto.builder()
-                    .user_character_id(user_character_id)
-                    .build()));
+            postMission(user_character_id));
 
         if(characterMission.isClear() && today.equals(characterMission.getCreatedDate())){
             status = true;
@@ -45,9 +43,9 @@ public class CharacterMissionServiceImpl implements CharacterMissionService {
     }
 
     @Override
-    public CharacterMission postMission(CharacterMissionRequestDto requestDto) {
-        UserCharacter userCharacter = userCharacterRepository.findById(requestDto.getUser_character_id()).get();
-        Mission mission = missionRepository.findById(userCharacter.getCharacters().getMissionId()).get();
+    public CharacterMission postMission(Long user_character_id) {
+        UserCharacter userCharacter = userCharacterRepository.findById(user_character_id).orElseThrow();
+        Mission mission = missionRepository.findById(userCharacter.getCharacters().getMissionId()).orElseThrow();
 
         LocalDate today = LocalDate.now();
 
@@ -91,7 +89,6 @@ public class CharacterMissionServiceImpl implements CharacterMissionService {
         for(CharacterMission m : randComm){
             characterMissionRepository.save(m);
         }
-
         return characterMission;
     }
 
@@ -109,4 +106,12 @@ public class CharacterMissionServiceImpl implements CharacterMissionService {
         CharacterMission characterMission = characterMissionRepository.findById(CMId).orElseThrow();
         characterMission.setClear(true);
     }
+
+    @Override
+    public Long mainId(Long user_character_id) {
+        Long mainId = characterMissionRepository.findFirstByUserCharacter_IdAndMission_TypeAndCreatedDate(user_character_id, MissionType.Personal, LocalDate.now()).orElseThrow().getId();
+        return mainId;
+    }
+
+
 }

@@ -50,7 +50,7 @@ public class UserCharacterController {
             result.put("userCharacter", userCharacterResponseDto);
 
             if(userCharacterResponseDto != null) {
-                boolean todayMission = characterMissionService.getMission(userCharacterResponseDto.getId());
+                boolean todayMission = characterMissionService.todayClear(userCharacterResponseDto.getId());
                 Long countMission = characterMissionService.countMission(userCharacterResponseDto.getId());
 
                 result.put("today", todayMission);

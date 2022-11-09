@@ -5,8 +5,9 @@ import com.dool.characterservice.api.response.CharacterMissionResponseDto;
 import com.dool.characterservice.db.domain.CharacterMission;
 
 public interface CharacterMissionService {
-    boolean getMission(Long user_character_id);
-    CharacterMission postMission(CharacterMissionRequestDto requestDto);
+    boolean todayClear(Long user_character_id);
+    CharacterMission postMission(Long user_character_id);
     Long countMission(Long user_character_id);
     void complete(Long CMId);
+    Long mainId(Long user_character_id);
 }
