@@ -44,6 +44,17 @@ const api = {
       });
       return res.data;
     },
+    getMainId: async (charId: number) => {
+      console.log(charId);
+      const res = await axios({
+        url: urls.diary.getMainId(charId),
+        headers: {
+          token: await getDataInLocalStorage('token'),
+        },
+        method: 'get',
+      });
+      return res.data;
+    },
   },
 
   character: {

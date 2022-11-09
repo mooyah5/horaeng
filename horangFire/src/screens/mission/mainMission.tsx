@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {color, font} from '../../styles/colorAndFontTheme';
 import TitleText from '../../components/common/TitleText';
 import {reset} from '../../store/mission';
@@ -76,11 +76,10 @@ const MainMission = ({navigation}: Props) => {
   const dispatch = useDispatch();
   const name = useSelector(selectName);
   const charInfo = useSelector(selectCharacter)?.userCharacter;
-
   const imgUrl = useSelector(selectMainFile); // main 미션 이미지 url 저장
 
   const [clickHelp, setClickHelp] = useState(false); // 안내 사항 확인?
-
+  const [mainId, setMainId] = useState(0);
   const mission = charMission[charInfo?.character_id][0];
   const [diary, setDiary] = useState('');
   const info =
@@ -97,7 +96,7 @@ const MainMission = ({navigation}: Props) => {
           userId: charInfo?.user_id, // user id
           userCharacterId: charInfo?.id, // 캐릭터 id
           charactersId: charInfo?.character_id, // 동물 타입
-          characterMissionId: 9, // 수정 예정
+          characterMissionId: mainId, // 수정 예정
         });
         navigation.navigate('SubmitMission');
       } catch (err) {
@@ -113,7 +112,13 @@ const MainMission = ({navigation}: Props) => {
     navigation.goBack();
   };
 
-  // useEffect(() => {}, [diary]);
+  useEffect(() => {
+    const getMain = async () => {
+      const res = await api.diary.getMainId(charInfo?.id);
+      setMainId(res.characterMissionId);
+    };
+    getMain();
+  }, []);
 
   return (
     <SafeAreaView style={{backgroundColor: color.BACK_SUB}}>

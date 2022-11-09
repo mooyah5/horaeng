@@ -25,6 +25,8 @@ const urls = {
     submit: () => GATEWAY + SOCIAL + 'diary', // 일지 제출
     viewCharDiary: (charId: number) =>
       GATEWAY + SOCIAL + 'diary/user/' + `${charId}`, // 특정 유저 캐릭터의 일지 조회
+    getMainId: (charId: number) =>
+      GATEWAY + CHARACTER + 'character-mission/main/' + `${charId}`,
   },
   character: {
     getNowUserCharacter: (userId: string) =>
