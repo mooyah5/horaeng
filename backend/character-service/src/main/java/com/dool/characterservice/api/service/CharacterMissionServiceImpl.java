@@ -122,7 +122,7 @@ public class CharacterMissionServiceImpl implements CharacterMissionService {
                             .id(v.getId())
                             .mission(v.getMission())
                             .created_date(v.getCreatedDate())
-                            .is_clear(v.isClear())
+                            .clear(v.isClear())
                     .build());
         });
 

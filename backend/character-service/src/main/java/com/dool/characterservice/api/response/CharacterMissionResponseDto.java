@@ -12,5 +12,5 @@ public class CharacterMissionResponseDto {
     private Long id;
     private Mission mission;
     private LocalDate created_date;
-    private boolean is_clear;
+    private boolean clear;
 }
