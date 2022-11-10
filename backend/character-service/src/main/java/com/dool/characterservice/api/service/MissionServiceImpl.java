@@ -34,7 +34,7 @@ public class MissionServiceImpl implements MissionService{
 
     @Override
     public List<MissionResponseDto> getMission() {
-        List<Mission> missionList = missionRepository.findAllByType(MissionType.Common);
+        List<Mission> missionList = missionRepository.findAllByTypeOrderByIdDesc(MissionType.Common);
         List<MissionResponseDto> missionResponseDtoList = new ArrayList<>();
 
         missionList.forEach(v -> {
