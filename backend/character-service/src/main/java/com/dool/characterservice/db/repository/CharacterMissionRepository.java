@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface CharacterMissionRepository extends JpaRepository<CharacterMission, Long> {
     Optional<CharacterMission> findTopByUserCharacter_IdAndIsClearTrueAndMission_TypeOrderByCreatedDateDesc(Long user_character_id, MissionType missionType);
     Optional<Long> countAllByUserCharacter_IdAndCreatedDateLessThanAndIsClearTrueAndMission_Type(Long user_character_id, LocalDate date, MissionType missionType);
-    Optional<CharacterMission> findTopByUserCharacter_IdAndMission_TypeOrderByCreatedDateDesc(Long user_character_id, MissionType missionType);
+    Optional<CharacterMission> findTopByUserCharacter_IdAndMission_TypeAndCreatedDate(Long user_character_id, MissionType missionType, LocalDate date);
     Optional<CharacterMission> findFirstByUserCharacter_IdAndMission_TypeAndCreatedDate(Long user_character_id, MissionType type, LocalDate date);
     List<CharacterMission> findAllByUserCharacter_IdAndMission_TypeAndCreatedDate(Long user_character_id, MissionType type, LocalDate date);
 }
