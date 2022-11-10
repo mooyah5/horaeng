@@ -31,7 +31,7 @@ public class CharacterMissionServiceImpl implements CharacterMissionService {
         boolean status = false;
         LocalDate today = LocalDate.now();
 
-        CharacterMission characterMission = characterMissionRepository.findTopByUserCharacter_IdAndMission_TypeOrderByCreatedDateDesc(user_character_id, MissionType.Personal).orElseGet(() ->
+        CharacterMission characterMission = characterMissionRepository.findTopByUserCharacter_IdAndMission_TypeAndCreatedDate(user_character_id, MissionType.Personal, today).orElseGet(() ->
             postMission(user_character_id));
 
         if(characterMission.isClear() && today.equals(characterMission.getCreatedDate())){
