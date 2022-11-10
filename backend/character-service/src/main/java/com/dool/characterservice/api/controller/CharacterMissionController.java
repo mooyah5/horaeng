@@ -72,9 +72,12 @@ public class CharacterMissionController {
 
     @PutMapping("/{CMId}")
     private ResponseEntity<?> complete(@PathVariable("CMId") Long CMId){
+        Map<String, Object> result = new HashMap<>();
         characterMissionService.complete(CMId);
 
-        return ResponseEntity.status(HttpStatus.OK).body(null);
+        result.put("isCharacterMax", true);
+
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
 }

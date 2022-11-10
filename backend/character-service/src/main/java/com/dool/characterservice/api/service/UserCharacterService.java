@@ -12,4 +12,5 @@ public interface UserCharacterService {
     UserCharacterResponseDto getUserCharacterByUserId(String user_id);
     List<UserCharacterResponseDto> getGrownCharacterList(String user_id);
     void del(Long UCId);
+    boolean checkGrown(Long UCId);
 }

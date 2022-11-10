@@ -104,6 +104,7 @@ public class CharacterMissionServiceImpl implements CharacterMissionService {
     public void complete(Long CMId) {
         CharacterMission characterMission = characterMissionRepository.findById(CMId).orElseThrow();
         characterMission.setClear(true);
+        characterMission.getUserCharacter().getId();
     }
 
     @Override

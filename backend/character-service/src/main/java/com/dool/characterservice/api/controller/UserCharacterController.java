@@ -88,4 +88,22 @@ public class UserCharacterController {
         userCharacterService.del(UCId);
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
+
+    @GetMapping("/level/{UCId}")
+    private ResponseEntity<?> checkGrown(@PathVariable ("UCId") Long UCId){
+        Map<String, Object> result = new HashMap<>();
+        HttpStatus status;
+
+        try {
+            result.put("isCharacterMax", userCharacterService.checkGrown(UCId));
+            status = HttpStatus.OK;
+            result.put("message", SUCCESS);
+        } catch (Exception e){
+            result.put("message", FAIL);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+
+        return new ResponseEntity<>(result, status);
+    }
 }
