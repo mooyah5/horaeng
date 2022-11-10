@@ -80,14 +80,14 @@ public class ReportController {
         return ResponseEntity.status(HttpStatus.OK).body(ReportResponse.of(report));
     }
 
-    @PatchMapping("/allow/{id}")
+    @PutMapping("/allow/{id}")
     public ResponseEntity allowReport(@PathVariable("id") Long id){
         reportService.allowReport(id);
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
     }
 
-    @PatchMapping("/cancle/{id}")
+    @PutMapping("/cancle/{id}")
     public ResponseEntity cancleReport(@PathVariable("id") Long id){
         reportService.cancleReport(id);
 
