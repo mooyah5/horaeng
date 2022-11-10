@@ -62,4 +62,10 @@ public class UserCharacterController {
 
         return new ResponseEntity<>(result, status);
     }
+
+    @DeleteMapping("/{UCId}")
+    private ResponseEntity<?> del(@PathVariable ("UCId") Long UCId){
+        userCharacterService.del(UCId);
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
 }

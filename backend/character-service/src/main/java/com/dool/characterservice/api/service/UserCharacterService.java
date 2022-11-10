@@ -9,4 +9,5 @@ public interface UserCharacterService {
     UserCharacterResponseDto creatUserCharacter(UserCharacterRequestDto requestDto);
     UserCharacterResponseDto getUserCharacter(Long id);
     UserCharacterResponseDto getUserCharacterByUserId(String user_id);
+    void del(Long UCId);
 }

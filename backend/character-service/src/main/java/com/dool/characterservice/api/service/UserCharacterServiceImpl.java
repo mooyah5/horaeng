@@ -96,4 +96,11 @@ public class UserCharacterServiceImpl implements UserCharacterService{
                 .status(userCharacter.isStatus())
                 .build();
     }
+
+    @Override
+    public void del(Long UCId) {
+        userCharacterRepository.delete(userCharacterRepository.findById(UCId).orElseThrow());
+
+        return;
+    }
 }
