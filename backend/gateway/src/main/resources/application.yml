@@ -74,9 +74,3 @@ spring:
             - Path=/character-service/**
           filters:
             - AuthorizationHeaderFilter
-      default-filters:
-        - name: GlobalFilter
-          args:
-            baseMessage: Cors Filter
-            preLogger: true
-            postLogger: true
