@@ -103,7 +103,6 @@ public class UserCharacterController {
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
 
-
         return new ResponseEntity<>(result, status);
     }
 }

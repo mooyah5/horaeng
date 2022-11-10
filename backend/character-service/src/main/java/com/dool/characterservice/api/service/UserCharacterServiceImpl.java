@@ -4,6 +4,7 @@ import com.dool.characterservice.api.client.UserServiceClient;
 import com.dool.characterservice.api.request.UserCharacterRequestDto;
 import com.dool.characterservice.api.response.UserCharacterResponseDto;
 import com.dool.characterservice.db.domain.CharacterLevel;
+import com.dool.characterservice.db.domain.CharacterMission;
 import com.dool.characterservice.db.domain.Characters;
 import com.dool.characterservice.db.domain.UserCharacter;
 import com.dool.characterservice.db.repository.CharactersRepository;
@@ -22,7 +23,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Transactional
 public class UserCharacterServiceImpl implements UserCharacterService{
-
+    private final int exp = 1;
     private final UserCharacterRepository userCharacterRepository;
     private final CharactersRepository charactersRepository;
     private final UserServiceClient userServiceClient;
@@ -134,6 +135,35 @@ public class UserCharacterServiceImpl implements UserCharacterService{
         if(userCharacter.getLevel() == CharacterLevel.LEVEL_MAX){
             return true;
         }
+        return false;
+    }
+
+    @Override
+    public boolean levelUp(Long UCId, Long cnt) {
+        UserCharacter userCharacter = userCharacterRepository.findById(UCId).orElseThrow();
+        CharacterLevel characterLevel = CharacterLevel.LEVEL_1;
+
+        int level = (cnt == 0) ? 0 : (int) (cnt / exp);
+
+        switch (level){
+            case 0 : characterLevel = CharacterLevel.LEVEL_1;
+                break;
+            case 1 : characterLevel = CharacterLevel.LEVEL_2;
+                break;
+            case 2 : characterLevel = CharacterLevel.LEVEL_3;
+                break;
+            case 3 : characterLevel = CharacterLevel.LEVEL_MAX;
+                break;
+        }
+
+        userCharacter.setLevel(characterLevel);
+
+        if(userCharacter.getLevel() == CharacterLevel.LEVEL_MAX){
+            userCharacter.setStatus(true);
+            userCharacter.setCompleted_date(LocalDate.now());
+            return true;
+        }
+
         return false;
     }
 }

@@ -13,4 +13,5 @@ public interface UserCharacterService {
     List<UserCharacterResponseDto> getGrownCharacterList(String user_id);
     void del(Long UCId);
     boolean checkGrown(Long UCId);
+    boolean levelUp(Long UCId, Long cnt);
 }
