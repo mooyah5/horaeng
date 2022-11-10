@@ -17,6 +17,8 @@ import {scriptMain} from '../script/scriptMain';
 import {useSelector} from 'react-redux';
 import {selectBackgroundNumber} from '../store/background';
 import {selectCharacter} from '../store/character';
+import imagesPath from '../assets/image/constants/imagesPath';
+import {selectUser} from '../store/user';
 
 const styles = StyleSheet.create({
   backgroundImage: {
@@ -67,10 +69,33 @@ const styles = StyleSheet.create({
   buttonTouchable: {
     width: 30,
     height: 30,
+    justifyContent: 'center',
   },
   buttons: {
     width: '100%',
     height: '100%',
+    resizeMode: 'contain',
+  },
+  buttonsDiary: {
+    width: '150%',
+    height: '150%',
+    resizeMode: 'contain',
+    alignSelf: 'center',
+  },
+  buttonsCommu: {
+    width: '160%',
+    height: '100%',
+    alignSelf: 'center',
+    resizeMode: 'contain',
+  },
+  buttonsBackground: {
+    height: '150%',
+    alignSelf: 'center',
+    resizeMode: 'contain',
+  },
+  buttonsCollection: {
+    height: '150%',
+    alignSelf: 'center',
     resizeMode: 'contain',
   },
   characterText: {
@@ -91,7 +116,7 @@ const styles = StyleSheet.create({
   missionText: {
     paddingHorizontal: 50,
     fontFamily: font.beeBold,
-    fontSize: 25,
+    fontSize: 20,
     color: color.BROWN_47,
     textAlign: 'center',
     paddingBottom: '5%',
@@ -118,20 +143,24 @@ const styles = StyleSheet.create({
   },
   mainBottomImage: {
     position: 'absolute',
-    width: '70%',
-    height: '70%',
+    width: '60%',
+    height: '60%',
     resizeMode: 'contain',
   },
   messageBox: {
-    width: '100%',
+    width: '80%',
     height: '100%',
     justifyContent: 'center',
   },
   missionBottomText3: {
     fontFamily: font.beeBold,
-    fontSize: 30,
+    fontSize: 23,
     color: color.BROWN_47,
     textAlign: 'center',
+  },
+  textWidthImage: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });
 
@@ -149,6 +178,7 @@ const Home = ({navigation}: Props) => {
   const [scriptNum, setScriptNum] = useState<number>(1);
   const backgroundNumber = useSelector(selectBackgroundNumber);
   const character = useSelector(selectCharacter);
+  const nowUser = useSelector(selectUser);
 
   const characterSpecies = character?.userCharacter?.character_id;
   const characterLv = character?.userCharacter?.characterLevel;
@@ -163,14 +193,15 @@ const Home = ({navigation}: Props) => {
   };
 
   useEffect(() => {
-    console.log(character);
     const backAction = () => {
+      console.log('눌렀다!');
       Alert.alert('성냥팔이 호랭이', '앱을 종료하시겠습니까?', [
         {
           text: '취소',
           onPress: () => null,
         },
         {text: '확인', onPress: () => BackHandler.exitApp()},
+        {text: '이전', onPress: () => navigation.goBack()},
       ]);
       return true;
     };
@@ -190,6 +221,43 @@ const Home = ({navigation}: Props) => {
       return false;
     }
   };
+  const [specieName, setSpecieName] = useState<string>('tiger');
+
+  const todayMissionStatus = () => {
+    if (character?.today) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  useEffect(() => {
+    const characterName = () => {
+      let name = '';
+      switch (characterSpecies) {
+        case 1:
+          name = 'tiger';
+          break;
+        case 2:
+          name = 'bird';
+          break;
+        case 3:
+          name = 'elephant';
+          break;
+        case 4:
+          name = 'turtle';
+          break;
+        case 5:
+          name = 'penguin';
+          break;
+      }
+
+      return name;
+    };
+
+    setSpecieName(characterName());
+  }, [characterSpecies]);
+  const [showOption, setShowOption] = useState(false);
 
   return (
     <ImageBackground
@@ -213,14 +281,34 @@ const Home = ({navigation}: Props) => {
           <View style={styles.section0BtnContainer}>
             <View style={styles.buttonTouchableNone} />
             <View>
-              <Text style={styles.characterText}>{character?.count} 일차</Text>
+              <TouchableOpacity
+                style={styles.textWidthImage}
+                onPress={() => {
+                  setShowOption(!showOption);
+                }}>
+                {showOption ? (
+                  <Text style={styles.characterText}>
+                    성냥 {nowUser.point}개
+                  </Text>
+                ) : (
+                  <Text style={styles.characterText}>
+                    {character?.count} 일차
+                  </Text>
+                )}
+                <Image
+                  style={{
+                    transform: [{rotate: showOption ? '180deg' : '0deg'}],
+                  }}
+                  source={imagesPath.icDropDownHome}
+                />
+              </TouchableOpacity>
             </View>
             <TouchableOpacity
               onPress={() => navigation.navigate('BackgroundOption')}
               style={styles.buttonTouchable}>
               <Image
-                style={styles.buttons}
-                source={require('../assets/image/setting.png')}
+                style={styles.buttonsBackground}
+                source={require('../assets/image/icon/background.png')}
               />
             </TouchableOpacity>
           </View>
@@ -234,12 +322,11 @@ const Home = ({navigation}: Props) => {
               </Text>
             </View>
             <TouchableOpacity
-              //한나언니 페이지 커뮤니티
               onPress={() => navigation.navigate('Community')}
               style={styles.buttonTouchable}>
               <Image
-                style={styles.buttons}
-                source={require('../assets/image/setting.png')}
+                style={styles.buttonsCommu}
+                source={require('../assets/image/icon/commut.png')}
               />
             </TouchableOpacity>
           </View>
@@ -252,7 +339,7 @@ const Home = ({navigation}: Props) => {
             />
             <TouchableOpacity onPress={handleScriptNum}>
               <Text style={styles.missionText}>
-                {scriptMain.tiger[`${scriptNum}`]}
+                {scriptMain[specieName][`${scriptNum}`]}
               </Text>
             </TouchableOpacity>
           </View>
@@ -283,27 +370,34 @@ const Home = ({navigation}: Props) => {
           ) : (
             <TouchableOpacity
               onPress={() => navigation.navigate('MissionHome')}>
-              <Text style={styles.missionBottomText3}>MISSION</Text>
+              {todayMissionStatus() ? (
+                <Text style={styles.missionBottomText3}>
+                  오늘도 지구를 구했다! :)
+                </Text>
+              ) : (
+                <Text style={styles.missionBottomText3}>
+                  미션 수행하러 가기
+                </Text>
+              )}
             </TouchableOpacity>
           )}
         </View>
         <View style={styles.section0}>
           <View style={styles.section0BtnContainer}>
             <TouchableOpacity
-              //선혁님 페이지 동물도감
               onPress={() => navigation.navigate('Collection')}
               style={styles.buttonTouchable}>
               <Image
-                style={styles.buttons}
-                source={require('../assets/image/setting.png')}
+                style={styles.buttonsCollection}
+                source={require('../assets/image/icon/book.png')}
               />
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => navigation.navigate('ListOfDiaries')}
               style={styles.buttonTouchable}>
               <Image
-                style={styles.buttons}
-                source={require('../assets/image/setting.png')}
+                style={styles.buttonsDiary}
+                source={require('../assets/image/icon/diary.png')}
               />
             </TouchableOpacity>
           </View>
