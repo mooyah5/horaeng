@@ -125,4 +125,10 @@ public class UserController {
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
+
+    @PutMapping("/report/{userId}")
+    public ResponseEntity<Long> addReportCnt(@PathVariable("useId") String userId){
+
+        return ResponseEntity.status(HttpStatus.OK).body(userService.addReportCnt(userId));
+    }
 }
