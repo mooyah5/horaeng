@@ -1,6 +1,7 @@
 package com.dool.socialservice.api.controller;
 
 import com.dool.socialservice.api.request.CreateDiaryRequest;
+import com.dool.socialservice.api.response.CreateDiaryResponse;
 import com.dool.socialservice.api.response.DiaryResponse;
 import com.dool.socialservice.api.service.DiaryService;
 import com.dool.socialservice.db.domain.Diary;
@@ -86,14 +87,14 @@ public class DiaryController {
     }
 
     @PostMapping
-    public ResponseEntity<DiaryResponse> createDiary(@RequestBody CreateDiaryRequest request){
-        Diary diary = diaryService.createDiary(request);
+    public ResponseEntity<CreateDiaryResponse> createDiary(@RequestBody CreateDiaryRequest request){
+        CreateDiaryResponse response = diaryService.createDiary(request);
 
-        if(diary == null){
+        if(response == null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
 
-        return ResponseEntity.status(HttpStatus.OK).body(DiaryResponse.of(diary));
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @DeleteMapping("/{id}")
