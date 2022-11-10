@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -95,5 +97,33 @@ public class UserCharacterServiceImpl implements UserCharacterService{
                 .characterLevel(userCharacter.getLevel())
                 .status(userCharacter.isStatus())
                 .build();
+    }
+
+    @Override
+    public List<UserCharacterResponseDto> getGrownCharacterList(String user_id) {
+        List<UserCharacter> list = userCharacterRepository.findAllByUserIdAndStatusTrue(user_id);
+        List<UserCharacterResponseDto> result = new ArrayList<>();
+
+        list.forEach(v -> {
+            result.add(UserCharacterResponseDto.builder()
+                            .id(v.getId())
+                            .user_id(v.getUserId())
+                            .character_id(v.getCharacters().getId())
+                            .characterLevel(v.getLevel())
+                            .nickname(v.getNickname())
+                            .created_date(v.getCreatedDate())
+                            .completed_date(v.getCompleted_date())
+                            .status(v.isStatus())
+                    .build());
+        });
+
+        return result;
+    }
+
+    @Override
+    public void del(Long UCId) {
+        userCharacterRepository.delete(userCharacterRepository.findById(UCId).orElseThrow());
+
+        return;
     }
 }

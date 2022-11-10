@@ -23,5 +23,6 @@ public class UserCharacter{
     private String nickname;
     private CharacterLevel level;
     private LocalDate createdDate;
+    private LocalDate completed_date;
     private boolean status;
 }
