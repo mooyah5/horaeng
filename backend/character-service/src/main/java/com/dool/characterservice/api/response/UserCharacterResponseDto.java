@@ -13,6 +13,7 @@ public class UserCharacterResponseDto {
     private String user_id;
     private Long character_id;
     private LocalDate created_date;
+    private LocalDate completed_date;
     private String nickname;
     private CharacterLevel characterLevel;
     private boolean status;

@@ -21,6 +21,7 @@ public class CharacterMission {
     private boolean isClear;
     @ManyToOne
     @JoinColumn(name = "user_character_id", referencedColumnName = "id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private UserCharacter userCharacter;
     @ManyToOne
     @JoinColumn(name = "mission_id", referencedColumnName = "id")

@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @CrossOrigin("*")
@@ -61,5 +62,30 @@ public class UserCharacterController {
         }
 
         return new ResponseEntity<>(result, status);
+    }
+
+    @GetMapping("/character/{user_id}")
+    private ResponseEntity<?> grownList(@PathVariable ("user_id") String user_id){
+        Map<String, Object> result = new HashMap<>();
+        HttpStatus status;
+
+        try {
+            List<UserCharacterResponseDto> list = userCharacterService.getGrownCharacterList(user_id);
+
+            result.put("grownList", list);
+            status = HttpStatus.OK;
+            result.put("message", SUCCESS);
+        } catch (Exception e){
+            result.put("message", FAIL);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<>(result, status);
+    }
+
+    @DeleteMapping("/{UCId}")
+    private ResponseEntity<?> del(@PathVariable ("UCId") Long UCId){
+        userCharacterService.del(UCId);
+        return new ResponseEntity<>(null, HttpStatus.OK);
     }
 }
