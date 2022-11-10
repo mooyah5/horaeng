@@ -15,6 +15,7 @@ public interface UserService {
     void inputToken(TokenRequest request);
     public void logoutUser(String id);
     void inputBackground(BackgroundRequest request);
+    Long addReportCnt(String id);
 
 
 }

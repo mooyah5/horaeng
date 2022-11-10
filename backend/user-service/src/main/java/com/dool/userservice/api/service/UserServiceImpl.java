@@ -79,4 +79,10 @@ public class UserServiceImpl implements UserService{
         userBackgroundService.createUserBackground(request);
     }
 
+    @Override
+    public Long addReportCnt(String id){
+        User user = userRepository.get(id);
+        user.setReportCnt(user.getReportCnt()+1);
+        return user.getReportCnt();
+    }
 }
