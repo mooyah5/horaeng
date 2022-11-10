@@ -1,5 +1,6 @@
 package com.dool.userservice.api.controller;
 
+import com.dool.userservice.api.common.BaseResponse;
 import com.dool.userservice.api.request.BackgroundRequest;
 import com.dool.userservice.api.request.CreateUserRequest;
 import com.dool.userservice.api.request.LoginRequest;
@@ -71,10 +72,12 @@ public class UserController {
     }
 
     @PostMapping("/background")
-    public ResponseEntity buyBackground(@RequestBody BackgroundRequest request){
-        userService.buyBackground(request);
+    public ResponseEntity<BaseResponse> buyBackground(@RequestBody BackgroundRequest request){
+        if(userService.buyBackground(request)){
+            return ResponseEntity.status(HttpStatus.OK).body(BaseResponse.of(HttpStatus.OK, "구매되었습니다."));
+        };
 
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(BaseResponse.of(HttpStatus.INTERNAL_SERVER_ERROR,"구매 중 오류가 발생했습니다."));
     }
 
     @PostMapping("/background/{userId}/{backgroundId}")
