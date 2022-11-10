@@ -17,9 +17,10 @@ spring:
   cloud:
     gateway:
       globalcors:
-        cors-configurations:
+        corsConfigurations:
           '[/**]':
             allowedOrigins: "*"
+
       routes:
         - id: auth-service
           uri: lb://AUTH-SERVICE
@@ -31,7 +32,6 @@ spring:
             - Path=/user-service/user-background,/user-service/background
           filters:
             - AuthorizationHeaderFilter
-
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
@@ -57,10 +57,15 @@ spring:
             - Path=/social-service/**
           filters:
             - AuthorizationHeaderFilter
-
         - id: character-service
           uri: lb://CHARACTER-SERVICE
           predicates:
             - Path=/character-service/**
           filters:
             - AuthorizationHeaderFilter
+      default-filters:
+        - name: GlobalFilter
+          args:
+            baseMessage: Cors Filter
+            preLogger: true
+            postLogger: true
