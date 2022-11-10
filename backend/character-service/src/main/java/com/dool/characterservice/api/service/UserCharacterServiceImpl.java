@@ -126,4 +126,14 @@ public class UserCharacterServiceImpl implements UserCharacterService{
 
         return;
     }
+
+    @Override
+    public boolean checkGrown(Long UCId) {
+        UserCharacter userCharacter = userCharacterRepository.findById(UCId).orElseThrow();
+
+        if(userCharacter.getLevel() == CharacterLevel.LEVEL_MAX){
+            return true;
+        }
+        return false;
+    }
 }

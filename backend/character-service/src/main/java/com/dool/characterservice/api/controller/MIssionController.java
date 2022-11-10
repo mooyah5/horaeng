@@ -61,7 +61,7 @@ public class MIssionController {
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
-    @PatchMapping("{id}")
+    @PutMapping("{id}")
     private ResponseEntity<?> update(@PathVariable("id") Long id, @RequestBody MissionRequest missionRequest){
         Map<String, Object> result = new HashMap<>();
 
