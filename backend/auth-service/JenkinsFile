@@ -27,7 +27,7 @@ pipeline {
         }
         stage("run"){
             steps {
-                sh 'docker run -d -p 8001:8001 --network msa --name auth-service auth-service'
+                sh 'docker run -d -p 8001:8001 --network msa -e TZ=Asia/Seoul --name auth-service auth-service'
             }
         }
     }
