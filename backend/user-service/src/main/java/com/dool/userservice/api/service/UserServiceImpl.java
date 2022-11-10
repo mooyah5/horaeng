@@ -44,14 +44,21 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void buyBackground(BackgroundRequest request){
-        User user = userRepository.get(request.getUserId());
+    public boolean buyBackground(BackgroundRequest request){
+        try {
+            User user = userRepository.get(request.getUserId());
 
-        Background background = backgroundService.get(request.getBackgroundId());
-        if(user.getPoint() >= background.getPrice()){
-            userBackgroundService.createUserBackground(request);
-            user.setPoint(user.getPoint() - background.getPrice());
+            Background background = backgroundService.get(request.getBackgroundId());
+            if (user.getPoint() >= background.getPrice()) {
+                userBackgroundService.createUserBackground(request);
+                user.setPoint(user.getPoint() - background.getPrice());
+                return true;
+            }
         }
+        catch(Exception e){
+            return false;
+        }
+        return false;
     }
 
     @Override
