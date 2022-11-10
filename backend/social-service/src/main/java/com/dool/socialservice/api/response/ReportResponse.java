@@ -17,6 +17,7 @@ public class ReportResponse {
     private Long diaryId;
     private ReportStatus reportStatus;
     private ReportType reportType;
+    private String diaryContent;
 
     public static ReportResponse of(Report report){
         ReportResponse response = ReportResponse.builder()
@@ -25,6 +26,7 @@ public class ReportResponse {
                 .diaryId(report.getDiary().getId())
                 .reportStatus(report.getReportStatus())
                 .reportType(report.getReportType())
+                .diaryContent(report.getDiary().getContent())
                 .build();
         return response;
     }
