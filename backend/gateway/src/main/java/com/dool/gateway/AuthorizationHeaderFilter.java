@@ -42,7 +42,7 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
             }
             String authorizationHeader = request.getHeaders().get("token").get(0);
             String jwt = authorizationHeader.replace("Bearer", "");
-
+            exchange.getResponse().getHeaders().set("Access-Control-Allow-Origin","*");
             if(!isJwtValid(jwt)){
                 return onError(exchange, "JWT token is not valid", HttpStatus.UNAUTHORIZED);
             }
