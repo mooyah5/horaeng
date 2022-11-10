@@ -70,6 +70,7 @@ const styles = StyleSheet.create({
   },
   btns: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
     paddingHorizontal: 24,
   },
 });
