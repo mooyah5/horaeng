@@ -18,7 +18,7 @@ public class Report {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
-    private String userId;
+    private String reporterId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "diaryId", referencedColumnName = "id")

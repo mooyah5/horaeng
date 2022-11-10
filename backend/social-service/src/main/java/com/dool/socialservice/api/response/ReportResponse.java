@@ -18,15 +18,19 @@ public class ReportResponse {
     private ReportStatus reportStatus;
     private ReportType reportType;
     private String diaryContent;
+    private String respondentId;
+    private String imgUrl;
 
     public static ReportResponse of(Report report){
         ReportResponse response = ReportResponse.builder()
                 .id(report.getId())
-                .userId(report.getUserId())
+                .userId(report.getReporterId())
                 .diaryId(report.getDiary().getId())
                 .reportStatus(report.getReportStatus())
                 .reportType(report.getReportType())
                 .diaryContent(report.getDiary().getContent())
+                .respondentId(report.getDiary().getUserId())
+                .imgUrl(report.getDiary().getImgUrl())
                 .build();
         return response;
     }

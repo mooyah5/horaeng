@@ -1,5 +1,6 @@
 package com.dool.socialservice.api.service;
 
+import com.dool.socialservice.api.client.UserServiceClient;
 import com.dool.socialservice.api.request.CreateReportRequest;
 import com.dool.socialservice.db.domain.Diary;
 import com.dool.socialservice.db.domain.Report;
@@ -19,6 +20,7 @@ public class ReportServiceImpl implements ReportService{
 
     private final ReportRepository reportRepository;
     private final DiaryRepository diaryRepository;
+    private final UserServiceClient userServiceClient;
 
     @Override
     public List<Report> getAllReport() {
@@ -54,6 +56,7 @@ public class ReportServiceImpl implements ReportService{
     public void allowReport(Long id) {
         Report report = reportRepository.get(id);
         report.setReportStatus(ReportStatus.ALLOW);
+        userServiceClient.addReportCnt(report.getUserId());
     }
 
     @Override

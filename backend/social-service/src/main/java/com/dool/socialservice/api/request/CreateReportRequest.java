@@ -10,7 +10,7 @@ import lombok.Setter;
 @Data
 public class CreateReportRequest {
     @NotNull
-    private String userId;
+    private String reporterId;
     @NotNull
     private Long diaryId;
     @NotNull
