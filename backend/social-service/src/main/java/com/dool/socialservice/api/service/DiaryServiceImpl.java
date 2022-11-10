@@ -2,6 +2,8 @@ package com.dool.socialservice.api.service;
 
 import com.dool.socialservice.api.client.CharacterMissionServiceClient;
 import com.dool.socialservice.api.request.CreateDiaryRequest;
+import com.dool.socialservice.api.response.CreateDiaryResponse;
+import com.dool.socialservice.api.response.DiaryResponse;
 import com.dool.socialservice.db.domain.Diary;
 import com.dool.socialservice.db.repository.DiaryRepository;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +41,7 @@ public class DiaryServiceImpl implements DiaryService {
     }
 
     @Override
-    public Diary createDiary(CreateDiaryRequest request) {
+    public CreateDiaryResponse createDiary(CreateDiaryRequest request) {
         Diary diary = new Diary();
         diary.setUserId(request.getUserId());
         diary.setImgUrl(request.getImgUrl());
@@ -49,7 +51,8 @@ public class DiaryServiceImpl implements DiaryService {
 
         diaryRepository.create(diary);
         characterMissionServiceClient.completeMission(request.getCharacterMissionId());
-        return diary;
+        boolean isCharacterMax = (boolean)characterMissionServiceClient.checkGrown(request.getUserCharacterId()).get("isCharacterMax");
+        return CreateDiaryResponse.of(diary, isCharacterMax);
     }
 
     @Override
