@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {color, font} from '../../styles/colorAndFontTheme';
 import TitleText from '../../components/common/TitleText';
 import Btn from '../../components/common/Btn_short';
@@ -12,6 +12,9 @@ import {
 } from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {ParamListBase} from '@react-navigation/native';
+import {useSelector} from 'react-redux';
+import api from '../../api/api_controller';
+import {selectCharacter} from '../../store/character';
 
 const styles = StyleSheet.create({
   container: {
@@ -98,12 +101,17 @@ interface Props {
 }
 
 const LookCommon = ({navigation}: Props) => {
-  const missionList = [
-    '하나. 종이 아끼기',
-    '두울. 종이 안아끼기',
-    '세엣. 분리수거 하기',
-  ];
-  //   const numList = ['하나', '두울', '세엣'];
+  const charInfo = useSelector(selectCharacter)?.userCharacter;
+  const [commonInfo, setCommonInfo] = useState([]);
+  useEffect(() => {
+    // 공통 미션 정보 받아오기
+    const getCommon = async () => {
+      const res = await api.mission.getCommonId(charInfo?.id);
+      setCommonInfo(res.commonMission);
+    };
+    getCommon();
+    console.log(commonInfo);
+  }, []);
   return (
     <SafeAreaView style={{backgroundColor: color.BACK_SUB}}>
       <View style={styles.container}>
@@ -127,14 +135,22 @@ const LookCommon = ({navigation}: Props) => {
             </Text>
           </View>
           <View style={styles.select}>
-            {/* {numList.length && numList.map(num => <Text>{num}</Text>)} */}
-            {missionList.length &&
-              missionList.map((name, idx) => (
+            {commonInfo.length !== 0 &&
+              commonInfo.map((title, idx) => (
                 <TouchableOpacity
                   key={idx}
                   style={styles.btn}
-                  onPress={() => navigation.navigate('MissionHome')}>
-                  <Text style={styles.list}>{name}</Text>
+                  onPress={() =>
+                    navigation.navigate('CommonMission', {
+                      title: commonInfo[idx].mission.title,
+                      content: commonInfo[idx].mission.content,
+                      id: commonInfo[idx].id,
+                      imgUrl: commonInfo[idx].mission.img,
+                    })
+                  }>
+                  <Text style={styles.list}>
+                    {idx + 1}. {commonInfo[idx].mission.title}
+                  </Text>
                   <Text style={styles.move}>Go</Text>
                 </TouchableOpacity>
               ))}

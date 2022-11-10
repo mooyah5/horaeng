@@ -4,7 +4,7 @@ import Btn from '../common/Btn_long';
 import {PermissionsAndroid} from 'react-native';
 import {useEffect} from 'react';
 import {useDispatch} from 'react-redux';
-import {setMainFile} from '../../store/mission';
+import {setFile} from '../../store/mission';
 
 const styles = StyleSheet.create({
   body: {
@@ -87,9 +87,8 @@ const CameraModal = ({navigation}: any) => {
         //   console.log(res.assets[0]);
         // 취소 버튼을 누르지 않으면
         if (!res.didCancel && res && res.assets) {
-          // setFileImage(res.assets[0].uri); // 사진을 누르면
-          dispatch(setMainFile({mainFile: res.assets[0].uri}));
-          navigation.navigate('MainMission');
+          dispatch(setFile({file: res.assets[0].uri}));
+          navigation.goBack();
         }
       },
     );
@@ -105,8 +104,8 @@ const CameraModal = ({navigation}: any) => {
 
     launchCamera({mediaType: 'photo', cameraType: 'back'}, res => {
       if (!res.didCancel && res && res.assets) {
-        dispatch(setMainFile({mainFile: res.assets[0].uri}));
-        navigation.navigate('MainMission');
+        dispatch(setFile({mainFile: res.assets[0].uri}));
+        navigation.goBack();
       }
     });
   };

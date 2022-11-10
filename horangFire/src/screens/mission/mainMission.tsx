@@ -19,7 +19,7 @@ import {ParamListBase} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import {selectCharacter, selectName} from '../../store/character';
 import api from '../../api/api_controller';
-import {selectMainFile} from '../../store/mission';
+import {selectFile} from '../../store/mission';
 import {charMission} from '../../script/charMission';
 
 const styles = StyleSheet.create({
@@ -76,12 +76,13 @@ const MainMission = ({navigation}: Props) => {
   const dispatch = useDispatch();
   const name = useSelector(selectName);
   const charInfo = useSelector(selectCharacter)?.userCharacter;
-  const imgUrl = useSelector(selectMainFile); // main 미션 이미지 url 저장
+  const imgUrl = useSelector(selectFile); // main 미션 이미지 url 저장
 
   const [clickHelp, setClickHelp] = useState(false); // 안내 사항 확인?
   const [mainId, setMainId] = useState(0);
   const mission = charMission[charInfo?.character_id][0];
   const [diary, setDiary] = useState('');
+  const sampleImg = charMission[charInfo?.character_id][1];
   const info =
     '1. 예시 사진과 동일하게 종이를 아끼는 모습을 담은 사진을 찍어주세요. \n 2. 부적합한 사진 업로드시 포인트가 차감될 수 있습니다.';
 
@@ -90,7 +91,7 @@ const MainMission = ({navigation}: Props) => {
       // 제출 api 호출
       dispatch(reset());
       try {
-        await api.diary.submitMain({
+        await api.diary.submit({
           content: diary,
           imgUrl: imgUrl,
           userId: charInfo?.user_id, // user id
@@ -98,7 +99,10 @@ const MainMission = ({navigation}: Props) => {
           charactersId: charInfo?.character_id, // 동물 타입
           characterMissionId: mainId, // 수정 예정
         });
-        navigation.navigate('SubmitMission');
+        navigation.navigate('SubmitMission', {
+          type: 'main',
+          text: '일차 미션을 성공적으로 마쳤네! \n 고마워!! :)',
+        });
       } catch (err) {
         Alert.alert('작성 실패ㅜㅠ');
       }
@@ -149,7 +153,7 @@ const MainMission = ({navigation}: Props) => {
               navigation={navigation}
             />
           )}
-          {clickHelp && <HelpTxt mission={mission} info={info} />}
+          {clickHelp && <HelpTxt imgUrl={sampleImg} info={info} />}
         </View>
 
         <View style={styles.btns}>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {color, font} from '../../styles/colorAndFontTheme';
 import TitleText from '../../components/common/TitleText';
 import {
@@ -8,12 +8,17 @@ import {
   Text,
   View,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import Btn from '../../components/common/Btn_short';
 import MissionTxt from '../../components/mission/MissionTxt';
 import HelpTxt from '../../components/mission/HelpTxt';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {ParamListBase} from '@react-navigation/native';
+import {ParamListBase, RouteProp} from '@react-navigation/native';
+import {useDispatch, useSelector} from 'react-redux';
+import {selectCharacter, selectName} from '../../store/character';
+import api from '../../api/api_controller';
+import {reset, selectFile} from '../../store/mission';
 
 const styles = StyleSheet.create({
   container: {
@@ -62,23 +67,52 @@ const styles = StyleSheet.create({
 
 interface Props {
   navigation: StackNavigationProp<ParamListBase, 'CommonMission'>;
+  route: RouteProp<ParamListBase, 'CommonMission'>;
 }
 
-const CommonMission = ({navigation}: Props) => {
+const CommonMission = ({navigation, route}: Props) => {
+  const dispatch = useDispatch();
+  const name = useSelector(selectName);
+  const charInfo = useSelector(selectCharacter)?.userCharacter;
+  const imgUrl = useSelector(selectFile); // file img
   const [clickHelp, setClickHelp] = useState(false);
-  const mission = '종이 아끼기';
   const [diary, setDiary] = useState('');
-  const info =
-    '1. 예시 사진과 동일하게 종이를 아끼는 모습을 담은 사진을 찍어주세요. \n 2. 부적합한 사진 업로드시 포인트가 차감될 수 있습니다.';
-
-  const submit = () => {
-    navigation.navigate('SubmitMission');
+  // 제출 함수
+  const submit = async () => {
+    if (diary !== '') {
+      try {
+        await api.diary.submit({
+          content: diary,
+          imgUrl: imgUrl,
+          userId: charInfo?.user_id,
+          userCharacterId: charInfo?.id,
+          charactersId: charInfo?.character_id,
+          characterMissionId: route.params.id,
+        });
+        dispatch(reset());
+        navigation.navigate('SubmitMission', {
+          type: 'common',
+          text: '공통 미션을 성공적으로 마쳤네! \n 고마워 :)',
+        });
+      } catch (err) {
+        Alert.alert('작성 실패ㅜㅠ');
+      }
+    } else {
+      Alert.alert('성냥팔이 호랭이', '글과 사진을 모두 입력해주세요!', [
+        {text: '닫기'},
+      ]);
+    }
   };
+  const goBack = () => {
+    dispatch(reset());
+    navigation.goBack();
+  };
+
   return (
     <SafeAreaView style={{backgroundColor: color.BACK_SUB}}>
       <View style={styles.container}>
         <View style={styles.cont1}>
-          <TitleText title="호랭이 이름" subTitle="공통 미션 수행하기" />
+          <TitleText title={name} subTitle="공통 미션 수행하기" />
         </View>
 
         <View style={styles.cont2}>
@@ -86,26 +120,27 @@ const CommonMission = ({navigation}: Props) => {
             style={styles.box}
             source={require('../../assets/image/box_large.png')}
           />
-          <TouchableOpacity
-            style={styles.help}
-            onPress={() => setClickHelp(!clickHelp)}>
-            <View style={styles.helpBtn}>
+          <View style={styles.help}>
+            <TouchableOpacity
+              style={styles.helpBtn}
+              onPress={() => setClickHelp(!clickHelp)}>
               <Text>{clickHelp ? 'X' : '?'}</Text>
-            </View>
-          </TouchableOpacity>
+            </TouchableOpacity>
+          </View>
           {!clickHelp && (
             <MissionTxt
-              mission={mission}
-              diary={diary}
+              mission={route.params.title}
               setDiary={setDiary}
-              isMain={false}
+              navigation={navigation}
             />
           )}
-          {clickHelp && <HelpTxt mission={mission} info={info} />}
+          {clickHelp && (
+            <HelpTxt imgUrl={route.params.imgUrl} info={route.params.content} />
+          )}
         </View>
 
         <View style={styles.btns}>
-          <Btn txt="이전으로" clickEvent={() => navigation.goBack()} />
+          <Btn txt="이전으로" clickEvent={goBack} />
           <Btn txt="제출하기" clickEvent={submit} />
         </View>
       </View>

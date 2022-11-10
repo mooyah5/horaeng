@@ -28,6 +28,10 @@ const urls = {
     getMainId: (charId: number) =>
       GATEWAY + CHARACTER + 'character-mission/main/' + `${charId}`,
   },
+  mission: {
+    getCommonId: (charId: number) =>
+      GATEWAY + CHARACTER + 'character-mission/common/' + `${charId}`,
+  },
   character: {
     getNowUserCharacter: (userId: string) =>
       GATEWAY + CHARACTER + USER_CHARACTER + USER_INFO + userId,

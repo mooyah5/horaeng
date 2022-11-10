@@ -19,8 +19,7 @@ const api = {
   },
 
   diary: {
-    submitMain: async (diary: any) => {
-      console.log(diary);
+    submit: async (diary: any) => {
       const res = await axios({
         url: urls.diary.submit(),
         method: 'post',
@@ -31,7 +30,6 @@ const api = {
           ...diary,
         },
       });
-      console.log(res);
       return res;
     },
     viewCharDiary: async (charId: number) => {
@@ -45,7 +43,6 @@ const api = {
       return res.data;
     },
     getMainId: async (charId: number) => {
-      console.log(charId);
       const res = await axios({
         url: urls.diary.getMainId(charId),
         headers: {
@@ -56,7 +53,18 @@ const api = {
       return res.data;
     },
   },
-
+  mission: {
+    getCommonId: async (charId: number) => {
+      const response = await axios({
+        url: urls.mission.getCommonId(charId),
+        headers: {
+          token: await getDataInLocalStorage('token'),
+        },
+        method: 'get',
+      });
+      return response.data;
+    },
+  },
   character: {
     getNowUserCharacter: async (userId: string) => {
       const response = await axios({

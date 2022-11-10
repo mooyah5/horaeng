@@ -82,7 +82,6 @@ const DiaryDetail = ({navigation, route}: Props) => {
   const calc = route.params.info.createDate.substr(0, 10).split('-');
   const imgUrl = route.params.info.imgUrl;
   const txt = route.params.info.content;
-  console.log(imgUrl);
   return (
     <SafeAreaView style={styles.body}>
       <View style={styles.section1} />

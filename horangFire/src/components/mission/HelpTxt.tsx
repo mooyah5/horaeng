@@ -3,7 +3,7 @@ import {Image, StyleSheet, Text, View} from 'react-native';
 import {color, font} from '../../styles/colorAndFontTheme';
 
 type missionProps = {
-  mission?: string;
+  imgUrl: string;
   info: string;
 };
 
@@ -53,16 +53,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const MissionTxt = ({info}: missionProps) => {
+const MissionTxt = ({imgUrl, info}: missionProps) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>사진 인증 미션 안내</Text>
       <Text style={styles.how}>** 예시 사진 안내</Text>
       <View style={styles.photo}>
-        <Image
-          style={styles.temp}
-          source={require('../../assets/image/temp.png')}
-        />
+        <Image style={styles.temp} source={{uri: imgUrl}} />
       </View>
       <Text style={styles.explain}>{info}</Text>
     </View>

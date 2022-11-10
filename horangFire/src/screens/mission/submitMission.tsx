@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {color, font} from '../../styles/colorAndFontTheme';
 import TitleText from '../../components/common/TitleText';
 import {Image, SafeAreaView, StyleSheet, Text, View} from 'react-native';
@@ -57,18 +57,35 @@ const styles = StyleSheet.create({
 
 interface Props {
   navigation: StackNavigationProp<ParamListBase, 'LookCommon'>;
+  route: RouteProp<ParamListBase, 'SubmitMission'>;
 }
 
-const SubmitMission = ({navigation}: Props) => {
+const SubmitMission = ({navigation, route}: Props) => {
   const charInfo = useSelector(selectCharacter);
   const days = charInfo?.count;
   const name = useSelector(selectName);
-  const success = '일차 미션을 성공적으로 마쳤네! \n 고마워!! :)';
+  const [success, setSuccess] = useState('');
+
+  useEffect(() => {
+    if (route.params.type === 'main') {
+      setSuccess(days + route.params.text);
+    } else {
+      setSuccess(route.params.text);
+    }
+  }, []);
+
   return (
     <SafeAreaView style={{backgroundColor: color.BACK_SUB}}>
       <View style={styles.container}>
         <View style={styles.cont1}>
-          <TitleText title={name} subTitle="기본 미션 수행 완료!" />
+          <TitleText
+            title={name}
+            subTitle={
+              route.params.type === 'main'
+                ? '기본 미션 수행 완료'
+                : '공통 미션 수행 완료'
+            }
+          />
         </View>
         <View style={styles.cont2}>
           <Image
@@ -78,16 +95,13 @@ const SubmitMission = ({navigation}: Props) => {
           <Text style={styles.txtTitle}>
             {charMission[charInfo?.userCharacter?.character_id]} 미션
           </Text>
-          <Text style={styles.txtSub}>
-            {days}
-            {success}
-          </Text>
+          <Text style={styles.txtSub}>{success}</Text>
         </View>
         <View style={styles.btns}>
           <View style={styles.btn}>
             <Btn
               txt="메인 화면으로"
-              clickEvent={() => navigation.navigate('MissionHome')}
+              clickEvent={() => navigation.navigate('Home')}
             />
           </View>
           <View style={styles.btn}>

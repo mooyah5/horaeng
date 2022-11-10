@@ -5,7 +5,7 @@ import {Image, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {color, font} from '../../styles/colorAndFontTheme';
 // import imagesPath from '../../assets/image/constants/imagesPath';
 import {useSelector} from 'react-redux';
-import {selectMainFile} from '../../store/mission';
+import {selectFile} from '../../store/mission';
 
 const styles = StyleSheet.create({
   photo: {
@@ -54,9 +54,9 @@ const ImagePicker = ({navigation}: Props) => {
   // const img = useSelector(
   //   (state: {mainMission: missionType}) => state.mainMission,
   // );
-  const img = useSelector(selectMainFile);
+  const img = useSelector(selectFile);
+
   useEffect(() => {
-    console.log(img);
     setFileImage(img);
   }, [img]);
 
@@ -69,7 +69,7 @@ const ImagePicker = ({navigation}: Props) => {
     <TouchableOpacity style={styles.photo} onPress={showPicker}>
       {fileImage === '' && (
         <Text style={styles.photoTxt}>
-          사진을 업로드하면 {'\n'} 추가 포인트를 받을 수 있어!{'\n'}
+          사진을 업로드해볼까? {'\n'}
           (? 버튼으로 자세한 사항을 확인해봐!)
         </Text>
       )}
