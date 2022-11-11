@@ -9,7 +9,7 @@ public interface CharacterMissionService {
     boolean todayClear(Long user_character_id);
     CharacterMission postMission(Long user_character_id);
     Long countMission(Long user_character_id);
-    void complete(Long CMId);
+    boolean complete(Long CMId);
     Long mainId(Long user_character_id);
     List<CharacterMissionResponseDto> commonMission(Long user_character_id);
 }

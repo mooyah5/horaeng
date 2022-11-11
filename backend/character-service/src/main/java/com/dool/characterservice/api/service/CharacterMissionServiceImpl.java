@@ -26,6 +26,7 @@ public class CharacterMissionServiceImpl implements CharacterMissionService {
     private final UserCharacterRepository userCharacterRepository;
     private final CharacterMissionRepository characterMissionRepository;
     private final MissionRepository missionRepository;
+    private final UserCharacterService userCharacterService;
     @Override
     public boolean todayClear(Long user_character_id) {
         boolean status = false;
@@ -101,10 +102,18 @@ public class CharacterMissionServiceImpl implements CharacterMissionService {
     }
 
     @Override
-    public void complete(Long CMId) {
+    public boolean complete(Long CMId) {
+        boolean isComplete = false;
+
         CharacterMission characterMission = characterMissionRepository.findById(CMId).orElseThrow();
         characterMission.setClear(true);
-        characterMission.getUserCharacter().getId();
+
+        Long UCId = characterMission.getUserCharacter().getId();
+        Long cnt = characterMissionRepository.countAllByUserCharacter_IdAndMission_TypeAndIsClearTrue(characterMission.getUserCharacter().getId(), MissionType.Personal).orElseThrow();
+
+        isComplete = userCharacterService.levelUp(UCId, cnt);
+
+        return isComplete;
     }
 
     @Override
