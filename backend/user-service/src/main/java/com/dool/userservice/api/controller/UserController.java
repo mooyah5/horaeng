@@ -1,10 +1,7 @@
 package com.dool.userservice.api.controller;
 
 import com.dool.userservice.api.common.BaseResponse;
-import com.dool.userservice.api.request.BackgroundRequest;
-import com.dool.userservice.api.request.CreateUserRequest;
-import com.dool.userservice.api.request.LoginRequest;
-import com.dool.userservice.api.request.TokenRequest;
+import com.dool.userservice.api.request.*;
 import com.dool.userservice.api.response.UserResponse;
 import com.dool.userservice.api.response.ValidResponse;
 import com.dool.userservice.api.service.UserService;
@@ -127,8 +124,14 @@ public class UserController {
     }
 
     @PutMapping("/report/{userId}")
-    public ResponseEntity<Long> addReportCnt(@PathVariable("useId") String userId){
+    public ResponseEntity<Long> addReportCnt(@PathVariable("userId") String userId){
 
         return ResponseEntity.status(HttpStatus.OK).body(userService.addReportCnt(userId));
+    }
+
+    @PutMapping("/point")
+    public ResponseEntity addPoint(@RequestBody AddPointRequest request){
+        userService.addPoint(request);
+        return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 }
