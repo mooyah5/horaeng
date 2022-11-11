@@ -43,7 +43,7 @@ public class ReportServiceImpl implements ReportService{
         Diary diary = diaryRepository.get(request.getDiaryId());
 
         Report report = new Report();
-        report.setUserId(request.getUserId());
+        report.setReporterId(request.getReporterId());
         report.setDiary(diary);
         report.setReportType(request.getReportType());
 
@@ -56,7 +56,7 @@ public class ReportServiceImpl implements ReportService{
     public void allowReport(Long id) {
         Report report = reportRepository.get(id);
         report.setReportStatus(ReportStatus.ALLOW);
-        userServiceClient.addReportCnt(report.getUserId());
+        userServiceClient.addReportCnt(report.getReporterId());
     }
 
     @Override
