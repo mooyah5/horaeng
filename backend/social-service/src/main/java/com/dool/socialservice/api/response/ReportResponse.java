@@ -13,7 +13,7 @@ import lombok.Setter;
 @Builder
 public class ReportResponse {
     private Long id;
-    private String userId;
+    private String reporterId;
     private Long diaryId;
     private ReportStatus reportStatus;
     private ReportType reportType;
@@ -24,7 +24,7 @@ public class ReportResponse {
     public static ReportResponse of(Report report){
         ReportResponse response = ReportResponse.builder()
                 .id(report.getId())
-                .userId(report.getReporterId())
+                .reporterId(report.getReporterId())
                 .diaryId(report.getDiary().getId())
                 .reportStatus(report.getReportStatus())
                 .reportType(report.getReportType())
