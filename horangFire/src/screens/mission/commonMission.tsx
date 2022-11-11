@@ -77,9 +77,12 @@ const CommonMission = ({navigation, route}: Props) => {
   const imgUrl = useSelector(selectFile); // file img
   const [clickHelp, setClickHelp] = useState(false);
   const [diary, setDiary] = useState('');
+  const [point, setPoint] = useState(0); // 포인트 적립 내역
   // 제출 함수
   const submit = async () => {
     if (diary !== '') {
+      const random = Math.floor(Math.random() * 15) + 6;
+      setPoint(random); // 1~10까지의 랜덤 포인트 지급
       try {
         await api.diary.submit({
           content: diary,
@@ -88,6 +91,7 @@ const CommonMission = ({navigation, route}: Props) => {
           userCharacterId: charInfo?.id,
           charactersId: charInfo?.character_id,
           characterMissionId: route.params.id,
+          addPoint: point, // 포인트
         });
         dispatch(reset());
         navigation.navigate('SubmitMission', {

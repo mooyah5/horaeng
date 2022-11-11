@@ -64,7 +64,7 @@ const MissionHome = ({navigation}: Props) => {
   console.log(missionTxt);
   const [charSays, setCharSays] = useState<string>(missionTxt + '에 도전!');
   const canDoMain = () => {
-    if (isDone !== false) {
+    if (isDone === false) {
       navigation.navigate('MainMission');
     } else {
       setCharSays('이미 메인 미션을 완료했어!');

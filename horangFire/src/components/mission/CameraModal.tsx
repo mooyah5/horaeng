@@ -34,44 +34,43 @@ const styles = StyleSheet.create({
 const CameraModal = ({navigation}: any) => {
   const dispatch = useDispatch();
 
-  // 권한 부여 =======
-  const checkGranted = async () => {
-    try {
-      const grantedcamera = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.CAMERA,
-        {
-          title: 'App Camera Permission',
-          message: 'App needs access to your camera',
-          buttonNegative: 'Cancel',
-          buttonPositive: 'OK',
-          buttonNeutral: 'Ask me Later',
-        },
-      );
-      const grantedstorage = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-        {
-          title: 'App Camera Permission',
-          message: 'App needs access to your camera',
-          buttonNegative: 'Cancel',
-          buttonPositive: 'OK',
-          buttonNeutral: 'Ask me Later',
-        },
-      );
-
-      if (
-        grantedcamera === PermissionsAndroid.RESULTS.GRANTED &&
-        grantedstorage === PermissionsAndroid.RESULTS.GRANTED
-      ) {
-        console.log('ss');
-      } else {
-        console.log('permission denied');
-      }
-    } catch (err) {
-      console.warn(err);
-    }
-  };
-
   useEffect(() => {
+    // 권한 부여 =======
+    const checkGranted = async () => {
+      try {
+        const grantedcamera = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.CAMERA,
+          {
+            title: 'App Camera Permission',
+            message: 'App needs access to your camera',
+            buttonNegative: 'Cancel',
+            buttonPositive: 'OK',
+            buttonNeutral: 'Ask me Later',
+          },
+        );
+        const grantedstorage = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+          {
+            title: 'App Camera Permission',
+            message: 'App needs access to your camera',
+            buttonNegative: 'Cancel',
+            buttonPositive: 'OK',
+            buttonNeutral: 'Ask me Later',
+          },
+        );
+
+        if (
+          grantedcamera === PermissionsAndroid.RESULTS.GRANTED &&
+          grantedstorage === PermissionsAndroid.RESULTS.GRANTED
+        ) {
+          console.log('ss');
+        } else {
+          console.log('permission denied');
+        }
+      } catch (err) {
+        console.warn(err);
+      }
+    };
     checkGranted(); // 권한 확인
   }, []);
 

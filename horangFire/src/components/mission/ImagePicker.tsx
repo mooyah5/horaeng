@@ -38,23 +38,7 @@ interface Props {
 
 const ImagePicker = ({navigation}: Props) => {
   const [fileImage, setFileImage] = useState('');
-
-  // const fileUrl = useSelector(setFile{file});
-
-  //   async function takeImageHandler() {
-  //     const result = await launchCamera({
-  //       mediaType: 'photo',
-  //       cameraType: 'back',
-  //       saveToPhotos: false,
-  //       quality: 0.5,
-  //     });
-  //     console.log(result);
-  //   }
-
-  // const img = useSelector(
-  //   (state: {mainMission: missionType}) => state.mainMission,
-  // );
-  const img = useSelector(selectFile);
+  const img = useSelector(selectFile); // 이미지 uri 저장
 
   useEffect(() => {
     setFileImage(img);

@@ -85,11 +85,14 @@ const MainMission = ({navigation}: Props) => {
   const sampleImg = charMission[charInfo?.character_id][1];
   const info =
     '1. 예시 사진과 동일하게 종이를 아끼는 모습을 담은 사진을 찍어주세요. \n 2. 부적합한 사진 업로드시 포인트가 차감될 수 있습니다.';
-
+  const [point, setPoint] = useState(0); // 포인트 적립 내역
   const submit = async () => {
     if (diary !== '') {
       // 제출 api 호출
-      dispatch(reset());
+
+      const random = Math.floor(Math.random() * 10) + 1;
+      setPoint(random); // 1~10까지의 랜덤 포인트 지급
+
       try {
         await api.diary.submit({
           content: diary,
@@ -98,10 +101,13 @@ const MainMission = ({navigation}: Props) => {
           userCharacterId: charInfo?.id, // 캐릭터 id
           charactersId: charInfo?.character_id, // 동물 타입
           characterMissionId: mainId, // 수정 예정
+          addPoint: point, // 포인트
         });
+        dispatch(reset());
         navigation.navigate('SubmitMission', {
           type: 'main',
           text: '일차 미션을 성공적으로 마쳤네! \n 고마워!! :)',
+          point: point,
         });
       } catch (err) {
         Alert.alert('작성 실패ㅜㅠ');
