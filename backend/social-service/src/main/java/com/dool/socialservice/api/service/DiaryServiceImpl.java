@@ -1,6 +1,8 @@
 package com.dool.socialservice.api.service;
 
 import com.dool.socialservice.api.client.CharacterMissionServiceClient;
+import com.dool.socialservice.api.client.UserServiceClient;
+import com.dool.socialservice.api.request.AddPointRequest;
 import com.dool.socialservice.api.request.CreateDiaryRequest;
 import com.dool.socialservice.api.response.CreateDiaryResponse;
 import com.dool.socialservice.api.response.DiaryResponse;
@@ -19,6 +21,7 @@ public class DiaryServiceImpl implements DiaryService {
 
     private final DiaryRepository diaryRepository;
     private final CharacterMissionServiceClient characterMissionServiceClient;
+    private final UserServiceClient userServiceClient;
 
     @Override
     public Diary getDiary(Long id) {
@@ -49,6 +52,11 @@ public class DiaryServiceImpl implements DiaryService {
         diary.setCharactersId(request.getCharactersId());
         diary.setUserCharacterId(request.getUserCharacterId());
 
+        AddPointRequest addPointRequest = new AddPointRequest();
+        addPointRequest.setUserId(request.getUserId());
+        addPointRequest.setPoint(request.getAddPoint());
+
+        userServiceClient.addPoint(addPointRequest);
         diaryRepository.create(diary);
         characterMissionServiceClient.completeMission(request.getCharacterMissionId());
         boolean isCharacterMax = (boolean)characterMissionServiceClient.checkGrown(request.getUserCharacterId()).get("isCharacterMax");
