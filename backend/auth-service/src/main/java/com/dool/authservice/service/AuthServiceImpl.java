@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -22,8 +24,11 @@ public class AuthServiceImpl implements AuthService {
     public void userLogin(LoginRequest request, HttpServletResponse httpServletResponse){
 
 
-        String accessToken = jwtTokenProvider.createAccessToken("id",request.getId());
-        String refreshToken = jwtTokenProvider.createRefreshToken("id",request.getId());
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", request.getId());
+        map.put("role",request.getRole());
+        String accessToken = jwtTokenProvider.createAccessToken("userInfo",map);
+        String refreshToken = jwtTokenProvider.createRefreshToken("userInfo",map);
 
         // 관리자 로그인
         if(request.getRole().equals(RoleType.Admin)){
