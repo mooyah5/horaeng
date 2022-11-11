@@ -1,9 +1,6 @@
 package com.dool.userservice.api.service;
 
-import com.dool.userservice.api.request.BackgroundRequest;
-import com.dool.userservice.api.request.CreateUserRequest;
-import com.dool.userservice.api.request.LoginRequest;
-import com.dool.userservice.api.request.TokenRequest;
+import com.dool.userservice.api.request.*;
 import com.dool.userservice.db.domain.Background;
 import com.dool.userservice.db.domain.User;
 
@@ -16,6 +13,7 @@ public interface UserService {
     public void logoutUser(String id);
     void inputBackground(BackgroundRequest request);
     Long addReportCnt(String id);
+    void addPoint(AddPointRequest request);
 
 
 }

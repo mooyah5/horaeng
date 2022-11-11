@@ -1,9 +1,6 @@
 package com.dool.userservice.api.service;
 
-import com.dool.userservice.api.request.BackgroundRequest;
-import com.dool.userservice.api.request.CreateUserRequest;
-import com.dool.userservice.api.request.LoginRequest;
-import com.dool.userservice.api.request.TokenRequest;
+import com.dool.userservice.api.request.*;
 import com.dool.userservice.db.domain.Background;
 import com.dool.userservice.db.domain.RoleType;
 import com.dool.userservice.db.domain.User;
@@ -84,5 +81,11 @@ public class UserServiceImpl implements UserService{
         User user = userRepository.get(id);
         user.setReportCnt(user.getReportCnt()+1);
         return user.getReportCnt();
+    }
+
+    @Override
+    public void addPoint(AddPointRequest request) {
+        User user = userRepository.get(request.getUserId());
+        user.setPoint(user.getPoint()+request.getPoint());
     }
 }
