@@ -1,0 +1,17 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: config-service
+  cloud:
+    config:
+      server:
+        git:
+#          uri: https://lab.ssafy.com/s07-final/S07P31C108.git
+          uri: https://lab.ssafy.com/s07-final/S07P31C108/-/tree/back_dev/backend
+          username: nomzaxs@gmail.com
+          password: '7xnExZxsNrUtBpATv0mWdjnEhZeQCW0sa9DPF3/IFzE'
+          search-paths: auth-service, character-service, eureka, gateway, social-service, user-service
+        encrypt:
+          enabled: false
