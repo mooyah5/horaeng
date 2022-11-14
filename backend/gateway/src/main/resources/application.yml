@@ -46,7 +46,6 @@ spring:
             - Path=/user-service/user-background,/user-service/background
           filters:
             - AuthorizationHeaderFilter
-            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
@@ -78,4 +77,3 @@ spring:
             - Path=/character-service/**
           filters:
             - AuthorizationHeaderFilter
-            - RewritePath=/character-service/(?<segment>.*), /$\{segment}
