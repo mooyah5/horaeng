@@ -6,6 +6,7 @@ import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwt;
 import io.jsonwebtoken.Jwts;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
@@ -26,6 +27,7 @@ import java.util.Map;
 
 
 @Component
+@Slf4j
 public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<AuthorizationHeaderFilter.Config> {
 
     private static final String SALT = "doolSecret";
@@ -41,15 +43,18 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
     public GatewayFilter apply(Config config) {
         return (((exchange, chain) -> {
             ServerHttpRequest request = exchange.getRequest();
-
             if(!request.getHeaders().containsKey("token")){
+                log.error("token is not found");
                 return onError(exchange, "token is not found", HttpStatus.BAD_REQUEST);
             }
             String authorizationHeader = request.getHeaders().get("token").get(0);
             String jwt = authorizationHeader.replace("Bearer", "");
             if(!isJwtValid(jwt)){
+                log.error("token is not valid");
                 return onError(exchange, "JWT token is not valid", HttpStatus.UNAUTHORIZED);
             }
+
+            log.info("token is valid!");
             return chain.filter(exchange);
         }));
     }
@@ -85,7 +90,7 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
         ServerHttpResponse response = exchange.getResponse();
         response.setStatusCode(httpStatus);
         response.getHeaders().set("message",err);
-        byte[] bytes = err.getBytes(StandardCharsets.UTF_8);
+        byte[] bytes = err.getBytes(StandardCharsets.UTF_8);    
         DataBuffer buffer = exchange.getResponse().bufferFactory().wrap(bytes);
         return response.writeWith(Flux.just(buffer));
     }
