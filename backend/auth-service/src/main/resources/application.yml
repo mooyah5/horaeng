@@ -10,6 +10,3 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://eureka:8760/eureka
-token:
-  expiration_time: 86400000
-  secret: user_token
