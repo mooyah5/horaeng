@@ -29,13 +29,13 @@ public class DiaryServiceImpl implements DiaryService {
     }
 
     @Override
-    public List<Diary> getDiaryByCharacters(Long charactersId){
-        return diaryRepository.getByCharacters(charactersId);
+    public List<Diary> getDiaryByCharacters(Long charactersId, Long lastId){
+        return diaryRepository.getByCharacters(charactersId, lastId);
     }
 
     @Override
-    public List<Diary> getAllDiary() {
-        return diaryRepository.getAll();
+    public List<Diary> getAllDiary(Long lastId) {
+        return diaryRepository.getAll(lastId);
     }
 
     @Override

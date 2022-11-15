@@ -11,14 +11,18 @@ import java.util.List;
 @Repository
 public class DiaryRepository {
     private final EntityManager em;
+    private final int PAGINATION_ITEM = 21;
 
     public Diary get(Long id){
         return em.find(Diary.class, id);
     }
 
-    public List<Diary> getByCharacters(Long charactersId){
-        return em.createQuery("select d from Diary d where d.charactersId = :charactersId order by d.id desc")
+    public List<Diary> getByCharacters(Long charactersId, Long lastId){
+        return em.createQuery("select d from Diary d where d.charactersId = :charactersId and d.id > :lastId " +
+                        "order by d.id desc")
                 .setParameter("charactersId", charactersId)
+                .setParameter("lastId",lastId)
+                .setMaxResults(PAGINATION_ITEM)
                 .getResultList();
     }
 
@@ -27,8 +31,13 @@ public class DiaryRepository {
                 .setParameter("userCharacterId", userCharacterId)
                 .getResultList();
     }
-    public List<Diary> getAll(){
-        return em.createQuery("select d from Diary d order by d.id desc").getResultList();
+    public List<Diary> getAll(Long lastId){
+        return em.createQuery("select d from Diary d " +
+                "where d.id > :lastId " +
+                "order by d.id desc")
+                .setParameter("lastId", lastId)
+                .setMaxResults(PAGINATION_ITEM)
+                .getResultList();
     }
 
     public void create(Diary diary){
