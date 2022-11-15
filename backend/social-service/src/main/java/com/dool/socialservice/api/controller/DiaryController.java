@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.ws.rs.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,9 +36,11 @@ public class DiaryController {
         return ResponseEntity.status(HttpStatus.OK).body(DiaryResponse.of(diary));
     }
 
-    @GetMapping("/characters/{characters_id}")
-    public ResponseEntity<List<DiaryResponse>> getDiaryByCharacters(@PathVariable("characters_id") Long charactersId){
-        List<Diary> list = diaryService.getDiaryByCharacters(charactersId);
+    @GetMapping("/characters/{characters_id}/{lastId}")
+    public ResponseEntity<List<DiaryResponse>> getDiaryByCharacters(
+            @PathVariable("characters_id") Long charactersId,
+            @PathVariable("lastId") Long lastId){
+        List<Diary> list = diaryService.getDiaryByCharacters(charactersId, lastId);
 
         List<DiaryResponse> result = new ArrayList<>();
 
@@ -69,9 +72,9 @@ public class DiaryController {
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
-    @GetMapping
-    public ResponseEntity<List<DiaryResponse>> getAllDiary(){
-        Iterable<Diary> list = diaryService.getAllDiary();
+    @GetMapping("/items/{lastId}")
+    public ResponseEntity<List<DiaryResponse>> getAllDiary(@PathVariable("lastId") Long lastId){
+        Iterable<Diary> list = diaryService.getAllDiary(lastId);
 
         if(list== null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
