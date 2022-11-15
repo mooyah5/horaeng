@@ -1,15 +1,30 @@
 server:
-  port: 443
-  ssl:
-    key-store: classpath:keystore.p12
-    key-store-type: PKCS12
-    key-store-password: dool
+  port: 8000
+#  port: 443
+#  ssl:
+#    key-store: classpath:keystore.p12
+#    key-store-type: PKCS12
+#    key-store-password: dool
 eureka:
   client:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://eureka:8760/eureka
+#      defaultZone: http://eureka:8760/eureka
+      defaultZone: http://localhost:8760/eureka
+management:
+  endpoint:
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics, prometheus
+metrics:
+  tags:
+    application: ${spring.application.name}
 logging:
   config: classpath:logback-${spring.profiles.active}.xml
 spring:

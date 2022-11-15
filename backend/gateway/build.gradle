@@ -27,6 +27,9 @@ dependencies {
 	implementation group: 'org.glassfish.jaxb', name: 'jaxb-runtime', version: '2.3.2'
 	implementation 'org.springframework.kafka:spring-kafka'
 	implementation 'net.logstash.logback:logstash-logback-encoder:6.3'
+	implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
+	implementation 'io.micrometer:micrometer-registry-prometheus'
+
 }
 
 dependencyManagement {

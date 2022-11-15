@@ -24,6 +24,8 @@
         </rollingPolicy>
     </appender>
 
+    <logger name="jdbc.sqlonly" level="INFO" appender-ref="CONSOLE" />
+    <logger name="jdbc.resultsettable" level="INFO" appender-ref="CONSOLE" />
     <root level = "INFO">
         <appender-ref ref="FILE"/>
         <appender-ref ref="CONSOLE"/>
