@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public class DiaryRepository {
     private final EntityManager em;
-    private final int PAGINATION_ITEM = 21;
+    private final int PAGINATION_ITEM = 9;
 
     public Diary get(Long id){
         return em.find(Diary.class, id);
