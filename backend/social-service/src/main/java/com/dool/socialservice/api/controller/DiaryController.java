@@ -40,6 +40,7 @@ public class DiaryController {
     public ResponseEntity<List<DiaryResponse>> getDiaryByCharacters(
             @PathVariable("characters_id") Long charactersId,
             @PathVariable("lastId") Long lastId){
+        lastId = lastId == -1 ? Long.MAX_VALUE : lastId;
         List<Diary> list = diaryService.getDiaryByCharacters(charactersId, lastId);
 
         List<DiaryResponse> result = new ArrayList<>();
@@ -74,6 +75,7 @@ public class DiaryController {
 
     @GetMapping("/items/{lastId}")
     public ResponseEntity<List<DiaryResponse>> getAllDiary(@PathVariable("lastId") Long lastId){
+        lastId = lastId == -1 ? Long.MAX_VALUE : lastId;
         Iterable<Diary> list = diaryService.getAllDiary(lastId);
 
         if(list== null){

@@ -18,7 +18,7 @@ public class DiaryRepository {
     }
 
     public List<Diary> getByCharacters(Long charactersId, Long lastId){
-        return em.createQuery("select d from Diary d where d.charactersId = :charactersId and d.id > :lastId " +
+        return em.createQuery("select d from Diary d where d.charactersId = :charactersId and d.id < :lastId " +
                         "order by d.id desc")
                 .setParameter("charactersId", charactersId)
                 .setParameter("lastId",lastId)
@@ -33,7 +33,7 @@ public class DiaryRepository {
     }
     public List<Diary> getAll(Long lastId){
         return em.createQuery("select d from Diary d " +
-                "where d.id > :lastId " +
+                "where d.id < :lastId " +
                 "order by d.id desc")
                 .setParameter("lastId", lastId)
                 .setMaxResults(PAGINATION_ITEM)
