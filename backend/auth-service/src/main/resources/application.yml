@@ -2,8 +2,12 @@ server:
   port: 8001
 
 spring:
+  profiles:
+    active: local
   application:
     name: AUTH-SERVICE
+logging:
+  config: classpath:logback-${spring.profiles.active}.xml
 eureka:
   client:
     register-with-eureka: true
