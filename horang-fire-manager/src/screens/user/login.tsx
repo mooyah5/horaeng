@@ -1,27 +1,54 @@
 import React, {useState, ChangeEvent} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import {SET_TOKEN} from '../../store/Auth';
+
 import './login.scss';
+import api from '../../api/api';
 
 function Login() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [inputs, setInputs] = useState({
-    email: '',
+    id: '',
     password: '',
+    role: 'Admin',
   });
-  const {email, password} = inputs;
+  const {id, password} = inputs;
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const {name, value} = e.target;
     setInputs({
       ...inputs,
       [name]: value,
     });
+    console.log(inputs);
+  };
+
+  const login = async () => {
+    try {
+      const res = await api.auth.login(inputs);
+      dispatch(
+        SET_TOKEN({
+          authenticated: true,
+          userName: inputs.id,
+        }),
+      );
+      localStorage.setItem('token', res.headers.token || '');
+      alert(res.data.message);
+      navigate('/');
+    } catch (err) {
+      console.log(err);
+    }
   };
   // 입력값 모두 작성 여부 검사
-  const isValidInput = email.length >= 1 && password.length >= 1;
+  const isValidInput = id.length >= 1 && password.length >= 1;
 
   const SubmitHandle = () => {
     if (!isValidInput) {
       alert('모든 내용을 입력해 주세요.');
     } else {
-      return;
+      login();
     }
   };
   return (
@@ -39,7 +66,7 @@ function Login() {
               onChange={onChange}
               required
               placeholder="아이디를 입력해 주세요."
-              name="email"
+              name="id"
             />
           </div>
           <div className="input-box">

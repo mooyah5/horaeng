@@ -1,16 +1,33 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
-
+import api from '../../api/api';
 import '../../screens/notice/index.scss';
+
+interface notice {
+  id: number;
+  title: string;
+  userId: string;
+  content: string;
+  createDate: string;
+}
 
 function NoticeList() {
   const navigate = useNavigate();
-  const id = 1;
-  const list = [
-    [1, '제목', '작성자', '2022-03-19'],
-    [2, '제목2', '작성자2', '2022-03-19'],
-    [3, '제목2', '작성자2', '2022-03-19'],
-  ];
+  const [list, setList] = useState<notice[]>([]);
+  const fetchNotices = async () => {
+    try {
+      const res = await api.notice.readAll();
+      setList(res.data);
+      console.log(res.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchNotices();
+  }, []);
+
   return (
     <div id="notice_items">
       <ul className="list_table">
@@ -23,11 +40,11 @@ function NoticeList() {
           </ul>
         </li>
         {list &&
-          list.map(item => (
-            <li key={item[0]}>
+          list.map((item, i) => (
+            <li key={item.id}>
               <ul className="flex">
                 <li className="flex align-center justify-center preReg fs-14">
-                  {item[0]}
+                  {i + 1}
                 </li>
 
                 <li className="flex align-center justify-center list_table_items_subject">
@@ -35,16 +52,18 @@ function NoticeList() {
                     type="button"
                     className="preReg fs-14"
                     onClick={() => {
-                      navigate(`/notice/detail/${id}`);
+                      navigate(`/notice/detail/${item.id}`, {
+                        state: {id: item.id},
+                      });
                     }}>
-                    {item[1]}
+                    {item.title}
                   </button>
                 </li>
                 <li className="flex align-center justify-center preReg fs-14">
-                  {item[2]}
+                  {item.userId}
                 </li>
                 <li className="flex align-center justify-center preReg fs-14">
-                  {item[3]}
+                  {item.createDate.substr(0, 10)}
                 </li>
               </ul>
             </li>

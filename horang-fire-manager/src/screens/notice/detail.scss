@@ -26,12 +26,14 @@
                 justify-content: space-between;
                 padding-bottom: 10px;
                 border-bottom: rgb(231, 231, 231) solid 1px;
+                // width: 80%;
 
                 &-text {
                     .title {
                         text-align: start;
                         font-family: 'Pretendard-ExtraBold';
                         font-size: 32px;
+                        line-height: 1.2;
                     }
                 }
 
@@ -42,6 +44,7 @@
 
                     &-btndiv {
                         margin: 0 0 0 5px;
+                        min-width: 200px;
 
                         &-btn {
                             padding: 5px 30px;
@@ -77,6 +80,7 @@
                     padding: 30px;
                     font-family: 'Pretendard-Medium';
                     color: #363636;
+                    line-height: 1.8;
                 }
             }
         }

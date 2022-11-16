@@ -1,22 +1,70 @@
-import React, {useState} from 'react';
-import {useNavigate} from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import {useNavigate, useLocation} from 'react-router-dom';
 import './detail.scss';
 import Btn from '../../components/common/OrangeBtn';
+import api from '../../api/api';
+
+interface mission {
+  id: number;
+  charactersId: number;
+  userId: string;
+  userCharacterId: number;
+  content: string;
+  imgUrl: string;
+}
+
+const defaultMission: mission = {
+  id: 0,
+  charactersId: 0,
+  userId: '',
+  userCharacterId: 0,
+  content: '',
+  imgUrl: '',
+};
 
 function MissionDetail() {
   const navigate = useNavigate();
-  const id = 1;
+  const location = useLocation();
+  const [mission, setMission] = useState<mission>(defaultMission);
 
-  const [title, setTitle] = useState('쓰레기 분리수거하기');
-  const [content, setContent] = useState('분리사항 방법! 첫 번째!');
+  const id = location.state.id;
+
+  useEffect(() => {
+    readMission();
+  }, []);
+
+  const readMission = async () => {
+    try {
+      const res = await api.mission.read(id);
+      setMission(res.data);
+      console.log(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const deleteMission = async () => {
+    try {
+      const res = await api.mission.delete(id);
+      alert(`공통미션이 삭제되었습니다.`);
+      navigate(`/mission`);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const HandleUpdate = () => {
-    navigate(`/mission/create/${id}`, {state: {mode: 'update'}});
+    navigate(`/mission/update/${id}`, {state: {id: id}});
   };
+
   const HandleDelete = () => {
-    window.confirm('정말로 삭제하시겠습니까?')
-      ? window.alert('삭제가 완료되었습니다.')
-      : null;
+    if (window.confirm('정말로 삭제하시겠습니까?')) {
+      deleteMission();
+    } else {
+      null;
+    }
   };
+
   return (
     <div id="detail">
       <div className="create-body">
@@ -24,7 +72,7 @@ function MissionDetail() {
           <div className="input-box">
             <div className="title-box">
               <div className="title-box-text">
-                <p className="title">{title}</p>
+                <p className="title">{mission.content}</p>
               </div>
               <div className="title-box-submit">
                 <div className="title-box-submit-btndiv">
@@ -38,10 +86,10 @@ function MissionDetail() {
             <div className="text-box">
               <img
                 className="text-image"
-                src={require('../../assets/images/admin.png')}
-                alt="미션이미지예시"
+                src={mission.imgUrl}
+                alt={mission.imgUrl}
               />
-              <p className="text">{content}</p>
+              <p className="text">{mission.content}</p>
             </div>
           </div>
         </div>

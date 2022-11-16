@@ -1,48 +1,67 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
-
+import api from '../../api/api';
 import '../../screens/mission/index.scss';
+
+interface mission {
+  id: number;
+  charactersId: number;
+  userId: string;
+  userCharacterId: number;
+  content: string;
+  imgUrl: string;
+  type: string;
+}
 
 function MissionList() {
   const navigate = useNavigate();
-  const id = 1;
-  const list = [
-    [1, '제목', '작성자'],
-    [2, '제목2', '작성자2'],
-    [3, '제목2', '작성자2'],
-  ];
+  const [list, setList] = useState<mission[]>([]);
+  const fetchMissions = async () => {
+    try {
+      const res = await api.mission.readAll();
+      setList(res.data);
+      console.log(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchMissions();
+  }, []);
+
   return (
     <div id="mission_items">
       <ul className="list_table">
         <li className="fs-16 preMid list_table_top">
           <ul className="flex">
             <li>No.</li>
-            <li>제목</li>
-            <li>작성자</li>
-            <li></li>
+            <li>내용</li>
+            <li>유형</li>
           </ul>
         </li>
         {list &&
-          list.map(item => (
-            <li key={item[0]}>
+          list.map((item, i) => (
+            <li key={item.id}>
               <ul className="flex">
                 <li className="flex align-center justify-center preReg fs-14">
-                  {item[0]}
+                  {i + 1}
                 </li>
 
                 <li className="flex align-center justify-center list_table_items_subject">
                   <button
                     type="button"
                     className="preReg fs-14"
-                    onClick={() => navigate(`/mission/detail/${id}`)}>
-                    {item[1]}
+                    onClick={() =>
+                      navigate(`/mission/detail/${item.id}`, {
+                        state: {id: item.id},
+                      })
+                    }>
+                    {item.content}
                   </button>
                 </li>
                 <li className="flex align-center justify-center preReg fs-14">
-                  {item[2]}
-                </li>
-                <li className="flex align-center justify-center list_table_items_check">
-                  <input id="checking" type="checkbox" />
+                  {item.type}
                 </li>
               </ul>
             </li>

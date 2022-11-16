@@ -1,27 +1,22 @@
-import React, {useState, useEffect, MouseEvent, ChangeEvent} from 'react';
+import React, {useState, useEffect, ChangeEvent} from 'react';
 import './create.scss';
-import {useLocation} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
+import {useSelector, useDispatch} from 'react-redux';
+
+import api from '../../api/api';
 
 function NoticeCreate() {
   const location = useLocation();
+  const navigate = useNavigate();
+  const userName = useSelector((state: any) => state.authToken.userName);
 
-  const [modeTitle, setModeTitle] = useState('공지사항 작성'); // TITLE (공지사항 작성, mode: 'update' = 공지사항 수정)
-  const [noticeTitleValue, setNoticeTitleValue] = useState(''); // 제목 value
-  const [noticeContentValue, setNoticeContentValue] = useState(''); // 내용 value
-
-  useEffect(() => {
-    if (location.state) {
-      if (location.state.mode === 'update') {
-        setModeTitle('공지사항 수정');
-      } else {
-        setModeTitle('공지사항 작성');
-      }
-    }
-  }, []);
   const [inputs, setInputs] = useState({
     title: '',
     content: '',
+    userId: userName,
+    id: '',
   });
+
   const {title, content} = inputs;
   const onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const {name, value} = e.target;
@@ -29,12 +24,19 @@ function NoticeCreate() {
       ...inputs,
       [name]: value,
     });
-    // todo
-    // console.log(location.state.mode);
+    console.log(inputs);
   };
-  const HandleSubmit = () => {
-    return;
+
+  const HandleSubmit = async () => {
+    try {
+      const res = await api.notice.create(inputs);
+      alert('작성이 완료되었습니다.');
+      navigate(`/notice`);
+    } catch (err) {
+      console.error(err);
+    }
   };
+
   return (
     <div id="create">
       <div className="create-body">
@@ -42,15 +44,13 @@ function NoticeCreate() {
           <div className="input-box">
             <div className="title-box">
               <div className="title-box-text">
-                <p className="title">{modeTitle}</p>
+                <p className="title">공지사항 작성</p>
               </div>
-              <div className="title-box-submit">
-                <button
-                  className="login-btn flex align-center justify-center preMid fs-16"
-                  onClick={HandleSubmit}>
+              <button className="title-box-submit" onClick={HandleSubmit}>
+                <div className="login-btn flex align-center justify-center preMid fs-16">
                   작성 완료
-                </button>
-              </div>
+                </div>
+              </button>
             </div>
           </div>
           <div className="input-box">
@@ -59,9 +59,8 @@ function NoticeCreate() {
               name="title"
               className="input-title"
               type="text"
-              placeholder="제목이다제목이야"
+              placeholder="제목을 입력해주세요."
               onChange={onChange}
-              value={noticeTitleValue}
             />
           </div>
           <div className="input-box">
@@ -69,17 +68,12 @@ function NoticeCreate() {
             <textarea
               name="content"
               className="input-content"
-              // type="textarea"
-              placeholder="여기에 입력하세요"
+              placeholder="공지사항 내용을 입력해주세요."
               rows={5}
               cols={5}
               onChange={onChange}
-              value={noticeContentValue}
             />
           </div>
-          {/* <div className="input-box">
-            <button onClick={HandleSubmit}>제출하기</button>
-          </div> */}
         </div>
       </div>
     </div>

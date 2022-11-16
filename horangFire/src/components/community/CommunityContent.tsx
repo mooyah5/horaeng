@@ -1,25 +1,35 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, View} from 'react-native';
-import CommunityGalleryItem from '../../components/community/CommunityGalleryItem';
-// import NoticeItem from '../../components/community/NoticeItem';
+import {StyleSheet, View, ActivityIndicator} from 'react-native';
+import CommunityGalleryItem from './CommunityGalleryItem';
 import {FlatList} from 'react-native-gesture-handler';
 import api from '../../api/api_controller';
+import {ParamListBase} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
+import NoticeItem from './NoticeItem';
 
 interface Props {
-  navigation: any;
+  navigation: StackNavigationProp<ParamListBase, 'Community'>;
   isNotice: boolean;
+  charactersId: number;
+  communityDataReal: Community[];
+  lastCommunityDataId: string;
 }
 
 const styles = StyleSheet.create({
-  container: {
+  contentContainer: {
     alignItems: 'center',
-    zIndex: 100,
+    width: '100%',
   },
   tableBox: {
     flex: 1,
   },
+  loaderStyle: {
+    marginVertical: 16,
+    alignItems: 'center',
+  },
 });
-export interface Community {
+
+interface Community {
   id: number;
   charactersId: number;
   userId: string;
@@ -29,60 +39,84 @@ export interface Community {
   createDate: number;
 }
 
-const CommunityContent = ({navigation}: Props) => {
-  // const [isNotice, setIsNotice] = useState(false);
-  // const [noticeData, setNoticeData] = useState<number[]>([
-  //   1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
-  // ]);
-  const [imageData, setImageData] = useState<number[]>([
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
-  ]);
+interface Notice {
+  id: number;
+  userId: string;
+  title: string;
+  content: string;
+  createDate: string;
+}
 
-  const [communityArticle, setCommunityArticle] = useState<Community[]>([]);
+const CommunityContent = ({
+  navigation,
+  isNotice,
+  charactersId,
+  communityDataReal,
+}: Props) => {
+  const [noticeData, setNoticeData] = useState<Notice[]>([]);
 
-  const getCommunityAll = async () => {
+  const getNoticeAll = async () => {
     try {
-      const response = await api.community.getCommunityAll();
-      setCommunityArticle(response.data);
+      const response = await api.notice.getNoticeAll();
+      setNoticeData(response.data);
     } catch (err) {
       console.log(err);
     }
   };
 
   useEffect(() => {
-    getCommunityAll();
+    getNoticeAll();
   }, []);
 
   useEffect(() => {
-    console.log(communityArticle);
-  }, [communityArticle]);
+    getNoticeAll();
+  }, [charactersId]);
+
+  const onEndReached = () => {
+    console.log('load more items');
+  };
+
+  const loading = () => {
+    return (
+      <View style={styles.loaderStyle}>
+        <ActivityIndicator size="small" color="aaa" />
+      </View>
+    );
+  };
 
   return (
     <>
-      <View style={styles.container}>
-        {/* {isNotice ? (
-          <FlatList
-            data={imageData}
-            renderItem={item => (
-              <CommunityGalleryItem navigation={navigation} />
-            )}
-            numColumns={3}
-            key={null}
-          />
+      <View style={styles.contentContainer}>
+        {isNotice ? (
+          <View>
+            <FlatList
+              data={noticeData}
+              renderItem={item => (
+                <NoticeItem navigation={navigation} item={item.item} />
+              )}
+              numColumns={1}
+              key={'noticeFlatlist'}
+            />
+          </View>
         ) : (
-          <FlatList
-            style={styles.tableBox}
-            data={noticeData}
-            renderItem={item => <NoticeItem navigation={navigation} />}
-            key={null}
-          />
-        )} */}
-        <FlatList
-          data={imageData}
-          renderItem={() => <CommunityGalleryItem navigation={navigation} />}
-          numColumns={3}
-          key={null}
-        />
+          <View>
+            <FlatList
+              style={styles.tableBox}
+              data={communityDataReal}
+              renderItem={item => (
+                <CommunityGalleryItem
+                  navigation={navigation}
+                  item={item.item}
+                />
+              )}
+              key={'communityFlatlist'}
+              numColumns={3}
+              onEndReached={onEndReached}
+              onEndReachedThreshold={0}
+              ListFooterComponent={loading}
+            />
+          </View>
+        )}
       </View>
     </>
   );
