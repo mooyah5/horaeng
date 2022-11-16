@@ -17,7 +17,7 @@ pipeline {
                         sh 'echo "character-service stop중 실패"'
                     }
                     try{
-                        sh 'docker build -t character-service ./backend/character-service'
+                        sh 'docker build -t mocaa/character-service ./backend/character-service'
                     }catch(e){
                         sh 'echo "docker 이미지빌드중 실패"'
                     }
