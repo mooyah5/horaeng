@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('build'){
+            steps{
+                script{
+                    try {
+                        dir('./backend/config-service'){
+                            sh 'chmod +x gradlew'
+                            sh './gradlew clean build'
+                        }
+                        sh 'docker stop config-service'
+                        sh 'docker rm config-service'
+                        sh 'docker rmi config-service'
+                    } catch (e) {
+                        sh 'echo "config-service stop중 실패"'
+                    }
+                    try{
+                        sh 'docker build -t config-service ./backend/config-service'
+                    }catch(e){
+                        sh 'echo "docker 이미지빌드중 실패"'
+                    }
+                }
+            }
+        }
+        stage("run"){
+            steps {
+                sh 'docker run -d -p 8888:8888 --network msa -e TZ=Asia/Seoul --name config-service config-service'
+            }
+        }
+    }
+}
