@@ -1,20 +1,20 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   Dimensions,
   StyleSheet,
   View,
   TouchableOpacity,
   Image,
-  Text,
 } from 'react-native';
 import {Community} from './CommunityContent';
+import {ParamListBase} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 const {width} = Dimensions.get('window');
 const WIDTH = (width - 78) / 3;
 
 const styles = StyleSheet.create({
   imageBox: {
-    // backgroundColor: 'red',
     flexDirection: 'row',
     justifyContent: 'space-around',
     paddingVertical: 10,
@@ -34,32 +34,31 @@ const styles = StyleSheet.create({
     // elevation: 3, // 안드로이드 그림자
   },
   image: {
-    flex: 1,
+    // flex: 1,
     width: '100%',
     height: '100%',
   },
 });
 
 interface Props {
-  navigation: any;
+  navigation: StackNavigationProp<ParamListBase, 'Community'>;
   item: Community;
 }
 
 const CommunityGalleryItem = ({navigation, item}: Props) => {
+  // useEffect(() => {
+  //   console.log('사진 하나하나', item);
+  // }, [item]);
+
   return (
     <TouchableOpacity
       style={styles.imageWrap}
       activeOpacity={0.8}
-      onPress={() => navigation.navigate('CommunityDetail')}
-      // navigation={navigation}
-    >
+      onPress={() => navigation.navigate('CommunityModal', {id: item.id})}>
       <View style={styles.imageItem}>
         <Image
           style={styles.image}
-          source={
-            require('../../assets/image/temp.png')
-            // uri: 'https://mblogthumb-phinf.pstatic.net/MjAxOTA0MjZfMTY3/MDAxNTU2MjU4NzExMDE3.O0keTMsgmc_5JHmmAHAFt5_8r0J83Hjbf9sENpY2fGEg.GW_eIVy_pVFNc7VQFfhSBY3Tm6B9Jwma2k5_4qmMHTIg.JPEG.iamkowepo/yaytg521092.jpg?type=w800',
-          }
+          source={require('../../assets/image/temp.png')}
         />
       </View>
     </TouchableOpacity>

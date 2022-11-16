@@ -20,10 +20,10 @@ import LookCommon from '../screens/mission/lookCommon';
 import SubmitMission from '../screens/mission/submitMission';
 import CameraModal from '../components/mission/CameraModal';
 
-import Notice from '../screens/community/Notice';
 import NoticeDetail from '../screens/community/NoticeDetail';
 import Community from '../screens/community/index';
 import CommunityDetail from '../screens/community/CommunityDetail';
+import CommunityModal from '../components/community/CommunityModal';
 
 import Collection from '../screens/collection/Collection';
 import CollectionDetail from '../screens/collection/CollectionDetail';
@@ -44,7 +44,7 @@ const Stack = createStackNavigator();
 const StackNavigation = () => {
   return (
     <Stack.Navigator
-      initialRouteName="Login"
+      initialRouteName="Home"
       screenOptions={{
         headerShown: false,
       }}>
@@ -77,7 +77,6 @@ const StackNavigation = () => {
         {/* community page  */}
 
         <Stack.Screen name="Community" component={Community} />
-        <Stack.Screen name="Notice" component={Notice} />
         <Stack.Screen name="NoticeDetail" component={NoticeDetail} />
         <Stack.Screen name="CommunityDetail" component={CommunityDetail} />
 
@@ -99,6 +98,7 @@ const StackNavigation = () => {
         <Stack.Screen name="ListOfDiaries" component={ListOfDiaries} />
         <Stack.Screen name="DiaryDetail" component={DiaryDetail} />
         <Stack.Screen name="CameraModal" component={CameraModal} />
+        <Stack.Screen name="CommunityModal" component={CommunityModal} />
       </Stack.Group>
     </Stack.Navigator>
   );

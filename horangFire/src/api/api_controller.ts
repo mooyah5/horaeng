@@ -95,12 +95,26 @@ const api = {
   },
 
   community: {
-    getCommunityAll: async () => {
+    getCommunityAll: async (lastId: number) => {
       const response = await axios({
-        url: urls.community.getCommunityAll(),
+        url: urls.community.getCommunityAll(lastId),
         method: 'get',
+        headers: {
+          token: await getDataInLocalStorage('token'),
+        },
       });
 
+      return response;
+    },
+
+    getCommunityAnimalsAll: async (character_id: number, lastId: number) => {
+      const response = await axios({
+        url: urls.community.getCommunityAnimalsAll(character_id, lastId),
+        method: 'get',
+        headers: {
+          token: await getDataInLocalStorage('token'),
+        },
+      });
       return response;
     },
 
@@ -108,6 +122,9 @@ const api = {
       const response = await axios({
         url: urls.community.getCommunityDetail(id),
         method: 'get',
+        headers: {
+          token: await getDataInLocalStorage('token'),
+        },
       });
 
       return response;
@@ -118,6 +135,14 @@ const api = {
       const response = await axios({
         url: urls.community.report(),
         method: 'post',
+        headers: {
+          token: await getDataInLocalStorage('token'),
+        },
+        data: {
+          reporterId: data.userId,
+          diaryId: data.diaryId,
+          reportType: data.reportType,
+        },
       });
       return response;
     },
@@ -125,9 +150,13 @@ const api = {
 
   notice: {
     getNoticeAll: async () => {
+      console.log('TOKEN!!! - ', await getDataInLocalStorage('token'));
       const response = await axios({
         url: urls.notice.getNoticeAll(),
         method: 'get',
+        headers: {
+          token: await getDataInLocalStorage('token'),
+        },
       });
 
       return response;
@@ -136,6 +165,9 @@ const api = {
       const response = await axios({
         url: urls.notice.getNoticeDetail(id),
         method: 'get',
+        headers: {
+          token: await getDataInLocalStorage('token'),
+        },
       });
 
       return response;

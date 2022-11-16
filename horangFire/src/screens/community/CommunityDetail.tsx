@@ -4,8 +4,8 @@ import {color, font} from '../../styles/colorAndFontTheme';
 import CommuDetailTitleText from '../../components/community/CommuDetailTitleText';
 import Btn from '../../components/common/Btn_short';
 import api from '../../api/api_controller';
-// import ReportModal from '../../components/options/ReportModal';
-// import SCREEN_WIDTH from '../../assets/image/constants/index'
+import {StackNavigationProp} from '@react-navigation/stack';
+import {ParamListBase} from '@react-navigation/native';
 
 export interface valueType {
   id: number;
@@ -18,6 +18,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: color.BLACK_3A,
     textAlign: 'center',
+  },
+  textId: {
+    fontFamily: font.preBold,
+    fontSize: 30,
   },
   body: {
     backgroundColor: color.MODAL,
@@ -32,7 +36,6 @@ const styles = StyleSheet.create({
   box2: {
     flex: 3,
     paddingHorizontal: 20,
-    // backgroundColor: 'red',
   },
   imageBox: {
     // flex: 1,
@@ -66,12 +69,19 @@ interface CommunityDetail {
   createDate: string;
 }
 
-const CommunityDetail = ({navigation}: any) => {
-  const [communityDetail, setCommunityDetail] = useState<CommunityDetail[]>([]);
+interface Props {
+  navigation: StackNavigationProp<ParamListBase, 'Community'>;
+  id: number;
+  route: any;
+}
+
+const CommunityDetail = ({navigation, route}: Props) => {
+  const {id} = route.params;
+  const [communityDetail, setCommunityDetail] = useState<CommunityDetail>([]);
 
   const getCommunityDetail = async () => {
     try {
-      const response = await api.community.getCommunityDetail(1);
+      const response = await api.community.getCommunityDetail(id);
       setCommunityDetail(response.data);
     } catch (err) {
       console.log(err);
@@ -83,14 +93,17 @@ const CommunityDetail = ({navigation}: any) => {
   }, []);
 
   useEffect(() => {
-    console.log(communityDetail);
+    console.log('communityDetail', communityDetail);
   }, [communityDetail]);
 
   return (
     <View>
       <View style={styles.body}>
         <View style={styles.box1}>
-          <CommuDetailTitleText title="제목입니다" subTitle="작성자: 백한나" />
+          <CommuDetailTitleText
+            title={communityDetail.content}
+            subTitle={communityDetail.userId}
+          />
         </View>
         <View style={styles.box2}>
           <View style={styles.imageBox}>
@@ -102,21 +115,8 @@ const CommunityDetail = ({navigation}: any) => {
             />
           </View>
           <ScrollView>
-            <Text style={styles.text}>
-              오늘은 에너지 절약에 관한 기사를 보았다. 기사를 보니 우리가
-              아무렇지도 않게 쓰고 있는 에너지가 멸종 위기에 빠진 동물들을 더
-              괴롭게 하고 있다는 사실을 알게 되었다. 나는 컴퓨터 전원도 하루
-              24시간 켜두고 콘센트 전원도 잘 끄지 않는데…마음이 아팠다ㅠㅠ
-              귀여운 동물 오늘은 에너지 절약에 관한 기사를 보았다. 기사를 보니
-              우리가 아무렇지도 않게 쓰고 있는 에너지가 멸종 위기에 빠진
-              동물들을 더 괴롭게 하고 있다는 사실을 알게 되었다. 나는 컴퓨터
-              전원도 하루 24시간 켜두고 콘센트 전원도 잘 끄지 않는데…마음이
-              아팠다ㅠㅠ 귀여운 동물 오늘은 에너지 절약에 관한 기사를 보았다.
-              기사를 보니 우리가 아무렇지도 않게 쓰고 있는 에너지가 멸종 위기에
-              빠진 동물들을 더 괴롭게 하고 있다는 사실을 알게 되었다. 나는
-              컴퓨터 전원도 하루 24시간 켜두고 콘센트 전원도 잘 끄지
-              않는데…마음이 아팠다ㅠㅠ 귀여운 동물
-            </Text>
+            <Text style={styles.text}>{communityDetail.content}</Text>
+            <Text style={styles.textId}>{communityDetail.charactersId}</Text>
           </ScrollView>
         </View>
         <View style={styles.btns}>

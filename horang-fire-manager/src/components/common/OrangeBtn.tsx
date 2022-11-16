@@ -1,5 +1,4 @@
 import React from 'react';
-// import {useNavigate} from 'react-router-dom';
 import './OrangeBtn.scss';
 
 type btnTypes = {
@@ -8,7 +7,6 @@ type btnTypes = {
 };
 
 function WriteBtn({txt, clickEvent}: btnTypes) {
-  //   const navigate = useNavigate();
   return (
     <button
       type="button"

@@ -15,7 +15,7 @@ const REPORT = 'report/';
 const NOTICE = 'notice/';
 
 const MISSION = 'mission/';
-const CHARACTER_ADDR = 'character/';
+const CHARACTER_ADDR = 'characters/';
 
 const USER_CHARACTER = 'user-character/';
 
@@ -38,10 +38,12 @@ const urls = {
       GATEWAY + CHARACTER + 'character-dialog/' + `${id}`,
   },
   community: {
-    getCommunityAll: () => GATEWAY + SOCIAL + 'diary',
-    getCommunityDetail: (id: number) =>
-      GATEWAY + SOCIAL + 'diary/' + 'item' + `${id}`,
-    report: () => GATEWAY + SOCIAL + REPORT,
+    getCommunityAll: (lastId: number) =>
+      GATEWAY + SOCIAL + `diary/items/${lastId}`,
+    getCommunityAnimalsAll: (character_id: number, lastId: number) =>
+      GATEWAY + SOCIAL + DIARY + CHARACTER_ADDR + `${character_id}/${lastId}`,
+    getCommunityDetail: (id: number) => GATEWAY + SOCIAL + DIARY + `item/${id}`,
+    report: () => GATEWAY + SOCIAL + 'report',
   },
   notice: {
     getNoticeAll: () => GATEWAY + SOCIAL + NOTICE,

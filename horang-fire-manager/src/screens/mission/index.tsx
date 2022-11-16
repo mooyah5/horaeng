@@ -22,7 +22,7 @@ function MissionHome() {
         <div className="mission_title fs-32 preBold">공통 미션</div>
         <div className="mission_top flex justify-space-between">
           <div className="mission_select flex preMid fs-18">
-            <button
+            {/* <button
               type="button"
               className={activeBtns(clickToday)}
               onClick={() => {
@@ -39,12 +39,12 @@ function MissionHome() {
                 setClickToday(false);
               }}>
               전체 미션 보기
-            </button>
+            </button> */}
           </div>
           <div>
             <WriteBtn
               txt={'글 작성'}
-              clickEvent={() => navigate(`/mission/create/${id}`)}
+              clickEvent={() => navigate(`/mission/create`)}
             />
           </div>
         </div>

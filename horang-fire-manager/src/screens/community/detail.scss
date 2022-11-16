@@ -9,7 +9,6 @@
         width: 1000px;
         margin: 0 auto;
         padding: 60px 0;
-        // border: solid red 1px;
         height: 100%;
         display: flex;
         flex-direction: column;
@@ -85,6 +84,7 @@
                 height: auto;
                 display: flex;
                 flex-direction: column;
+                padding: 20px;
 
                 .text-image {
                     width: calc(100% - 160px);
