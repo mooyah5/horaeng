@@ -1,5 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {Image, SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {
+  Image,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {color, font} from '../../styles/colorAndFontTheme';
 import TitleText from '../../components/common/TitleText';
 import Btn from '../../components/common/Btn_long';
@@ -23,8 +30,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  back: {
+    width: '100%',
+    marginTop: 20,
+    flexDirection: 'row',
+    marginBottom: -20,
+  },
+  backText: {
+    fontFamily: font.beeBold,
+    fontSize: 20,
+  },
   cont1: {
     flex: 2,
+    flexDirection: 'column',
   },
   cont2: {
     alignItems: 'center',
@@ -49,6 +67,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     paddingBottom: 30,
   },
+  arrowBtn: {
+    width: 30,
+    height: 20,
+  },
 });
 
 interface Props {
@@ -61,10 +83,9 @@ const MissionHome = ({navigation}: Props) => {
   const missionType = useSelector(selectCharacter)?.userCharacter?.character_id;
 
   const missionTxt = charMission[missionType][0];
-  console.log(missionTxt);
   const [charSays, setCharSays] = useState<string>(missionTxt + '에 도전!');
   const canDoMain = () => {
-    if (isDone !== false) {
+    if (isDone === false) {
       navigation.navigate('MainMission');
     } else {
       setCharSays('이미 메인 미션을 완료했어!');
@@ -84,6 +105,16 @@ const MissionHome = ({navigation}: Props) => {
   return (
     <SafeAreaView style={{backgroundColor: color.BACK_SUB}}>
       <View style={styles.container}>
+        <TouchableOpacity
+          style={styles.back}
+          onPress={() => navigation.navigate('Home')}>
+          {/* <View style={styles.arrow}> */}
+          <Image
+            style={styles.arrowBtn}
+            source={require('../../assets/image/icon/left_arrow.png')}
+          />
+          {/* </View> */}
+        </TouchableOpacity>
         <View style={styles.cont1}>
           <TitleText title={name} subTitle="미션 수행하기" />
         </View>

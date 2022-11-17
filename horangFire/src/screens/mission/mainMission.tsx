@@ -123,7 +123,7 @@ const MainMission = ({navigation}: Props) => {
           type: image.type,
         },
         {
-          bucket: 'k7c108',
+          bucket: process.env.S3BucketName,
           region: 'ap-northeast-2',
           accessKey: 'AKIAWHLOLOLJ3T3C7JUE',
           secretKey: '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',
