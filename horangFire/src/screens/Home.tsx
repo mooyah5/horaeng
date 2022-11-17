@@ -203,11 +203,12 @@ const Home = ({navigation}: Props) => {
               <Text style={styles.characterText}>n일차</Text>
             </View>
             <TouchableOpacity
+              // background 옵션 변경
               onPress={() => navigation.navigate('BackgroundOption')}
               style={styles.buttonTouchable}>
               <Image
                 style={styles.buttons}
-                source={require('../assets/image/setting.png')}
+                source={require('../assets/image/icon/changeBackground.png')}
               />
             </TouchableOpacity>
           </View>
@@ -224,7 +225,7 @@ const Home = ({navigation}: Props) => {
               style={styles.buttonTouchable}>
               <Image
                 style={styles.buttons}
-                source={require('../assets/image/setting.png')}
+                source={require('../assets/image/icon/commu.png')}
               />
             </TouchableOpacity>
           </View>
@@ -277,15 +278,16 @@ const Home = ({navigation}: Props) => {
               style={styles.buttonTouchable}>
               <Image
                 style={styles.buttons}
-                source={require('../assets/image/setting.png')}
+                source={require('../assets/image/icon/history.png')}
               />
             </TouchableOpacity>
             <TouchableOpacity
+              // diary icon
               onPress={() => navigation.navigate('ListOfDiaries')}
               style={styles.buttonTouchable}>
               <Image
                 style={styles.buttons}
-                source={require('../assets/image/setting.png')}
+                source={require('../assets/image/icon/diary.png')}
               />
             </TouchableOpacity>
             <TouchableOpacity
