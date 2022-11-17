@@ -91,57 +91,55 @@ const MainMission = ({navigation}: Props) => {
   const [loca, setLoca] = useState('');
 
   // s3 server 연결
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const AWS = require('aws-sdk');
-
-  const uploadImg = () => {
-    RNS3.put(
-      {
-        uri: image.file,
-        name: image.name,
-        type: image.type,
-      },
-      {
-        bucket: 'k7c108',
-        region: 'ap-northeast-2',
-        accessKey: 'AKIAWHLOLOLJ3T3C7JUE',
-        secretKey: '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',
-        successActionStatus: 201,
-      },
-    )
-      // .progress(() => console.log('progress'))
-      .then((res: any) => {
-        if (res.status !== 201) {
-          Alert.alert('업로드 실패');
-        } else {
-          setLoca(res.body.postResponse.location);
-        }
-      });
-  };
 
   const submit = async () => {
+    try {
+      console.log('#################');
+      console.log(loca);
+      await api.diary.submit({
+        content: diary,
+        imgUrl: loca,
+        userId: charInfo?.user_id, // user id
+        userCharacterId: charInfo?.id, // 캐릭터 id
+        charactersId: charInfo?.character_id, // 동물 타입
+        characterMissionId: mainId, // 수정 예정
+        addPoint: point, // 포인트
+      });
+      dispatch(reset());
+      navigation.navigate('SubmitMission', {
+        type: 'main',
+        point: point,
+      });
+    } catch (err) {
+      Alert.alert('작성 실패ㅜㅠ');
+    }
+  };
+
+  const checkImage = () => {
     if (diary !== '') {
       // s3 서버 연결
-      uploadImg();
-      // 제출 api 호출
-      try {
-        await api.diary.submit({
-          content: diary,
-          imgUrl: loca,
-          userId: charInfo?.user_id, // user id
-          userCharacterId: charInfo?.id, // 캐릭터 id
-          charactersId: charInfo?.character_id, // 동물 타입
-          characterMissionId: mainId, // 수정 예정
-          addPoint: point, // 포인트
+      RNS3.put(
+        {
+          uri: image.file,
+          name: image.name,
+          type: image.type,
+        },
+        {
+          bucket: 'k7c108',
+          region: 'ap-northeast-2',
+          accessKey: 'AKIAWHLOLOLJ3T3C7JUE',
+          secretKey: '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',
+          successActionStatus: 201,
+        },
+      )
+        // .progress(() => console.log('progress'))
+        .then((res: any) => {
+          if (res.status === 201) {
+            setLoca(res.body.postResponse.location);
+          } else {
+            Alert.alert('업로드 실패');
+          }
         });
-        dispatch(reset());
-        navigation.navigate('SubmitMission', {
-          type: 'main',
-          point: point,
-        });
-      } catch (err) {
-        Alert.alert('작성 실패ㅜㅠ');
-      }
     } else {
       navigation.navigate('SubmitMission', {
         type: 'main',
@@ -150,6 +148,12 @@ const MainMission = ({navigation}: Props) => {
       Alert.alert('성냥팔이 호랭이', '글을 작성해주세요!', [{text: '닫기'}]);
     }
   };
+
+  useEffect(() => {
+    if (loca !== '') {
+      submit();
+    }
+  }, [loca, submit]);
 
   const goBack = () => {
     dispatch(reset());
@@ -200,7 +204,7 @@ const MainMission = ({navigation}: Props) => {
 
         <View style={styles.btns}>
           <Btn txt="이전으로" clickEvent={goBack} />
-          <Btn txt="제출하기" clickEvent={submit} />
+          <Btn txt="제출하기" clickEvent={checkImage} />
         </View>
       </View>
     </SafeAreaView>
