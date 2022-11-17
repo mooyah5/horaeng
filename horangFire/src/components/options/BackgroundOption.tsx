@@ -89,11 +89,11 @@ const BackgroundOption = ({navigation}: Props) => {
     useState<number>(backgroundNumber);
 
   const handleRightButton = () => {
-    setSelectedBackground(prev => (prev + 1) % 3);
+    setSelectedBackground(prev => (prev + 1) % 8);
   };
 
   const handleLeftButton = () => {
-    setSelectedBackground(prev => (prev + 2) % 3);
+    setSelectedBackground(prev => (prev + 7) % 8);
   };
 
   const handleApplyButton = () => {

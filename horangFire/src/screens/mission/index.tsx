@@ -91,7 +91,7 @@ const MissionHome = ({navigation}: Props) => {
             <Text style={styles.txt}>{charSays}</Text>
           </View>
           <Image
-            source={require('../../assets/image/character/tiger.png')}
+            source={require('../../assets/image/character/72ppi/tiger3.png')}
             style={{width: 228, height: 242}}
           />
         </View>

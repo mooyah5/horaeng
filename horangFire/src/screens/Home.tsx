@@ -103,6 +103,12 @@ const styles = StyleSheet.create({
     fontSize: 40,
     color: color.BROWN_47,
     paddingLeft: '10%',
+    textShadowColor: 'white',
+    textShadowOffset: {
+      width: 1,
+      height: 1,
+    },
+    textShadowRadius: 0.5,
   },
   buttonTouchableNone: {
     backfaceVisibility: 'hidden',
@@ -123,13 +129,13 @@ const styles = StyleSheet.create({
   },
   missionBottomText1: {
     fontFamily: font.beeBold,
-    fontSize: 30,
+    fontSize: 20,
     color: color.BROWN_47,
     textAlign: 'center',
   },
   missionBottomText2: {
     fontFamily: font.beeBold,
-    fontSize: 27,
+    fontSize: 20,
     color: color.BROWN_47,
     textAlign: 'center',
   },
@@ -140,6 +146,7 @@ const styles = StyleSheet.create({
   characterImage: {
     width: '70%',
     height: '100%',
+    resizeMode: 'contain',
   },
   mainBottomImage: {
     position: 'absolute',
@@ -154,7 +161,7 @@ const styles = StyleSheet.create({
   },
   missionBottomText3: {
     fontFamily: font.beeBold,
-    fontSize: 23,
+    fontSize: 20,
     color: color.BROWN_47,
     textAlign: 'center',
   },
@@ -168,6 +175,30 @@ export const BACKGROUND = [
   require('../assets/image/background/snow_background.png'),
   require('../assets/image/background/forest_background.png'),
   require('../assets/image/background/london_background.png'),
+  // good
+  require('../assets/image/background/greenForest_background.jpeg'),
+  require('../assets/image/background/ocean_background.jpeg'),
+  require('../assets/image/background/sakura_background.png'),
+  require('../assets/image/background/effel2_background.jpeg'),
+  require('../assets/image/background/lotte_background.jpeg'),
+];
+
+export const CHARACTER = [
+  require('../assets/image/character/72ppi/tiger1.png'),
+  require('../assets/image/character/72ppi/tiger2.png'),
+  require('../assets/image/character/72ppi/tiger3.png'),
+  require('../assets/image/character/72ppi/bird1.png'),
+  require('../assets/image/character/72ppi/bird2.png'),
+  require('../assets/image/character/72ppi/bird3.png'),
+  require('../assets/image/character/72ppi/elephant1.png'),
+  require('../assets/image/character/72ppi/elephant2.png'),
+  require('../assets/image/character/72ppi/elephant3.png'),
+  require('../assets/image/character/72ppi/turtle1.png'),
+  require('../assets/image/character/72ppi/turtle2.png'),
+  require('../assets/image/character/72ppi/turtle3.png'),
+  require('../assets/image/character/72ppi/penguin1.png'),
+  require('../assets/image/character/72ppi/penguin2.png'),
+  require('../assets/image/character/72ppi/penguin3.png'),
 ];
 
 interface Props {
@@ -179,7 +210,6 @@ const Home = ({navigation}: Props) => {
   const backgroundNumber = useSelector(selectBackgroundNumber);
   const character = useSelector(selectCharacter);
   const nowUser = useSelector(selectUser);
-
   const characterSpecies = character?.userCharacter?.character_id;
   const characterLv = character?.userCharacter?.characterLevel;
 
@@ -257,6 +287,57 @@ const Home = ({navigation}: Props) => {
 
     setSpecieName(characterName());
   }, [characterSpecies]);
+
+  const [characterNum, setCharacterNum] = useState<number>(0);
+
+  useEffect(() => {
+    if (specieName === 'tiger' && characterLv === 'LEVEL_1') {
+      setCharacterNum(0);
+    }
+    if (specieName === 'tiger' && characterLv === 'LEVEL_2') {
+      setCharacterNum(1);
+    }
+    if (specieName === 'tiger' && characterLv === 'LEVEL_3') {
+      setCharacterNum(2);
+    }
+    if (specieName === 'bird' && characterLv === 'LEVEL_1') {
+      setCharacterNum(3);
+    }
+    if (specieName === 'bird' && characterLv === 'LEVEL_2') {
+      setCharacterNum(4);
+    }
+    if (specieName === 'bird' && characterLv === 'LEVEL_3') {
+      setCharacterNum(5);
+    }
+    if (specieName === 'elephant' && characterLv === 'LEVEL_1') {
+      setCharacterNum(6);
+    }
+    if (specieName === 'elephant' && characterLv === 'LEVEL_2') {
+      setCharacterNum(7);
+    }
+    if (specieName === 'elephant' && characterLv === 'LEVEL_3') {
+      setCharacterNum(8);
+    }
+    if (specieName === 'turtle' && characterLv === 'LEVEL_1') {
+      setCharacterNum(9);
+    }
+    if (specieName === 'turtle' && characterLv === 'LEVEL_2') {
+      setCharacterNum(10);
+    }
+    if (specieName === 'turtle' && characterLv === 'LEVEL_3') {
+      setCharacterNum(11);
+    }
+    if (specieName === 'penguin' && characterLv === 'LEVEL_1') {
+      setCharacterNum(12);
+    }
+    if (specieName === 'penguin' && characterLv === 'LEVEL_2') {
+      setCharacterNum(13);
+    }
+    if (specieName === 'penguin' && characterLv === 'LEVEL_3') {
+      setCharacterNum(14);
+    }
+  }, [specieName, characterLv, characterNum]);
+
   const [showOption, setShowOption] = useState(false);
 
   return (
@@ -348,7 +429,7 @@ const Home = ({navigation}: Props) => {
           <View style={styles.imageContainer}>
             <Image
               style={styles.characterImage}
-              source={require('../assets/image/character/tiger.png')}
+              source={CHARACTER[characterNum]}
             />
           </View>
         </View>
@@ -365,18 +446,18 @@ const Home = ({navigation}: Props) => {
                 })
               }>
               <Text style={styles.missionBottomText1}>MISSION</Text>
-              <Text style={styles.missionBottomText2}>COMPLETE!!</Text>
+              <Text style={styles.missionBottomText2}>COMPLETE!! 🎉</Text>
             </TouchableOpacity>
           ) : (
             <TouchableOpacity
               onPress={() => navigation.navigate('MissionHome')}>
               {todayMissionStatus() ? (
                 <Text style={styles.missionBottomText3}>
-                  오늘도 지구를 구했다! :)
+                  오늘도 지구를 구했어!🌱
                 </Text>
               ) : (
                 <Text style={styles.missionBottomText3}>
-                  미션 수행하러 가기
+                  미션 수행하러 가기👀
                 </Text>
               )}
             </TouchableOpacity>
