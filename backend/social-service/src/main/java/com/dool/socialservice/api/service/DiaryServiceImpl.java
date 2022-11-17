@@ -51,7 +51,7 @@ public class DiaryServiceImpl implements DiaryService {
         diary.setContent(request.getContent());
         diary.setCharactersId(request.getCharactersId());
         diary.setUserCharacterId(request.getUserCharacterId());
-        diary.setMain(request.isMain());
+        diary.setIsMain(request.getIsMain());
 
         AddPointRequest addPointRequest = new AddPointRequest();
         addPointRequest.setUserId(request.getUserId());
