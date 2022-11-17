@@ -38,9 +38,6 @@ const Option = ({navigation}: Props) => {
     setLocalVolume(backgroundVolume);
     setLocalEfVolume(effectVolume);
 
-    setInitialVolume(backgroundVolume);
-    setInitialEfVolume(effectVolume);
-
     navigation.navigate('Home');
   };
 

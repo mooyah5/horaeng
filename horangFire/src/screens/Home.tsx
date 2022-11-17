@@ -393,7 +393,11 @@ const Home = ({navigation}: Props) => {
               />
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => navigation.navigate('ListOfDiaries')}
+              onPress={() =>
+                navigation.navigate('ListOfDiaries', {
+                  characterId: character?.userCharacter?.id,
+                })
+              }
               style={styles.buttonTouchable}>
               <Image
                 style={styles.buttonsDiary}

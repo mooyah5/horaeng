@@ -42,9 +42,22 @@ const styles = StyleSheet.create({
 
 interface Props {
   navigation: StackNavigationProp<ParamListBase, 'InfoOfAnimal'>;
+  route: any;
 }
 
-const InfoOfAnimal = ({navigation}: Props) => {
+// TODO 멸종위기 동물 관련 정보 채우기
+const animal = {
+  1: {name: '벵갈호랑이', image: '', content: '임시용'},
+  2: {name: '오목눈이', image: '', content: '채워줘'},
+  3: {name: '아프리카코끼리', image: '', content: '해줘'},
+  4: {name: '바다거북이', image: '', content: '빨리 채워줘'},
+  5: {name: '펭귄', image: '', content: '찾아줘'},
+};
+
+const InfoOfAnimal = ({navigation, route}: Props) => {
+  const {params} = route;
+  const animalId: 1 | 2 | 3 | 4 | 5 = params.id;
+
   return (
     <SafeAreaView style={styles.body}>
       <View style={styles.section1} />
@@ -54,15 +67,12 @@ const InfoOfAnimal = ({navigation}: Props) => {
           style={styles.infoBox}
         />
         <View style={styles.textBox}>
-          <Text style={styles.title}>[벵갈호랑이]</Text>
+          <Text style={styles.title}>[{animal[animalId].name}]</Text>
           <Image
             source={require('../../assets/image/ex_horang.png')}
             style={styles.image}
           />
-          <Text style={styles.text}>
-            벵갈호랑이는 여기저기에 서식하는 친구에요. 이 친구는 이런저런 이유
-            때문에 멸종위기종으로 지정됐어요.
-          </Text>
+          <Text style={styles.text}>{animal[animalId].content}</Text>
         </View>
       </View>
       <View style={styles.section3}>

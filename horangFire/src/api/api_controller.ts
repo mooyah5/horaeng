@@ -20,7 +20,6 @@ const api = {
 
   diary: {
     submitMain: async (diary: any) => {
-      console.log(diary);
       const res = await axios({
         //url: urls.diary.submit(),
         method: 'post',
@@ -30,6 +29,17 @@ const api = {
       });
       console.log(res);
       return res;
+    },
+    getDiaries: async (id: number) => {
+      const response = await axios({
+        url: urls.diary.getDiaries(id),
+        method: 'get',
+        headers: {
+          token: await getDataInLocalStorage('token'),
+        },
+      });
+
+      return response;
     },
   },
 
@@ -168,6 +178,20 @@ const api = {
         headers: {
           token: await getDataInLocalStorage('token'),
         },
+      });
+
+      return response;
+    },
+  },
+
+  history: {
+    getHistory: async (id: string) => {
+      const response = await axios({
+        url: urls.history.getHistory(id),
+        headers: {
+          token: await getDataInLocalStorage('token'),
+        },
+        method: 'get',
       });
 
       return response;

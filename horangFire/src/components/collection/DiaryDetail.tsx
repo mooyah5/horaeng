@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import {font} from '../../styles/colorAndFontTheme';
 import Btn from '../common/Btn_short';
+import {Community} from '../community/CommunityContent';
 
 const styles = StyleSheet.create({
   body: {
@@ -54,12 +55,20 @@ const styles = StyleSheet.create({
 
 interface Props {
   navigation: StackNavigationProp<ParamListBase, 'DiaryDetail'>;
+  route: any;
 }
 
-const DiaryDetail = ({navigation}: Props) => {
+const week = ['일', '월', '화', '수', '목', '금', '토'];
+
+const DiaryDetail = ({navigation, route}: Props) => {
+  const {params} = route;
+  const diary: Community = params.diary;
+  const day: number = params.day;
+
+  const date = new Date(diary.createDate);
+
   const onBackButton = () => {
     navigation.goBack();
-    navigation.navigate('ListOfDiaries');
   };
 
   return (
@@ -71,17 +80,17 @@ const DiaryDetail = ({navigation}: Props) => {
           style={styles.infoBox}
         />
         <ScrollView style={styles.textBox}>
-          <Text style={styles.title}>1일차</Text>
-          <Text style={styles.day}>2022.10.20 (목)</Text>
+          <Text style={styles.title}>{day}일차</Text>
+          <Text style={styles.day}>
+            {date.getFullYear()}.{date.getMonth() + 1}.{date.getDate()} (
+            {week[date.getDay()]})
+          </Text>
+          {/* TODO S3 완료된 이후에 이미지 경로 추가 */}
           <Image
             source={require('../../assets/image/ex_horang.png')}
             style={styles.image}
           />
-          <Text style={styles.text}>
-            오늘은 에너지 절약에 관한 기사를 보았다. 기사를 보니 우리가
-            아무렇지도 않게 쓰고 있는 에너지가 멸종 위기에 빠진 동물들을 더
-            괴롭게 하고 있다는 사실을 알게 되었다. 나는 컴퓨터 전원도 하루
-          </Text>
+          <Text style={styles.text}>{diary.content}</Text>
         </ScrollView>
       </View>
       <View style={styles.section3}>
