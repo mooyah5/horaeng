@@ -36,10 +36,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: -20,
   },
-  backText: {
-    fontFamily: font.beeBold,
-    fontSize: 20,
-  },
   cont1: {
     flex: 2,
     flexDirection: 'column',
@@ -93,7 +89,7 @@ const MissionHome = ({navigation}: Props) => {
   };
 
   const canDoCommon = () => {
-    if (isDone === true) {
+    if (isDone !== true) {
       navigation.navigate('LookCommon');
     } else {
       setCharSays('메인 미션 먼저 해결해줘!');

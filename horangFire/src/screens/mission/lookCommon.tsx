@@ -94,6 +94,16 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     borderRadius: 20,
   },
+  back: {
+    width: '100%',
+    marginTop: 20,
+    flexDirection: 'row',
+    marginBottom: -20,
+  },
+  arrowBtn: {
+    width: 30,
+    height: 20,
+  },
 });
 
 interface Props {
@@ -110,11 +120,22 @@ const LookCommon = ({navigation}: Props) => {
       setCommonInfo(res.commonMission);
     };
     getCommon();
-    console.log(commonInfo);
+    console.log(commonInfo + '0000');
   }, []);
+
   return (
     <SafeAreaView style={{backgroundColor: color.BACK_SUB}}>
       <View style={styles.container}>
+        <TouchableOpacity
+          style={styles.back}
+          onPress={() => navigation.navigate('MissionHome')}>
+          {/* <View style={styles.arrow}> */}
+          <Image
+            style={styles.arrowBtn}
+            source={require('../../assets/image/icon/left_arrow.png')}
+          />
+          {/* </View> */}
+        </TouchableOpacity>
         <View style={styles.cont1}>
           <TitleText title="호랭이 이름" subTitle="공통 미션 수행하기" />
         </View>
@@ -155,9 +176,6 @@ const LookCommon = ({navigation}: Props) => {
                 </TouchableOpacity>
               ))}
           </View>
-        </View>
-        <View style={styles.btns}>
-          <Btn txt="이전으로" clickEvent={() => navigation.goBack()} />
         </View>
       </View>
     </SafeAreaView>

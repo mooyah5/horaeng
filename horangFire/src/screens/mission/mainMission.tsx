@@ -123,7 +123,7 @@ const MainMission = ({navigation}: Props) => {
           type: image.type,
         },
         {
-          bucket: process.env.S3BucketName,
+          bucket: 'k7c108',
           region: 'ap-northeast-2',
           accessKey: 'AKIAWHLOLOLJ3T3C7JUE',
           secretKey: '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',
@@ -137,10 +137,6 @@ const MainMission = ({navigation}: Props) => {
         }
       });
     } else {
-      navigation.navigate('SubmitMission', {
-        type: 'main',
-        point: point,
-      });
       Alert.alert('성냥팔이 호랭이', '글을 작성해주세요!', [{text: '닫기'}]);
     }
   };

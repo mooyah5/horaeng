@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {color, font} from '../../styles/colorAndFontTheme';
 import TitleText from '../../components/common/TitleText';
+import {RNS3} from 'react-native-s3-upload';
 import {
   Image,
   SafeAreaView,
@@ -76,39 +77,74 @@ const CommonMission = ({navigation, route}: Props) => {
   const charInfo = useSelector(selectCharacter)?.userCharacter;
   const imgUrl = useSelector(selectFile); // file img
   const [clickHelp, setClickHelp] = useState(false);
+  const image = useSelector(selectFile); // 이미지 정보
   const [diary, setDiary] = useState('');
   const [point, setPoint] = useState(0); // 포인트 적립 내역
+  const [loca, setLoca] = useState('');
+
   // 제출 함수
   const submit = async () => {
-    if (diary !== '') {
-      try {
-        await api.diary.submit({
-          content: diary,
-          imgUrl: imgUrl,
-          userId: charInfo?.user_id,
-          userCharacterId: charInfo?.id,
-          charactersId: charInfo?.character_id,
-          characterMissionId: route.params.id,
-          addPoint: point,
-        });
-        dispatch(reset());
-        navigation.navigate('SubmitMission', {
-          type: 'common',
-          point: point,
-        });
-      } catch (err) {
-        Alert.alert('작성 실패ㅜㅠ');
-      }
+    try {
+      await api.diary.submit({
+        content: diary,
+        imgUrl: loca,
+        userId: charInfo?.user_id,
+        userCharacterId: charInfo?.id,
+        charactersId: charInfo?.character_id,
+        characterMissionId: route.params.id,
+        addPoint: point,
+      });
+      dispatch(reset());
+      navigation.navigate('SubmitMission', {
+        type: 'common',
+        point: point,
+      });
+    } catch (err) {
+      Alert.alert('작성 실패ㅜㅠ');
+    }
+  };
+
+  const checkImage = () => {
+    if (diary !== '' && image.file !== '') {
+      // s3 서버 연결
+      RNS3.put(
+        {
+          uri: image.file,
+          name: image.name,
+          type: image.type,
+        },
+        {
+          bucket: 'k7c108',
+          region: 'ap-northeast-2',
+          accessKey: 'AKIAWHLOLOLJ3T3C7JUE',
+          secretKey: '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',
+          successActionStatus: 201,
+        },
+      ).then((res: any) => {
+        if (res.status === 201) {
+          setLoca(res.body.postResponse.location);
+        } else {
+          Alert.alert('업로드 실패');
+        }
+      });
     } else {
-      Alert.alert('성냥팔이 호랭이', '글과 사진을 모두 입력해주세요!', [
+      Alert.alert('성냥팔이 호랭이', '글과 사진 모두 입력해주세요!', [
         {text: '닫기'},
       ]);
     }
   };
+
+  useEffect(() => {
+    if (loca !== '') {
+      submit();
+    }
+  }, [loca]);
+
   useEffect(() => {
     const random = Math.floor(Math.random() * 15) + 6;
     setPoint(random); // 1~10까지의 랜덤 포인트 지급
   }, []);
+
   const goBack = () => {
     dispatch(reset());
     navigation.goBack();
@@ -147,7 +183,7 @@ const CommonMission = ({navigation, route}: Props) => {
 
         <View style={styles.btns}>
           <Btn txt="이전으로" clickEvent={goBack} />
-          <Btn txt="제출하기" clickEvent={submit} />
+          <Btn txt="제출하기" clickEvent={checkImage} />
         </View>
       </View>
     </SafeAreaView>

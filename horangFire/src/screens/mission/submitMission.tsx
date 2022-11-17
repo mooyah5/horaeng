@@ -115,7 +115,7 @@ const SubmitMission = ({navigation, route}: Props) => {
           </View>
           <View style={styles.btn}>
             <Btn
-              txt="작성 일지 보기"
+              txt="미션 메인으로"
               clickEvent={() => navigation.navigate('MissionHome')}
             />
           </View>
