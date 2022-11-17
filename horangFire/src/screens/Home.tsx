@@ -288,6 +288,14 @@ const Home = ({navigation}: Props) => {
                 source={require('../assets/image/setting.png')}
               />
             </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('VideoModal')}
+              style={styles.buttonTouchable}>
+              <Image
+                style={styles.buttons}
+                source={require('../assets/image/icon/video.png')}
+              />
+            </TouchableOpacity>
           </View>
         </View>
       </SafeAreaView>

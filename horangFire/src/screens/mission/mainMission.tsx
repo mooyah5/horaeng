@@ -94,8 +94,6 @@ const MainMission = ({navigation}: Props) => {
 
   const submit = async () => {
     try {
-      console.log('#################');
-      console.log(loca);
       await api.diary.submit({
         content: diary,
         imgUrl: loca,
@@ -131,15 +129,13 @@ const MainMission = ({navigation}: Props) => {
           secretKey: 'MbIs97SLvLv31dr1t8se8OPgHfUVGKeS2hI0WXXn',
           successActionStatus: 201,
         },
-      )
-        // .progress(() => console.log('progress'))
-        .then((res: any) => {
-          if (res.status === 201) {
-            setLoca(res.body.postResponse.location);
-          } else {
-            Alert.alert('업로드 실패');
-          }
-        });
+      ).then((res: any) => {
+        if (res.status === 201) {
+          setLoca(res.body.postResponse.location);
+        } else {
+          Alert.alert('업로드 실패');
+        }
+      });
     } else {
       navigation.navigate('SubmitMission', {
         type: 'main',
@@ -151,7 +147,6 @@ const MainMission = ({navigation}: Props) => {
   useEffect(() => {
     if (loca !== '') {
       submit();
-      console.log('2번 가나요');
     }
   }, [loca]);
 
