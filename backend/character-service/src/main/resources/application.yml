@@ -20,7 +20,14 @@ spring:
     import: "optional:configserver:http://k7c108.p.ssafy.io:8888"
   cloud:
     config:
-      name: character
+      name: character-service
+      profile: production
+      label: main
+  rabbitmq:
+    host: 43.201.97.204
+    port: 5672
+    username: guest
+    password: guest
 
 eureka:
   client:
@@ -29,3 +36,8 @@ eureka:
     service-url:
       defaultZone: http://eureka:8760/eureka
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: busrefresh
