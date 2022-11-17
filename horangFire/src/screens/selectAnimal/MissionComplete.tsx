@@ -1,69 +1,43 @@
-import React, {useEffect, useState} from 'react';
-import {color, font} from '../../styles/colorAndFontTheme';
-import Btn from '../../components/common/Btn_short';
+import React, {useEffect} from 'react';
+import {font} from '../../styles/colorAndFontTheme';
 
 import {
   View,
   StyleSheet,
-  Text,
   SafeAreaView,
-  Image,
-  Pressable,
+  ImageSourcePropType,
+  Animated,
+  TouchableOpacity,
 } from 'react-native';
-import {scriptMissionComplete} from '../../script/scriptMissionComplete';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {ParamListBase} from '@react-navigation/native';
 
 const styles = StyleSheet.create({
-  section1: {
-    flex: 4,
-  },
-  section2: {
-    flex: 4,
-    paddingHorizontal: 24,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingBottom: 24,
-  },
-  section3: {
-    flex: 10,
-    paddingHorizontal: 24,
-  },
-  section4: {
-    flex: 3,
-    paddingHorizontal: 24,
-  },
   backgroundColor: {
-    backgroundColor: '#FFD783',
+    backgroundColor: 'black',
     width: '100%',
     height: '100%',
   },
-  missionBack: {
-    position: 'absolute',
+  container: {
+    marginTop: '10%',
+    flex: 0.9,
+  },
+  image1: {
+    flex: 1,
+    marginBottom: 5,
+  },
+  innerImage: {
+    resizeMode: 'contain',
     width: '100%',
     height: '100%',
-    resizeMode: 'stretch',
   },
-  missionText: {
-    paddingHorizontal: 30,
-    fontFamily: font.beeBold,
-    fontSize: 20,
-    color: color.BROWN_47,
-    textAlign: 'center',
-  },
-  imageContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  characterImage: {
-    width: '70%',
-    height: '80%',
-  },
-  characterName: {
-    textAlign: 'center',
+  btnStyle: {
+    color: 'white',
     fontFamily: font.beeBold,
     fontSize: 30,
-    color: color.BROWN_47,
+    borderColor: 'white',
+    alignSelf: 'center',
+    marginTop: '5%',
   },
 });
 
@@ -72,81 +46,115 @@ interface Props {
   route: any;
 }
 
+interface ANIMALIMAGE {
+  name: string;
+  image1: ImageSourcePropType;
+  image2: ImageSourcePropType;
+  image3: ImageSourcePropType;
+}
+
+const animalImage: ANIMALIMAGE[] = [
+  {
+    name: 'tiger',
+    image1: require('../../assets/image/missionOut/tigerOut1.png'),
+    image2: require('../../assets/image/missionOut/tigerOut2.png'),
+    image3: require('../../assets/image/missionOut/tigerOut3.png'),
+  },
+  {
+    name: 'bird',
+    image1: require('../../assets/image/missionOut/birdOut1.png'),
+    image2: require('../../assets/image/missionOut/birdOut2.png'),
+    image3: require('../../assets/image/missionOut/birdOut3.png'),
+  },
+  {
+    name: 'elephant',
+    image1: require('../../assets/image/missionOut/elephantOut1.png'),
+    image2: require('../../assets/image/missionOut/elephantOut2.png'),
+    image3: require('../../assets/image/missionOut/elephantOut3.png'),
+  },
+  {
+    name: 'turtle',
+    image1: require('../../assets/image/missionOut/turtleOut1.png'),
+    image2: require('../../assets/image/missionOut/turtleOut2.png'),
+    image3: require('../../assets/image/missionOut/turtleOut3.png'),
+  },
+  {
+    name: 'penguin',
+    image1: require('../../assets/image/missionOut/elephantOut1.png'),
+    image2: require('../../assets/image/missionOut/elephantOut2.png'),
+    image3: require('../../assets/image/missionOut/elephantOut3.png'),
+  },
+];
+
 const MissionComplete = ({navigation, route}: Props) => {
   const {params} = route;
   const characterSpecies = params.characterSpecies;
-  const [specieName, setSpecieName] = useState<string>('tiger');
+  const num = characterSpecies - 1;
 
-  const [scriptNum, setScriptNum] = useState<number>(1);
-
-  const handleScriptNum = () => {
-    if (scriptNum < 6) {
-      setScriptNum(prev => prev + 1);
-    }
-  };
-
-  const startButton = () => {
-    if (scriptNum === 6) {
-      return (
-        <Btn
-          txt="NEW!"
-          clickEvent={() => navigation.navigate('SelectAnimal')}
-        />
-      );
-    } else {
-      return;
-    }
-  };
+  const value1 = new Animated.Value(0);
+  const value2 = new Animated.Value(0);
+  const value3 = new Animated.Value(0);
+  const value4 = new Animated.Value(0);
 
   useEffect(() => {
-    const characterName = () => {
-      let name = '';
-      switch (characterSpecies) {
-        case 1:
-          name = 'tiger';
-          break;
-        case 2:
-          name = 'bird';
-          break;
-        case 3:
-          name = 'elephant';
-          break;
-        case 4:
-          name = 'turtle';
-          break;
-        case 5:
-          name = 'penguin';
-          break;
-      }
-
-      return name;
-    };
-
-    setSpecieName(characterName());
-  }, [characterSpecies]);
+    Animated.timing(value1, {
+      toValue: 1,
+      duration: 2000,
+      useNativeDriver: false,
+    }).start();
+  }, []);
+  useEffect(() => {
+    Animated.timing(value2, {
+      toValue: 1,
+      duration: 2000,
+      delay: 3000,
+      useNativeDriver: false,
+    }).start();
+  }, []);
+  useEffect(() => {
+    Animated.timing(value3, {
+      toValue: 1,
+      duration: 2000,
+      delay: 6000,
+      useNativeDriver: false,
+    }).start();
+  }, []);
+  useEffect(() => {
+    Animated.timing(value4, {
+      toValue: 1,
+      duration: 500,
+      delay: 8000,
+      useNativeDriver: false,
+    }).start();
+  }, []);
 
   return (
     <SafeAreaView style={styles.backgroundColor}>
-      <View style={styles.section1} />
-      <Pressable onPress={handleScriptNum} style={styles.section2}>
-        <Image
-          style={styles.missionBack}
-          source={require('../../../src/assets/image/b.png')}
-        />
-        <Text style={styles.missionText}>
-          {scriptMissionComplete[specieName][`${scriptNum}`]}
-        </Text>
-      </Pressable>
-      <View style={styles.section3}>
-        <View style={styles.imageContainer}>
-          <Image
-            style={styles.characterImage}
-            source={require('../../assets/image/character/tiger.png')}
+      <View style={styles.container}>
+        <View style={styles.image1}>
+          <Animated.Image
+            source={animalImage[num].image1}
+            style={[styles.innerImage, {opacity: value1}]}
           />
-          <Text style={styles.characterName}>기여운 나의 호랭이</Text>
         </View>
+        <View style={styles.image1}>
+          <Animated.Image
+            source={animalImage[num].image2}
+            style={[styles.innerImage, {opacity: value2}]}
+          />
+        </View>
+        <View style={styles.image1}>
+          <Animated.Image
+            source={animalImage[num].image3}
+            style={[styles.innerImage, {opacity: value3}]}
+          />
+        </View>
+        <TouchableOpacity onPress={() => navigation.navigate('SelectAnimal')}>
+          <Animated.Text style={[styles.btnStyle, {opacity: value4}]}>
+            NEW!
+          </Animated.Text>
+        </TouchableOpacity>
       </View>
-      <View style={styles.section4}>{startButton()}</View>
     </SafeAreaView>
   );
 };

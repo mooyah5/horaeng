@@ -39,11 +39,11 @@ interface CharacterInfo {
 
 const CHARACTER_IMAGE = [
   null,
-  require('../../assets/image/character/tiger.png'),
-  require('../../assets/image/character/tiger.png'),
-  require('../../assets/image/character/tiger.png'),
-  require('../../assets/image/character/tiger.png'),
-  require('../../assets/image/character/tiger.png'),
+  require('../../assets/image/character/72ppi/tiger3.png'),
+  require('../../assets/image/character/72ppi/tiger3.png'),
+  require('../../assets/image/character/72ppi/tiger3.png'),
+  require('../../assets/image/character/72ppi/tiger3.png'),
+  require('../../assets/image/character/72ppi/tiger3.png'),
 ];
 
 const getRandomInt = (max: number) => {

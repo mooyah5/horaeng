@@ -32,8 +32,8 @@ const RANGE = {
 
 const CHARACTER_IMAGE = {
   1: {
-    left: require('../../assets/image/character/tiger.png'),
-    right: require('../../assets/image/character/tiger.png'),
+    left: require('../../assets/image/character/72ppi/tiger3.png'),
+    right: require('../../assets/image/character/72ppi/tiger3.png'),
   },
   2: {
     left: require('../../assets/image/animals/left/bird_level3_left.gif'),

@@ -85,6 +85,7 @@ const styles = StyleSheet.create({
   image: {
     height: '85%',
     width: '100%',
+    resizeMode: 'contain',
   },
   leftArrowArea: {
     flex: 3,
@@ -135,7 +136,7 @@ const animal: ANIMAL[] = [
     id: 1,
     name: '벵갈호랑이',
     species: 'tiger',
-    image: require('../../assets/image/character/tiger.png'),
+    image: require('../../assets/image/character/72ppi/tiger3.png'),
     backImage: require('../../assets/image/mainbottom.png'),
     mission: '종이 아끼기',
   },
@@ -143,7 +144,7 @@ const animal: ANIMAL[] = [
     id: 2,
     name: '오목눈이',
     species: 'bird',
-    image: require('../../assets/image/character/tiger.png'),
+    image: require('../../assets/image/character/72ppi/bird3.png'),
     backImage: require('../../assets/image/mainbottom.png'),
     mission: '마스크 올바르게 버리기',
   },
@@ -151,7 +152,7 @@ const animal: ANIMAL[] = [
     id: 3,
     name: '아프리카코끼리',
     species: 'elephant',
-    image: require('../../assets/image/character/tiger.png'),
+    image: require('../../assets/image/character/72ppi/elephant3.png'),
     backImage: require('../../assets/image/mainbottom.png'),
     mission: '화석연료 사용 줄이기',
   },
@@ -159,7 +160,7 @@ const animal: ANIMAL[] = [
     id: 4,
     name: '바다거북이',
     species: 'turtle',
-    image: require('../../assets/image/character/tiger.png'),
+    image: require('../../assets/image/character/72ppi/turtle3.png'),
     backImage: require('../../assets/image/mainbottom.png'),
     mission: '플라스틱 줄이기',
   },
@@ -167,7 +168,7 @@ const animal: ANIMAL[] = [
     id: 5,
     name: '펭귄',
     species: 'penguin',
-    image: require('../../assets/image/character/tiger.png'),
+    image: require('../../assets/image/character/72ppi/penguin3.png'),
     backImage: require('../../assets/image/mainbottom.png'),
     mission: '전기 아끼기',
   },
@@ -227,7 +228,6 @@ const SelectAnimal = ({navigation}: Props) => {
           onPress={() =>
             setMissionFun(animal[num].id, animal[num].name, animal[num].species)
           }>
-          {/* <Text style={styles.startBtn}>START!</Text> */}
           <Image
             source={require('../../assets/image/start.png')}
             style={styles.startBtnImage}

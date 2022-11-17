@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import {color, font} from '../../styles/colorAndFontTheme';
-import Btn from '../../components/common/Btn_short';
 
 import {
   View,
@@ -8,14 +7,14 @@ import {
   Text,
   SafeAreaView,
   Image,
-  Pressable,
   Alert,
   BackHandler,
+  ImageSourcePropType,
+  Animated,
 } from 'react-native';
-import {scriptIntro} from '../../script/scriptIntro';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {ParamListBase} from '@react-navigation/native';
-import api from '../../api/api_controller';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const styles = StyleSheet.create({
   section1: {
@@ -37,7 +36,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
   },
   backgroundColor: {
-    backgroundColor: '#FFD783',
+    backgroundColor: 'black',
     width: '100%',
     height: '100%',
   },
@@ -68,6 +67,33 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: color.BROWN_47,
   },
+  image1: {
+    flex: 1,
+    marginBottom: 5,
+  },
+  container: {
+    marginTop: '10%',
+    flex: 0.9,
+  },
+  btnContainer: {
+    flex: 0.1,
+    marginBottom: '5%',
+    borderWidth: 1,
+    borderColor: 'white',
+  },
+  innerImage: {
+    resizeMode: 'contain',
+    width: '100%',
+    height: '100%',
+  },
+  btnStyle: {
+    color: 'white',
+    fontFamily: font.beeBold,
+    fontSize: 30,
+    borderColor: 'white',
+    alignSelf: 'center',
+    marginTop: '5%',
+  },
 });
 
 interface Props {
@@ -75,13 +101,172 @@ interface Props {
   route: any;
 }
 
+interface ANIMALIMAGE {
+  name: string;
+  image1: ImageSourcePropType;
+  image2: ImageSourcePropType;
+  image3: ImageSourcePropType;
+  image4: ImageSourcePropType;
+  image5: ImageSourcePropType;
+  image6: ImageSourcePropType;
+}
+
+const animalImage: ANIMALIMAGE[] = [
+  {
+    name: 'tiger',
+    image1: require('../../assets/image/missionIntro/72ppi/tiger1.png'),
+    image2: require('../../assets/image/missionIntro/72ppi/tiger2.png'),
+    image3: require('../../assets/image/missionIntro/72ppi/tiger3.png'),
+    image4: require('../../assets/image/missionIntro/72ppi/tiger4.png'),
+    image5: require('../../assets/image/missionIntro/72ppi/tiger5.png'),
+    image6: require('../../assets/image/missionIntro/72ppi/tiger6.png'),
+  },
+  {
+    name: 'bird',
+    image1: require('../../assets/image/missionIntro/72ppi/bird1.png'),
+    image2: require('../../assets/image/missionIntro/72ppi/bird2.png'),
+    image3: require('../../assets/image/missionIntro/72ppi/bird3.png'),
+    image4: require('../../assets/image/missionIntro/72ppi/bird4.png'),
+    image5: require('../../assets/image/missionIntro/72ppi/bird5.png'),
+    image6: require('../../assets/image/missionIntro/72ppi/bird6.png'),
+  },
+  {
+    name: 'elephant',
+    image1: require('../../assets/image/missionIntro/72ppi/elephant1.png'),
+    image2: require('../../assets/image/missionIntro/72ppi/elephant2.png'),
+    image3: require('../../assets/image/missionIntro/72ppi/elephant3.png'),
+    image4: require('../../assets/image/missionIntro/72ppi/elephant4.png'),
+    image5: require('../../assets/image/missionIntro/72ppi/elephant5.png'),
+    image6: require('../../assets/image/missionIntro/72ppi/elephant6.png'),
+  },
+  {
+    name: 'turtle',
+    image1: require('../../assets/image/missionIntro/72ppi/turtle1.png'),
+    image2: require('../../assets/image/missionIntro/72ppi/turtle2.png'),
+    image3: require('../../assets/image/missionIntro/72ppi/turtle3.png'),
+    image4: require('../../assets/image/missionIntro/72ppi/turtle4.png'),
+    image5: require('../../assets/image/missionIntro/72ppi/turtle5.png'),
+    image6: require('../../assets/image/missionIntro/72ppi/turtle6.png'),
+  },
+  {
+    name: 'penguin',
+    image1: require('../../assets/image/missionIntro/72ppi/penguin1.png'),
+    image2: require('../../assets/image/missionIntro/72ppi/penguin2.png'),
+    image3: require('../../assets/image/missionIntro/72ppi/penguin3.png'),
+    image4: require('../../assets/image/missionIntro/72ppi/penguin4.png'),
+    image5: require('../../assets/image/missionIntro/72ppi/penguin5.png'),
+    image6: require('../../assets/image/missionIntro/72ppi/penguin6.png'),
+  },
+];
+
 const MissionIntro = ({navigation, route}: Props) => {
   const {params} = route;
-  const characterName = params.animalName;
-  const selectedCharacterSpecies = params.selectedCharacterSpecies;
+  // const characterName = params.animalName;
+  // const selectedCharacterSpecies = params.selectedCharacterSpecies;
   const selectedCharacterId = params.selectedCharacterId;
+  const num = selectedCharacterId - 1;
+  const [next, setNext] = useState<number>(0);
 
-  const [scriptNum, setScriptNum] = useState<number>(1);
+  const value1 = new Animated.Value(0)
+  const value2 = new Animated.Value(0)
+  const value3 = new Animated.Value(0)
+  const value4 = new Animated.Value(0)
+
+  const orderPlus = () => {
+    setNext(prev => prev + 1);
+    Animated.timing(value1, {
+      toValue: 0,
+      duration: 0,
+      useNativeDriver: false
+    }).start();
+    Animated.timing(value2, {
+      toValue: 0,
+      duration: 0,
+      useNativeDriver: false
+    }).start();
+    Animated.timing(value3, {
+      toValue: 0,
+      duration: 0,
+      useNativeDriver: false
+    }).start();
+    Animated.timing(value4, {
+      toValue: 0,
+      duration: 0,
+      useNativeDriver: false
+    }).start();
+  };
+
+
+  useEffect(() => {
+    Animated.timing(value1, {
+      toValue: 1,
+      duration: 2000,
+      useNativeDriver: false
+    }).start();
+  }, [value1])
+  useEffect(() => {
+    Animated.timing(value2, {
+      toValue: 1,
+      duration: 2000,
+      delay:3000,
+      useNativeDriver: false
+    }).start();
+  }, [value2])
+  useEffect(() => {
+    Animated.timing(value3, {
+      toValue: 1,
+      duration: 2000,
+      delay:6000,
+      useNativeDriver: false
+    }).start();
+  }, [value3])
+  useEffect(() => {
+    Animated.timing(value4, {
+      toValue: 1,
+      duration: 500,
+      delay:8000,
+      useNativeDriver: false
+    }).start();
+  }, [value4])
+
+  const handleNextPage = () => {
+    if (next === 0) {
+      return (
+        <View style={styles.container}>
+          <View style={styles.image1}>
+            <Animated.Image source={animalImage[num].image1} style={[styles.innerImage, {opacity:value1}]} />
+          </View>
+          <View style={styles.image1}>
+            <Animated.Image source={animalImage[num].image2} style={[styles.innerImage, {opacity:value2}]}/>
+          </View>
+          <View style={styles.image1}>
+            <Animated.Image source={animalImage[num].image3} style={[styles.innerImage, {opacity:value3}]} />
+          </View>
+          <TouchableOpacity onPress={() => orderPlus()}>
+            <Animated.Text style={[styles.btnStyle, {opacity:value4}]}>NEXT ></Animated.Text>
+          </TouchableOpacity>
+        </View>
+      );
+    }
+    if (next === 1) {
+      return (
+        <View style={styles.container}>
+          <View style={styles.image1}>
+            <Animated.Image source={animalImage[num].image4} style={[styles.innerImage, {opacity:value1}]} />
+          </View>
+          <View style={styles.image1}>
+            <Animated.Image source={animalImage[num].image5} style={[styles.innerImage, {opacity:value2}]} />
+          </View>
+          <View style={styles.image1}>
+            <Animated.Image source={animalImage[num].image6} style={[styles.innerImage, {opacity:value3}]} />
+          </View>
+          <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+            <Animated.Text style={[styles.btnStyle, {opacity:value4}]}>MISSION START!</Animated.Text>
+          </TouchableOpacity>
+        </View>
+      );
+    }
+  };
 
   useEffect(() => {
     const backAction = () => {
@@ -102,44 +287,10 @@ const MissionIntro = ({navigation, route}: Props) => {
 
     return () => backHandler.remove();
   }, []);
-  const handleScriptNum = () => {
-    if (scriptNum < 7) {
-      setScriptNum(prev => prev + 1);
-    }
-  };
-
-  const startButton = () => {
-    if (scriptNum === 7) {
-      return (
-        <Btn txt="start!" clickEvent={() => navigation.navigate('Home')} />
-      );
-    } else {
-      return;
-    }
-  };
 
   return (
     <SafeAreaView style={styles.backgroundColor}>
-      <View style={styles.section1} />
-      <Pressable onPress={handleScriptNum} style={styles.section2}>
-        <Image
-          style={styles.missionBack}
-          source={require('../../../src/assets/image/b.png')}
-        />
-        <Text style={styles.missionText}>
-          {scriptIntro[selectedCharacterSpecies][`${scriptNum}`]}
-        </Text>
-      </Pressable>
-      <View style={styles.section3}>
-        <Pressable style={styles.imageContainer} onPress={handleScriptNum}>
-          <Image
-            style={styles.characterImage}
-            source={require('../../assets/image/character/tiger.png')}
-          />
-          <Text style={styles.characterName}>{characterName}</Text>
-        </Pressable>
-      </View>
-      <View style={styles.section4}>{startButton()}</View>
+      {handleNextPage()}
     </SafeAreaView>
   );
 };

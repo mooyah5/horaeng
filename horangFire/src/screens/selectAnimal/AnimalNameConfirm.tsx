@@ -44,11 +44,11 @@ const AnimalNameConfirm = ({navigation, route}: Props) => {
   const dispatch = useDispatch();
   const selectedCharacterName = params.animalName;
   const selectedCharacterId = params.selectedCharacterId;
-  const selectedCharacterSpecies = params.selectedCharacterSpecies;
+
   const createCharacter = async () => {
     try {
       const response = await api.character.create({
-        user_id: user.id, //리덕스에서유저아이디값가져와서껴넣자
+        user_id: user.id,
         character_id: selectedCharacterId,
         nickname: selectedCharacterName,
       });
@@ -65,8 +65,6 @@ const AnimalNameConfirm = ({navigation, route}: Props) => {
           console.error(err);
         }
         navigation.navigate('MissionIntro', {
-          animalName: response.data.nickname,
-          selectedCharacterSpecies: selectedCharacterSpecies,
           selectedCharacterId: selectedCharacterId,
         });
       }
