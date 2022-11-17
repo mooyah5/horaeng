@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {color, font} from '../../styles/colorAndFontTheme';
 import TitleText from '../../components/common/TitleText';
-import {MissionType, reset} from '../../store/mission';
+import {reset} from '../../store/mission';
 import {RNS3} from 'react-native-s3-upload';
 import {
   Image,
@@ -148,12 +148,12 @@ const MainMission = ({navigation}: Props) => {
       Alert.alert('성냥팔이 호랭이', '글을 작성해주세요!', [{text: '닫기'}]);
     }
   };
-
   useEffect(() => {
     if (loca !== '') {
       submit();
+      console.log('2번 가나요');
     }
-  }, [loca, submit]);
+  }, [loca]);
 
   const goBack = () => {
     dispatch(reset());
