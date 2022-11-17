@@ -4,6 +4,8 @@ import {useEffect, useState} from 'react';
 import {Image, SafeAreaView, ScrollView, StyleSheet, View} from 'react-native';
 import Btn from '../common/Btn_short';
 import DiaryItem from './DiaryItem';
+import {Community} from '../community/CommunityContent';
+import api from '../../api/api_controller';
 
 const styles = StyleSheet.create({
   body: {
@@ -48,17 +50,23 @@ const styles = StyleSheet.create({
 
 interface Props {
   navigation: StackNavigationProp<ParamListBase, 'ListOfDiaries'>;
+  route: any;
 }
 
-const ListOfDiaries = ({navigation}: Props) => {
-  const [diaries, setDiaries] = useState<number[]>([]);
+const ListOfDiaries = ({navigation, route}: Props) => {
+  const [diaries, setDiaries] = useState<Community[]>([]);
+  const {params} = route;
+  const characterId = params.characterId;
 
-  const handleDiaries = () => {
-    setDiaries([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+  const getDiaries = async () => {
+    const response = await api.diary.getDiaries(characterId);
+    if (response.data) {
+      setDiaries(response.data);
+    }
   };
 
   useEffect(() => {
-    handleDiaries();
+    getDiaries();
   }, []);
 
   return (
@@ -76,9 +84,10 @@ const ListOfDiaries = ({navigation}: Props) => {
                 if (index % 3 === 0) {
                   return (
                     <DiaryItem
-                      day={value}
+                      day={index + 1}
                       key={index}
                       navigation={navigation}
+                      diary={value}
                     />
                   );
                 } else {
@@ -91,9 +100,10 @@ const ListOfDiaries = ({navigation}: Props) => {
                 if (index % 3 === 1) {
                   return (
                     <DiaryItem
-                      day={value}
+                      day={index + 1}
                       key={index}
                       navigation={navigation}
+                      diary={value}
                     />
                   );
                 } else {
@@ -106,9 +116,10 @@ const ListOfDiaries = ({navigation}: Props) => {
                 if (index % 3 === 2) {
                   return (
                     <DiaryItem
-                      day={value}
+                      day={index + 1}
                       key={index}
                       navigation={navigation}
+                      diary={value}
                     />
                   );
                 } else {
@@ -121,7 +132,7 @@ const ListOfDiaries = ({navigation}: Props) => {
       </View>
       <View style={styles.section3}>
         <View style={styles.emptyArea} />
-        <Btn txt="창 닫기" clickEvent={navigation.goBack} />
+        <Btn txt="창 닫기" clickEvent={() => navigation.goBack()} />
       </View>
     </SafeAreaView>
   );

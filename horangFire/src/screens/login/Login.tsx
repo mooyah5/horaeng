@@ -39,16 +39,27 @@ const Login = ({navigation}: Props) => {
     }
   };
 
-  const getProfileId = async (): Promise<void> => {
+  const ownLogin = async (id: string) => {
     try {
-      const profileResult = await getKakaoProfile();
-      const response = await api.auth.login(profileResult.id);
+      const response = await api.auth.login(id);
       const token = response.headers.token;
 
-      await saveDataInLocalStorage('id', profileResult.id);
       await saveDataInLocalStorage('token', token);
 
       getUserData();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const getProfileId = async (): Promise<void> => {
+    try {
+      const profileResult = await getKakaoProfile();
+
+      if (profileResult?.id) {
+        await saveDataInLocalStorage('id', profileResult.id);
+        await ownLogin(profileResult.id);
+      }
     } catch (err) {
       console.error(err);
     }
@@ -59,9 +70,12 @@ const Login = ({navigation}: Props) => {
     const kakaoId = await getDataInLocalStorage('id');
 
     if (token && kakaoId) {
-      const response = await api.user.getUserInfo(kakaoId);
-
-      dispatch(setUserObject({user: response.data}));
+      try {
+        const response = await api.user.getUserInfo(kakaoId);
+        dispatch(setUserObject({user: response.data}));
+      } catch {
+        await ownLogin(kakaoId);
+      }
     }
   };
 

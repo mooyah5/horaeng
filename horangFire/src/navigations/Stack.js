@@ -25,8 +25,7 @@ import Community from '../screens/community/index';
 import CommunityDetail from '../screens/community/CommunityDetail';
 import CommunityModal from '../components/community/CommunityModal';
 
-import Collection from '../screens/collection/Collection';
-import CollectionDetail from '../screens/collection/CollectionDetail';
+import History from '../screens/collection/History';
 import InfoOfAnimal from '../components/collection/InfoOfAnimal';
 import ListOfDiaries from '../components/collection/ListOfDiaries';
 import DiaryDetail from '../components/collection/DiaryDetail';
@@ -44,7 +43,7 @@ const Stack = createStackNavigator();
 const StackNavigation = () => {
   return (
     <Stack.Navigator
-      initialRouteName="Home"
+      initialRouteName="Login"
       screenOptions={{
         headerShown: false,
       }}>
@@ -85,8 +84,7 @@ const StackNavigation = () => {
         <Stack.Screen name="BackgroundOption" component={BackgroundOption} />
 
         {/* collection page */}
-        <Stack.Screen name="Collection" component={Collection} />
-        <Stack.Screen name="CollectionDetail" component={CollectionDetail} />
+        <Stack.Screen name="Collection" component={History} />
       </Stack.Group>
 
       <Stack.Group screenOptions={{presentation: 'transparentModal'}}>

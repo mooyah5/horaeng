@@ -8,6 +8,7 @@ import {
   Dimensions,
 } from 'react-native';
 import {font} from '../../styles/colorAndFontTheme';
+import {Community} from '../community/CommunityContent';
 
 const {width} = Dimensions.get('window');
 const diaryHeight = ((width - 88) / 3) * 0.8;
@@ -21,12 +22,12 @@ const styles = StyleSheet.create({
 interface Props {
   navigation: StackNavigationProp<ParamListBase, 'ListOfDiaries'>;
   day: number;
+  diary: Community;
 }
 
-const DiaryItem = ({navigation, day}: Props) => {
+const DiaryItem = ({navigation, day, diary}: Props) => {
   const goDiaryDetail = () => {
-    navigation.goBack();
-    navigation.navigate('DiaryDetail');
+    navigation.navigate('DiaryDetail', {diary: diary, day: day});
   };
 
   return (
