@@ -17,7 +17,7 @@ public class DiaryResponse {
     private String content;
     private String imgUrl;
     private LocalDateTime createDate;
-    private boolean isMain;
+    private Long isMain;
 
     static public DiaryResponse of(Diary diary){
         DiaryResponse response = DiaryResponse.builder()
@@ -28,7 +28,7 @@ public class DiaryResponse {
                 .content(diary.getContent())
                 .imgUrl(diary.getImgUrl())
                 .createDate(diary.getCreateDate())
-                .isMain(diary.isMain())
+                .isMain(diary.getIsMain())
                 .build();
         return response;
     }
