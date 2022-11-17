@@ -17,6 +17,7 @@ public class CreateDiaryResponse {
     private String content;
     private String imgUrl;
     private LocalDateTime createDate;
+    private boolean isMain;
     private boolean isCharacterMax;
 
     static public CreateDiaryResponse of(Diary diary, boolean isCharacterMax){
@@ -29,6 +30,7 @@ public class CreateDiaryResponse {
                 .imgUrl(diary.getImgUrl())
                 .createDate(diary.getCreateDate())
                 .isCharacterMax(isCharacterMax)
+                .isMain(diary.isMain())
                 .build();
         return response;
     }

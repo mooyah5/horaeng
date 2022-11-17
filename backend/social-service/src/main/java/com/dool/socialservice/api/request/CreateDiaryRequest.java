@@ -11,5 +11,6 @@ public class CreateDiaryRequest {
     private Long userCharacterId;
     private Long charactersId;
     private Long characterMissionId;
+    private boolean isMain;
     private Long addPoint;
 }

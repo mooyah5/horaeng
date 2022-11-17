@@ -30,6 +30,7 @@ public class Diary {
     private String content;
     @NotNull
     private String imgUrl;
+    private boolean isMain;
     private LocalDateTime createDate;
 
     @PrePersist
