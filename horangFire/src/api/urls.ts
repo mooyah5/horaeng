@@ -29,6 +29,7 @@ const urls = {
       GATEWAY + CHARACTER + 'character-mission/main/' + `${charId}`,
   },
   mission: {
+    upload: (formdata: any) => '', // formdata 업로드
     getCommonId: (charId: number) =>
       GATEWAY + CHARACTER + 'character-mission/common/' + `${charId}`,
   },

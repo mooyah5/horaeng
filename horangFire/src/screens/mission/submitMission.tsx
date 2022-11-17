@@ -65,14 +65,19 @@ const SubmitMission = ({navigation, route}: Props) => {
   const days = charInfo?.count;
   const name = useSelector(selectName);
   const [success, setSuccess] = useState('');
+  // const [point, setPoint] = useState(route.params.point;
+  const point = route.params.point;
 
   useEffect(() => {
+    console.log(route.params.type);
     if (route.params.type === 'main') {
-      setSuccess(days + route.params.text);
+      setSuccess(days + '일차 미션을 해결했네!');
     } else {
-      setSuccess(route.params.text);
+      setSuccess('공통미션을 마쳤네!');
     }
   }, []);
+
+  // ====== animation ========
 
   return (
     <SafeAreaView style={{backgroundColor: color.BACK_SUB}}>
@@ -82,7 +87,7 @@ const SubmitMission = ({navigation, route}: Props) => {
             title={name}
             subTitle={
               route.params.type === 'main'
-                ? '기본 미션 수행 완료'
+                ? '메인 미션 수행 완료'
                 : '공통 미션 수행 완료'
             }
           />
@@ -96,6 +101,10 @@ const SubmitMission = ({navigation, route}: Props) => {
             {charMission[charInfo?.userCharacter?.character_id]} 미션
           </Text>
           <Text style={styles.txtSub}>{success}</Text>
+          <Text style={styles.txtSub}>
+            <Text style={{color: color.RED}}>{point}</Text>개의 성냥을 선물로
+            줄게 :)
+          </Text>
         </View>
         <View style={styles.btns}>
           <View style={styles.btn}>

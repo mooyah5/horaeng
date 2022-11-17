@@ -41,7 +41,8 @@ const ImagePicker = ({navigation}: Props) => {
   const img = useSelector(selectFile); // 이미지 uri 저장
 
   useEffect(() => {
-    setFileImage(img);
+    setFileImage(img.file);
+    console.log(img);
   }, [img]);
 
   function showPicker() {

@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {color, font} from '../../styles/colorAndFontTheme';
 import TitleText from '../../components/common/TitleText';
-import {reset} from '../../store/mission';
+import {MissionType, reset} from '../../store/mission';
+import {RNS3} from 'react-native-s3-upload';
 import {
   Image,
   SafeAreaView,
@@ -21,7 +22,7 @@ import {selectCharacter, selectName} from '../../store/character';
 import api from '../../api/api_controller';
 import {selectFile} from '../../store/mission';
 import {charMission} from '../../script/charMission';
-
+// import process from 'process';
 const styles = StyleSheet.create({
   container: {
     width: '100%',
@@ -76,7 +77,7 @@ const MainMission = ({navigation}: Props) => {
   const dispatch = useDispatch();
   const name = useSelector(selectName);
   const charInfo = useSelector(selectCharacter)?.userCharacter;
-  const imgUrl = useSelector(selectFile); // main 미션 이미지 url 저장
+  // const imgUrl = useSelector(selectFile); // main 미션 이미지 url 저장
 
   const [clickHelp, setClickHelp] = useState(false); // 안내 사항 확인?
   const [mainId, setMainId] = useState(0);
@@ -86,17 +87,47 @@ const MainMission = ({navigation}: Props) => {
   const info =
     '1. 예시 사진과 동일하게 종이를 아끼는 모습을 담은 사진을 찍어주세요. \n 2. 부적합한 사진 업로드시 포인트가 차감될 수 있습니다.';
   const [point, setPoint] = useState(0); // 포인트 적립 내역
+  const image = useSelector(selectFile); // 이미지 정보
+  const [loca, setLoca] = useState('');
+
+  // s3 server 연결
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const AWS = require('aws-sdk');
+
+  const uploadImg = () => {
+    RNS3.put(
+      {
+        uri: image.file,
+        name: image.name,
+        type: image.type,
+      },
+      {
+        bucket: 'k7c108',
+        region: 'ap-northeast-2',
+        accessKey: 'AKIAWHLOLOLJ3T3C7JUE',
+        secretKey: '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',
+        successActionStatus: 201,
+      },
+    )
+      // .progress(() => console.log('progress'))
+      .then((res: any) => {
+        if (res.status !== 201) {
+          Alert.alert('업로드 실패');
+        } else {
+          setLoca(res.body.postResponse.location);
+        }
+      });
+  };
+
   const submit = async () => {
     if (diary !== '') {
+      // s3 서버 연결
+      uploadImg();
       // 제출 api 호출
-
-      const random = Math.floor(Math.random() * 10) + 1;
-      setPoint(random); // 1~10까지의 랜덤 포인트 지급
-
       try {
         await api.diary.submit({
           content: diary,
-          imgUrl: imgUrl,
+          imgUrl: loca,
           userId: charInfo?.user_id, // user id
           userCharacterId: charInfo?.id, // 캐릭터 id
           charactersId: charInfo?.character_id, // 동물 타입
@@ -106,13 +137,16 @@ const MainMission = ({navigation}: Props) => {
         dispatch(reset());
         navigation.navigate('SubmitMission', {
           type: 'main',
-          text: '일차 미션을 성공적으로 마쳤네! \n 고마워!! :)',
           point: point,
         });
       } catch (err) {
         Alert.alert('작성 실패ㅜㅠ');
       }
     } else {
+      navigation.navigate('SubmitMission', {
+        type: 'main',
+        point: point,
+      });
       Alert.alert('성냥팔이 호랭이', '글을 작성해주세요!', [{text: '닫기'}]);
     }
   };
@@ -128,6 +162,8 @@ const MainMission = ({navigation}: Props) => {
       setMainId(res.characterMissionId);
     };
     getMain();
+    const random = Math.floor(Math.random() * 10) + 1;
+    setPoint(random); // 1~10까지의 랜덤 포인트 지급
   }, []);
 
   return (

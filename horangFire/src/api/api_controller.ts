@@ -64,6 +64,17 @@ const api = {
       });
       return response.data;
     },
+    uploadImage: async (formData: any) => {
+      const response = await axios({
+        url: urls.mission.upload(formData),
+        headers: {
+          'Content-Type':
+            'multipart/form-data; boundary=someArbitraryUniqueString',
+        },
+        method: 'post',
+      });
+      return response.data;
+    },
   },
   character: {
     getNowUserCharacter: async (userId: string) => {

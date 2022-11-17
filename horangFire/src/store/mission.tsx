@@ -1,14 +1,17 @@
 import {createSlice} from '@reduxjs/toolkit';
 
-export interface missionType {
+export interface MissionType {
   file: string;
-  txt: string;
-  //   isDone: boolean;
+  type: string;
+  name: string;
+  // txt: string;
 }
 
-export const missionInitialState: missionType | null = {
+export const missionInitialState: MissionType | null = {
   file: '',
-  txt: '',
+  type: '',
+  name: '',
+  // txt: '',
 };
 
 export const missionSlice = createSlice({
@@ -18,18 +21,21 @@ export const missionSlice = createSlice({
     // setfile(state: null, actions: {type: string; payload: any}) {
     //   return actions.payload;
     // },
-    setFile: (state, action) => {
-      state.file = action.payload.file;
-      //   state.txt = action.payload.txt;
+    setFile: (state, {payload}) => {
+      state.file = payload.file;
+      state.type = payload.type;
+      state.name = payload.name;
     },
+    // setText: (state, action) => {
+    //   state.txt = action.payload.txt;
+    // },
     reset: state => {
       Object.assign(state, missionInitialState);
     },
   },
 });
 
-export const selectFile = (state: {mission: {file: string}}) =>
-  state.mission.file;
+export const selectFile = (state: {mission: MissionType}) => state.mission;
 
 export const {setFile, reset} = missionSlice.actions;
 

@@ -19,8 +19,6 @@ export const sound = new Sound(
       console.log('로드 실패', error);
       return;
     }
-    // if loaded successfully
-    console.log('재생 시간 : ' + sound.getDuration());
 
     sound.play(success => {
       if (success) {
@@ -30,7 +28,7 @@ export const sound = new Sound(
       }
     });
 
-    sound.setNumberOfLoops(-1);
+    sound.setNumberOfLoops(-1); // 무한 재생
   },
 );
 

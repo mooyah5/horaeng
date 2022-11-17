@@ -81,8 +81,6 @@ const CommonMission = ({navigation, route}: Props) => {
   // 제출 함수
   const submit = async () => {
     if (diary !== '') {
-      const random = Math.floor(Math.random() * 15) + 6;
-      setPoint(random); // 1~10까지의 랜덤 포인트 지급
       try {
         await api.diary.submit({
           content: diary,
@@ -91,12 +89,12 @@ const CommonMission = ({navigation, route}: Props) => {
           userCharacterId: charInfo?.id,
           charactersId: charInfo?.character_id,
           characterMissionId: route.params.id,
-          addPoint: point, // 포인트
+          addPoint: point,
         });
         dispatch(reset());
         navigation.navigate('SubmitMission', {
           type: 'common',
-          text: '공통 미션을 성공적으로 마쳤네! \n 고마워 :)',
+          point: point,
         });
       } catch (err) {
         Alert.alert('작성 실패ㅜㅠ');
@@ -107,6 +105,10 @@ const CommonMission = ({navigation, route}: Props) => {
       ]);
     }
   };
+  useEffect(() => {
+    const random = Math.floor(Math.random() * 15) + 6;
+    setPoint(random); // 1~10까지의 랜덤 포인트 지급
+  }, []);
   const goBack = () => {
     dispatch(reset());
     navigation.goBack();
