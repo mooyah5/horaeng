@@ -69,7 +69,7 @@ spring:
           uri: lb://USER-SERVICE
           predicates:
             - Path=/user-service/user/**
-            - Method=Get,Delete
+            - Method=Get,Delete,Put
           filters:
             - AuthorizationHeaderFilter
         - id: user-service
