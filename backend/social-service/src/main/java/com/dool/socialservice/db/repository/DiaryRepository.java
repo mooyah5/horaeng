@@ -30,7 +30,7 @@ public class DiaryRepository {
         return em.createQuery("select d from Diary d where d.userCharacterId = :userCharacterId and" +
                         " d.isMain = :isMain ")
                 .setParameter("userCharacterId", userCharacterId)
-                .setParameter("isMain", 1)
+                .setParameter("isMain", 1L)
                 .getResultList();
     }
     public List<Diary> getAll(Long lastId){
