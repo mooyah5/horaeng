@@ -9,6 +9,7 @@ spring:
       server:
         git:
           uri: git@github.com:nomzaxs/msa-config.git
+          timeout: 4
           ignoreLocalSshSettings: true
           privateKey: |
             -----BEGIN RSA PRIVATE KEY-----
@@ -62,3 +63,12 @@ spring:
             jROq01dC3YTfgh9YRM7S45/dgopSac410ocCljA+7MFd2MKXY8ITN45KRy3p/kAL
             WYJjP1pSGPH8o+t6nZDXAoDKS8pd7vpYdTe4ndToTTswtOMxDGKzAevMuQ0=
             -----END RSA PRIVATE KEY-----
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    shutdown:
+      enabled: true
