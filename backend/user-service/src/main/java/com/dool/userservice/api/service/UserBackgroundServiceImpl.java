@@ -20,17 +20,19 @@ public class UserBackgroundServiceImpl implements UserBackgroundService {
     private final UserRepository userRepository;
     @Override
     public Iterable<UserBackground> getUsersBackground(String userId) {
-        return userBackgroundRepository.getUsersBackground(userId);
+        return userBackgroundRepository.getUsersBackgroundByUserId(userId);
     }
 
     @Override
     public void createUserBackground(BackgroundRequest request) {
 
-        UserBackground userBackground = new UserBackground();
-        userBackground.setUser(userRepository.get(request.getUserId()));
-        userBackground.setBackground(backgroundRepository.get(request.getBackgroundId()));
+        UserBackground temp = userBackgroundRepository.getUsersBackgroundByUserIdAndBackgroundId(request.getUserId(), request.getBackgroundId());
+        if(temp != null){
+            UserBackground userBackground = new UserBackground();
+            userBackground.setUser(userRepository.get(request.getUserId()));
+            userBackground.setBackground(backgroundRepository.get(request.getBackgroundId()));
 
-        userBackgroundRepository.add(userBackground);
-
+            userBackgroundRepository.add(userBackground);
+        }
     }
 }
