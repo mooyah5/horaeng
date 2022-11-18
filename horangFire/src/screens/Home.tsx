@@ -185,21 +185,21 @@ export const BACKGROUND = [
 ];
 
 export const CHARACTER = [
-  require('../assets/image/character/72ppi/tiger1.png'),
-  require('../assets/image/character/72ppi/tiger2.png'),
-  require('../assets/image/character/72ppi/tiger3.png'),
-  require('../assets/image/character/72ppi/bird1.png'),
-  require('../assets/image/character/72ppi/bird2.png'),
-  require('../assets/image/character/72ppi/bird3.png'),
-  require('../assets/image/character/72ppi/elephant1.png'),
-  require('../assets/image/character/72ppi/elephant2.png'),
-  require('../assets/image/character/72ppi/elephant3.png'),
-  require('../assets/image/character/72ppi/turtle1.png'),
-  require('../assets/image/character/72ppi/turtle2.png'),
-  require('../assets/image/character/72ppi/turtle3.png'),
-  require('../assets/image/character/72ppi/penguin1.png'),
-  require('../assets/image/character/72ppi/penguin2.png'),
-  require('../assets/image/character/72ppi/penguin3.png'),
+  require('../assets/image/character/HomeCharacter/tiger_level1_left.gif'),
+  require('../assets/image/character/HomeCharacter/tiger_level2_left.gif'),
+  require('../assets/image/character/HomeCharacter/tiger_level3_left.gif'),
+  require('../assets/image/character/HomeCharacter/bird_level1_left.gif'),
+  require('../assets/image/character/HomeCharacter/bird_level2_left.gif'),
+  require('../assets/image/character/HomeCharacter/bird_level3_left.gif'),
+  require('../assets/image/character/HomeCharacter/elephant_level1_left.gif'),
+  require('../assets/image/character/HomeCharacter/elephant_level2_left.gif'),
+  require('../assets/image/character/HomeCharacter/elephant_level3_left.gif'),
+  require('../assets/image/character/HomeCharacter/turtle_level1_left.gif'),
+  require('../assets/image/character/HomeCharacter/turtle_level1_left.gif'),
+  require('../assets/image/character/HomeCharacter/turtle_level1_left.gif'),
+  require('../assets/image/character/HomeCharacter/penguin_level1_left.gif'),
+  require('../assets/image/character/HomeCharacter/penguin_level2_left.gif'),
+  require('../assets/image/character/HomeCharacter/penguin_level3_left.gif'),
 ];
 
 interface Props {
@@ -366,7 +366,14 @@ const Home = ({navigation}: Props) => {
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.section0}>
           <View style={styles.section0BtnContainer}>
-            <View style={styles.buttonTouchableNone} />
+            <TouchableOpacity
+              onPress={() => navigation.navigate('VideoModal')}
+              style={styles.buttonTouchable}>
+              <Image
+                style={styles.buttons}
+                source={require('../assets/image/icon/video.png')}
+              />
+            </TouchableOpacity>
             <TouchableOpacity
               onPress={() => navigation.navigate('Option')}
               style={styles.buttonTouchable}>
@@ -500,14 +507,6 @@ const Home = ({navigation}: Props) => {
               <Image
                 style={styles.buttons}
                 source={require('../assets/image/icon/diary.png')}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('VideoModal')}
-              style={styles.buttonTouchable}>
-              <Image
-                style={styles.buttons}
-                source={require('../assets/image/icon/video.png')}
               />
             </TouchableOpacity>
           </View>
