@@ -1,6 +1,6 @@
 import {getDataInLocalStorage} from './../store/AsyncService';
 import axios from 'axios';
-import {CharacterInfo, Report} from './apiDataType';
+import {CharacterInfo, MissionInfo, Point, Report} from './apiDataType';
 import urls from './urls';
 
 const api = {
@@ -19,7 +19,7 @@ const api = {
   },
 
   diary: {
-    submit: async (diary: any) => {
+    submit: async (diary: MissionInfo) => {
       const res = await axios({
         url: urls.diary.submit(),
         method: 'post',
@@ -61,17 +61,6 @@ const api = {
           token: await getDataInLocalStorage('token'),
         },
         method: 'get',
-      });
-      return response.data;
-    },
-    uploadImage: async (formData: any) => {
-      const response = await axios({
-        url: urls.mission.upload(formData),
-        headers: {
-          'Content-Type':
-            'multipart/form-data; boundary=someArbitraryUniqueString',
-        },
-        method: 'post',
       });
       return response.data;
     },
@@ -136,6 +125,20 @@ const api = {
 
       return response;
     },
+    addPoint: async (pointInfo: Point) => {
+      console.log(pointInfo);
+      const res = await axios({
+        url: urls.user.addPoint(),
+        headers: {
+          token: await getDataInLocalStorage('token'),
+        },
+        method: 'put',
+        data: {
+          ...pointInfo,
+        },
+      });
+      return res;
+    },
   },
 
   community: {
@@ -158,7 +161,6 @@ const api = {
     },
 
     report: async (data: Report) => {
-      console.log(data);
       const response = await axios({
         url: urls.community.report(),
         method: 'post',

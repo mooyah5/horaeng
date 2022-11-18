@@ -19,6 +19,7 @@ const urls = {
     login: () => GATEWAY + AUTH + 'auth/login',
   },
   user: {
+    addPoint: () => GATEWAY + USER + USER_INFO + 'point', // 성냥 추가
     getUserInfo: (kakaoId: string) => GATEWAY + USER + USER_INFO + kakaoId,
   },
   diary: {

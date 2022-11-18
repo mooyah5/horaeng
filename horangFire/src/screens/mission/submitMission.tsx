@@ -8,6 +8,7 @@ import {ParamListBase} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
 import {selectCharacter, selectName} from '../../store/character';
 import {charMission} from '../../script/charMission';
+import {selectUser} from '../../store/user';
 
 const styles = StyleSheet.create({
   container: {

@@ -93,6 +93,7 @@ const CommonMission = ({navigation, route}: Props) => {
         charactersId: charInfo?.character_id,
         characterMissionId: route.params.id,
         addPoint: point,
+        isMain: false,
       });
       dispatch(reset());
       navigation.navigate('SubmitMission', {

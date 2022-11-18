@@ -8,12 +8,15 @@ import {
   Image,
   Text,
   Linking,
+  Alert,
 } from 'react-native';
 import {videoList} from '../../script/videoList';
 import Btn from '../common/Btn_short';
 import {font, color} from '../../styles/colorAndFontTheme';
 import {useSelector} from 'react-redux';
 import {selectCharacter, selectName} from '../../store/character';
+import api from '../../api/api_controller';
+import {selectUser} from '../../store/user';
 const styles = StyleSheet.create({
   body: {
     paddingHorizontal: 24,
@@ -57,11 +60,20 @@ interface Props {
 }
 
 const VideoModal = ({navigation}: Props) => {
-  const goTube = () => {
+  const user = useSelector(selectUser);
+
+  const goTube = async () => {
     // list 개수에 따라 랜덤 개수 조정
     const randomNum = Math.floor(Math.random() * 3);
-
-    Linking.openURL(videoList[randomNum]);
+    try {
+      await api.user.addPoint({
+        userId: user.id,
+        point: 5,
+      });
+      Linking.openURL(videoList[randomNum]);
+    } catch (err) {
+      Alert.alert('적립 실패ㅜㅠ');
+    }
   };
   return (
     <SafeAreaView style={styles.body}>

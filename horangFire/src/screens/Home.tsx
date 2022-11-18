@@ -17,6 +17,7 @@ import {scriptMain} from '../script/scriptMain';
 import {useSelector} from 'react-redux';
 import {selectBackgroundNumber} from '../store/background';
 import {selectCharacter} from '../store/character';
+import {selectUser} from '../store/user';
 
 const styles = StyleSheet.create({
   backgroundImage: {
@@ -177,6 +178,9 @@ const Home = ({navigation}: Props) => {
   const missionStatus = () => {
     return false;
   };
+
+  const how = useSelector(selectUser).point;
+  console.log(how);
 
   return (
     <ImageBackground

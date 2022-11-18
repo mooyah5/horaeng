@@ -89,7 +89,7 @@ const MissionHome = ({navigation}: Props) => {
   };
 
   const canDoCommon = () => {
-    if (isDone !== true) {
+    if (isDone === true) {
       navigation.navigate('LookCommon');
     } else {
       setCharSays('메인 미션 먼저 해결해줘!');
