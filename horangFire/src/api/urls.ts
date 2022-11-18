@@ -16,6 +16,7 @@ const CHARACTER_ADDRS = 'characters/';
 const DIARY = 'diary/';
 
 const USER_CHARACTER = 'user-character/';
+const BACKGROUND = 'background/';
 
 const urls = {
   auth: {
@@ -58,6 +59,12 @@ const urls = {
   history: {
     getHistory: (id: string) =>
       GATEWAY + CHARACTER + USER_CHARACTER + CHARACTER_ADDR + id,
+  },
+  background: {
+    getAllBackground: () => GATEWAY + USER + BACKGROUND,
+    getUserBackground: (id: string) =>
+      GATEWAY + USER + USER_INFO + BACKGROUND + id,
+    buyUserBackground: () => GATEWAY + USER + USER_INFO + BACKGROUND,
   },
 };
 

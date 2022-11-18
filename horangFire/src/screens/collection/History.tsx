@@ -32,8 +32,8 @@ const RANGE = {
 
 const CHARACTER_IMAGE = {
   1: {
-    left: require('../../assets/image/character/72ppi/tiger3.png'),
-    right: require('../../assets/image/character/72ppi/tiger3.png'),
+    left: require('../../assets/image/animals/left/tiger_level3_left.gif'),
+    right: require('../../assets/image/animals/right/tiger_level3_right.gif'),
   },
   2: {
     left: require('../../assets/image/animals/left/bird_level3_left.gif'),
@@ -186,7 +186,7 @@ const History = ({navigation}: Props) => {
           return animal;
         });
       });
-    }, 100);
+    }, 50);
   }, []);
 
   return (

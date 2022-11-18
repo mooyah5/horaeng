@@ -230,6 +230,46 @@ const api = {
       return response;
     },
   },
+
+  background: {
+    getAllBackground: async () => {
+      const response = await axios({
+        url: urls.background.getAllBackground(),
+        headers: {
+          token: await getDataInLocalStorage('token'),
+        },
+        method: 'get',
+      });
+
+      return response;
+    },
+    getUserBackground: async (id: string) => {
+      const response = await axios({
+        url: urls.background.getUserBackground(id),
+        headers: {
+          token: await getDataInLocalStorage('token'),
+        },
+        method: 'get',
+      });
+
+      return response;
+    },
+    buyUserBackground: async (id: string, bgNumber: number) => {
+      const response = await axios({
+        url: urls.background.buyUserBackground(),
+        method: 'post',
+        headers: {
+          token: await getDataInLocalStorage('token'),
+        },
+        data: {
+          backgroundId: bgNumber,
+          userId: id,
+        },
+      });
+
+      return response;
+    },
+  },
 };
 
 export default api;
