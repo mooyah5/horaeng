@@ -129,7 +129,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(userService.addReportCnt(userId));
     }
 
-    @PostMapping("/point")
+    @PutMapping("/point")
     public ResponseEntity<?> addPoint(@RequestBody AddPointRequest request){
         userService.addPoint(request);
         return ResponseEntity.status(HttpStatus.OK).body(null);
