@@ -27,6 +27,8 @@ spring:
     gateway:
       default-filters:
         - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
+        - name: GlobalFilter
+
       globalcors:
         corsConfigurations:
           '[/**]':
