@@ -1,19 +1,36 @@
-import React, {useState, useEffect, ChangeEvent} from 'react';
+import React, {useState, ChangeEvent} from 'react';
 import './create.scss';
 import {useLocation, useNavigate} from 'react-router-dom';
 import api from '../../api/api';
+import AWS from 'aws-sdk';
+
+const S3_BUCKET = 'k7c108';
+const REGION = 'ap-northeast-2';
+
+AWS.config.update({
+  accessKeyId: 'AKIAWHLOLOLJ3T3C7JUE',
+  secretAccessKey: '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',
+});
+
+const myBucket = new AWS.S3({
+  params: {Bucket: S3_BUCKET},
+  region: REGION,
+});
 
 function MissionCreate() {
   const location = useLocation();
   const navigate = useNavigate();
+
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [preImg, setPreImg] = useState('');
+  const [progress, setProgress] = useState(0);
 
   const [inputs, setInputs] = useState({
     title: '',
     content: '',
     img: '',
   });
-
-  const {title, content} = inputs;
+  const {title, content, img} = inputs;
   const onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const {name, value} = e.target;
     setInputs({
@@ -21,15 +38,39 @@ function MissionCreate() {
       [name]: value,
     });
     console.log(inputs);
+    if (selectedFile) {
+      console.log(URL.createObjectURL(selectedFile));
+      console.log('preImg', preImg);
+      console.log('progress', progress);
+    }
   };
 
   const onChangeImage = (e?: any) => {
-    const fileUrl = URL.createObjectURL(e.target.files[0]);
-    setInputs({
-      ...inputs,
-      img: fileUrl,
-    });
-    console.log(inputs);
+    const imgFile = e.target.files[0];
+    setSelectedFile(imgFile);
+    // setInputs({
+    //   ...inputs,
+    //   img: imgFile,
+    // });
+    setPreImg(URL.createObjectURL(imgFile));
+    console.log(URL.createObjectURL(imgFile));
+    console.log(imgFile);
+
+    const params = {
+      ACL: 'public-read',
+      Body: imgFile,
+      Bucket: S3_BUCKET,
+      Key: imgFile.name,
+    };
+
+    myBucket
+      .putObject(params)
+      .on('httpUploadProgress', evt => {
+        setProgress(Math.round((evt.loaded / evt.total) * 100));
+      })
+      .send(err => {
+        if (err) console.log(err);
+      });
   };
 
   const HandleSubmit = async () => {
@@ -92,7 +133,7 @@ function MissionCreate() {
               />
               {inputs.img && (
                 <div>
-                  <img className="image_preview" src={inputs.img} alt="" />
+                  <img className="image_preview" src={preImg} alt="" />
                 </div>
               )}
             </div>
