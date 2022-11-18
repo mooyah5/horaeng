@@ -36,11 +36,17 @@ export const userSlice = createSlice({
     reset: state => {
       Object.assign(state, userInitialState);
     },
+    setUserPoint: (state, action) => {
+      return {
+        ...state,
+        point: action.payload.point,
+      };
+    },
   },
 });
 
 // getters -> Login.tsx 가서 확인
 export const selectUser = (state: {user: User}) => state.user;
-export const {setUserObject, reset} = userSlice.actions;
+export const {setUserObject, reset, setUserPoint} = userSlice.actions;
 
 export default userSlice.reducer;

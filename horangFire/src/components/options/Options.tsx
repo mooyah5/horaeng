@@ -1,7 +1,7 @@
-import {View, StyleSheet, Image, Text, Switch} from 'react-native';
+import {View, StyleSheet, Image, Text, TouchableOpacity} from 'react-native';
 import {color, font} from '../../styles/colorAndFontTheme';
 import Btn from '../common/Btn_short';
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Slider from '@react-native-community/slider';
 import {ParamListBase} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -11,22 +11,21 @@ import {
   saveDataInLocalStorage,
 } from '../../store/AsyncService';
 import {sound} from '../../App';
+import {useDispatch} from 'react-redux';
+import {setUserObject} from '../../store/user';
+import {setMyCharacter} from '../../store/character';
 
 interface Props {
   navigation: StackNavigationProp<ParamListBase, 'Option'>;
 }
 
 const Option = ({navigation}: Props) => {
-  const [isEnabled, setIsEnabled] = useState<boolean>(false);
+  const dispatch = useDispatch();
   const [backgroundVolume, setBackgroundVolume] = useState<number>(1);
   const [effectVolume, setEffectVolume] = useState<number>(1);
 
   const [initialBgmVolume, setInitialVolume] = useState<number>(1);
   const [initialEfVolume, setInitialEfVolume] = useState<number>(1);
-
-  const toggleSwitch = () => {
-    setIsEnabled(prev => !prev);
-  };
 
   const onClickCancelButton = () => {
     setBackgroundVolume(initialBgmVolume);
@@ -44,6 +43,10 @@ const Option = ({navigation}: Props) => {
   const logout = async () => {
     await removeDataInLocalStorage('id');
     await removeDataInLocalStorage('token');
+
+    dispatch(setUserObject({user: null}));
+    dispatch(setMyCharacter({character: null}));
+
     navigation.navigate('Login');
   };
 
@@ -116,21 +119,18 @@ const Option = ({navigation}: Props) => {
           />
         </View>
         <View style={styles.subSection6}>
-          <Text style={styles.optionSwitchName}>Push 알림</Text>
-          <Switch
-            style={styles.optionSwitch}
-            trackColor={{false: color.MODAL_SUB, true: color.BROWN_47}}
-            thumbColor={color.MAIN}
-            onValueChange={toggleSwitch}
-            value={isEnabled}
-          />
+          <TouchableOpacity onPress={logout}>
+            <Text style={styles.logout}>로그아웃</Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.subSection7} />
       </View>
       <View style={styles.section3}>
+        <View style={styles.empty} />
         <Btn txt={'적용하기'} clickEvent={onClickApplyButton} />
+        <View style={styles.empty} />
         <Btn txt={'돌아가기'} clickEvent={onClickCancelButton} />
-        <Btn txt={'로그아웃'} clickEvent={logout} />
+        <View style={styles.empty} />
       </View>
       <View style={styles.section4} />
     </View>
@@ -139,7 +139,7 @@ const Option = ({navigation}: Props) => {
 
 const styles = StyleSheet.create({
   // main area
-  body: {backgroundColor: color.BACK_SUB, width: '100%', height: '100%'},
+  body: {backgroundColor: 'rgba(0, 0, 0, 0.5)', width: '100%', height: '100%'},
   section1: {flex: 4},
   section2: {flex: 6, paddingHorizontal: 24},
   section3: {
@@ -178,10 +178,9 @@ const styles = StyleSheet.create({
   subSection6: {
     flex: 3,
     width: '100%',
-    flexDirection: 'row',
     paddingHorizontal: 45,
     alignItems: 'center',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
   },
   subSection7: {flex: 3},
   // option
@@ -198,7 +197,9 @@ const styles = StyleSheet.create({
     fontFamily: font.beeBold,
     marginRight: '18%',
   },
-  optionSwitch: {justifyContent: 'flex-start'},
+  optionSwitch: {justifyContent: 'flex-end'},
+  logout: {fontFamily: font.beeBold, fontSize: 24, color: 'gray'},
+  empty: {flex: 0.5},
 });
 
 export default Option;

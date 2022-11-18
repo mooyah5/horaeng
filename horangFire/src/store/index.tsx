@@ -4,6 +4,7 @@ import userReducer from './user';
 import missionReducer from './mission';
 import characterReducer from './character';
 import backgroundReducer from './background';
+import haveBackgroundReducer from './haveBackground';
 
 const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ const store = configureStore({
     mission: missionReducer,
     character: characterReducer,
     backgroundNumber: backgroundReducer,
+    haveBackground: haveBackgroundReducer,
   },
 });
 

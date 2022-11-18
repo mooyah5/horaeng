@@ -19,7 +19,10 @@ import {selectBackgroundNumber} from '../store/background';
 import {selectCharacter, setMyCharacter} from '../store/character';
 import imagesPath from '../assets/image/constants/imagesPath';
 import {selectUser} from '../store/user';
+import {getDataInLocalStorage} from '../store/AsyncService';
 import api from '../api/api_controller';
+import {setBackgroundNumber} from '../store/background';
+import {selectHaveBackground, setHaveBackground} from '../store/haveBackground';
 
 const styles = StyleSheet.create({
   backgroundImage: {
@@ -255,7 +258,7 @@ const Home = ({navigation}: Props) => {
   const [specieName, setSpecieName] = useState<string>('tiger');
 
   const todayMissionStatus = () => {
-    if (character?.today) {
+    if (character?.todayMain) {
       return true;
     } else {
       return false;
@@ -341,6 +344,56 @@ const Home = ({navigation}: Props) => {
 
   const [showOption, setShowOption] = useState(false);
 
+  const [savedBgNumber, setSavedBgNumber] = useState<number>(1);
+  const [savedCheck, setSavedCheck] = useState<boolean>(false);
+  const haveBackground = useSelector(selectHaveBackground);
+  const [hadCheck, setHadCheck] = useState<boolean>(false);
+
+  const handleBackgroundOption = () => {
+    navigation.navigate('BackgroundOption');
+  };
+
+  useEffect(() => {
+    const getBackground = async () => {
+      const bgNumber = await getDataInLocalStorage('background_number');
+      setSavedCheck(true);
+
+      if (bgNumber) {
+        setSavedBgNumber(bgNumber);
+      }
+    };
+
+    const getUserBg = async () => {
+      try {
+        const response = await api.background.getUserBackground(nowUser.id);
+        setHadCheck(true);
+
+        const list: number[] = [];
+
+        for (const bg of response.data) {
+          list.push(bg.backgroundId);
+        }
+
+        dispatch(setHaveBackground(list));
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    getBackground();
+    getUserBg();
+  }, []);
+
+  useEffect(() => {
+    if (savedCheck && hadCheck) {
+      if (haveBackground.includes(savedBgNumber)) {
+        dispatch(setBackgroundNumber(savedBgNumber));
+      } else {
+        dispatch(setBackgroundNumber(character?.userCharacter?.character_id));
+      }
+    }
+  }, [savedBgNumber, haveBackground]);
+
   const handleDiariesButton = () => {
     navigation.navigate('ListOfDiaries', {
       characterId: character?.userCharacter?.id,
@@ -404,8 +457,7 @@ const Home = ({navigation}: Props) => {
               </TouchableOpacity>
             </View>
             <TouchableOpacity
-              // background 옵션 변경
-              onPress={() => navigation.navigate('BackgroundOption')}
+              onPress={handleBackgroundOption}
               style={styles.buttonTouchable}>
               <Image
                 style={styles.buttons}
