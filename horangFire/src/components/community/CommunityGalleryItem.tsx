@@ -46,10 +46,6 @@ interface Props {
 }
 
 const CommunityGalleryItem = ({navigation, item}: Props) => {
-  // useEffect(() => {
-  //   console.log('사진 하나하나', item);
-  // }, [item]);
-
   return (
     <TouchableOpacity
       style={styles.imageWrap}

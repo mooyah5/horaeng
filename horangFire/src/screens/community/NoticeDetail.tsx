@@ -57,17 +57,13 @@ const NoticeDetail = ({navigation, route}: Props) => {
       const response = await api.notice.getNoticeDetail(id);
       setNoticeDetail(response.data);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
   useEffect(() => {
     getNoticeDetail();
   }, []);
-
-  useEffect(() => {
-    console.log(noticeDetail);
-  }, [noticeDetail]);
 
   return (
     <View>
