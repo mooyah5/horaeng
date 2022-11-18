@@ -13,7 +13,7 @@ eureka:
 logging:
   config: classpath:logback-${spring.application.name}.xml
 management:
-  endpoint:
+  endpoints:
     web:
       exposure:
         include: prometheus, info, health
