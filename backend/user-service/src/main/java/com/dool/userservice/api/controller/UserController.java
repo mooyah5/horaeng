@@ -130,7 +130,7 @@ public class UserController {
     }
 
     @PutMapping("/point")
-    public ResponseEntity addPoint(@RequestBody AddPointRequest request){
+    public ResponseEntity<?> addPoint(@RequestBody AddPointRequest request){
         userService.addPoint(request);
         return ResponseEntity.status(HttpStatus.OK).body(null);
     }
