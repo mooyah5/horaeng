@@ -25,21 +25,6 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     // marginTop: 40,
   },
-  photo: {
-    backgroundColor: 'rgba(255, 247, 234, 0.69)',
-    borderRadius: 20,
-    width: '70%',
-    height: '30%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 16,
-  },
-  photoTxt: {
-    fontFamily: font.beeBold,
-    fontSize: 16,
-    textAlign: 'center',
-    color: color.BROWN_47,
-  },
   input: {
     width: '70%',
     height: '25%',

@@ -340,6 +340,9 @@ const Home = ({navigation}: Props) => {
 
   const [showOption, setShowOption] = useState(false);
 
+  const how = useSelector(selectUser).point;
+  console.log(how);
+
   return (
     <ImageBackground
       source={BACKGROUND[backgroundNumber]}
@@ -385,11 +388,12 @@ const Home = ({navigation}: Props) => {
               </TouchableOpacity>
             </View>
             <TouchableOpacity
+              // background 옵션 변경
               onPress={() => navigation.navigate('BackgroundOption')}
               style={styles.buttonTouchable}>
               <Image
-                style={styles.buttonsBackground}
-                source={require('../assets/image/icon/background.png')}
+                style={styles.buttons}
+                source={require('../assets/image/icon/changeBackground.png')}
               />
             </TouchableOpacity>
           </View>
@@ -406,8 +410,8 @@ const Home = ({navigation}: Props) => {
               onPress={() => navigation.navigate('Community')}
               style={styles.buttonTouchable}>
               <Image
-                style={styles.buttonsCommu}
-                source={require('../assets/image/icon/commut.png')}
+                style={styles.buttons}
+                source={require('../assets/image/icon/commu.png')}
               />
             </TouchableOpacity>
           </View>
@@ -469,20 +473,25 @@ const Home = ({navigation}: Props) => {
               onPress={() => navigation.navigate('Collection')}
               style={styles.buttonTouchable}>
               <Image
-                style={styles.buttonsCollection}
-                source={require('../assets/image/icon/book.png')}
+                style={styles.buttons}
+                source={require('../assets/image/icon/history.png')}
               />
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() =>
-                navigation.navigate('ListOfDiaries', {
-                  characterId: character?.userCharacter?.id,
-                })
-              }
+              // diary icon
+              onPress={() => navigation.navigate('ListOfDiaries')}
               style={styles.buttonTouchable}>
               <Image
-                style={styles.buttonsDiary}
+                style={styles.buttons}
                 source={require('../assets/image/icon/diary.png')}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('VideoModal')}
+              style={styles.buttonTouchable}>
+              <Image
+                style={styles.buttons}
+                source={require('../assets/image/icon/video.png')}
               />
             </TouchableOpacity>
           </View>

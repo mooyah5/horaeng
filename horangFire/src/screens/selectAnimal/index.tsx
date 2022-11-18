@@ -131,7 +131,7 @@ interface ANIMAL {
   backImage: string;
   mission: string;
 }
-const animal: ANIMAL[] = [
+export const animal: ANIMAL[] = [
   {
     id: 1,
     name: '벵갈호랑이',

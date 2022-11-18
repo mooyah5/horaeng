@@ -20,6 +20,10 @@ import LookCommon from '../screens/mission/lookCommon';
 import SubmitMission from '../screens/mission/submitMission';
 import CameraModal from '../components/mission/CameraModal';
 
+// youtube modal
+import VideoModal from '../components/options/VideoWatch';
+
+import Notice from '../screens/community/Notice';
 import NoticeDetail from '../screens/community/NoticeDetail';
 import Community from '../screens/community/index';
 import CommunityDetail from '../screens/community/CommunityDetail';
@@ -97,6 +101,7 @@ const StackNavigation = () => {
         <Stack.Screen name="DiaryDetail" component={DiaryDetail} />
         <Stack.Screen name="CameraModal" component={CameraModal} />
         <Stack.Screen name="CommunityModal" component={CommunityModal} />
+        <Stack.Screen name="VideoModal" component={VideoModal} />
       </Stack.Group>
     </Stack.Navigator>
   );

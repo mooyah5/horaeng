@@ -1,6 +1,6 @@
+import {getDataInLocalStorage} from './../store/AsyncService';
 import axios from 'axios';
-import {getDataInLocalStorage} from '../store/AsyncService';
-import {CharacterInfo, Report} from './apiDataType';
+import {CharacterInfo, MissionInfo, Point, Report} from './apiDataType';
 import urls from './urls';
 
 const api = {
@@ -19,15 +19,17 @@ const api = {
   },
 
   diary: {
-    submitMain: async (diary: any) => {
+    submit: async (diary: MissionInfo) => {
       const res = await axios({
-        //url: urls.diary.submit(),
+        url: urls.diary.submit(),
         method: 'post',
+        headers: {
+          token: await getDataInLocalStorage('token'),
+        },
         data: {
           ...diary,
         },
       });
-      console.log(res);
       return res;
     },
     getDiaries: async (id: number) => {
@@ -41,8 +43,29 @@ const api = {
 
       return response;
     },
+    getMainId: async (charId: number) => {
+      const res = await axios({
+        url: urls.diary.getMainId(charId),
+        headers: {
+          token: await getDataInLocalStorage('token'),
+        },
+        method: 'get',
+      });
+      return res.data;
+    },
   },
-
+  mission: {
+    getCommonId: async (charId: number) => {
+      const response = await axios({
+        url: urls.mission.getCommonId(charId),
+        headers: {
+          token: await getDataInLocalStorage('token'),
+        },
+        method: 'get',
+      });
+      return response.data;
+    },
+  },
   character: {
     getNowUserCharacter: async (userId: string) => {
       const response = await axios({
@@ -102,6 +125,20 @@ const api = {
 
       return response;
     },
+    addPoint: async (pointInfo: Point) => {
+      console.log(pointInfo);
+      const res = await axios({
+        url: urls.user.addPoint(),
+        headers: {
+          token: await getDataInLocalStorage('token'),
+        },
+        method: 'put',
+        data: {
+          ...pointInfo,
+        },
+      });
+      return res;
+    },
   },
 
   community: {
@@ -141,7 +178,6 @@ const api = {
     },
 
     report: async (data: Report) => {
-      console.log(data);
       const response = await axios({
         url: urls.community.report(),
         method: 'post',

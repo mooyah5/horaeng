@@ -20,23 +20,24 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
-  navigation: StackNavigationProp<ParamListBase, 'ListOfDiaries'>;
   day: number;
-  diary: Community;
+  value: Community;
+  navigation: StackNavigationProp<ParamListBase, 'ListOfDiaries'>;
 }
 
-const DiaryItem = ({navigation, day, diary}: Props) => {
+const DiaryItem = ({day, value, navigation}: Props) => {
   const goDiaryDetail = () => {
-    navigation.navigate('DiaryDetail', {diary: diary, day: day});
+    navigation.goBack();
+    navigation.navigate('DiaryDetail', {day: day + 1, info: value});
   };
-
+  console.log(value);
   return (
     <TouchableOpacity style={styles.diaryItem} onPress={goDiaryDetail}>
       <Image
         source={require('../../assets/image/icon/diaryItem.png')}
         style={styles.image}
       />
-      <Text style={styles.text}>{day}일차</Text>
+      <Text style={styles.text}>{day + 1}일차</Text>
     </TouchableOpacity>
   );
 };
