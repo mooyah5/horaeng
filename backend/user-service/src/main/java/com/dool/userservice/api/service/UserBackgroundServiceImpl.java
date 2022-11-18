@@ -27,7 +27,7 @@ public class UserBackgroundServiceImpl implements UserBackgroundService {
     public void createUserBackground(BackgroundRequest request) {
 
         UserBackground temp = userBackgroundRepository.getUsersBackgroundByUserIdAndBackgroundId(request.getUserId(), request.getBackgroundId());
-        if(temp != null){
+        if(temp == null){
             UserBackground userBackground = new UserBackground();
             userBackground.setUser(userRepository.get(request.getUserId()));
             userBackground.setBackground(backgroundRepository.get(request.getBackgroundId()));
