@@ -11,21 +11,16 @@ eureka:
     service-url:
       defaultZone: http://eureka:8760/eureka
 logging:
-  config: classpath:logback-${spring.profiles.active}.xml
+  config: classpath:logback-${spring.application.name}.xml
+management:
+  endpoint:
+    web:
+      exposure:
+        include: "prometheus"
+  metrics:
+    tags:
+      application: ${spring.application.name}
 spring:
-  profiles:
-    active: local
-  kafka:
-    consumer:
-      bootstrap-servers: localhost:9092
-      group-id: foo
-      auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-    producer:
-      bootstrap-servers: localhost:9092
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
   application:
     name: gateway
   cloud:
