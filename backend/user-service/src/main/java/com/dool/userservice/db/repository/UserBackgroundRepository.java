@@ -19,11 +19,11 @@ public class UserBackgroundRepository{
                 .getResultList();
     }
 
-    public UserBackground getUsersBackgroundByUserIdAndBackgroundId(String userId, Long backgroundId){
-        return (UserBackground)em.createQuery("select ub from UserBackground ub where ub.user.id = :userId and ub.background =:backgroundId ")
+    public List<UserBackground> getUsersBackgroundByUserIdAndBackgroundId(String userId, Long backgroundId){
+        return em.createQuery("select ub from UserBackground ub where ub.user.id = :userId and ub.background =:backgroundId ")
                 .setParameter("userId", userId)
                 .setParameter("backgroundId", backgroundId)
-                .getSingleResult();
+                .getResultList();
     }
 
     public void add(UserBackground userBackground){
