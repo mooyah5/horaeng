@@ -165,8 +165,7 @@ const Community = ({navigation}: Props) => {
   const [loading, setLoading] = useState<boolean>(false);
 
   // When Toggle Button Clicked
-  const onSelectedItem = (val: valueType, i: number) => {
-    console.log(i, '번을 클릭했어요!!!!!!!!!!');
+  const onSelectedItem = (val: valueType) => {
     setCommunityData([]); // 커뮤니티 데이터 초기화
     setSelectedItem(val); // 선택한 동물 지정 => useEffect(selectedITem) 실행 => 커뮤니티 불러오기
     setShowOption(false); // 토글 접기
@@ -185,7 +184,6 @@ const Community = ({navigation}: Props) => {
   const getCommunityAnimalsAll = async (character_id: number) => {
     setLoading(true);
     try {
-      console.log(character_id, '번 동물 axios');
       const response = await api.community.getCommunityAnimalsAll(
         character_id,
         lastId,
@@ -193,7 +191,7 @@ const Community = ({navigation}: Props) => {
       setCommunityData(prev => [...prev, ...response.data]);
       setDataLength(response.data.length);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
     setLoading(false);
   };
@@ -204,13 +202,9 @@ const Community = ({navigation}: Props) => {
     try {
       const response = await api.community.getCommunityAll(lastId);
       setCommunityData(prev => [...prev, ...response.data]);
-      console.log('a', response.data);
-      console.log('b', ...communityData);
       setAllDataLength(response.data.length);
-      console.log('전체 ', response.data.length, '개 불러옴');
-      console.log(response.data);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
     setLoading(false);
   };
@@ -221,12 +215,11 @@ const Community = ({navigation}: Props) => {
       const response = await api.notice.getNoticeAll();
       setNoticeData(response.data);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
   useEffect(() => {
-    console.log('last', lastId);
     getNoticeAll();
     // 전체 버튼을 클릭 - 전체 커뮤니티 불러오기
     if (selectedItem.id === 0) {
@@ -246,7 +239,6 @@ const Community = ({navigation}: Props) => {
       }
     } else {
       // 동물 선택 시
-      console.log(dataLength);
       if (!loading && dataLength % 12 === 0) {
         // 로딩중이 아닐 경우, 불러온 리스트의 마지막 요소 아이디를 변화
         setLastId(communityData[communityData.length - 1].id);
@@ -348,11 +340,11 @@ const Community = ({navigation}: Props) => {
                     onEndReachedThreshold={0} // 어느정도 닿았는지
                     ListFooterComponent={
                       // 로딩 중일 때 하단에 보여줄 로딩스피너
-                      loading && (
+                      loading ? (
                         <View style={styles.loaderStyle}>
                           <ActivityIndicator size="small" color="aaa" />
                         </View>
-                      )
+                      ) : null
                     }
                   />
                 </View>

@@ -1,9 +1,8 @@
 import {ParamListBase} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {View, StyleSheet, Image, Text, TouchableOpacity} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import api from '../../api/api_controller';
 import {BACKGROUND} from '../../screens/Home';
 import {saveDataInLocalStorage} from '../../store/AsyncService';
 import {

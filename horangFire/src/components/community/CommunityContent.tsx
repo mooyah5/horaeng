@@ -60,7 +60,7 @@ const CommunityContent = ({
       const response = await api.notice.getNoticeAll();
       setNoticeData(response.data);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
@@ -71,10 +71,6 @@ const CommunityContent = ({
   useEffect(() => {
     getNoticeAll();
   }, [charactersId]);
-
-  const onEndReached = () => {
-    console.log('load more items');
-  };
 
   const loading = () => {
     return (
@@ -111,7 +107,6 @@ const CommunityContent = ({
               )}
               key={'communityFlatlist'}
               numColumns={3}
-              onEndReached={onEndReached}
               onEndReachedThreshold={0}
               ListFooterComponent={loading}
             />

@@ -92,10 +92,6 @@ const CommunityDetail = ({navigation, route}: Props) => {
     getCommunityDetail();
   }, []);
 
-  useEffect(() => {
-    console.log('communityDetail', communityDetail);
-  }, [communityDetail]);
-
   return (
     <View>
       <View style={styles.body}>

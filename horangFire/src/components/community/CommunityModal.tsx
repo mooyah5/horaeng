@@ -105,17 +105,13 @@ const DiaryDetail = ({navigation, route}: Props) => {
       const response = await api.community.getCommunityDetail(id);
       setCommunityDetail(response.data);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
   useEffect(() => {
     getCommunityDetail();
   }, []);
-
-  useEffect(() => {
-    console.log('communityDetail', communityDetail);
-  }, [communityDetail]);
 
   const onBackButton = () => {
     navigation.goBack();
