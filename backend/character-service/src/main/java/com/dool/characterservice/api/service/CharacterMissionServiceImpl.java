@@ -15,32 +15,42 @@ import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class CharacterMissionServiceImpl implements CharacterMissionService {
-    private final int randSize = 3;
     private final UserCharacterRepository userCharacterRepository;
     private final CharacterMissionRepository characterMissionRepository;
     private final MissionRepository missionRepository;
     private final UserCharacterService userCharacterService;
+
+    // 오늘 미션을 수행했는지 if문을 통해 확인하는 방식으로 구현
     @Override
-    public boolean todayClear(Long user_character_id) {
+    public boolean todayMainClear(Long user_character_id) {
         boolean status = false;
         LocalDate today = LocalDate.now();
 
         CharacterMission characterMission = characterMissionRepository.findTopByUserCharacter_IdAndMission_TypeAndCreatedDate(user_character_id, MissionType.Personal, today).orElseGet(() ->
             postMission(user_character_id));
 
+        // 비교를 통해 존재여부 확인
         if(characterMission.isClear() && today.equals(characterMission.getCreatedDate())){
             status = true;
         }
 
         return status;
     }
+
+    // 조건에 맞는 데이터가 있는지 확인하는 방식으로 구현
+    @Override
+    public boolean todayCommonClear(Long user_character_id) {
+        LocalDate today = LocalDate.now();
+
+        return characterMissionRepository.existsCharacterMissionByUserCharacter_IdAndMission_TypeAndCreatedDateAndIsClearTrue(user_character_id, MissionType.Common, today);
+    }
+
 
     @Override
     public CharacterMission postMission(Long user_character_id) {
@@ -65,6 +75,7 @@ public class CharacterMissionServiceImpl implements CharacterMissionService {
         List<CharacterMission> randComm = new ArrayList<>();
 
         int cnt = 0;
+        int randSize = 3;
         int[] arr = new int[randSize];
 
         loop: while(cnt < randSize){
@@ -86,9 +97,7 @@ public class CharacterMissionServiceImpl implements CharacterMissionService {
                     .build());
         }
 
-        for(CharacterMission m : randComm){
-            characterMissionRepository.save(m);
-        }
+        characterMissionRepository.saveAll(randComm);
         return characterMission;
     }
 
@@ -96,14 +105,12 @@ public class CharacterMissionServiceImpl implements CharacterMissionService {
     public Long countMission(Long user_character_id) {
         LocalDate date = LocalDate.now();
 
-        Long count = characterMissionRepository.countAllByUserCharacter_IdAndCreatedDateLessThanAndIsClearTrueAndMission_Type(user_character_id, date, MissionType.Personal).orElse(0L) + 1;
-
-        return count;
+        return characterMissionRepository.countAllByUserCharacter_IdAndCreatedDateLessThanAndIsClearTrueAndMission_Type(user_character_id, date, MissionType.Personal).orElse(0L) + 1;
     }
 
     @Override
     public boolean complete(Long CMId) {
-        boolean isComplete = false;
+        boolean isComplete;
 
         CharacterMission characterMission = characterMissionRepository.findById(CMId).orElseThrow();
         characterMission.setClear(true);
@@ -118,8 +125,7 @@ public class CharacterMissionServiceImpl implements CharacterMissionService {
 
     @Override
     public Long mainId(Long user_character_id) {
-        Long mainId = characterMissionRepository.findFirstByUserCharacter_IdAndMission_TypeAndCreatedDate(user_character_id, MissionType.Personal, LocalDate.now()).orElseThrow().getId();
-        return mainId;
+        return characterMissionRepository.findFirstByUserCharacter_IdAndMission_TypeAndCreatedDate(user_character_id, MissionType.Personal, LocalDate.now()).orElseThrow().getId();
     }
 
     @Override
@@ -127,14 +133,12 @@ public class CharacterMissionServiceImpl implements CharacterMissionService {
         List<CharacterMission> list = characterMissionRepository.findAllByUserCharacter_IdAndMission_TypeAndCreatedDate(user_character_id, MissionType.Common, LocalDate.now());
         List<CharacterMissionResponseDto> result = new ArrayList<>();
 
-        list.forEach(v -> {
-            result.add(CharacterMissionResponseDto.builder()
-                            .id(v.getId())
-                            .mission(v.getMission())
-                            .created_date(v.getCreatedDate())
-                            .clear(v.isClear())
-                    .build());
-        });
+        list.forEach(v -> result.add(CharacterMissionResponseDto.builder()
+                        .id(v.getId())
+                        .mission(v.getMission())
+                        .created_date(v.getCreatedDate())
+                        .clear(v.isClear())
+                .build()));
 
         return result;
     }

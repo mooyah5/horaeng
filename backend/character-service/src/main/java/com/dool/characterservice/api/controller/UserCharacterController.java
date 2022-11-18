@@ -40,7 +40,7 @@ public class UserCharacterController {
     @GetMapping("/user/{user_id}")
     private ResponseEntity<?> getCharacterInfos(@PathVariable("user_id") String user_id){
         Map<String, Object> result = new HashMap<>();
-        HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+        HttpStatus status;
 
         try {
             UserCharacterResponseDto userCharacterResponseDto = userCharacterService.getUserCharacterByUserId(user_id);
@@ -48,10 +48,11 @@ public class UserCharacterController {
             result.put("userCharacter", userCharacterResponseDto);
 
             if(userCharacterResponseDto != null) {
-                boolean todayMission = characterMissionService.todayClear(userCharacterResponseDto.getId());
+                boolean todayMission = characterMissionService.todayMainClear(userCharacterResponseDto.getId());
                 Long countMission = characterMissionService.countMission(userCharacterResponseDto.getId());
 
-                result.put("today", todayMission);
+                result.put("todayMain", todayMission);
+                result.put("todayCommon", characterMissionService.todayCommonClear(userCharacterResponseDto.getId()));
                 result.put("count", countMission);
             }
             status = HttpStatus.OK;
