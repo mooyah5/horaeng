@@ -27,13 +27,12 @@ public class UserBackgroundServiceImpl implements UserBackgroundService {
     @Override
     public void createUserBackground(BackgroundRequest request) {
 
-        List<UserBackground> temp = userBackgroundRepository.getUsersBackgroundByUserIdAndBackgroundId(request.getUserId(), request.getBackgroundId());
-        if(temp.size() == 0){
-            UserBackground userBackground = new UserBackground();
-            userBackground.setUser(userRepository.get(request.getUserId()));
-            userBackground.setBackground(backgroundRepository.get(request.getBackgroundId()));
 
-            userBackgroundRepository.add(userBackground);
-        }
+        UserBackground userBackground = new UserBackground();
+        userBackground.setUser(userRepository.get(request.getUserId()));
+        userBackground.setBackground(backgroundRepository.get(request.getBackgroundId()));
+
+        userBackgroundRepository.add(userBackground);
+
     }
 }
