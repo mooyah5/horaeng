@@ -26,7 +26,7 @@ pipeline {
         }
         stage("run"){
             steps {
-                sh 'docker run -d -p 443:443 -v /home/ubuntu/logs:/app/gateway/logs TZ=Asia/Seoul --network msa --name gateway gateway'
+                sh 'docker run -d -p 443:443 -v /home/ubuntu/logs:/app/gateway/logs -e TZ=Asia/Seoul --network msa --name gateway gateway'
             }
         }
     }
