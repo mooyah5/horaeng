@@ -4,11 +4,10 @@ import TitleText from '../../components/common/TitleText';
 import {Image, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import Btn from '../../components/common/Btn_long';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {ParamListBase} from '@react-navigation/native';
+import {ParamListBase, RouteProp} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
 import {selectCharacter, selectName} from '../../store/character';
 import {charMission} from '../../script/charMission';
-import {selectUser} from '../../store/user';
 
 const styles = StyleSheet.create({
   container: {
@@ -67,11 +66,11 @@ const SubmitMission = ({navigation, route}: Props) => {
   const name = useSelector(selectName);
   const [success, setSuccess] = useState('');
   // const [point, setPoint] = useState(route.params.point;
-  const point = route.params.point;
+  const point = route?.params?.point;
 
   useEffect(() => {
-    console.log(route.params.type);
-    if (route.params.type === 'main') {
+    console.log(route?.params?.type);
+    if (route?.params?.type === 'main') {
       setSuccess(days + '일차 미션을 해결했네!');
     } else {
       setSuccess('공통미션을 마쳤네!');

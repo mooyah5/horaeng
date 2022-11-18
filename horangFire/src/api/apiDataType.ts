@@ -20,7 +20,7 @@ export interface MissionInfo {
   userId: string | undefined;
   userCharacterId: number | undefined;
   charactersId: number | undefined;
-  characterMissionId: string;
+  characterMissionId: number;
   addPoint: number;
-  isMain: boolean;
+  isMain: 0 | 1;
 }

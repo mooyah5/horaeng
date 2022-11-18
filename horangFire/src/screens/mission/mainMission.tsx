@@ -102,7 +102,7 @@ const MainMission = ({navigation}: Props) => {
         charactersId: charInfo?.character_id, // 동물 타입
         characterMissionId: mainId, // 수정 예정
         addPoint: point, // 포인트
-        isMain: true,
+        isMain: 1,
       });
       dispatch(reset());
       navigation.navigate('SubmitMission', {

@@ -14,11 +14,12 @@ import {color, font} from '../styles/colorAndFontTheme';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {ParamListBase} from '@react-navigation/native';
 import {scriptMain} from '../script/scriptMain';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {selectBackgroundNumber} from '../store/background';
-import {selectCharacter} from '../store/character';
+import {selectCharacter, setMyCharacter} from '../store/character';
 import imagesPath from '../assets/image/constants/imagesPath';
 import {selectUser} from '../store/user';
+import api from '../api/api_controller';
 
 const styles = StyleSheet.create({
   backgroundImage: {
@@ -206,6 +207,7 @@ interface Props {
 }
 
 const Home = ({navigation}: Props) => {
+  const dispatch = useDispatch();
   const [scriptNum, setScriptNum] = useState<number>(1);
   const backgroundNumber = useSelector(selectBackgroundNumber);
   const character = useSelector(selectCharacter);
@@ -224,7 +226,6 @@ const Home = ({navigation}: Props) => {
 
   useEffect(() => {
     const backAction = () => {
-      console.log('눌렀다!');
       Alert.alert('성냥팔이 호랭이', '앱을 종료하시겠습니까?', [
         {
           text: '취소',
@@ -340,8 +341,23 @@ const Home = ({navigation}: Props) => {
 
   const [showOption, setShowOption] = useState(false);
 
-  const how = useSelector(selectUser).point;
-  console.log(how);
+  const handleDiariesButton = () => {
+    navigation.navigate('ListOfDiaries', {
+      characterId: character?.userCharacter?.id,
+    });
+  };
+
+  useEffect(() => {
+    const getNowUserCharacter = async (id: string) => {
+      const response = await api.character.getNowUserCharacter(id);
+
+      if (response.data.userCharacter) {
+        dispatch(setMyCharacter({character: response.data}));
+      }
+    };
+
+    getNowUserCharacter(nowUser.id);
+  }, []);
 
   return (
     <ImageBackground
@@ -479,7 +495,7 @@ const Home = ({navigation}: Props) => {
             </TouchableOpacity>
             <TouchableOpacity
               // diary icon
-              onPress={() => navigation.navigate('ListOfDiaries')}
+              onPress={handleDiariesButton}
               style={styles.buttonTouchable}>
               <Image
                 style={styles.buttons}

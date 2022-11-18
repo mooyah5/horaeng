@@ -3,8 +3,8 @@ import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import Btn from '../common/Btn_long';
 import {PermissionsAndroid} from 'react-native';
 import {useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {reset, selectFile, setFile} from '../../store/mission';
+import {useDispatch} from 'react-redux';
+import {setFile} from '../../store/mission';
 
 const styles = StyleSheet.create({
   body: {

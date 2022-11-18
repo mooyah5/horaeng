@@ -6,7 +6,6 @@ import Btn from '../../components/common/Btn_short';
 import api from '../../api/api_controller';
 import {ParamListBase} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {useRoute} from '@react-navigation/native';
 
 const styles = StyleSheet.create({
   text: {

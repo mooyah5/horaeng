@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   },
 });
 
-interface Community {
+export interface Community {
   id: number;
   charactersId: number;
   userId: string;
@@ -39,7 +39,7 @@ interface Community {
   createDate: number;
 }
 
-interface Notice {
+export interface Notice {
   id: number;
   userId: string;
   title: string;

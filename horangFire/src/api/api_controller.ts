@@ -101,7 +101,6 @@ const api = {
       return response;
     },
     getCharacterDialog: async (id: number) => {
-      console.log(id);
       const response = await axios({
         url: urls.character.getCharacterDialog(id),
         headers: {
@@ -126,7 +125,6 @@ const api = {
       return response;
     },
     addPoint: async (pointInfo: Point) => {
-      console.log(pointInfo);
       const res = await axios({
         url: urls.user.addPoint(),
         headers: {
@@ -196,7 +194,6 @@ const api = {
 
   notice: {
     getNoticeAll: async () => {
-      console.log('TOKEN!!! - ', await getDataInLocalStorage('token'));
       const response = await axios({
         url: urls.notice.getNoticeAll(),
         method: 'get',

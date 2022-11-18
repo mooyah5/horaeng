@@ -225,7 +225,7 @@ const Community = ({navigation}: Props) => {
 
   // 전체 커뮤니티 불러오기
   const getCommunityAll = async () => {
-    if (allDataLength == 12) {
+    if (allDataLength === 12) {
       setLoading(true);
       try {
         const response = await api.community.getCommunityAll(lastId);

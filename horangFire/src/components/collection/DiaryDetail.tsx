@@ -33,12 +33,6 @@ const styles = StyleSheet.create({
   },
   textBox: {
     width: '100%',
-    // paddingHorizontal: 40,
-    // marginVertical: 40,
-  },
-  box: {
-    alignItems: 'center',
-    width: '100%',
     paddingHorizontal: 40,
     marginVertical: 40,
   },
@@ -77,7 +71,7 @@ const week = ['일', '월', '화', '수', '목', '금', '토'];
 
 const DiaryDetail = ({navigation, route}: Props) => {
   const {params} = route;
-  const diary: Community = params.diary;
+  const diary: Community = params.info;
   const day: number = params.day;
 
   const date = new Date(diary.createDate);

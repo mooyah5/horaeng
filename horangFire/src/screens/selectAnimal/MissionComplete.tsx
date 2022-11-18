@@ -103,6 +103,7 @@ const MissionComplete = ({navigation, route}: Props) => {
       useNativeDriver: false,
     }).start();
   }, []);
+
   useEffect(() => {
     Animated.timing(value2, {
       toValue: 1,
@@ -111,6 +112,7 @@ const MissionComplete = ({navigation, route}: Props) => {
       useNativeDriver: false,
     }).start();
   }, []);
+
   useEffect(() => {
     Animated.timing(value3, {
       toValue: 1,
@@ -119,6 +121,7 @@ const MissionComplete = ({navigation, route}: Props) => {
       useNativeDriver: false,
     }).start();
   }, []);
+
   useEffect(() => {
     Animated.timing(value4, {
       toValue: 1,

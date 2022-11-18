@@ -69,15 +69,6 @@ interface Props {
   navigation: StackNavigationProp<ParamListBase, 'ListOfDiaries'>;
   route: any;
 }
-interface ContentType {
-  charactersId: number;
-  content: string;
-  createDate: string;
-  id: number;
-  imgUrl: string;
-  userCharacterId: number;
-  userId: string;
-}
 
 const ListOfDiaries = ({navigation, route}: Props) => {
   const [diaries, setDiaries] = useState<Community[]>([]);

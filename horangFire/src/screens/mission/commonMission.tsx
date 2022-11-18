@@ -75,7 +75,7 @@ const CommonMission = ({navigation, route}: Props) => {
   const dispatch = useDispatch();
   const name = useSelector(selectName);
   const charInfo = useSelector(selectCharacter)?.userCharacter;
-  const imgUrl = useSelector(selectFile); // file img
+  // const imgUrl = useSelector(selectFile); // file img
   const [clickHelp, setClickHelp] = useState(false);
   const image = useSelector(selectFile); // 이미지 정보
   const [diary, setDiary] = useState('');
@@ -91,9 +91,9 @@ const CommonMission = ({navigation, route}: Props) => {
         userId: charInfo?.user_id,
         userCharacterId: charInfo?.id,
         charactersId: charInfo?.character_id,
-        characterMissionId: route.params.id,
+        characterMissionId: route.params?.id,
         addPoint: point,
-        isMain: false,
+        isMain: 0,
       });
       dispatch(reset());
       navigation.navigate('SubmitMission', {

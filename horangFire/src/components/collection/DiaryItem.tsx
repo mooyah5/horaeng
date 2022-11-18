@@ -30,7 +30,7 @@ const DiaryItem = ({day, value, navigation}: Props) => {
     navigation.goBack();
     navigation.navigate('DiaryDetail', {day: day + 1, info: value});
   };
-  console.log(value);
+
   return (
     <TouchableOpacity style={styles.diaryItem} onPress={goDiaryDetail}>
       <Image

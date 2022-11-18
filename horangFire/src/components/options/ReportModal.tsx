@@ -1,6 +1,6 @@
 import {ParamListBase} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, View, Text, Image, Pressable} from 'react-native';
 import {font, color} from '../../styles/colorAndFontTheme';
 import Btn from '../common/Btn_short';

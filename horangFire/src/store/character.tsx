@@ -20,7 +20,8 @@ interface charType {
 }
 
 export interface CharacterResponseType {
-  today?: boolean;
+  todayMain: boolean;
+  todayCommon: boolean;
   count?: number;
   message: string;
   userCharacter: charType | null;
@@ -37,7 +38,7 @@ export const charSlice = createSlice({
     },
     setTodaysMission: (state: CharacterResponseType | null, action) => {
       if (state) {
-        state.today = action.payload.isDone;
+        state.todayMain = action.payload.isDone;
       }
     },
   },
@@ -45,7 +46,10 @@ export const charSlice = createSlice({
 
 export const selectTodaysMission = (state: {
   character: CharacterResponseType;
-}) => state.character.today;
+}) => state.character.todayMain;
+export const selectTodaysCommonMission = (state: {
+  character: CharacterResponseType;
+}) => state.character.todayCommon;
 export const selectCharMission = (state: {
   character: CharacterResponseType;
 }) => {

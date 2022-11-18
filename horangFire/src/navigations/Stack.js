@@ -23,7 +23,7 @@ import CameraModal from '../components/mission/CameraModal';
 // youtube modal
 import VideoModal from '../components/options/VideoWatch';
 
-import Notice from '../screens/community/Notice';
+// import Notice from '../screens/community/Notice';
 import NoticeDetail from '../screens/community/NoticeDetail';
 import Community from '../screens/community/index';
 import CommunityDetail from '../screens/community/CommunityDetail';
