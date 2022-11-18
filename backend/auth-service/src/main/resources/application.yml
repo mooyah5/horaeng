@@ -1,8 +1,16 @@
+server:
+  port: 8001
+
 spring:
-  config:
-    import: "optional:configserver:http://k7c108.p.ssafy.io:8888"
-  cloud:
-    config:
-      name: auth-service
-      profile: prod
-      label: main
+  profiles:
+    active: local
+  application:
+    name: AUTH-SERVICE
+logging:
+  config: classpath:logback-${spring.profiles.active}.xml
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://eureka:8760/eureka

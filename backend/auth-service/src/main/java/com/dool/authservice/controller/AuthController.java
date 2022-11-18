@@ -1,27 +1,44 @@
 package com.dool.authservice.controller;
 
+import com.dool.authservice.common.BaseResponse;
+import com.dool.authservice.request.LoginRequest;
+import com.dool.authservice.service.AuthService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
-@RequestMapping("/auth-service")
+@RequestMapping("/auth-service/auth")
+@CrossOrigin("*")
+@Slf4j
 public class AuthController {
 
-    @PostMapping("/auth/login")
-    public ResponseEntity login(){
-        return null;
+    AuthService authService;
+
+    @Autowired
+    public AuthController(AuthService authService) {
+        this.authService = authService;
     }
 
-    @PostMapping("/auth/kakao")
-    public ResponseEntity kakaoLogin(){
-        return null;
+    @PostMapping("/login")
+    public ResponseEntity<BaseResponse> login(@RequestBody LoginRequest request, HttpServletResponse httpServletResponse){
+        log.info("login 요청 : " + request.getId() + " " + request.getRole());
+        authService.userLogin(request, httpServletResponse);
+        return ResponseEntity.status(HttpStatus.OK).body(BaseResponse.of(HttpStatus.OK, "로그인 성공"));
     }
 
-    @GetMapping("/auth/refresh")
-    public ResponseEntity refresh(){
-        return null;
+
+    @PostMapping("/token")
+    public ResponseEntity<?> reIssueToken(@CookieValue("refresh-token")Cookie cookie, HttpServletResponse httpServletResponse){
+        if(authService.reIssueToken(cookie.getValue(), httpServletResponse)){
+            return ResponseEntity.status(HttpStatus.OK).body(BaseResponse.of(HttpStatus.OK, "재발급 성공"));
+        };
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(BaseResponse.of(HttpStatus.UNAUTHORIZED, "리프레쉬 토큰도 만료"));
     }
+
 }
