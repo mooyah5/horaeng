@@ -1,43 +1,8 @@
-#server:
-#  port: 8030
-
 spring:
-  application:
-    name: character-service
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://k7c108.p.ssafy.io:9030/character?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8
-    username: root
-    password: dool
-  jpa:
-    database: mysql
-    show-sql: true
-    hibernate:
-      ddl-auto: update
-      format_sql: true
-    generate-ddl: true
   config:
     import: "optional:configserver:http://k7c108.p.ssafy.io:8888"
   cloud:
     config:
       name: character-service
-      profile: production
+      profile: prod
       label: main
-  rabbitmq:
-    host: 43.201.97.204
-    port: 5672
-    username: guest
-    password: guest
-
-eureka:
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      defaultZone: http://eureka:8760/eureka
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: busrefresh
