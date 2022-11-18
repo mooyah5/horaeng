@@ -26,7 +26,7 @@ pipeline {
         }
         stage("run"){
             steps {
-                sh 'docker run -d -p 8010:8010 --network msa --name user-service user-service'
+                sh 'docker run -d -p 8010:8010 --network msa -e TZ=Asia/Seoul --name user-service user-service'
             }
         }
     }
