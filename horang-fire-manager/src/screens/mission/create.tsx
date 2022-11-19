@@ -53,23 +53,29 @@ function MissionCreate() {
     //   img: imgFile,
     // });
     setPreImg(URL.createObjectURL(imgFile));
-    console.log(URL.createObjectURL(imgFile));
-    console.log(imgFile);
+    // console.log(URL.createObjectURL(imgFile));
+    // console.log(imgFile);
 
     const params = {
       ACL: 'public-read',
       Body: imgFile,
       Bucket: S3_BUCKET,
       Key: imgFile.name,
+      ContentType: imgFile.type,
     };
 
     myBucket
       .putObject(params)
-      .on('httpUploadProgress', evt => {
+      .on('httpUploadProgress', (evt, response) => {
         setProgress(Math.round((evt.loaded / evt.total) * 100));
+        console.log(response);
       })
-      .send(err => {
-        if (err) console.log(err);
+      .send(function (err, data) {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log('data', data);
+        }
       });
   };
 
