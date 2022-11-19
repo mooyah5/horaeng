@@ -72,7 +72,7 @@ const Login = ({navigation}: Props) => {
 
     if (token && kakaoId) {
       try {
-        const response = await api.user.getUserInfo(kakaoId);
+        const response = await api.user.getUserInfo('2510350420');
         dispatch(setUserObject({user: response.data}));
       } catch {
         await ownLogin(kakaoId);
@@ -106,7 +106,7 @@ const Login = ({navigation}: Props) => {
   }, [user]);
 
   return (
-    <ImageBackground source={require('../../assets/image/login_screen.png')}>
+    <ImageBackground source={require('../../assets/image/login_screen.jpeg')}>
       <View style={styles.body}>
         <View style={styles.section_1} />
         <View style={styles.section_4}>

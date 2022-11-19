@@ -177,8 +177,8 @@ const styles = StyleSheet.create({
 
 export const BACKGROUND = [
   require('../assets/image/background/snow_background.png'),
-  require('../assets/image/background/forest_background.png'),
-  require('../assets/image/background/london_background.png'),
+  require('../assets/image/background/forest_background.jpeg'),
+  require('../assets/image/background/london_background.jpeg'),
   // good
   require('../assets/image/background/greenForest_background.jpeg'),
   require('../assets/image/background/ocean_background.jpeg'),
@@ -188,21 +188,21 @@ export const BACKGROUND = [
 ];
 
 export const CHARACTER = [
-  require('../assets/image/character/HomeCharacter/tiger_level1_left.gif'),
-  require('../assets/image/character/HomeCharacter/tiger_level2_left.gif'),
-  require('../assets/image/character/HomeCharacter/tiger_level3_left.gif'),
-  require('../assets/image/character/HomeCharacter/bird_level1_left.gif'),
-  require('../assets/image/character/HomeCharacter/bird_level2_left.gif'),
-  require('../assets/image/character/HomeCharacter/bird_level3_left.gif'),
-  require('../assets/image/character/HomeCharacter/elephant_level1_left.gif'),
-  require('../assets/image/character/HomeCharacter/elephant_level2_left.gif'),
-  require('../assets/image/character/HomeCharacter/elephant_level3_left.gif'),
-  require('../assets/image/character/HomeCharacter/turtle_level1_left.gif'),
-  require('../assets/image/character/HomeCharacter/turtle_level1_left.gif'),
-  require('../assets/image/character/HomeCharacter/turtle_level1_left.gif'),
-  require('../assets/image/character/HomeCharacter/penguin_level1_left.gif'),
-  require('../assets/image/character/HomeCharacter/penguin_level2_left.gif'),
-  require('../assets/image/character/HomeCharacter/penguin_level3_left.gif'),
+  require('../assets/image/animals/left/tiger_level1_left.gif'),
+  require('../assets/image/animals/left/tiger_level2_left.gif'),
+  require('../assets/image/animals/left/tiger_level3_left.gif'),
+  require('../assets/image/animals/left/bird_level1_left.gif'),
+  require('../assets/image/animals/left/bird_level2_left.gif'),
+  require('../assets/image/animals/left/bird_level3_left.gif'),
+  require('../assets/image/animals/left/elephant_level1_left.gif'),
+  require('../assets/image/animals/left/elephant_level2_left.gif'),
+  require('../assets/image/animals/left/elephant_level3_left.gif'),
+  require('../assets/image/animals/left/turtle_level1_left.gif'),
+  require('../assets/image/animals/left/turtle_level1_left.gif'),
+  require('../assets/image/animals/left/turtle_level1_left.gif'),
+  require('../assets/image/animals/left/penguin_level1_left.gif'),
+  require('../assets/image/animals/left/penguin_level2_left.gif'),
+  require('../assets/image/animals/left/penguin_level3_left.gif'),
 ];
 
 interface Props {
