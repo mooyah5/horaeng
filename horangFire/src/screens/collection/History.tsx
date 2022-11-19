@@ -191,7 +191,7 @@ const History = ({navigation}: Props) => {
 
   return (
     <ImageBackground
-      source={require('../../assets/image/background/collection_background.png')}
+      source={require('../../assets/image/background/collection_background.jpeg')}
       style={styles.body}>
       <SafeAreaView style={styles.body}>
         <View style={styles.section1}>
