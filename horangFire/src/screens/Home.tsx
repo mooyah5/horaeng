@@ -367,19 +367,19 @@ const Home = ({navigation}: Props) => {
         <View style={styles.section0}>
           <View style={styles.section0BtnContainer}>
             <TouchableOpacity
-              onPress={() => navigation.navigate('VideoModal')}
-              style={styles.buttonTouchable}>
-              <Image
-                style={styles.buttons}
-                source={require('../assets/image/icon/video.png')}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
               onPress={() => navigation.navigate('Option')}
               style={styles.buttonTouchable}>
               <Image
                 style={styles.buttons}
                 source={require('../assets/image/setting.png')}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('VideoModal')}
+              style={styles.buttonTouchable}>
+              <Image
+                style={styles.buttons}
+                source={require('../assets/image/icon/video.png')}
               />
             </TouchableOpacity>
           </View>
