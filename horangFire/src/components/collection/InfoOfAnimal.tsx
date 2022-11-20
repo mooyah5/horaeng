@@ -33,18 +33,18 @@ const styles = StyleSheet.create({
   textBox: {
     width: '100%',
     paddingHorizontal: 40,
+    marginVertical: 40,
     overflow: 'scroll',
   },
   title: {
     fontFamily: font.beeBold,
     fontSize: 26,
-    paddingTop: 40,
     alignSelf: 'center',
   },
   text: {fontFamily: font.beeBold, fontSize: 16, paddingHorizontal: 20},
   image: {
     width: '100%',
-    height: 200,
+    height: 150,
     resizeMode: 'contain',
     marginVertical: 20,
   },

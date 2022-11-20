@@ -20,7 +20,7 @@ import {
   selectTodaysMission,
 } from '../../store/character';
 import {charMission} from '../../script/charMission';
-import CHARCTER, {CHARACTER} from '../Home';
+import {CHARACTER} from '../Home';
 
 const styles = StyleSheet.create({
   container: {
@@ -172,7 +172,7 @@ const MissionHome = ({navigation}: Props) => {
   }, [specieName, characterLv, characterNum]);
 
   const canDoMain = () => {
-    if (isMainDone === false) {
+    if (isMainDone !== false) {
       navigation.navigate('MainMission');
     } else {
       setCharSays('이미 메인 미션을 완료했어 !');

@@ -78,11 +78,14 @@ const VideoModal = ({navigation}: Props) => {
       const user_res = await api.user.getUserInfo(user.id);
       dispatch(setUserPoint({point: user_res.data.point}));
       setClick(true);
-
       Linking.openURL(videoList[randomNum]);
     } catch (err) {
       Alert.alert('적립 실패ㅜㅠ');
     }
+  };
+  const close = () => {
+    setClick(false);
+    navigation.goBack();
   };
 
   useEffect(() => {
@@ -104,7 +107,7 @@ const VideoModal = ({navigation}: Props) => {
             <Btn txt="영상 보기" clickEvent={goTube} />
           </View>
           <View style={styles.btn}>
-            <Btn txt="창 닫기" clickEvent={navigation.goBack} />
+            <Btn txt="창 닫기" clickEvent={close} />
           </View>
         </View>
       </View>

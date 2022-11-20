@@ -6,6 +6,7 @@ import api from '../../api/api_controller';
 import {ParamListBase} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import NoticeItem from './NoticeItem';
+import Community from '../../screens/community';
 
 interface Props {
   navigation: StackNavigationProp<ParamListBase, 'Community'>;
@@ -28,16 +29,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
-
-export interface Community {
-  id: number;
-  charactersId: number;
-  userId: string;
-  userCharacterId: number;
-  content: string;
-  imgUrl: string;
-  createDate: number;
-}
 
 export interface Notice {
   id: number;
@@ -63,10 +54,6 @@ const CommunityContent = ({
       console.error(err);
     }
   };
-
-  useEffect(() => {
-    getNoticeAll();
-  }, []);
 
   useEffect(() => {
     getNoticeAll();

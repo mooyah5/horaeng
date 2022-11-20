@@ -16,7 +16,7 @@ import {ParamListBase} from '@react-navigation/native';
 import {scriptMain} from '../script/scriptMain';
 import {useDispatch, useSelector} from 'react-redux';
 import {selectBackgroundNumber} from '../store/background';
-import {selectCharacter, setMyCharacter} from '../store/character';
+import {selectCharacter} from '../store/character';
 import imagesPath from '../assets/image/constants/imagesPath';
 import {selectUser} from '../store/user';
 import {getDataInLocalStorage} from '../store/AsyncService';
@@ -198,8 +198,8 @@ export const CHARACTER = [
   require('../assets/image/animals/left/elephant_level2_left.gif'),
   require('../assets/image/animals/left/elephant_level3_left.gif'),
   require('../assets/image/animals/left/turtle_level1_left.gif'),
-  require('../assets/image/animals/left/turtle_level1_left.gif'),
-  require('../assets/image/animals/left/turtle_level1_left.gif'),
+  require('../assets/image/animals/left/turtle_level2_left.gif'),
+  require('../assets/image/animals/left/turtle_level3_left.gif'),
   require('../assets/image/animals/left/penguin_level1_left.gif'),
   require('../assets/image/animals/left/penguin_level2_left.gif'),
   require('../assets/image/animals/left/penguin_level3_left.gif'),
@@ -400,18 +400,6 @@ const Home = ({navigation}: Props) => {
       characterId: character?.userCharacter?.id,
     });
   };
-
-  useEffect(() => {
-    const getNowUserCharacter = async (id: string) => {
-      const response = await api.character.getNowUserCharacter(id);
-
-      if (response.data.userCharacter) {
-        dispatch(setMyCharacter({character: response.data}));
-      }
-    };
-
-    getNowUserCharacter(nowUser.id);
-  }, []);
 
   return (
     <ImageBackground

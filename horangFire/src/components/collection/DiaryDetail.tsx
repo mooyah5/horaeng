@@ -1,5 +1,6 @@
 import {ParamListBase} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
+import React from 'react';
 import {
   Image,
   SafeAreaView,
@@ -7,6 +8,7 @@ import {
   StyleSheet,
   Text,
   View,
+  Pressable,
 } from 'react-native';
 import {font} from '../../styles/colorAndFontTheme';
 import Btn from '../common/Btn_short';
@@ -21,7 +23,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   section1: {flex: 5},
-  section2: {flex: 16, paddingHorizontal: 24},
+  section2: {flex: 15, paddingHorizontal: 24},
   section3: {flex: 5, flexDirection: 'row', paddingHorizontal: 24},
 
   infoBox: {
@@ -36,18 +38,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 40,
     marginVertical: 40,
   },
-  title: {fontFamily: font.beeBold, fontSize: 26, alignSelf: 'center'},
+  title: {fontFamily: font.beeMid, fontSize: 26, alignSelf: 'center'},
   day: {
-    fontFamily: font.beeBold,
+    fontFamily: font.beeMid,
     fontSize: 16,
     alignSelf: 'center',
     marginBottom: 20,
   },
-  text: {fontFamily: font.beeBold, fontSize: 16, paddingHorizontal: 20},
+  text: {fontFamily: font.beeMid, fontSize: 16, paddingHorizontal: 20},
   imgBox: {
     overflow: 'hidden',
-    width: '90%',
-    height: '45%',
+    width: '100%',
+    height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 20,
@@ -58,8 +60,21 @@ const styles = StyleSheet.create({
     height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
+    resizeMode: 'contain',
   },
-  emptyArea: {flex: 2},
+
+  x_button: {
+    position: 'absolute',
+    top: 10,
+    right: 40,
+    width: 30,
+    height: 30,
+  },
+  imageBtn: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'contain',
+  },
 });
 
 interface Props {
@@ -91,21 +106,31 @@ const DiaryDetail = ({navigation, route}: Props) => {
         <ScrollView style={styles.textBox}>
           <Text style={styles.title}>{day}일차</Text>
           <Text style={styles.day}>
-            {date.getFullYear()}.{date.getMonth() + 1}.{date.getDate()} (
-            {week[date.getDay()]})
+            {date.getFullYear()}.{date.getMonth() + 1}.{date.getDate()}.
+            {week[date.getDay()]}요일
           </Text>
           {/* TODO S3 완료된 이후에 이미지 경로 추가 */}
-          {diary.imgUrl !== 'null' && (
-            <Image source={{uri: diary.imgUrl}} style={styles.image} />
-          )}
+          <View style={styles.imgBox}>
+            {diary.imgUrl !== 'null' && (
+              <Image source={{uri: diary.imgUrl}} style={styles.image} />
+            )}
+          </View>
 
           <Text style={styles.text}>{diary.content}</Text>
         </ScrollView>
+        <Pressable style={styles.x_button} onPress={onBackButton}>
+          <Image
+            source={require('../../assets/image/xButton.png')}
+            style={styles.imageBtn}
+          />
+        </Pressable>
       </View>
-      <View style={styles.section3}>
+      <View style={styles.section3} />
+
+      {/* <View style={styles.section3}>
         <View style={styles.emptyArea} />
         <Btn txt="이전으로" clickEvent={onBackButton} />
-      </View>
+      </View> */}
     </SafeAreaView>
   );
 };

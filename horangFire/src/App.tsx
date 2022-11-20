@@ -9,12 +9,12 @@ import {Provider} from 'react-redux';
 import Sound from 'react-native-sound';
 import {getDataInLocalStorage} from './store/AsyncService';
 
-Sound.setCategory('SoloAmbient');
+Sound.setCategory('Playback');
 
 export const sound = new Sound(
   'example_sound.mp3',
   Sound.MAIN_BUNDLE,
-  error => {
+  async error => {
     if (error) {
       console.log('로드 실패', error);
       return;
@@ -29,6 +29,10 @@ export const sound = new Sound(
     });
 
     sound.setNumberOfLoops(-1); // 무한 재생
+    const volume = await getDataInLocalStorage('bgmVolume');
+    if (volume) {
+      sound.setVolume(volume);
+    }
   },
 );
 

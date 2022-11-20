@@ -10,7 +10,7 @@ import {
   Dimensions,
 } from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {font} from '../../styles/colorAndFontTheme';
+import {font, color} from '../../styles/colorAndFontTheme';
 import Character from './CharacterClass';
 
 const {width} = Dimensions.get('window');
@@ -58,8 +58,12 @@ const styles = StyleSheet.create({
     height: '100%',
   },
 
-  pop_up_font: {fontFamily: font.beeBold, fontSize: 18},
-  pop_up_subfont: {fontFamily: font.beeBold, fontSize: 12},
+  pop_up_font: {fontFamily: font.beeMid, fontSize: 18, color: color.BLACK_3A},
+  pop_up_subfont: {
+    fontFamily: font.beeMid,
+    fontSize: 12,
+    color: color.BLACK_3A,
+  },
 
   pop_up_btn: {
     position: 'absolute',

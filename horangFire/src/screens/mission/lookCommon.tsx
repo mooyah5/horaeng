@@ -94,13 +94,17 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   move: {
-    backgroundColor: color.BROWN_47,
     color: color.WHITE,
     fontFamily: font.preBold,
-    fontSize: 14,
+    fontSize: 12,
     paddingHorizontal: 13,
     paddingVertical: 8,
     borderRadius: 20,
+  },
+  moveBox: {
+    backgroundColor: color.BROWN_47,
+    borderRadius: 20,
+    marginLeft: 8,
   },
   back: {
     width: '100%',
@@ -182,7 +186,9 @@ const LookCommon = ({navigation}: Props) => {
                   <Text style={styles.list}>
                     {idx + 1}. {commonInfo[idx].mission.title}
                   </Text>
-                  <Text style={styles.move}>Go</Text>
+                  <View style={styles.moveBox}>
+                    <Text style={styles.move}>Go</Text>
+                  </View>
                 </TouchableOpacity>
               ))}
           </View>

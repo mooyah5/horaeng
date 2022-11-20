@@ -79,7 +79,12 @@ const styles = StyleSheet.create({
   button_image: {resizeMode: 'contain', marginLeft: 10, height: 24},
 
   // 타이틀 영역
-  title: {fontFamily: font.beeBold, fontSize: 30, textAlign: 'center'},
+  title: {
+    fontFamily: font.beeMid,
+    fontSize: 30,
+    textAlign: 'center',
+    color: color.BLACK_3A,
+  },
 
   // 동물 영역
   animalBox: {
@@ -93,9 +98,9 @@ const styles = StyleSheet.create({
   selected: {
     ...Platform.select({
       ios: {
-        shadowColor: 'red',
+        shadowColor: 'white',
         shadowOpacity: 1,
-        shadowOffset: {width: 1, height: 1},
+        shadowOffset: {width: 0, height: 0},
       },
       android: {
         // TODO 안드로이드 그림자 추가 방법 찾아보기
@@ -211,7 +216,7 @@ const History = ({navigation}: Props) => {
         <View style={styles.section2}>
           <Text style={styles.title}>
             {myAnimalList.length * 3 + (character?.count ? character.count : 0)}
-            일간 지구를 지켰어!
+            일간 지구를 지켰어 !
           </Text>
         </View>
 
