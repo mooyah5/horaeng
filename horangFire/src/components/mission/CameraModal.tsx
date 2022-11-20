@@ -80,13 +80,13 @@ const CameraModal = ({navigation}: any) => {
     launchImageLibrary({}, res => {
       // 취소 버튼을 누르지 않으면
       if (!res.didCancel && res && res.assets) {
-        console.log(res + '======');
         console.log(typeof res.assets[0]);
         const mission = {
           file: res.assets[0].uri,
           type: res.assets[0].type,
-          name: res.assets[0].fileName,
+          name: res.assets[0].fileName?.replace(' ', ''),
         };
+
         dispatch(setFile(mission));
         navigation.goBack();
       }
@@ -99,7 +99,7 @@ const CameraModal = ({navigation}: any) => {
         const mission = {
           file: res.assets[0].uri,
           type: res.assets[0].type,
-          name: res.assets[0].fileName,
+          name: res.assets[0].fileName?.replace(' ', ''),
         };
         dispatch(setFile(mission));
         // navigation.goBack();

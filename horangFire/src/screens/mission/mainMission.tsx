@@ -22,6 +22,7 @@ import {selectCharacter, selectName} from '../../store/character';
 import api from '../../api/api_controller';
 import {selectFile} from '../../store/mission';
 import {charMission} from '../../script/charMission';
+
 // import process from 'process';
 const styles = StyleSheet.create({
   container: {
@@ -88,8 +89,17 @@ const MainMission = ({navigation}: Props) => {
   const image = useSelector(selectFile); // 이미지 정보
   const [loca, setLoca] = useState('');
 
-  // s3 server 연결
+  const handleSubmit = () => {
+    if (image.file) {
+      checkImage();
+    } else if (diary) {
+      submit();
+    } else {
+      Alert.alert('성냥팔이 호랭이', '글을 작성해주세요!', [{text: '닫기'}]);
+    }
+  };
 
+  // s3 server 연결
   const submit = async () => {
     try {
       if (loca !== '') {
@@ -111,6 +121,7 @@ const MainMission = ({navigation}: Props) => {
         type: 'main',
         point: point,
       });
+      console.log(loca);
     } catch (err) {
       Alert.alert('작성 실패ㅜㅠ');
     }
@@ -119,6 +130,7 @@ const MainMission = ({navigation}: Props) => {
   const checkImage = () => {
     if (diary !== '') {
       // s3 서버 연결
+      console.log('들어옴ㄴ');
       RNS3.put(
         {
           uri: image.file,
@@ -134,16 +146,22 @@ const MainMission = ({navigation}: Props) => {
         },
       ).then((res: any) => {
         if (res.status === 201) {
+          console.log('업로드 가눈ㅇㅇㅇㅇㅇㅇㅇ');
           setLoca(res.body.postResponse.location);
         } else {
           Alert.alert('업로드 실패');
         }
       });
-      submit();
     } else {
       Alert.alert('성냥팔이 호랭이', '글을 작성해주세요!', [{text: '닫기'}]);
     }
   };
+
+  useEffect(() => {
+    if (diary) {
+      submit();
+    }
+  }, [loca]);
 
   const goBack = () => {
     dispatch(reset());
@@ -194,7 +212,7 @@ const MainMission = ({navigation}: Props) => {
 
         <View style={styles.btns}>
           <Btn txt="이전으로" clickEvent={goBack} />
-          <Btn txt="제출하기" clickEvent={checkImage} />
+          <Btn txt="제출하기" clickEvent={handleSubmit} />
         </View>
       </View>
     </SafeAreaView>

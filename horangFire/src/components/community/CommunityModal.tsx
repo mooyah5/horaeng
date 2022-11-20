@@ -1,6 +1,6 @@
 import {ParamListBase} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {
   Image,
   SafeAreaView,
@@ -9,10 +9,9 @@ import {
   Text,
   View,
   TouchableOpacity,
+  Pressable,
 } from 'react-native';
-import {font} from '../../styles/colorAndFontTheme';
-import Btn from '../common/Btn_short';
-import api from '../../api/api_controller';
+import {font, color} from '../../styles/colorAndFontTheme';
 
 export interface valueType {
   id: number;
@@ -44,38 +43,49 @@ const styles = StyleSheet.create({
     marginVertical: 40,
   },
   subTitle: {
+    fontFamily: font.beeMid,
+    fontSize: 20,
+    alignSelf: 'center',
+    textAlign: 'center',
+    color: color.BLACK_3A,
+  },
+  title: {
     fontFamily: font.beeBold,
     fontSize: 24,
     alignSelf: 'center',
     textAlign: 'center',
-  },
-  title: {
-    fontFamily: font.beeBold,
-    fontSize: 30,
-    alignSelf: 'center',
-    textAlign: 'center',
+    color: color.BLACK_3A,
   },
   day: {
-    fontFamily: font.beeBold,
+    fontFamily: font.beeMid,
     fontSize: 24,
     paddingTop: 5,
     alignSelf: 'center',
     textAlign: 'center',
   },
   text: {
-    fontFamily: font.beeBold,
-    fontSize: 20,
+    fontFamily: font.beeMid,
+    fontSize: 18,
     paddingHorizontal: 20,
     marginBottom: 20,
+    color: color.BLACK_3A,
+  },
+  imgBox: {
+    // backgroundColor: color.BACK_SUB,
+    width: '100%',
+    height: '80%',
+    borderRadius: 40,
+    overflow: 'hidden',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 20,
   },
   image: {
     width: '100%',
-    height: 200,
-    // minHeight: 100,
-    // resizeMode: 'contain',
-    marginVertical: 20,
-    borderRadius: 20,
-    // paddingVertical: 20,
+    height: '100%',
+    alignItems: 'center',
+    resizeMode: 'cover',
+    justifyContent: 'center',
   },
   report: {
     width: 40,
@@ -83,21 +93,19 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   emptyArea: {flex: 2},
-  xButton: {
-    width: 50,
-    height: 50,
+  x_button: {
+    position: 'absolute',
+    top: 10,
+    right: 40,
+    width: 30,
+    height: 30,
+  },
+  imageBtn: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'contain',
   },
 });
-
-interface CommunityDetail {
-  id: number;
-  charactersId: number;
-  userId: string;
-  userCharacterId: number;
-  content: string;
-  imgUrl: string;
-  createDate: string;
-}
 
 interface Props {
   navigation: StackNavigationProp<ParamListBase, 'Community'>;
@@ -107,21 +115,7 @@ interface Props {
 
 const DiaryDetail = ({navigation, route}: Props) => {
   const {id} = route.params;
-
-  const [communityDetail, setCommunityDetail] = useState<CommunityDetail>([]);
-
-  const getCommunityDetail = async () => {
-    try {
-      const response = await api.community.getCommunityDetail(id);
-      setCommunityDetail(response.data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  useEffect(() => {
-    getCommunityDetail();
-  }, []);
+  const {item} = route.params;
 
   const onBackButton = () => {
     navigation.goBack();
@@ -135,6 +129,7 @@ const DiaryDetail = ({navigation, route}: Props) => {
     4: '바다 거북이',
     5: '펭귄',
   };
+
   return (
     <SafeAreaView style={styles.body}>
       <View style={styles.section1} />
@@ -143,24 +138,27 @@ const DiaryDetail = ({navigation, route}: Props) => {
           source={require('../../assets/image/longPostBox.png')}
           style={styles.infoBox}
         />
+        <Pressable style={styles.x_button} onPress={onBackButton}>
+          <Image
+            source={require('../../assets/image/xButton.png')}
+            style={styles.imageBtn}
+          />
+        </Pressable>
         <ScrollView style={styles.textBox}>
-          <Text style={styles.subTitle}>{communityDetail.userId} 님의</Text>
-          <Text style={styles.title}>{data[communityDetail.charactersId]}</Text>
-          {communityDetail.imgUrl ? (
+          <Text style={styles.subTitle}>{item.name} 님의</Text>
+          <Text style={styles.title}>{data[item.charactersId]}</Text>
+          {item.imgUrl ? (
             <Image
               source={{
-                uri: communityDetail.imgUrl,
+                uri: item.imgUrl,
               }}
               style={styles.image}
             />
           ) : (
-            <Image
-              source={require('../../assets/image/icon/commuX.png')}
-              style={styles.image}
-            />
+            <Text />
           )}
 
-          <Text style={styles.text}>{communityDetail.content}</Text>
+          <Text style={styles.text}>{item.content}</Text>
 
           <TouchableOpacity
             onPress={() => navigation.navigate('ReportModal', {id: id})}>
@@ -173,13 +171,6 @@ const DiaryDetail = ({navigation, route}: Props) => {
       </View>
       <View style={styles.section3}>
         <View style={styles.emptyArea} />
-        <TouchableOpacity onPress={onBackButton}>
-          <Image
-            style={styles.xButton}
-            source={require('../../assets/image/xButton.png')}
-          />
-        </TouchableOpacity>
-        {/* <Btn txt="이전으로" clickEvent={onBackButton} /> */}
       </View>
     </SafeAreaView>
   );

@@ -123,6 +123,7 @@ const CommonMission = ({navigation, route}: Props) => {
         },
       ).then((res: any) => {
         if (res.status === 201) {
+          console.log('업로드!!!!!');
           setLoca(res.body.postResponse.location);
         } else {
           Alert.alert('업로드 실패');

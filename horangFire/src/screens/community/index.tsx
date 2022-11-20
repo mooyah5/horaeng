@@ -25,8 +25,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   text: {
-    fontFamily: font.beeBold,
-    fontSize: 100,
+    fontFamily: font.beeMid,
+    fontSize: 80,
     color: color.BLACK_3A,
     textAlign: 'center',
   },
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     paddingHorizontal: 24,
-    paddingTop: 20,
+    paddingTop: 10,
     paddingBottom: 20,
   },
   box1: {
@@ -43,34 +43,24 @@ const styles = StyleSheet.create({
   box2: {
     flex: 4,
     zIndex: 1,
-    paddingTop: 60,
+    paddingTop: 30,
     paddingBottom: 80,
   },
   midTitle: {
-    fontFamily: font.beeBold,
+    fontFamily: font.beeMid,
     color: color.BLACK_3A,
-    fontSize: 50,
+    fontSize: 30,
     paddingBottom: 12,
-    paddingTop: 0,
     textAlign: 'center',
   },
   contents: {
     width: '100%',
     backgroundColor: 'blue',
   },
-
-  btns: {
-    position: 'absolute',
-    bottom: 24,
-    left: 24,
-    alignItems: 'flex-start',
-    zIndex: 2,
-  },
-
   // dropdown
   textContainer: {
     fontSize: 20,
-    fontFamily: font.beeBold,
+    fontFamily: font.beeMid,
     color: color.BROWN_78,
   },
   container: {
@@ -78,8 +68,8 @@ const styles = StyleSheet.create({
     zIndex: 100,
   },
   bottom: {
-    fontSize: 50,
-    fontFamily: font.beeBold,
+    fontSize: 32,
+    fontFamily: font.beeMid,
     color: color.BLACK_3A,
   },
   row: {
@@ -91,6 +81,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
     zIndex: 100,
+    justifyContents: 'center',
   },
   tab: {
     backgroundColor: color.MODAL_SUB,
@@ -115,6 +106,17 @@ const styles = StyleSheet.create({
     marginVertical: 16,
     alignItems: 'center',
   },
+  arrowBtn: {
+    width: 30,
+    height: 20,
+  },
+  back: {
+    width: '100%',
+    marginTop: 20,
+    flexDirection: 'row',
+    marginBottom: -20,
+    zIndex: 10,
+  },
 });
 
 // Types
@@ -135,6 +137,7 @@ interface Community {
   content: string;
   imgUrl: string;
   createDate: number;
+  name: string;
 }
 interface Notice {
   id: number;
@@ -252,6 +255,16 @@ const Community = ({navigation}: Props) => {
       source={require('../../assets/image/commuBack.png')}>
       <SafeAreaView>
         <View style={styles.body}>
+          <TouchableOpacity
+            style={styles.back}
+            onPress={() => navigation.navigate('Home')}>
+            {/* <View style={styles.arrow}> */}
+            <Image
+              style={styles.arrowBtn}
+              source={require('../../assets/image/icon/left_arrow.png')}
+            />
+            {/* </View> */}
+          </TouchableOpacity>
           <View style={styles.box1}>
             <View style={styles.container}>
               <Text style={styles.bottom}>Community</Text>
@@ -270,6 +283,7 @@ const Community = ({navigation}: Props) => {
                     <Image
                       style={{
                         transform: [{rotate: showOption ? '180deg' : '0deg'}],
+                        paddingRight: 10,
                       }}
                       source={imagesPath.icDropDown}
                     />
@@ -350,12 +364,6 @@ const Community = ({navigation}: Props) => {
                 </View>
               )}
             </View>
-          </View>
-          <View style={styles.btns}>
-            <Btn
-              txt="이전으로"
-              clickEvent={() => navigation.navigate('Home')}
-            />
           </View>
         </View>
       </SafeAreaView>

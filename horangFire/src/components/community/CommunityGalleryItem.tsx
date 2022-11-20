@@ -7,9 +7,9 @@ import {
   Image,
   // Text,
 } from 'react-native';
-import {Community} from './CommunityContent';
 import {ParamListBase} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
+import Community from '../../screens/community';
 
 const {width} = Dimensions.get('window');
 const WIDTH = (width - 78) / 3;
@@ -51,7 +51,7 @@ const CommunityGalleryItem = ({navigation, item}: Props) => {
     <TouchableOpacity
       style={styles.imageWrap}
       activeOpacity={0.8}
-      onPress={() => navigation.navigate('CommunityModal', {id: item.id})}>
+      onPress={() => navigation.navigate('CommunityModal', {item: item})}>
       <View style={styles.imageItem}>
         {item.imgUrl ? (
           <Image
