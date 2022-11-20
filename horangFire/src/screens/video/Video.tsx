@@ -1,16 +1,29 @@
-import {useState} from 'react';
-import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {useEffect, useState} from 'react';
+import {View, StyleSheet, Text} from 'react-native';
 import Video from 'react-native-video';
+import {sound} from '../../App';
 import Btn from '../../components/common/Btn_short';
+import {getDataInLocalStorage} from '../../store/AsyncService';
 import {font} from '../../styles/colorAndFontTheme';
 
 const VideoScreen = ({navigation, route}: any) => {
   const {next} = route.params;
   const [isReady, setIsReady] = useState<boolean>(false);
 
-  const moveNextScreen = () => {
+  const moveNextScreen = async () => {
+    const volume = await getDataInLocalStorage('bgmVolume');
+
+    if (volume) {
+      sound.setVolume(volume);
+    } else {
+      sound.setVolume(1);
+    }
     navigation.navigate(next);
   };
+
+  useEffect(() => {
+    sound.setVolume(0);
+  }, []);
 
   return (
     <View style={styles.container}>
