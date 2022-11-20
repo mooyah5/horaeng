@@ -1,41 +1,4 @@
-pipeline {
-    agent any
-
-    stages {
-        stage('build'){
-            steps{
-                script{
-                    try {
-                        dir('./backend/character-service'){
-                            sh 'chmod +x gradlew'
-                            sh './gradlew clean build'
-                        }
-                        sh 'docker stop character-service'
-                        sh 'docker rm character-service'
-                        sh 'docker rmi character-service'
-                    } catch (e) {
-                        sh 'echo "character-service stop중 실패"'
-                    }
-                    try{
-                        sh 'docker build -t character-service ./backend/character-service'
-                    }catch(e){
-                        sh 'echo "docker 이미지빌드중 실패"'
-                    }
-                }
-            }
-        }
-        stage("run"){
-            steps {
-                sh 'docker run -d -p 8030:8030 --network msa -e TZ=Asia/Seoul --name character-service character-service'
-            }
-        }
-    }
-}
-
 // pipeline {
-//     environment {
-//         DOCKERHUB_CREDENTIALS = credentials('docker_hub')
-//     }
 //     agent any
 //
 //     stages {
@@ -47,33 +10,70 @@ pipeline {
 //                             sh 'chmod +x gradlew'
 //                             sh './gradlew clean build'
 //                         }
+//                         sh 'docker stop character-service'
+//                         sh 'docker rm character-service'
+//                         sh 'docker rmi character-service'
 //                     } catch (e) {
-//                         sh 'echo "character-service 삭제 실패"'
+//                         sh 'echo "character-service stop중 실패"'
 //                     }
 //                     try{
-//                         sh 'docker build -t mocaa/character-service ./backend/character-service'
+//                         sh 'docker build -t character-service ./backend/character-service'
 //                     }catch(e){
 //                         sh 'echo "docker 이미지빌드중 실패"'
 //                     }
 //                 }
 //             }
 //         }
-//         stage('Login'){
-//             steps{
-//                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-//             }
-//         }
-//         stage('Deploy image') {
+//         stage("run"){
 //             steps {
-//                 script {
-//                     sh 'docker push mocaa/character-service'
-//                 }
-//             }
-//         }
-//         stage('Cleaning up') {
-//             steps {
-//                 sh 'docker rmi mocaa/character-service'
+//                 sh 'docker run -d -p 8030:8030 --network msa -e TZ=Asia/Seoul --name character-service character-service'
 //             }
 //         }
 //     }
 // }
+
+pipeline {
+    environment {
+        DOCKERHUB_CREDENTIALS = credentials('docker_hub')
+    }
+    agent any
+
+    stages {
+        stage('build'){
+            steps{
+                script{
+                    try {
+                        dir('./backend/character-service'){
+                            sh 'chmod +x gradlew'
+                            sh './gradlew clean build'
+                        }
+                    } catch (e) {
+                        sh 'echo "character-service 삭제 실패"'
+                    }
+                    try{
+                        sh 'docker build -t mocaa/character-service ./backend/character-service'
+                    }catch(e){
+                        sh 'echo "docker 이미지빌드중 실패"'
+                    }
+                }
+            }
+        }
+        stage('Login'){
+            steps{
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+            }
+        }
+        stage('Deploy image') {
+            steps {
+                script {
+                    sh 'docker push mocaa/character-service'
+                }
+            }
+        }
+        stage('Cleaning up') {
+            steps {
+                sh 'docker rmi mocaa/character-service'
+            }
+        }
+    }
+}
