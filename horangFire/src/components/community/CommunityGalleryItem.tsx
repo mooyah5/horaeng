@@ -47,7 +47,6 @@ interface Props {
 }
 
 const CommunityGalleryItem = ({navigation, item}: Props) => {
-  // console.log(item.imgUrl);
   return (
     <TouchableOpacity
       style={styles.imageWrap}

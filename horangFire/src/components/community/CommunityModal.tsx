@@ -135,8 +135,6 @@ const DiaryDetail = ({navigation, route}: Props) => {
     4: '바다 거북이',
     5: '펭귄',
   };
-  console.log(communityDetail.imgUrl);
-  console.log(communityDetail.content);
   return (
     <SafeAreaView style={styles.body}>
       <View style={styles.section1} />

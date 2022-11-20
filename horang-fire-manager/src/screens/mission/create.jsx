@@ -40,12 +40,6 @@ function MissionCreate() {
       ...inputs,
       [name]: value,
     });
-    console.log(inputs);
-    if (selectedFile) {
-      console.log(URL.createObjectURL(selectedFile));
-      console.log('preImg', preImg);
-      console.log('progress', progress);
-    }
   };
 
   const onChangeImage = e => {
@@ -53,13 +47,7 @@ function MissionCreate() {
     setSelectedFile(imgFile);
     setFileName(imgFile.name);
     setFileType(imgFile.type);
-    // setInputs({
-    //   ...inputs,
-    //   img: imgFile,
-    // });
     setPreImg(URL.createObjectURL(imgFile));
-    // console.log(URL.createObjectURL(imgFile));
-    // console.log(imgFile);
   };
 
   const HandleSubmit = async () => {
@@ -75,12 +63,10 @@ function MissionCreate() {
         .putObject(params)
         .on('httpUploadProgress', (evt, Response) => {
           setProgress(Math.round((evt.loaded / evt.total) * 100));
-          // console.log(Response.request.httpRequest.path);
           const uploadUrl =
             'https://' +
             Response.request.httpRequest.endpoint.host +
             Response.request.httpRequest.path;
-          console.log(uploadUrl);
           setInputs({
             ...inputs,
             img: uploadUrl,
@@ -96,7 +82,6 @@ function MissionCreate() {
     try {
       const res = await api.mission.create(inputs);
       navigate(`/mission`);
-      console.log('id', res.data.mission.id);
     } catch (err) {
       console.error(err);
     }
