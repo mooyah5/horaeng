@@ -56,7 +56,7 @@ const CHARACTER_IMAGE = {
 const styles = StyleSheet.create({
   body: {width: '100%', height: '100%'},
   area: {width: '100%', height: '100%', position: 'absolute'},
-  section1: {flex: 5},
+  section1: {flex: 5, justifyContent: 'center'},
   section2: {flex: 6, justifyContent: 'flex-end'},
   section3: {flex: 16},
   section4: {flex: 6},
@@ -70,10 +70,10 @@ const styles = StyleSheet.create({
 
   // 상단 버튼영역
   button_area: {
-    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     marginHorizontal: 10,
+    height: '100%',
   },
   button_empty_area: {flex: 3},
   button_image: {resizeMode: 'contain', marginLeft: 10, height: 24},
