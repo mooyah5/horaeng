@@ -88,4 +88,9 @@ public class UserServiceImpl implements UserService{
         User user = userRepository.get(request.getUserId());
         user.setPoint(user.getPoint()+request.getPoint());
     }
+
+    @Override
+    public String getUserName(String userId) {
+        return userRepository.get(userId).getName();
+    }
 }

@@ -134,4 +134,10 @@ public class UserController {
         userService.addPoint(request);
         return ResponseEntity.status(HttpStatus.OK).body(null);
     }
+
+    @GetMapping("/name/{userId}")
+    public String getName(@PathVariable("userId") String userId){
+
+        return userService.getUserName(userId);
+    }
 }
