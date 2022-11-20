@@ -1,18 +1,17 @@
 import {createSlice} from '@reduxjs/toolkit';
 
-export interface missionType {
-  mainFile: string;
-  mainTxt: string;
-  commonFile: string;
-  commonTxt: string;
-  //   isDone: boolean;
+export interface MissionType {
+  file: string;
+  type: string;
+  name: string;
+  // txt: string;
 }
 
-export const missionInitialState: missionType | null = {
-  mainFile: '',
-  mainTxt: '',
-  commonFile: '',
-  commonTxt: '',
+export const missionInitialState: MissionType | null = {
+  file: '',
+  type: '',
+  name: '',
+  // txt: '',
 };
 
 export const missionSlice = createSlice({
@@ -22,24 +21,22 @@ export const missionSlice = createSlice({
     // setfile(state: null, actions: {type: string; payload: any}) {
     //   return actions.payload;
     // },
-    setMainFile: (state, action) => {
-      state.mainFile = action.payload.mainFile;
-      //   state.txt = action.payload.txt;
+    setFile: (state, {payload}) => {
+      state.file = payload.file;
+      state.type = payload.type;
+      state.name = payload.name;
     },
-    setCommonFile: (state, action) => {
-      state.commonFile = action.payload.commonFile;
-    },
+    // setText: (state, action) => {
+    //   state.txt = action.payload.txt;
+    // },
     reset: state => {
       Object.assign(state, missionInitialState);
     },
   },
 });
 
-export const selectMainFile = (state: {mission: {mainFile: string}}) =>
-  state.mission.mainFile;
-export const selectCommonFile = (state: {mission: {commonFile: string}}) =>
-  state.mission.commonFile;
+export const selectFile = (state: {mission: MissionType}) => state.mission;
 
-export const {setMainFile, setCommonFile, reset} = missionSlice.actions;
+export const {setFile, reset} = missionSlice.actions;
 
 export default missionSlice.reducer;

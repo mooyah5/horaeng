@@ -14,11 +14,15 @@ import {color, font} from '../styles/colorAndFontTheme';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {ParamListBase} from '@react-navigation/native';
 import {scriptMain} from '../script/scriptMain';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {selectBackgroundNumber} from '../store/background';
-import {selectCharacter} from '../store/character';
+import {selectCharacter, setMyCharacter} from '../store/character';
 import imagesPath from '../assets/image/constants/imagesPath';
 import {selectUser} from '../store/user';
+import {getDataInLocalStorage} from '../store/AsyncService';
+import api from '../api/api_controller';
+import {setBackgroundNumber} from '../store/background';
+import {selectHaveBackground, setHaveBackground} from '../store/haveBackground';
 
 const styles = StyleSheet.create({
   backgroundImage: {
@@ -99,8 +103,8 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   characterText: {
-    fontFamily: font.beeBold,
-    fontSize: 40,
+    fontFamily: font.beeMid,
+    fontSize: 30,
     color: color.BROWN_47,
     paddingLeft: '10%',
     textShadowColor: 'white',
@@ -121,21 +125,21 @@ const styles = StyleSheet.create({
   },
   missionText: {
     paddingHorizontal: 50,
-    fontFamily: font.beeBold,
-    fontSize: 20,
+    fontFamily: font.beeMid,
+    fontSize: 15,
     color: color.BROWN_47,
     textAlign: 'center',
     paddingBottom: '5%',
   },
   missionBottomText1: {
-    fontFamily: font.beeBold,
-    fontSize: 20,
+    fontFamily: font.beeMid,
+    fontSize: 15,
     color: color.BROWN_47,
     textAlign: 'center',
   },
   missionBottomText2: {
-    fontFamily: font.beeBold,
-    fontSize: 20,
+    fontFamily: font.beeMid,
+    fontSize: 15,
     color: color.BROWN_47,
     textAlign: 'center',
   },
@@ -160,8 +164,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   missionBottomText3: {
-    fontFamily: font.beeBold,
-    fontSize: 20,
+    fontFamily: font.beeMid,
+    fontSize: 15,
     color: color.BROWN_47,
     textAlign: 'center',
   },
@@ -173,8 +177,8 @@ const styles = StyleSheet.create({
 
 export const BACKGROUND = [
   require('../assets/image/background/snow_background.png'),
-  require('../assets/image/background/forest_background.png'),
-  require('../assets/image/background/london_background.png'),
+  require('../assets/image/background/forest_background.jpeg'),
+  require('../assets/image/background/london_background.jpeg'),
   // good
   require('../assets/image/background/greenForest_background.jpeg'),
   require('../assets/image/background/ocean_background.jpeg'),
@@ -184,21 +188,21 @@ export const BACKGROUND = [
 ];
 
 export const CHARACTER = [
-  require('../assets/image/character/72ppi/tiger1.png'),
-  require('../assets/image/character/72ppi/tiger2.png'),
-  require('../assets/image/character/72ppi/tiger3.png'),
-  require('../assets/image/character/72ppi/bird1.png'),
-  require('../assets/image/character/72ppi/bird2.png'),
-  require('../assets/image/character/72ppi/bird3.png'),
-  require('../assets/image/character/72ppi/elephant1.png'),
-  require('../assets/image/character/72ppi/elephant2.png'),
-  require('../assets/image/character/72ppi/elephant3.png'),
-  require('../assets/image/character/72ppi/turtle1.png'),
-  require('../assets/image/character/72ppi/turtle2.png'),
-  require('../assets/image/character/72ppi/turtle3.png'),
-  require('../assets/image/character/72ppi/penguin1.png'),
-  require('../assets/image/character/72ppi/penguin2.png'),
-  require('../assets/image/character/72ppi/penguin3.png'),
+  require('../assets/image/animals/left/tiger_level1_left.gif'),
+  require('../assets/image/animals/left/tiger_level2_left.gif'),
+  require('../assets/image/animals/left/tiger_level3_left.gif'),
+  require('../assets/image/animals/left/bird_level1_left.gif'),
+  require('../assets/image/animals/left/bird_level2_left.gif'),
+  require('../assets/image/animals/left/bird_level3_left.gif'),
+  require('../assets/image/animals/left/elephant_level1_left.gif'),
+  require('../assets/image/animals/left/elephant_level2_left.gif'),
+  require('../assets/image/animals/left/elephant_level3_left.gif'),
+  require('../assets/image/animals/left/turtle_level1_left.gif'),
+  require('../assets/image/animals/left/turtle_level1_left.gif'),
+  require('../assets/image/animals/left/turtle_level1_left.gif'),
+  require('../assets/image/animals/left/penguin_level1_left.gif'),
+  require('../assets/image/animals/left/penguin_level2_left.gif'),
+  require('../assets/image/animals/left/penguin_level3_left.gif'),
 ];
 
 interface Props {
@@ -206,6 +210,7 @@ interface Props {
 }
 
 const Home = ({navigation}: Props) => {
+  const dispatch = useDispatch();
   const [scriptNum, setScriptNum] = useState<number>(1);
   const backgroundNumber = useSelector(selectBackgroundNumber);
   const character = useSelector(selectCharacter);
@@ -224,7 +229,6 @@ const Home = ({navigation}: Props) => {
 
   useEffect(() => {
     const backAction = () => {
-      console.log('눌렀다!');
       Alert.alert('성냥팔이 호랭이', '앱을 종료하시겠습니까?', [
         {
           text: '취소',
@@ -254,7 +258,7 @@ const Home = ({navigation}: Props) => {
   const [specieName, setSpecieName] = useState<string>('tiger');
 
   const todayMissionStatus = () => {
-    if (character?.today) {
+    if (character?.todayMain) {
       return true;
     } else {
       return false;
@@ -340,6 +344,74 @@ const Home = ({navigation}: Props) => {
 
   const [showOption, setShowOption] = useState(false);
 
+  const [savedBgNumber, setSavedBgNumber] = useState<number>(1);
+  const [savedCheck, setSavedCheck] = useState<boolean>(false);
+  const haveBackground = useSelector(selectHaveBackground);
+  const [hadCheck, setHadCheck] = useState<boolean>(false);
+
+  const handleBackgroundOption = () => {
+    navigation.navigate('BackgroundOption');
+  };
+
+  useEffect(() => {
+    const getBackground = async () => {
+      const bgNumber = await getDataInLocalStorage('background_number');
+      setSavedCheck(true);
+
+      if (bgNumber) {
+        setSavedBgNumber(bgNumber);
+      }
+    };
+
+    const getUserBg = async () => {
+      try {
+        const response = await api.background.getUserBackground(nowUser.id);
+        setHadCheck(true);
+
+        const list: number[] = [];
+
+        for (const bg of response.data) {
+          list.push(bg.backgroundId);
+        }
+
+        dispatch(setHaveBackground(list));
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    getBackground();
+    getUserBg();
+  }, []);
+
+  useEffect(() => {
+    if (savedCheck && hadCheck) {
+      if (haveBackground.includes(savedBgNumber + 1)) {
+        dispatch(setBackgroundNumber(savedBgNumber));
+      } else {
+        dispatch(setBackgroundNumber(character?.userCharacter?.character_id));
+      }
+    }
+  }, [savedBgNumber, haveBackground]);
+
+  const handleDiariesButton = () => {
+    navigation.navigate('ListOfDiaries', {
+      characterId: character?.userCharacter?.id,
+    });
+  };
+
+  useEffect(() => {
+    const getNowUserCharacter = async (id: string) => {
+      const response = await api.character.getNowUserCharacter(id);
+
+      if (response.data.userCharacter) {
+        dispatch(setMyCharacter({character: response.data}));
+      }
+    };
+
+    getNowUserCharacter(nowUser.id);
+  }, []);
+
   return (
     <ImageBackground
       source={BACKGROUND[backgroundNumber]}
@@ -347,7 +419,14 @@ const Home = ({navigation}: Props) => {
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.section0}>
           <View style={styles.section0BtnContainer}>
-            <View style={styles.buttonTouchableNone} />
+            <TouchableOpacity
+              onPress={() => navigation.navigate('VideoModal')}
+              style={styles.buttonTouchable}>
+              <Image
+                style={styles.buttons}
+                source={require('../assets/image/icon/video.png')}
+              />
+            </TouchableOpacity>
             <TouchableOpacity
               onPress={() => navigation.navigate('Option')}
               style={styles.buttonTouchable}>
@@ -385,11 +464,11 @@ const Home = ({navigation}: Props) => {
               </TouchableOpacity>
             </View>
             <TouchableOpacity
-              onPress={() => navigation.navigate('BackgroundOption')}
+              onPress={handleBackgroundOption}
               style={styles.buttonTouchable}>
               <Image
-                style={styles.buttonsBackground}
-                source={require('../assets/image/icon/background.png')}
+                style={styles.buttons}
+                source={require('../assets/image/icon/changeBackground.png')}
               />
             </TouchableOpacity>
           </View>
@@ -406,8 +485,8 @@ const Home = ({navigation}: Props) => {
               onPress={() => navigation.navigate('Community')}
               style={styles.buttonTouchable}>
               <Image
-                style={styles.buttonsCommu}
-                source={require('../assets/image/icon/commut.png')}
+                style={styles.buttons}
+                source={require('../assets/image/icon/commu.png')}
               />
             </TouchableOpacity>
           </View>
@@ -457,7 +536,7 @@ const Home = ({navigation}: Props) => {
                 </Text>
               ) : (
                 <Text style={styles.missionBottomText3}>
-                  미션 수행하러 가기👀
+                  미션 수행하러 가기
                 </Text>
               )}
             </TouchableOpacity>
@@ -469,19 +548,16 @@ const Home = ({navigation}: Props) => {
               onPress={() => navigation.navigate('Collection')}
               style={styles.buttonTouchable}>
               <Image
-                style={styles.buttonsCollection}
-                source={require('../assets/image/icon/book.png')}
+                style={styles.buttons}
+                source={require('../assets/image/icon/history.png')}
               />
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() =>
-                navigation.navigate('ListOfDiaries', {
-                  characterId: character?.userCharacter?.id,
-                })
-              }
+              // diary icon
+              onPress={handleDiariesButton}
               style={styles.buttonTouchable}>
               <Image
-                style={styles.buttonsDiary}
+                style={styles.buttons}
                 source={require('../assets/image/icon/diary.png')}
               />
             </TouchableOpacity>

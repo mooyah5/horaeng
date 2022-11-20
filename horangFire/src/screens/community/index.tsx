@@ -164,125 +164,84 @@ const Community = ({navigation}: Props) => {
   const [dataLength, setDataLength] = useState<number>(12);
   const [loading, setLoading] = useState<boolean>(false);
 
-  // Toggle Button
-  const onSelectedItem = (val: valueType, i: number) => {
-    console.log(i, '번을 클릭했어요!!!!!!!!!!');
-    setCommunityData([]);
-    setShowOption(false);
-    setSelectedItem(val);
-    setIsNotice(false);
-    if (i === 0) {
-      getCommunityAll();
-    } else if (i >= 1) {
-      getCommunityAnimalsAll(i);
-      console.log(i);
-    }
+  // When Toggle Button Clicked
+  const onSelectedItem = (val: valueType) => {
+    setCommunityData([]); // 커뮤니티 데이터 초기화
+    setSelectedItem(val); // 선택한 동물 지정 => useEffect(selectedITem) 실행 => 커뮤니티 불러오기
+    setShowOption(false); // 토글 접기
+    setIsNotice(false); // 공지사항 미선택 (title 변화용)
+    setLastId(-1);
   };
 
   // 공지사항 버튼
   const noticeHandle = () => {
-    setIsNotice(true);
-    setShowOption(false);
-    setSelectedItem(data[0]);
+    setIsNotice(true); // title '공지사항'으로 보여주기 위함
+    setShowOption(false); // 동물 선택 토글이 열려있다면 닫기
+    setSelectedItem(data[0]); // 동물 선택 '전체'로 초기화해놓기
   };
 
-  // 동물별 커뮤니티 불러오기
+  // 동물별 커뮤니티 불러오기 axios
   const getCommunityAnimalsAll = async (character_id: number) => {
-    if (dataLength === 12) {
-      console.log('동물별 커뮤니티 불러오기', character_id, '번');
-      setLoading(true);
-      try {
-        console.log(character_id, '번 동물 axios');
-        const response = await api.community.getCommunityAnimalsAll(
-          character_id,
-          lastId,
-        );
-        setCommunityData(prev => [...prev, ...response.data]);
-        setDataLength(response.data.length);
-        console.log('동물별 ', response.data.length, '개 불러옴');
-        // console.log(communityData + 'aaaaa');
-      } catch (err) {
-        console.log(err);
-      }
-      setLoading(false);
-    } else {
-      setLoading(true);
-      try {
-        const response = await api.community.getCommunityAnimalsAll(
-          character_id,
-          lastId,
-        );
-        setCommunityData(prev => [...prev, ...response.data]);
-        setDataLength(response.data.length);
-        console.log('동물별 ', response.data.length, '개 불러옴');
-        // console.log(communityData + 'aaaaa');
-      } catch (err) {
-        console.log(err);
-      }
-      setLoading(false);
+    setLoading(true);
+    try {
+      const response = await api.community.getCommunityAnimalsAll(
+        character_id,
+        lastId,
+      );
+      setCommunityData(prev => [...prev, ...response.data]);
+      setDataLength(response.data.length);
+    } catch (err) {
+      console.error(err);
     }
+    setLoading(false);
   };
 
-  // 전체 커뮤니티 불러오기
+  // 전체 커뮤니티 불러오기 axios
   const getCommunityAll = async () => {
-    if (allDataLength == 12) {
-      setLoading(true);
-      try {
-        const response = await api.community.getCommunityAll(lastId);
-        setCommunityData(prev => [...prev, ...response.data]);
-        console.log('a', response.data);
-        console.log('b', ...communityData);
-        setAllDataLength(response.data.length);
-        console.log('전체 ', response.data.length, '개 불러옴');
-        console.log(response.data);
-      } catch (err) {
-        console.log(err);
-      }
-      setLoading(false);
+    setLoading(true);
+    try {
+      const response = await api.community.getCommunityAll(lastId);
+      setCommunityData(prev => [...prev, ...response.data]);
+      setAllDataLength(response.data.length);
+    } catch (err) {
+      console.error(err);
     }
+    setLoading(false);
   };
 
-  // 공지사항 불러오기
+  // 공지사항 불러오기 axios
   const getNoticeAll = async () => {
     try {
       const response = await api.notice.getNoticeAll();
       setNoticeData(response.data);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
-
-  // useEffect(() => {
-  //   getNoticeAll();
-  // }, []);
 
   useEffect(() => {
     getNoticeAll();
     // 전체 버튼을 클릭 - 전체 커뮤니티 불러오기
     if (selectedItem.id === 0) {
       getCommunityAll();
-      console.log(selectedItem.id, '번이니까 다 불러올게2');
       // 동물별 버튼을 클릭 - 동물별 커뮤니티 불러오기
     } else if (selectedItem.id >= 1) {
       getCommunityAnimalsAll(selectedItem.id);
-      console.log(selectedItem.id, '불러올게2');
     }
-    // console.log(selectedItem.id, '번을 클릭했대요~~~~~');
   }, [selectedItem, lastId]);
 
-  // 스크롤 하단에 닿았을 경우
+  // 스크롤 하단에 닿았을 때
   const onEndReached = () => {
-    console.log('하단에 닿았다!!!!!!!!!!!!!!!!!!!!!!!');
-    // console.log(communityData.length, loading, dataLength);
     if (selectedItem.id === 0) {
-      if (!loading && allDataLength >= 12) {
+      if (!loading && allDataLength % 12 === 0) {
         // 로딩중이 아닐 경우, 불러온 리스트의 마지막 요소 아이디를 변화
-        setLastId(communityData[communityData.length - 1].charactersId);
+        setLastId(communityData[communityData.length - 1].id);
       }
     } else {
-      if (!loading && dataLength >= 12) {
+      // 동물 선택 시
+      if (!loading && dataLength % 12 === 0) {
         // 로딩중이 아닐 경우, 불러온 리스트의 마지막 요소 아이디를 변화
-        setLastId(communityData[communityData.length - 1].charactersId);
+        setLastId(communityData[communityData.length - 1].id);
       }
     }
   };
@@ -341,13 +300,18 @@ const Community = ({navigation}: Props) => {
               </View>
             </View>
           </View>
+
           <View style={styles.box2}>
+            {/* 소제목 (동물 이름 혹은 공지사항) */}
             <Text style={styles.midTitle}>
               {isNotice ? '공지사항' : selectedItem.name}
             </Text>
+
+            {/* 공지 혹은 커뮤니티 리스트 */}
             <View style={styles.contentContainer}>
               {isNotice ? (
                 <View>
+                  {/* 공지 리스트 */}
                   <FlatList
                     // style={styles.tableNotice}
                     data={noticeData}
@@ -360,6 +324,7 @@ const Community = ({navigation}: Props) => {
                 </View>
               ) : (
                 <View>
+                  {/* 커뮤니티 리스트 */}
                   <FlatList
                     style={styles.tableBox}
                     data={communityData}
@@ -371,14 +336,15 @@ const Community = ({navigation}: Props) => {
                     )}
                     key={'communityFlatlist'}
                     numColumns={3}
-                    onEndReached={onEndReached}
-                    onEndReachedThreshold={0}
+                    onEndReached={onEndReached} // 스크롤이 하단에 닿았을 때 실행
+                    onEndReachedThreshold={0} // 어느정도 닿았는지
                     ListFooterComponent={
-                      loading && (
+                      // 로딩 중일 때 하단에 보여줄 로딩스피너
+                      loading ? (
                         <View style={styles.loaderStyle}>
                           <ActivityIndicator size="small" color="aaa" />
                         </View>
-                      )
+                      ) : null
                     }
                   />
                 </View>

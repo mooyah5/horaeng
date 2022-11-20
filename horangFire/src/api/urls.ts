@@ -8,28 +8,33 @@ const SOCIAL = 'social-service/';
 
 // 중분류
 const USER_INFO = 'user/';
-const BACKGROUND = 'background/';
 
-const DIARY = 'diary/';
-const REPORT = 'report/';
 const NOTICE = 'notice/';
 
-const MISSION = 'mission/';
 const CHARACTER_ADDR = 'character/';
 const CHARACTER_ADDRS = 'characters/';
+const DIARY = 'diary/';
 
 const USER_CHARACTER = 'user-character/';
+const BACKGROUND = 'background/';
 
 const urls = {
   auth: {
     login: () => GATEWAY + AUTH + 'auth/login',
   },
   user: {
+    addPoint: () => GATEWAY + USER + USER_INFO + 'point', // 성냥 추가
     getUserInfo: (kakaoId: string) => GATEWAY + USER + USER_INFO + kakaoId,
   },
   diary: {
-    submit: () => GATEWAY + SOCIAL + 'diary',
     getDiaries: (id: number) => GATEWAY + SOCIAL + DIARY + USER_INFO + `${id}`,
+    submit: () => GATEWAY + SOCIAL + 'diary', // 일지 제출
+    getMainId: (charId: number) =>
+      GATEWAY + CHARACTER + 'character-mission/main/' + `${charId}`,
+  },
+  mission: {
+    getCommonId: (charId: number) =>
+      GATEWAY + CHARACTER + 'character-mission/common/' + `${charId}`,
   },
   character: {
     getNowUserCharacter: (userId: string) =>
@@ -54,6 +59,12 @@ const urls = {
   history: {
     getHistory: (id: string) =>
       GATEWAY + CHARACTER + USER_CHARACTER + CHARACTER_ADDR + id,
+  },
+  background: {
+    getAllBackground: () => GATEWAY + USER + BACKGROUND,
+    getUserBackground: (id: string) =>
+      GATEWAY + USER + USER_INFO + BACKGROUND + id,
+    buyUserBackground: () => GATEWAY + USER + USER_INFO + BACKGROUND,
   },
 };
 

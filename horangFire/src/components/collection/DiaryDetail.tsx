@@ -17,12 +17,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     width: '100%',
     height: '100%',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
     justifyContent: 'center',
   },
   section1: {flex: 5},
   section2: {flex: 16, paddingHorizontal: 24},
-  section3: {flex: 4, flexDirection: 'row', paddingHorizontal: 24},
+  section3: {flex: 5, flexDirection: 'row', paddingHorizontal: 24},
 
   infoBox: {
     width: '100%',
@@ -36,19 +36,28 @@ const styles = StyleSheet.create({
     paddingHorizontal: 40,
     marginVertical: 40,
   },
-  title: {fontFamily: font.beeBold, fontSize: 40, alignSelf: 'center'},
+  title: {fontFamily: font.beeBold, fontSize: 26, alignSelf: 'center'},
   day: {
     fontFamily: font.beeBold,
-    fontSize: 20,
-    paddingTop: 5,
+    fontSize: 16,
     alignSelf: 'center',
+    marginBottom: 20,
   },
-  text: {fontFamily: font.beeBold, fontSize: 20, paddingHorizontal: 20},
+  text: {fontFamily: font.beeBold, fontSize: 16, paddingHorizontal: 20},
+  imgBox: {
+    overflow: 'hidden',
+    width: '90%',
+    height: '45%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 20,
+    marginBottom: 20,
+  },
   image: {
     width: '100%',
-    height: 200,
-    resizeMode: 'contain',
-    marginVertical: 20,
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   emptyArea: {flex: 2},
 });
@@ -62,7 +71,7 @@ const week = ['일', '월', '화', '수', '목', '금', '토'];
 
 const DiaryDetail = ({navigation, route}: Props) => {
   const {params} = route;
-  const diary: Community = params.diary;
+  const diary: Community = params.info;
   const day: number = params.day;
 
   const date = new Date(diary.createDate);
@@ -86,10 +95,10 @@ const DiaryDetail = ({navigation, route}: Props) => {
             {week[date.getDay()]})
           </Text>
           {/* TODO S3 완료된 이후에 이미지 경로 추가 */}
-          <Image
-            source={require('../../assets/image/ex_horang.png')}
-            style={styles.image}
-          />
+          {diary.imgUrl !== 'null' && (
+            <Image source={{uri: diary.imgUrl}} style={styles.image} />
+          )}
+
           <Text style={styles.text}>{diary.content}</Text>
         </ScrollView>
       </View>

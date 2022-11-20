@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {color, font} from '../../styles/colorAndFontTheme';
 import TitleText from '../../components/common/TitleText';
 import Btn from '../../components/common/Btn_short';
@@ -12,6 +12,9 @@ import {
 } from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {ParamListBase} from '@react-navigation/native';
+import {useSelector} from 'react-redux';
+import api from '../../api/api_controller';
+import {selectCharacter} from '../../store/character';
 
 const styles = StyleSheet.create({
   container: {
@@ -91,6 +94,16 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     borderRadius: 20,
   },
+  back: {
+    width: '100%',
+    marginTop: 20,
+    flexDirection: 'row',
+    marginBottom: -20,
+  },
+  arrowBtn: {
+    width: 30,
+    height: 20,
+  },
 });
 
 interface Props {
@@ -98,15 +111,31 @@ interface Props {
 }
 
 const LookCommon = ({navigation}: Props) => {
-  const missionList = [
-    '하나. 종이 아끼기',
-    '두울. 종이 안아끼기',
-    '세엣. 분리수거 하기',
-  ];
-  //   const numList = ['하나', '두울', '세엣'];
+  const charInfo = useSelector(selectCharacter)?.userCharacter;
+  const [commonInfo, setCommonInfo] = useState([]);
+  useEffect(() => {
+    // 공통 미션 정보 받아오기
+    const getCommon = async () => {
+      const res = await api.mission.getCommonId(charInfo?.id);
+      setCommonInfo(res.commonMission);
+    };
+    getCommon();
+    console.log(commonInfo + '0000');
+  }, []);
+
   return (
     <SafeAreaView style={{backgroundColor: color.BACK_SUB}}>
       <View style={styles.container}>
+        <TouchableOpacity
+          style={styles.back}
+          onPress={() => navigation.navigate('MissionHome')}>
+          {/* <View style={styles.arrow}> */}
+          <Image
+            style={styles.arrowBtn}
+            source={require('../../assets/image/icon/left_arrow.png')}
+          />
+          {/* </View> */}
+        </TouchableOpacity>
         <View style={styles.cont1}>
           <TitleText title="호랭이 이름" subTitle="공통 미션 수행하기" />
         </View>
@@ -127,21 +156,26 @@ const LookCommon = ({navigation}: Props) => {
             </Text>
           </View>
           <View style={styles.select}>
-            {/* {numList.length && numList.map(num => <Text>{num}</Text>)} */}
-            {missionList.length &&
-              missionList.map((name, idx) => (
+            {commonInfo.length !== 0 &&
+              commonInfo.map((title, idx) => (
                 <TouchableOpacity
                   key={idx}
                   style={styles.btn}
-                  onPress={() => navigation.navigate('MissionHome')}>
-                  <Text style={styles.list}>{name}</Text>
+                  onPress={() =>
+                    navigation.navigate('CommonMission', {
+                      title: commonInfo[idx].mission.title,
+                      content: commonInfo[idx].mission.content,
+                      id: commonInfo[idx].id,
+                      imgUrl: commonInfo[idx].mission.img,
+                    })
+                  }>
+                  <Text style={styles.list}>
+                    {idx + 1}. {commonInfo[idx].mission.title}
+                  </Text>
                   <Text style={styles.move}>Go</Text>
                 </TouchableOpacity>
               ))}
           </View>
-        </View>
-        <View style={styles.btns}>
-          <Btn txt="이전으로" clickEvent={() => navigation.goBack()} />
         </View>
       </View>
     </SafeAreaView>

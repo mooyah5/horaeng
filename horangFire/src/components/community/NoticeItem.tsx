@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {color, font} from '../../styles/colorAndFontTheme';
 import {Text, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {ParamListBase} from '@react-navigation/native';
@@ -50,10 +50,6 @@ export interface Props {
 }
 
 const NoticeItem = ({navigation, item}: Props) => {
-  useEffect(() => {
-    console.log('noticeitem', item);
-  }, [item]);
-
   return (
     <TouchableOpacity
       activeOpacity={0.8}

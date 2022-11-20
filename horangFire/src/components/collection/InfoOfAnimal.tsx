@@ -1,6 +1,13 @@
 import {ParamListBase} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {Image, SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {
+  Image,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+} from 'react-native';
 import {font} from '../../styles/colorAndFontTheme';
 import Btn from '../common/Btn_short';
 
@@ -26,11 +33,15 @@ const styles = StyleSheet.create({
   textBox: {
     width: '100%',
     paddingHorizontal: 40,
-    alignItems: 'center',
     overflow: 'scroll',
   },
-  title: {fontFamily: font.beeBold, fontSize: 40, paddingTop: 40},
-  text: {fontFamily: font.beeBold, fontSize: 20, paddingHorizontal: 20},
+  title: {
+    fontFamily: font.beeBold,
+    fontSize: 26,
+    paddingTop: 40,
+    alignSelf: 'center',
+  },
+  text: {fontFamily: font.beeBold, fontSize: 16, paddingHorizontal: 20},
   image: {
     width: '100%',
     height: 200,
@@ -66,14 +77,14 @@ const InfoOfAnimal = ({navigation, route}: Props) => {
           source={require('../../assets/image/box_large.png')}
           style={styles.infoBox}
         />
-        <View style={styles.textBox}>
+        <ScrollView style={styles.textBox}>
           <Text style={styles.title}>[{animal[animalId].name}]</Text>
           <Image
             source={require('../../assets/image/ex_horang.png')}
             style={styles.image}
           />
           <Text style={styles.text}>{animal[animalId].content}</Text>
-        </View>
+        </ScrollView>
       </View>
       <View style={styles.section3}>
         <View style={styles.emptyArea} />

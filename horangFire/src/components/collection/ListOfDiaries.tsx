@@ -1,25 +1,36 @@
 import {ParamListBase} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {useEffect, useState} from 'react';
-import {Image, SafeAreaView, ScrollView, StyleSheet, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {font} from '../../styles/colorAndFontTheme';
+import {
+  Image,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  View,
+  Text,
+} from 'react-native';
+import api from '../../api/api_controller';
 import Btn from '../common/Btn_short';
 import DiaryItem from './DiaryItem';
 import {Community} from '../community/CommunityContent';
-import api from '../../api/api_controller';
 
 const styles = StyleSheet.create({
   body: {
     paddingHorizontal: 24,
     width: '100%',
     height: '100%',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
     justifyContent: 'center',
   },
   section1: {flex: 5},
   section2: {flex: 16, paddingHorizontal: 24, paddingTop: 40},
-  section3: {flex: 4, flexDirection: 'row', paddingHorizontal: 24},
+  section3: {flex: 5, flexDirection: 'row', paddingHorizontal: 30},
 
-  scroll: {flex: 1, marginBottom: 60},
+  scroll: {
+    flex: 1,
+    marginBottom: 60,
+  },
 
   subSection1: {flex: 1, height: '100%'},
   subSection2: {
@@ -40,12 +51,18 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   diaryBox: {
-    width: '100%',
     flexDirection: 'row',
     height: '100%',
     paddingHorizontal: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   emptyArea: {flex: 2},
+  empty: {
+    fontFamily: font.beeBold,
+    fontSize: 30,
+    textAlign: 'center',
+  },
 });
 
 interface Props {
@@ -78,56 +95,63 @@ const ListOfDiaries = ({navigation, route}: Props) => {
           style={styles.infoBox}
         />
         <ScrollView style={styles.scroll}>
-          <View style={styles.diaryBox}>
-            <View style={styles.subSection1}>
-              {diaries.map((value, index) => {
-                if (index % 3 === 0) {
-                  return (
-                    <DiaryItem
-                      day={index + 1}
-                      key={index}
-                      navigation={navigation}
-                      diary={value}
-                    />
-                  );
-                } else {
-                  return;
-                }
-              })}
-            </View>
-            <View style={styles.subSection2}>
-              {diaries.map((value, index) => {
-                if (index % 3 === 1) {
-                  return (
-                    <DiaryItem
-                      day={index + 1}
-                      key={index}
-                      navigation={navigation}
-                      diary={value}
-                    />
-                  );
-                } else {
-                  return;
-                }
-              })}
-            </View>
-            <View style={styles.subSection3}>
-              {diaries.map((value, index) => {
-                if (index % 3 === 2) {
-                  return (
-                    <DiaryItem
-                      day={index + 1}
-                      key={index}
-                      navigation={navigation}
-                      diary={value}
-                    />
-                  );
-                } else {
-                  return;
-                }
-              })}
-            </View>
-          </View>
+          <>
+            {diaries.length !== 0 && (
+              <View style={styles.diaryBox}>
+                <View style={styles.subSection1}>
+                  {diaries.map((value, index) => {
+                    if (index % 3 === 0) {
+                      return (
+                        <DiaryItem
+                          key={index}
+                          day={index}
+                          value={value}
+                          navigation={navigation}
+                        />
+                      );
+                    } else {
+                      return;
+                    }
+                  })}
+                </View>
+                <View style={styles.subSection2}>
+                  {diaries.map((value, index) => {
+                    if (index % 3 === 1) {
+                      return (
+                        <DiaryItem
+                          value={value}
+                          day={index}
+                          key={index}
+                          navigation={navigation}
+                        />
+                      );
+                    } else {
+                      return;
+                    }
+                  })}
+                </View>
+                <View style={styles.subSection3}>
+                  {diaries.map((value, index) => {
+                    if (index % 3 === 2) {
+                      return (
+                        <DiaryItem
+                          value={value}
+                          day={index}
+                          key={index}
+                          navigation={navigation}
+                        />
+                      );
+                    } else {
+                      return;
+                    }
+                  })}
+                </View>
+              </View>
+            )}
+            {diaries.length === 0 && (
+              <Text style={styles.empty}>일지를 작성해 볼까요?</Text>
+            )}
+          </>
         </ScrollView>
       </View>
       <View style={styles.section3}>

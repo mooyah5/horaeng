@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {
   Dimensions,
   StyleSheet,
@@ -46,10 +46,6 @@ interface Props {
 }
 
 const CommunityGalleryItem = ({navigation, item}: Props) => {
-  // useEffect(() => {
-  //   console.log('사진 하나하나', item);
-  // }, [item]);
-
   return (
     <TouchableOpacity
       style={styles.imageWrap}

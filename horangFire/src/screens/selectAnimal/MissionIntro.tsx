@@ -88,8 +88,8 @@ const styles = StyleSheet.create({
   },
   btnStyle: {
     color: 'white',
-    fontFamily: font.beeBold,
-    fontSize: 30,
+    fontFamily: font.beeMid,
+    fontSize: 18,
     borderColor: 'white',
     alignSelf: 'center',
     marginTop: '5%',

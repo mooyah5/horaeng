@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
   txt: {
     position: 'absolute',
     fontFamily: font.beeBold,
-    fontSize: 28,
+    fontSize: 20,
     color: color.BROWN_47,
     paddingHorizontal: 15,
     paddingVertical: 12,

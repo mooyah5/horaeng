@@ -32,8 +32,8 @@ const RANGE = {
 
 const CHARACTER_IMAGE = {
   1: {
-    left: require('../../assets/image/character/72ppi/tiger3.png'),
-    right: require('../../assets/image/character/72ppi/tiger3.png'),
+    left: require('../../assets/image/animals/left/tiger_level3_left.gif'),
+    right: require('../../assets/image/animals/right/tiger_level3_right.gif'),
   },
   2: {
     left: require('../../assets/image/animals/left/bird_level3_left.gif'),
@@ -55,32 +55,31 @@ const CHARACTER_IMAGE = {
 
 const styles = StyleSheet.create({
   body: {width: '100%', height: '100%'},
-  area: {width: '100%', height: '100%'},
-  section1: {flex: 5, flexDirection: 'row'},
+  area: {width: '100%', height: '100%', position: 'absolute'},
+  section1: {flex: 5, justifyContent: 'center'},
   section2: {flex: 6, justifyContent: 'flex-end'},
   section3: {flex: 16},
-  section4: {flex: 4},
+  section4: {flex: 5},
   section5: {
-    flex: 16,
+    flex: 11,
     marginHorizontal: 24,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  section6: {flex: 10},
+  section6: {flex: 14},
 
   // 상단 버튼영역
   button_area: {
-    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     marginHorizontal: 10,
+    height: '100%',
   },
   button_empty_area: {flex: 3},
-  button_image: {resizeMode: 'contain'},
-  button_text: {fontFamily: font.beeBold, fontSize: 24, paddingHorizontal: 5},
+  button_image: {resizeMode: 'contain', marginLeft: 10, height: 24},
 
   // 타이틀 영역
-  title: {fontFamily: font.beeBold, fontSize: 50, textAlign: 'center'},
+  title: {fontFamily: font.beeBold, fontSize: 30, textAlign: 'center'},
 
   // 동물 영역
   animalBox: {
@@ -191,8 +190,12 @@ const History = ({navigation}: Props) => {
 
   return (
     <ImageBackground
-      source={require('../../assets/image/background/collection_background.png')}
+      source={require('../../assets/image/background/history_gif.gif')}
       style={styles.body}>
+      <Image
+        style={styles.area}
+        source={require('../../assets/image/background/history_background.png')}
+      />
       <SafeAreaView style={styles.body}>
         <View style={styles.section1}>
           <TouchableOpacity
@@ -200,9 +203,8 @@ const History = ({navigation}: Props) => {
             onPress={handleBackButton}>
             <Image
               style={styles.button_image}
-              source={require('../../assets/image/leftArrow.png')}
+              source={require('../../assets/image/icon/left_arrow.png')}
             />
-            <Text style={styles.button_text}>뒤로가기</Text>
           </TouchableOpacity>
           <View style={styles.button_empty_area} />
         </View>

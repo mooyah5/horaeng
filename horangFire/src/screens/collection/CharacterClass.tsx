@@ -74,7 +74,13 @@ class Character implements CharacterInfo {
 
     this.image = CHARACTER_IMAGE[this.character_id];
 
-    this.direction = {base: Math.random(), height: Math.random()};
+    const isXMinus = Math.random() < 0.5 ? -1 : 1;
+    const isYMinus = Math.random() < 0.5 ? -1 : 1;
+
+    this.direction = {
+      base: Math.random() * isXMinus,
+      height: Math.random() * isYMinus,
+    };
     this.velocity = Math.max(Math.random(), 0.5);
     this.range = range;
 

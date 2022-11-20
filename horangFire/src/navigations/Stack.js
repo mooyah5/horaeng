@@ -20,6 +20,10 @@ import LookCommon from '../screens/mission/lookCommon';
 import SubmitMission from '../screens/mission/submitMission';
 import CameraModal from '../components/mission/CameraModal';
 
+// youtube modal
+import VideoModal from '../components/options/VideoWatch';
+
+// import Notice from '../screens/community/Notice';
 import NoticeDetail from '../screens/community/NoticeDetail';
 import Community from '../screens/community/index';
 import CommunityDetail from '../screens/community/CommunityDetail';
@@ -74,14 +78,9 @@ const StackNavigation = () => {
         <Stack.Screen name="CommonMission" component={CommonMission} />
 
         {/* community page  */}
-
         <Stack.Screen name="Community" component={Community} />
         <Stack.Screen name="NoticeDetail" component={NoticeDetail} />
         <Stack.Screen name="CommunityDetail" component={CommunityDetail} />
-
-        {/* option page */}
-        <Stack.Screen name="Option" component={Option} />
-        <Stack.Screen name="BackgroundOption" component={BackgroundOption} />
 
         {/* collection page */}
         <Stack.Screen name="Collection" component={History} />
@@ -97,6 +96,11 @@ const StackNavigation = () => {
         <Stack.Screen name="DiaryDetail" component={DiaryDetail} />
         <Stack.Screen name="CameraModal" component={CameraModal} />
         <Stack.Screen name="CommunityModal" component={CommunityModal} />
+
+        {/* option page */}
+        <Stack.Screen name="Option" component={Option} />
+        <Stack.Screen name="BackgroundOption" component={BackgroundOption} />
+        <Stack.Screen name="VideoModal" component={VideoModal} />
       </Stack.Group>
     </Stack.Navigator>
   );

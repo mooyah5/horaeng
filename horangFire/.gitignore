@@ -1,6 +1,7 @@
 # OSX
 #
 .DS_Store
+.env
 
 # Xcode
 #
@@ -31,6 +32,7 @@ local.properties
 *.iml
 *.hprof
 .cxx/
+android/app/release
 
 # node.js
 #

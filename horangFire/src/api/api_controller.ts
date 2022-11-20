@@ -1,6 +1,6 @@
+import {getDataInLocalStorage} from './../store/AsyncService';
 import axios from 'axios';
-import {getDataInLocalStorage} from '../store/AsyncService';
-import {CharacterInfo, Report} from './apiDataType';
+import {CharacterInfo, MissionInfo, Point, Report} from './apiDataType';
 import urls from './urls';
 
 const api = {
@@ -19,15 +19,17 @@ const api = {
   },
 
   diary: {
-    submitMain: async (diary: any) => {
+    submit: async (diary: MissionInfo) => {
       const res = await axios({
-        //url: urls.diary.submit(),
+        url: urls.diary.submit(),
         method: 'post',
+        headers: {
+          token: await getDataInLocalStorage('token'),
+        },
         data: {
           ...diary,
         },
       });
-      console.log(res);
       return res;
     },
     getDiaries: async (id: number) => {
@@ -41,8 +43,29 @@ const api = {
 
       return response;
     },
+    getMainId: async (charId: number) => {
+      const res = await axios({
+        url: urls.diary.getMainId(charId),
+        headers: {
+          token: await getDataInLocalStorage('token'),
+        },
+        method: 'get',
+      });
+      return res.data;
+    },
   },
-
+  mission: {
+    getCommonId: async (charId: number) => {
+      const response = await axios({
+        url: urls.mission.getCommonId(charId),
+        headers: {
+          token: await getDataInLocalStorage('token'),
+        },
+        method: 'get',
+      });
+      return response.data;
+    },
+  },
   character: {
     getNowUserCharacter: async (userId: string) => {
       const response = await axios({
@@ -78,7 +101,6 @@ const api = {
       return response;
     },
     getCharacterDialog: async (id: number) => {
-      console.log(id);
       const response = await axios({
         url: urls.character.getCharacterDialog(id),
         headers: {
@@ -101,6 +123,19 @@ const api = {
       });
 
       return response;
+    },
+    addPoint: async (pointInfo: Point) => {
+      const res = await axios({
+        url: urls.user.addPoint(),
+        headers: {
+          token: await getDataInLocalStorage('token'),
+        },
+        method: 'put',
+        data: {
+          ...pointInfo,
+        },
+      });
+      return res;
     },
   },
 
@@ -141,7 +176,6 @@ const api = {
     },
 
     report: async (data: Report) => {
-      console.log(data);
       const response = await axios({
         url: urls.community.report(),
         method: 'post',
@@ -160,7 +194,6 @@ const api = {
 
   notice: {
     getNoticeAll: async () => {
-      console.log('TOKEN!!! - ', await getDataInLocalStorage('token'));
       const response = await axios({
         url: urls.notice.getNoticeAll(),
         method: 'get',
@@ -192,6 +225,46 @@ const api = {
           token: await getDataInLocalStorage('token'),
         },
         method: 'get',
+      });
+
+      return response;
+    },
+  },
+
+  background: {
+    getAllBackground: async () => {
+      const response = await axios({
+        url: urls.background.getAllBackground(),
+        headers: {
+          token: await getDataInLocalStorage('token'),
+        },
+        method: 'get',
+      });
+
+      return response;
+    },
+    getUserBackground: async (id: string) => {
+      const response = await axios({
+        url: urls.background.getUserBackground(id),
+        headers: {
+          token: await getDataInLocalStorage('token'),
+        },
+        method: 'get',
+      });
+
+      return response;
+    },
+    buyUserBackground: async (id: string, bgNumber: number) => {
+      const response = await axios({
+        url: urls.background.buyUserBackground(),
+        method: 'post',
+        headers: {
+          token: await getDataInLocalStorage('token'),
+        },
+        data: {
+          backgroundId: bgNumber,
+          userId: id,
+        },
       });
 
       return response;
