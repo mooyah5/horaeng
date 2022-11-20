@@ -5,6 +5,7 @@ import {
   View,
   TouchableOpacity,
   Image,
+  // Text,
 } from 'react-native';
 import {Community} from './CommunityContent';
 import {ParamListBase} from '@react-navigation/native';
@@ -52,10 +53,19 @@ const CommunityGalleryItem = ({navigation, item}: Props) => {
       activeOpacity={0.8}
       onPress={() => navigation.navigate('CommunityModal', {id: item.id})}>
       <View style={styles.imageItem}>
-        <Image
-          style={styles.image}
-          source={require('../../assets/image/temp.png')}
-        />
+        {item.imgUrl ? (
+          <Image
+            style={styles.image}
+            source={{
+              uri: item.imgUrl,
+            }}
+          />
+        ) : (
+          <Image
+            style={styles.image}
+            source={require('../../assets/image/icon/commuX.png')}
+          />
+        )}
       </View>
     </TouchableOpacity>
   );

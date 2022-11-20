@@ -6,20 +6,18 @@ import api from '../../api/api';
 
 interface mission {
   id: number;
-  charactersId: number;
-  userId: string;
-  userCharacterId: number;
+  title: number;
   content: string;
-  imgUrl: string;
+  type: string;
+  img: string;
 }
 
 const defaultMission: mission = {
   id: 0,
-  charactersId: 0,
-  userId: '',
-  userCharacterId: 0,
+  title: 0,
   content: '',
-  imgUrl: '',
+  type: '',
+  img: '',
 };
 
 function MissionDetail() {
@@ -84,11 +82,7 @@ function MissionDetail() {
           </div>
           <div className="input-box">
             <div className="text-box">
-              <img
-                className="text-image"
-                src={mission.imgUrl}
-                alt={mission.imgUrl}
-              />
+              <img className="text-image" src={mission.img} alt={mission.img} />
               <p className="text">{mission.content}</p>
             </div>
           </div>

@@ -26,7 +26,6 @@ import VideoModal from '../components/options/VideoWatch';
 // import Notice from '../screens/community/Notice';
 import NoticeDetail from '../screens/community/NoticeDetail';
 import Community from '../screens/community/index';
-import CommunityDetail from '../screens/community/CommunityDetail';
 import CommunityModal from '../components/community/CommunityModal';
 
 import History from '../screens/collection/History';
@@ -80,7 +79,6 @@ const StackNavigation = () => {
         {/* community page  */}
         <Stack.Screen name="Community" component={Community} />
         <Stack.Screen name="NoticeDetail" component={NoticeDetail} />
-        <Stack.Screen name="CommunityDetail" component={CommunityDetail} />
 
         {/* collection page */}
         <Stack.Screen name="Collection" component={History} />
