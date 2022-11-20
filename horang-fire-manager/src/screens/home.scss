@@ -1,0 +1,16 @@
+#home {
+  overflow: hidden;
+  padding-top: 60px;
+  background: rgba(255, 229, 174, 0.4);
+  height: calc(100% - 80px);
+
+  .home_box {
+    width: 1003px;
+    height: 675px;
+
+    &_img {
+      width: 80%;
+      height: 80%;
+    }
+  }
+}
