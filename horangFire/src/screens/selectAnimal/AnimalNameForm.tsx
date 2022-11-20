@@ -26,8 +26,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text1: {
-    fontFamily: font.beeBold,
-    fontSize: 40,
+    fontFamily: font.beeMid,
+    fontSize: 25,
     color: color.BROWN_47,
     textAlign: 'center',
     marginBottom: 16,
@@ -55,13 +55,13 @@ const styles = StyleSheet.create({
     ...Platform.select({
       ios: {
         borderBottomColor: color.BROWN_47,
-        fontFamily: font.beeBold,
+        fontFamily: font.beeMid,
         color: color.BROWN_47,
         textAlign: 'center',
         fontSize: 40,
       },
       android: {
-        fontFamily: font.beeBold,
+        fontFamily: font.beeMid,
         color: color.BROWN_47,
         textAlign: 'center',
         fontSize: 40,

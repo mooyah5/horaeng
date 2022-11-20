@@ -22,8 +22,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text1: {
-    fontFamily: font.beeBold,
-    fontSize: 40,
+    fontFamily: font.beeMid,
+    fontSize: 30,
     color: color.BROWN_47,
     textAlign: 'center',
   },

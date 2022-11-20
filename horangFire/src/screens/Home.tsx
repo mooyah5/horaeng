@@ -103,8 +103,8 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   characterText: {
-    fontFamily: font.beeBold,
-    fontSize: 40,
+    fontFamily: font.beeMid,
+    fontSize: 30,
     color: color.BROWN_47,
     paddingLeft: '10%',
     textShadowColor: 'white',
@@ -125,21 +125,21 @@ const styles = StyleSheet.create({
   },
   missionText: {
     paddingHorizontal: 50,
-    fontFamily: font.beeBold,
-    fontSize: 20,
+    fontFamily: font.beeMid,
+    fontSize: 15,
     color: color.BROWN_47,
     textAlign: 'center',
     paddingBottom: '5%',
   },
   missionBottomText1: {
-    fontFamily: font.beeBold,
-    fontSize: 20,
+    fontFamily: font.beeMid,
+    fontSize: 15,
     color: color.BROWN_47,
     textAlign: 'center',
   },
   missionBottomText2: {
-    fontFamily: font.beeBold,
-    fontSize: 20,
+    fontFamily: font.beeMid,
+    fontSize: 15,
     color: color.BROWN_47,
     textAlign: 'center',
   },
@@ -164,8 +164,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   missionBottomText3: {
-    fontFamily: font.beeBold,
-    fontSize: 20,
+    fontFamily: font.beeMid,
+    fontSize: 15,
     color: color.BROWN_47,
     textAlign: 'center',
   },
@@ -536,7 +536,7 @@ const Home = ({navigation}: Props) => {
                 </Text>
               ) : (
                 <Text style={styles.missionBottomText3}>
-                  미션 수행하러 가기👀
+                  미션 수행하러 가기
                 </Text>
               )}
             </TouchableOpacity>
