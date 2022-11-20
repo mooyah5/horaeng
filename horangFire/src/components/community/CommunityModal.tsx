@@ -13,7 +13,6 @@ import {
 import {font} from '../../styles/colorAndFontTheme';
 import Btn from '../common/Btn_short';
 import api from '../../api/api_controller';
-import reportIcon from '../../assets/image/icon/reportIcon.png';
 
 export interface valueType {
   id: number;
@@ -44,6 +43,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 40,
     marginVertical: 40,
   },
+  subTitle: {
+    fontFamily: font.beeBold,
+    fontSize: 24,
+    alignSelf: 'center',
+    textAlign: 'center',
+  },
   title: {
     fontFamily: font.beeBold,
     fontSize: 30,
@@ -65,8 +70,9 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
-    minHeight: 100,
-    resizeMode: 'contain',
+    height: 200,
+    // minHeight: 100,
+    // resizeMode: 'contain',
     marginVertical: 20,
     borderRadius: 20,
     // paddingVertical: 20,
@@ -135,21 +141,30 @@ const DiaryDetail = ({navigation, route}: Props) => {
           style={styles.infoBox}
         />
         <ScrollView style={styles.textBox}>
-          <Text style={styles.title}>
-            {communityDetail.userId} 님의 {data[communityDetail.charactersId]}
-          </Text>
-          {/* <Text style={styles.day}>
-            {communityDetail.createDate.substr(0, 10)}일자 미션수행결과
-          </Text> */}
-          <Image
-            source={require('../../assets/image/temp.png')}
-            style={styles.image}
-          />
+          <Text style={styles.subTitle}>{communityDetail.userId} 님의</Text>
+          <Text style={styles.title}>{data[communityDetail.charactersId]}</Text>
+          {communityDetail.imgUrl ? (
+            <Image
+              source={{
+                uri: communityDetail.imgUrl,
+              }}
+              style={styles.image}
+            />
+          ) : (
+            <Image
+              source={require('../../assets/image/icon/commuX.png')}
+              style={styles.image}
+            />
+          )}
+
           <Text style={styles.text}>{communityDetail.content}</Text>
 
           <TouchableOpacity
             onPress={() => navigation.navigate('ReportModal', {id: id})}>
-            <Image source={reportIcon} style={styles.report} />
+            <Image
+              source={require('../../assets/image/icon/reportIcon.png')}
+              style={styles.report}
+            />
           </TouchableOpacity>
         </ScrollView>
       </View>
