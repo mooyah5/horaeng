@@ -36,14 +36,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   section4: {
-    flex: 10,
+    flex: 8,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
     paddingHorizontal: 24,
   },
   section5: {
-    flex: 1,
+    flex: 1.5,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -51,23 +51,24 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   text1: {
-    fontFamily: font.beeBold,
-    fontSize: 30,
+    fontFamily: font.beeMid,
+    fontSize: 27,
     color: color.BLACK_3A,
+    textAlign: 'center',
   },
   text2: {
-    fontFamily: font.beeBold,
-    fontSize: 18,
+    fontFamily: font.beeMid,
+    fontSize: 14,
     color: color.BLACK_3A,
   },
   text3: {
-    fontFamily: font.beeBold,
-    fontSize: 30,
+    fontFamily: font.beeMid,
+    fontSize: 20,
     color: color.BLACK_3A,
     paddingBottom: 10,
   },
   text4: {
-    fontFamily: font.beeBold,
+    fontFamily: font.beeMid,
     fontSize: 35,
     color: color.BLACK_3A,
   },
@@ -83,8 +84,8 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   image: {
-    height: '85%',
-    width: '100%',
+    height: '100%',
+    width: '80%',
     resizeMode: 'contain',
   },
   leftArrowArea: {
@@ -111,11 +112,17 @@ const styles = StyleSheet.create({
     color: color.BROWN_78,
   },
   startBtnImage: {
-    height: '100%',
+    height: '75%',
     resizeMode: 'contain',
   },
   ImageConatainer: {
     width: '95%',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+  arrowBtn: {
+    width: '200%',
+    resizeMode: 'contain',
   },
 });
 
@@ -198,6 +205,8 @@ const SelectAnimal = ({navigation}: Props) => {
       <View style={styles.section1} />
       <View style={styles.section2}>
         <Text style={styles.text1}>어떤동물과함께할까?</Text>
+      </View>
+      <View style={styles.section3}>
         <Text style={styles.text2}>21일동안 함께 할 동물을 골라봐!</Text>
       </View>
       <View style={styles.section3} />
@@ -212,7 +221,10 @@ const SelectAnimal = ({navigation}: Props) => {
         <TouchableOpacity
           style={styles.leftArrowArea}
           onPress={handleLeftButton}>
-          <Image source={require('../../assets/image/leftArrow.png')} />
+          <Image
+            source={require('../../assets/image/leftArrow.png')}
+            style={styles.arrowBtn}
+          />
         </TouchableOpacity>
         <View style={styles.ImageConatainer}>
           <Image source={animal[num].image} style={styles.image} />
@@ -220,7 +232,10 @@ const SelectAnimal = ({navigation}: Props) => {
         <TouchableOpacity
           style={styles.rightArrowArea}
           onPress={handleRightButton}>
-          <Image source={require('../../assets/image/rightArrow.png')} />
+          <Image
+            source={require('../../assets/image/rightArrow.png')}
+            style={styles.arrowBtn}
+          />
         </TouchableOpacity>
       </View>
       <View style={styles.section5}>
