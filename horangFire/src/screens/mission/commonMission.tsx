@@ -107,6 +107,7 @@ const CommonMission = ({navigation, route}: Props) => {
 
   const checkImage = () => {
     if (diary !== '' && image.file !== '') {
+      console.log('들어옴ㄴ');
       // s3 서버 연결
       RNS3.put(
         {

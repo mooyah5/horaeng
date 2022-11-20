@@ -130,7 +130,6 @@ const MainMission = ({navigation}: Props) => {
   const checkImage = () => {
     if (diary !== '') {
       // s3 서버 연결
-      console.log('들어옴ㄴ');
       RNS3.put(
         {
           uri: image.file,
@@ -146,7 +145,6 @@ const MainMission = ({navigation}: Props) => {
         },
       ).then((res: any) => {
         if (res.status === 201) {
-          console.log('업로드 가눈ㅇㅇㅇㅇㅇㅇㅇ');
           setLoca(res.body.postResponse.location);
         } else {
           Alert.alert('업로드 실패');

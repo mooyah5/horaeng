@@ -26,9 +26,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     justifyContent: 'center',
   },
-  section1: {flex: 5},
-  section2: {flex: 16, paddingHorizontal: 24},
-  section3: {flex: 4, flexDirection: 'row', paddingHorizontal: 24},
+  section1: {flex: 4},
+  section2: {flex: 15, height: '100%', paddingHorizontal: 24},
+  section3: {flex: 4},
 
   infoBox: {
     width: '100%',
@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
   },
   textBox: {
     width: '100%',
+    height: '100%',
     paddingHorizontal: 40,
     marginVertical: 40,
   },
@@ -55,6 +56,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     textAlign: 'center',
     color: color.BLACK_3A,
+    paddingBottom: 20,
   },
   day: {
     fontFamily: font.beeMid,
@@ -71,28 +73,27 @@ const styles = StyleSheet.create({
     color: color.BLACK_3A,
   },
   imgBox: {
-    // backgroundColor: color.BACK_SUB,
-    width: '100%',
-    height: '80%',
-    borderRadius: 40,
     overflow: 'hidden',
+    borderRadius: 20,
+    width: '100%',
+    height: 200,
     alignItems: 'center',
     justifyContent: 'center',
-    marginVertical: 20,
+    borderRadius: 20,
+    marginBottom: 20,
   },
   image: {
     width: '100%',
     height: '100%',
     alignItems: 'center',
-    resizeMode: 'cover',
     justifyContent: 'center',
+    resizeMode: 'cover',
   },
   report: {
     width: 40,
     height: 40,
     alignSelf: 'center',
   },
-  emptyArea: {flex: 2},
   x_button: {
     position: 'absolute',
     top: 10,
@@ -138,28 +139,24 @@ const DiaryDetail = ({navigation, route}: Props) => {
           source={require('../../assets/image/longPostBox.png')}
           style={styles.infoBox}
         />
-        <Pressable style={styles.x_button} onPress={onBackButton}>
-          <Image
-            source={require('../../assets/image/xButton.png')}
-            style={styles.imageBtn}
-          />
-        </Pressable>
+
         <ScrollView style={styles.textBox}>
           <Text style={styles.subTitle}>{item.name} 님의</Text>
-          <Text style={styles.title}>{data[item.charactersId]}</Text>
-          {item.imgUrl ? (
-            <Image
-              source={{
-                uri: item.imgUrl,
-              }}
-              style={styles.image}
-            />
-          ) : (
-            <Text />
-          )}
+          <Text style={styles.title}>{data[item.charactersId]} 미션</Text>
+          <View style={styles.imgBox}>
+            {item.imgUrl ? (
+              <Image
+                source={{
+                  uri: item.imgUrl,
+                }}
+                style={styles.image}
+              />
+            ) : (
+              <Text />
+            )}
+          </View>
 
           <Text style={styles.text}>{item.content}</Text>
-
           <TouchableOpacity
             onPress={() => navigation.navigate('ReportModal', {id: id})}>
             <Image
@@ -168,10 +165,14 @@ const DiaryDetail = ({navigation, route}: Props) => {
             />
           </TouchableOpacity>
         </ScrollView>
+        <Pressable style={styles.x_button} onPress={onBackButton}>
+          <Image
+            source={require('../../assets/image/xButton.png')}
+            style={styles.imageBtn}
+          />
+        </Pressable>
       </View>
-      <View style={styles.section3}>
-        <View style={styles.emptyArea} />
-      </View>
+      <View style={styles.section3} />
     </SafeAreaView>
   );
 };
