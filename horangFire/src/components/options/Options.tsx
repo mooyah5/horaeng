@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
   },
   subSection7: {flex: 3},
   // option
-  optionTitle: {fontSize: 40, fontFamily: font.beeBold, textAlign: 'center'},
+  optionTitle: {fontSize: 30, fontFamily: font.beeBold, textAlign: 'center'},
   optionSliderName: {
     flex: 4,
     fontSize: 20,
@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
     marginRight: '18%',
   },
   optionSwitch: {justifyContent: 'flex-end'},
-  logout: {fontFamily: font.beeBold, fontSize: 24, color: 'gray'},
+  logout: {fontFamily: font.beeBold, fontSize: 20, color: 'gray'},
   empty: {flex: 0.5},
 });
 

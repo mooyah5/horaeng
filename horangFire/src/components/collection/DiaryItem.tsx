@@ -16,7 +16,7 @@ const diaryHeight = ((width - 88) / 3) * 0.8;
 const styles = StyleSheet.create({
   diaryItem: {width: '100%', alignItems: 'center'},
   image: {width: '50%', height: diaryHeight, resizeMode: 'contain'},
-  text: {fontFamily: font.beeBold, fontSize: 20},
+  text: {fontFamily: font.beeBold, fontSize: 16},
 });
 
 interface Props {
