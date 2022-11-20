@@ -14,14 +14,14 @@ const styles = StyleSheet.create({
   },
 
   top: {
-    fontSize: 50,
+    fontSize: 30,
     fontFamily: font.beeBold,
     color: color.BLACK_3A,
     textAlign: 'center',
   },
 
   bottom: {
-    fontSize: 24,
+    fontSize: 18,
     fontFamily: font.beeBold,
     color: color.BLACK_3A,
     textAlign: 'right',
