@@ -87,7 +87,7 @@ const Login = ({navigation}: Props) => {
       dispatch(setMyCharacter({character: response.data}));
       navigation.navigate('Home');
     } else {
-      navigation.navigate('SelectAnimal');
+      navigation.navigate('Video', {next: 'SelectAnimal'});
     }
   };
 

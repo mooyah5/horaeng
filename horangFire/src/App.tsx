@@ -9,7 +9,7 @@ import {Provider} from 'react-redux';
 import Sound from 'react-native-sound';
 import {getDataInLocalStorage} from './store/AsyncService';
 
-Sound.setCategory('Playback');
+Sound.setCategory('Ambient');
 
 export const sound = new Sound(
   'example_sound.mp3',
