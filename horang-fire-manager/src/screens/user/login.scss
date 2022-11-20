@@ -1,0 +1,78 @@
+#login{
+    @font-face {
+        font-family: 'Pretendard-Regular';
+        src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+        font-weight: 400;
+        font-style: normal;
+    }
+    color: #3c3c3c;
+    .center {
+        text-align: center;
+    }
+    
+    .login_container {
+        display: block;
+        max-width: 500px;
+        min-width: 500px;
+        margin: 80px auto;
+        padding: 80px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        border: 1px solid #a3a3a3;
+        border-radius: 20px;
+        
+        .title {
+            text-align: start;
+            font-family: 'Pretendard-Bold';
+            font-size: 32px;
+            padding: 10px 0;
+            width: 100%;
+        }
+    
+        .input-box {
+            padding: 10px 0;
+            width: fit-content;
+            
+            .input-text {
+                font-size: 14px;
+                padding: 12px 0;
+                font-family: 'Pretendard-Bold';
+            }
+            
+            .input {
+                height: 40px;
+                width: 340px;
+                border: solid 1px gray;
+                border-radius: 5px;
+                padding: 10px 20px;
+                font-size: 16px;
+                font-family: 'Pretendard-Bold';
+            }
+            .input::placeholder{
+                font-family: 'Pretendard-Medium';
+                font-size: 14px;
+            }
+        }
+        
+        .login-btn-div {
+            display: flex;
+            justify-content: center;
+            padding: 40px 0 0 0;
+            align-self: center;
+    
+            .login-btn {
+                width: 100%;
+                padding: 10px 30px;
+                background-color: #f0801a;
+                border-radius: 30px;
+                color: #ffffff;
+            }
+            .login-btn:hover {
+                opacity: 0.8;
+            }
+        }
+    }
+    
+    
+}
