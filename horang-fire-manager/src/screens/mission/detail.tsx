@@ -70,7 +70,7 @@ function MissionDetail() {
           <div className="input-box">
             <div className="title-box">
               <div className="title-box-text">
-                <p className="title">{mission.content}</p>
+                <p className="title">{mission.title}</p>
               </div>
               <div className="title-box-submit">
                 <div className="title-box-submit-btndiv">
