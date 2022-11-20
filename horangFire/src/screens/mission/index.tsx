@@ -172,7 +172,7 @@ const MissionHome = ({navigation}: Props) => {
   }, [specieName, characterLv, characterNum]);
 
   const canDoMain = () => {
-    if (isMainDone !== false) {
+    if (isMainDone !== true) {
       navigation.navigate('MainMission');
     } else {
       setCharSays('이미 메인 미션을 완료했어 !');
