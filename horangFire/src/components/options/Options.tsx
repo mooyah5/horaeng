@@ -50,6 +50,10 @@ const Option = ({navigation}: Props) => {
     navigation.navigate('Login');
   };
 
+  const video = async () => {
+    navigation.navigate('Video', {next: 'Home'});
+  };
+
   const initailSetting = async () => {
     const bgmVolume = await getDataInLocalStorage('bgmVolume');
     const efVolume = await getDataInLocalStorage('efVolume');
@@ -122,6 +126,9 @@ const Option = ({navigation}: Props) => {
           <TouchableOpacity onPress={logout}>
             <Text style={styles.logout}>로그아웃</Text>
           </TouchableOpacity>
+          <TouchableOpacity onPress={video}>
+            <Text style={styles.logout}>인트로 다시보기</Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.subSection7} />
       </View>
@@ -180,7 +187,8 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingHorizontal: 45,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
+    flexDirection: 'row',
   },
   subSection7: {flex: 3},
   // option

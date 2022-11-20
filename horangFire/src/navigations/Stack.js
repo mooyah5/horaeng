@@ -41,6 +41,8 @@ import ApplyModal from '../components/options/ApplyModal';
 import Option from '../components/options/Options';
 import BackgroundOption from '../components/options/BackgroundOption';
 
+import VideoScreen from '../screens/video/Video';
+
 const Stack = createStackNavigator();
 
 const StackNavigation = () => {
@@ -58,6 +60,7 @@ const StackNavigation = () => {
           options={{gestureEnabled: false}}
         />
         <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Video" component={VideoScreen} />
 
         <Stack.Screen name="SelectAnimal" component={SelectAnimal} />
         <Stack.Screen name="AnimalNameForm" component={AnimalNameForm} />
