@@ -75,20 +75,18 @@ pipeline {
                 sh 'docker rmi mocaa/character-service'
             }
         }
-        stages {
-                stage('Deploy') {
-                  steps {
-                    echo 'hello start'
-                    sshagent (credentials: ['ssh-deploy']) {
-                      sh """
+        stage('Deploy') {
+            steps {
+                echo 'hello start'
+                sshagent (credentials: ['ssh-deploy']) {
+                    sh """
                         ssh -o StrictHostKeyChecking=no ubuntu@43.201.97.204 '
                         cd /home/ubuntu/deploy/character
                         ./dev.sh
                         '
                       """
-                    }
-                  }
                 }
             }
+        }
     }
 }
