@@ -106,15 +106,15 @@
 |          | Spring          | Spring             | 5.3.23      |
 |          |                 | Spring Boot        | 2.7.5       |
 |          | IDE             | Intellij(Ultimate) | 22.1.3      |
-|          | Build           | Gradle             | 7.4.1       |
+|          | Build           | Gradle             | 7.5.1       |
 |          | API Docs        | Postman            | \-          |
 |          |                 | Rabbit MQ          | 3.11.3      |
-|          |                 | grafana            | 8.2.6       |
-|          |                 | prometheus         | 2.40.2      |
-|          |                 | elasticsearch      | 7.6.2       |
-|          |                 | logstash           | 7.6.2       |
-|          |                 | kibana             | 7.6.2       |
-|          |                 | filebeat           | 7.6.2       |
+|          | visualization   | grafana            | 8.2.6       |
+|          | visualization   | prometheus         | 2.40.2      |
+|          | visualization   | elasticsearch      | 7.6.2       |
+|          | visualization   | logstash           | 7.6.2       |
+|          | visualization   | kibana             | 7.6.2       |
+|          | visualization   | filebeat           | 7.6.2       |
 | FrontEnd | JavaScript(ES6) |                    | \-          |
 |          | TypeScript      |                    | 4.8.4       |
 |          | React           | React              | 18.1.0      |
