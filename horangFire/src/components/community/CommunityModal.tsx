@@ -83,6 +83,10 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   emptyArea: {flex: 2},
+  xButton: {
+    width: 50,
+    height: 50,
+  },
 });
 
 interface CommunityDetail {
@@ -131,7 +135,8 @@ const DiaryDetail = ({navigation, route}: Props) => {
     4: '바다 거북이',
     5: '펭귄',
   };
-
+  console.log(communityDetail.imgUrl);
+  console.log(communityDetail.content);
   return (
     <SafeAreaView style={styles.body}>
       <View style={styles.section1} />
@@ -170,7 +175,13 @@ const DiaryDetail = ({navigation, route}: Props) => {
       </View>
       <View style={styles.section3}>
         <View style={styles.emptyArea} />
-        <Btn txt="이전으로" clickEvent={onBackButton} />
+        <TouchableOpacity onPress={onBackButton}>
+          <Image
+            style={styles.xButton}
+            source={require('../../assets/image/xButton.png')}
+          />
+        </TouchableOpacity>
+        {/* <Btn txt="이전으로" clickEvent={onBackButton} /> */}
       </View>
     </SafeAreaView>
   );
