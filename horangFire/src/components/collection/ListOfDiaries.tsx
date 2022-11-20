@@ -1,7 +1,7 @@
 import {ParamListBase} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import React, {useEffect, useState} from 'react';
-import {font} from '../../styles/colorAndFontTheme';
+import {font, color} from '../../styles/colorAndFontTheme';
 import {
   Image,
   SafeAreaView,
@@ -24,7 +24,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   section1: {flex: 5},
-  section2: {flex: 16, paddingHorizontal: 24, paddingTop: 40},
+  section2: {
+    flex: 16,
+    paddingHorizontal: 24,
+    paddingTop: 40,
+  },
   section3: {flex: 5, flexDirection: 'row', paddingHorizontal: 30},
 
   scroll: {
@@ -59,9 +63,13 @@ const styles = StyleSheet.create({
   },
   emptyArea: {flex: 2},
   empty: {
-    fontFamily: font.beeBold,
-    fontSize: 30,
+    fontFamily: font.beeMid,
+    fontSize: 24,
     textAlign: 'center',
+    flex: 4,
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: color.BROWN_47,
   },
 });
 
@@ -148,11 +156,11 @@ const ListOfDiaries = ({navigation, route}: Props) => {
                 </View>
               </View>
             )}
-            {diaries.length === 0 && (
-              <Text style={styles.empty}>일지를 작성해 볼까요?</Text>
-            )}
           </>
         </ScrollView>
+        {diaries.length === 0 && (
+          <Text style={styles.empty}>작성된 일지가 없어요ㅜㅜ</Text>
+        )}
       </View>
       <View style={styles.section3}>
         <View style={styles.emptyArea} />

@@ -15,14 +15,14 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
   top: {
-    fontSize: 30,
-    fontFamily: font.beeBold,
+    fontSize: 24,
+    fontFamily: font.beeMid,
     color: color.BLACK_3A,
   },
 
   bottom: {
-    fontSize: 50,
-    fontFamily: font.beeBold,
+    fontSize: 34,
+    fontFamily: font.beeMid,
     color: color.BLACK_3A,
   },
 });

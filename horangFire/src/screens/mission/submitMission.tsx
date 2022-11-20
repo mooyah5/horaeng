@@ -5,9 +5,16 @@ import {Image, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import Btn from '../../components/common/Btn_long';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {ParamListBase, RouteProp} from '@react-navigation/native';
-import {useSelector} from 'react-redux';
-import {selectCharacter, selectName} from '../../store/character';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  selectCharacter,
+  selectName,
+  setTodayCommon,
+  setTodayMission,
+} from '../../store/character';
 import {charMission} from '../../script/charMission';
+import {selectUser, setUserPoint} from '../../store/user';
+import api from '../../api/api_controller';
 
 const styles = StyleSheet.create({
   container: {
@@ -37,14 +44,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 6,
   },
   txtTitle: {
-    fontFamily: font.beeBold,
-    fontSize: 32,
+    fontFamily: font.beeMid,
+    fontSize: 24,
     // paddingTop: 40,
     paddingBottom: 20,
   },
   txtSub: {
-    fontFamily: font.beeBold,
-    fontSize: 26,
+    fontFamily: font.beeMid,
+    fontSize: 20,
     textAlign: 'center',
   },
   box: {
@@ -62,18 +69,31 @@ interface Props {
 
 const SubmitMission = ({navigation, route}: Props) => {
   const charInfo = useSelector(selectCharacter);
+  const user = useSelector(selectUser);
   const days = charInfo?.count;
   const name = useSelector(selectName);
   const [success, setSuccess] = useState('');
   // const [point, setPoint] = useState(route.params.point;
   const point = route?.params?.point;
+  const dispatch = useDispatch();
+  const type = route?.params?.type;
+
+  const updateInfo = async () => {
+    const user_res = await api.user.getUserInfo(user.id);
+    dispatch(setUserPoint({point: user_res.data.point}));
+    if (type === 'main') {
+      dispatch(setTodayMission({isDone: true}));
+    } else {
+      dispatch(setTodayCommon({isDone: true}));
+    }
+  };
 
   useEffect(() => {
-    console.log(route?.params?.type);
+    updateInfo();
     if (route?.params?.type === 'main') {
-      setSuccess(days + '일차 미션을 해결했네!');
+      setSuccess(days + '일차 미션을 해결했네 !');
     } else {
-      setSuccess('공통미션을 마쳤네!');
+      setSuccess('공통미션을 마쳤네 !');
     }
   }, []);
 
@@ -98,12 +118,12 @@ const SubmitMission = ({navigation, route}: Props) => {
             source={require('../../assets/image/optionBox.png')}
           />
           <Text style={styles.txtTitle}>
-            {charMission[charInfo?.userCharacter?.character_id]} 미션
+            {charMission[charInfo?.userCharacter?.character_id][0]} 미션
           </Text>
           <Text style={styles.txtSub}>{success}</Text>
           <Text style={styles.txtSub}>
             <Text style={{color: color.RED}}>{point}</Text>개의 성냥을 선물로
-            줄게 :)
+            줄게 ~~
           </Text>
         </View>
         <View style={styles.btns}>
