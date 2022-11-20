@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
-  title: {fontSize: 40, fontFamily: font.beeBold, textAlign: 'center'},
+  title: {fontSize: 30, fontFamily: font.beeBold, textAlign: 'center'},
   // background
   leftArrowArea: {
     flex: 3,

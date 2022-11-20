@@ -386,7 +386,7 @@ const Home = ({navigation}: Props) => {
 
   useEffect(() => {
     if (savedCheck && hadCheck) {
-      if (haveBackground.includes(savedBgNumber)) {
+      if (haveBackground.includes(savedBgNumber + 1)) {
         dispatch(setBackgroundNumber(savedBgNumber));
       } else {
         dispatch(setBackgroundNumber(character?.userCharacter?.character_id));

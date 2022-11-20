@@ -36,14 +36,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 40,
     marginVertical: 40,
   },
-  title: {fontFamily: font.beeBold, fontSize: 32, alignSelf: 'center'},
+  title: {fontFamily: font.beeBold, fontSize: 26, alignSelf: 'center'},
   day: {
     fontFamily: font.beeBold,
-    fontSize: 20,
+    fontSize: 16,
     alignSelf: 'center',
     marginBottom: 20,
   },
-  text: {fontFamily: font.beeBold, fontSize: 20, paddingHorizontal: 20},
+  text: {fontFamily: font.beeBold, fontSize: 16, paddingHorizontal: 20},
   imgBox: {
     overflow: 'hidden',
     width: '90%',
@@ -95,7 +95,7 @@ const DiaryDetail = ({navigation, route}: Props) => {
             {week[date.getDay()]})
           </Text>
           {/* TODO S3 완료된 이후에 이미지 경로 추가 */}
-          {diary.imgUrl !== '' && (
+          {diary.imgUrl !== 'null' && (
             <Image source={{uri: diary.imgUrl}} style={styles.image} />
           )}
 
