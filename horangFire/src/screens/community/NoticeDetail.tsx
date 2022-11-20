@@ -10,15 +10,15 @@ import {StackNavigationProp} from '@react-navigation/stack';
 const styles = StyleSheet.create({
   text: {
     fontFamily: font.beeBold,
-    fontSize: 28,
+    fontSize: 24,
     color: color.BLACK_3A,
-    textAlign: 'center',
+    textAlign: 'left',
   },
   body: {
     backgroundColor: color.MODAL,
     width: '100%',
     height: '100%',
-    padding: 40,
+    padding: 30,
     paddingTop: 40,
   },
   box1: {

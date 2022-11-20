@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
 
   // dropdown
   textContainer: {
-    fontSize: 24,
+    fontSize: 20,
     fontFamily: font.beeBold,
     color: color.BROWN_78,
   },
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginVertical: 2,
     paddingHorizontal: 10,
-    width: 120,
+    width: 130,
     alignItems: 'center',
   },
 

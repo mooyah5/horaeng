@@ -21,26 +21,7 @@ function MissionHome() {
       <div className="container flex column">
         <div className="mission_title fs-32 preBold">공통 미션</div>
         <div className="mission_top flex justify-space-between">
-          <div className="mission_select flex preMid fs-18">
-            {/* <button
-              type="button"
-              className={activeBtns(clickToday)}
-              onClick={() => {
-                setClickAll(false);
-                setClickToday(true);
-              }}>
-              오늘의 공통미션
-            </button>
-            <button
-              type="button"
-              className={activeBtns(clickAll)}
-              onClick={() => {
-                setClickAll(true);
-                setClickToday(false);
-              }}>
-              전체 미션 보기
-            </button> */}
-          </div>
+          <div className="mission_select flex preMid fs-18"></div>
           <div>
             <WriteBtn
               txt={'글 작성'}

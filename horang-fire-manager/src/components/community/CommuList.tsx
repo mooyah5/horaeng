@@ -32,7 +32,7 @@ function CommuList() {
   }, []);
 
   useEffect(() => {
-    fetchReports();
+    // fetchReports();
   }, [list]);
 
   return (
