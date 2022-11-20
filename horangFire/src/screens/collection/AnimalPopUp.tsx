@@ -58,8 +58,8 @@ const styles = StyleSheet.create({
     height: '100%',
   },
 
-  pop_up_font: {fontFamily: font.beeBold, fontSize: 20},
-  pop_up_subfont: {fontFamily: font.beeBold, fontSize: 14},
+  pop_up_font: {fontFamily: font.beeBold, fontSize: 18},
+  pop_up_subfont: {fontFamily: font.beeBold, fontSize: 12},
 
   pop_up_btn: {
     position: 'absolute',

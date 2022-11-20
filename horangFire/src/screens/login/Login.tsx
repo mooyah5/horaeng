@@ -72,7 +72,7 @@ const Login = ({navigation}: Props) => {
 
     if (token && kakaoId) {
       try {
-        const response = await api.user.getUserInfo('2510350420');
+        const response = await api.user.getUserInfo(kakaoId);
         dispatch(setUserObject({user: response.data}));
       } catch {
         await ownLogin(kakaoId);
@@ -129,8 +129,8 @@ export default Login;
 
 const styles = StyleSheet.create({
   body: {width: '100%', height: '100%'},
-  section_1: {flex: 11},
-  section_4: {flex: 3, alignItems: 'center'},
+  section_1: {flex: 7},
+  section_4: {flex: 7, alignItems: 'center'},
   section_5: {flex: 16},
   title: {height: '100%', width: '90%', resizeMode: 'contain'},
   loginBox: {height: '100%', width: '60%'},

@@ -16,9 +16,11 @@ import {useSelector} from 'react-redux';
 import {
   selectCharacter,
   selectName,
+  selectTodaysCommonMission,
   selectTodaysMission,
 } from '../../store/character';
 import {charMission} from '../../script/charMission';
+import CHARCTER, {CHARACTER} from '../Home';
 
 const styles = StyleSheet.create({
   container: {
@@ -43,11 +45,16 @@ const styles = StyleSheet.create({
   cont2: {
     alignItems: 'center',
     marginTop: 30,
-    flex: 6,
+    flex: 1.5,
+  },
+  cont3: {
+    flex: 4.5,
+    width: '100%',
   },
   txtBox: {
     alignItems: 'center',
     justifyContent: 'center',
+    flex: 2,
   },
   btns: {
     flex: 1,
@@ -57,8 +64,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 6,
   },
   txt: {
-    fontFamily: font.beeBold,
-    fontSize: 30,
+    fontFamily: font.beeMid,
+    fontSize: 20,
     color: color.BLACK_3A,
     position: 'absolute',
     paddingBottom: 30,
@@ -67,6 +74,11 @@ const styles = StyleSheet.create({
     width: 30,
     height: 20,
   },
+  img: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'contain',
+  },
 });
 
 interface Props {
@@ -74,25 +86,107 @@ interface Props {
 }
 
 const MissionHome = ({navigation}: Props) => {
-  const isDone = useSelector(selectTodaysMission);
+  const isMainDone = useSelector(selectTodaysMission);
+  const isCommonDone = useSelector(selectTodaysCommonMission);
   const name = useSelector(selectName);
   const missionType = useSelector(selectCharacter)?.userCharacter?.character_id;
-
+  const [characterNum, setCharacterNum] = useState<number>(0);
+  const [specieName, setSpecieName] = useState<string>('');
   const missionTxt = charMission[missionType][0];
-  const [charSays, setCharSays] = useState<string>(missionTxt + '에 도전!');
+  const [charSays, setCharSays] = useState<string>(missionTxt + '에 도전 ~');
+  const characterLv =
+    useSelector(selectCharacter)?.userCharacter?.characterLevel;
+
+  useEffect(() => {
+    const characterName = () => {
+      let name = '';
+      switch (missionType) {
+        case 1:
+          name = 'tiger';
+          break;
+        case 2:
+          name = 'bird';
+          break;
+        case 3:
+          name = 'elephant';
+          break;
+        case 4:
+          name = 'turtle';
+          break;
+        case 5:
+          name = 'penguin';
+          break;
+      }
+
+      return name;
+    };
+    setSpecieName(characterName());
+  }, []);
+
+  useEffect(() => {
+    if (specieName === 'tiger' && characterLv === 'LEVEL_1') {
+      setCharacterNum(0);
+    }
+    if (specieName === 'tiger' && characterLv === 'LEVEL_2') {
+      setCharacterNum(1);
+    }
+    if (specieName === 'tiger' && characterLv === 'LEVEL_3') {
+      setCharacterNum(2);
+    }
+    if (specieName === 'bird' && characterLv === 'LEVEL_1') {
+      setCharacterNum(3);
+    }
+    if (specieName === 'bird' && characterLv === 'LEVEL_2') {
+      setCharacterNum(4);
+    }
+    if (specieName === 'bird' && characterLv === 'LEVEL_3') {
+      setCharacterNum(5);
+    }
+    if (specieName === 'elephant' && characterLv === 'LEVEL_1') {
+      setCharacterNum(6);
+    }
+    if (specieName === 'elephant' && characterLv === 'LEVEL_2') {
+      setCharacterNum(7);
+    }
+    if (specieName === 'elephant' && characterLv === 'LEVEL_3') {
+      setCharacterNum(8);
+    }
+    if (specieName === 'turtle' && characterLv === 'LEVEL_1') {
+      setCharacterNum(9);
+    }
+    if (specieName === 'turtle' && characterLv === 'LEVEL_2') {
+      setCharacterNum(10);
+    }
+    if (specieName === 'turtle' && characterLv === 'LEVEL_3') {
+      setCharacterNum(11);
+    }
+    if (specieName === 'penguin' && characterLv === 'LEVEL_1') {
+      setCharacterNum(12);
+    }
+    if (specieName === 'penguin' && characterLv === 'LEVEL_2') {
+      setCharacterNum(13);
+    }
+    if (specieName === 'penguin' && characterLv === 'LEVEL_3') {
+      setCharacterNum(14);
+    }
+  }, [specieName, characterLv, characterNum]);
+
   const canDoMain = () => {
-    if (isDone === false) {
+    if (isMainDone === false) {
       navigation.navigate('MainMission');
     } else {
-      setCharSays('이미 메인 미션을 완료했어!');
+      setCharSays('이미 메인 미션을 완료했어 !');
     }
   };
 
   const canDoCommon = () => {
-    if (isDone === true) {
+    if (isCommonDone === false && isMainDone === false) {
+      setCharSays('메인 미션 먼저 해결해줘 !');
+    } else if (isCommonDone === true && isMainDone === true) {
+      setCharSays('모든 미션을 해결했어 !\n내일 다시 시도해줘 !');
       navigation.navigate('LookCommon');
-    } else {
-      setCharSays('메인 미션 먼저 해결해줘!');
+    } else if (isMainDone === true && isCommonDone === false) {
+      navigation.navigate('LookCommon');
     }
   };
 
@@ -119,14 +213,13 @@ const MissionHome = ({navigation}: Props) => {
           <View style={styles.txtBox}>
             <Image
               source={require('../../assets/image/textBox.png')}
-              style={{marginBottom: 20}}
+              style={{marginBottom: 10}}
             />
             <Text style={styles.txt}>{charSays}</Text>
           </View>
-          <Image
-            source={require('../../assets/image/character/72ppi/tiger3.png')}
-            style={{width: 228, height: 242}}
-          />
+        </View>
+        <View style={styles.cont3}>
+          <Image source={CHARACTER[characterNum]} style={styles.img} />
         </View>
         <View style={styles.btns}>
           <View style={styles.btn}>

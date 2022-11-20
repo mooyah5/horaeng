@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   photoTxt: {
-    fontFamily: font.beeBold,
+    fontFamily: font.beeMid,
     fontSize: 16,
     textAlign: 'center',
     color: color.BROWN_47,
@@ -42,7 +42,6 @@ const ImagePicker = ({navigation}: Props) => {
 
   useEffect(() => {
     setFileImage(img.file);
-    console.log(img);
   }, [img]);
 
   function showPicker() {
@@ -54,8 +53,7 @@ const ImagePicker = ({navigation}: Props) => {
     <TouchableOpacity style={styles.photo} onPress={showPicker}>
       {fileImage === '' && (
         <Text style={styles.photoTxt}>
-          사진을 업로드해볼까? {'\n'}
-          (? 버튼으로 자세한 사항을 확인해봐!)
+          사진을 업로드해볼까? {'\n'}- ? 버튼으로 자세한 사항을 확인해봐-
         </Text>
       )}
       {fileImage !== '' && (

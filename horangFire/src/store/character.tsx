@@ -36,9 +36,14 @@ export const charSlice = createSlice({
     setMyCharacter: (state: CharacterResponseType | null, action) => {
       return action.payload.character;
     },
-    setTodaysMission: (state: CharacterResponseType | null, action) => {
+    setTodayMission: (state: CharacterResponseType | null, action) => {
       if (state) {
         state.todayMain = action.payload.isDone;
+      }
+    },
+    setTodayCommon: (state: CharacterResponseType | null, action) => {
+      if (state) {
+        state.todayCommon = action.payload.isDone;
       }
     },
   },
@@ -60,6 +65,7 @@ export const selectName = (state: {character: CharacterResponseType}) =>
 export const selectCharacter = (state: {
   character: CharacterResponseType | null;
 }) => state.character;
-export const {setMyCharacter, setTodaysMission} = charSlice.actions;
+export const {setMyCharacter, setTodayMission, setTodayCommon} =
+  charSlice.actions;
 
 export default charSlice.reducer;

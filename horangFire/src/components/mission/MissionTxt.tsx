@@ -19,10 +19,10 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   title: {
-    fontFamily: font.beeBold,
-    fontSize: 28,
+    fontFamily: font.beeMid,
+    fontSize: 20,
     color: color.BLACK_3A,
-    marginBottom: 12,
+    marginBottom: 10,
     // marginTop: 40,
   },
   input: {
@@ -30,7 +30,8 @@ const styles = StyleSheet.create({
     height: '25%',
     paddingVertical: '4%',
     paddingHorizontal: '4%',
-    fontFamily: font.beeBold,
+    fontFamily: font.beeMid,
+    color: color.BLACK_3A,
     fontSize: 16,
     textAlignVertical: 'top',
   },

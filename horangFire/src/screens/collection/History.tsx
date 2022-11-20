@@ -56,31 +56,30 @@ const CHARACTER_IMAGE = {
 const styles = StyleSheet.create({
   body: {width: '100%', height: '100%'},
   area: {width: '100%', height: '100%', position: 'absolute'},
-  section1: {flex: 5},
+  section1: {flex: 5, justifyContent: 'center'},
   section2: {flex: 6, justifyContent: 'flex-end'},
   section3: {flex: 16},
-  section4: {flex: 6},
+  section4: {flex: 5},
   section5: {
-    flex: 16,
+    flex: 11,
     marginHorizontal: 24,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  section6: {flex: 8},
+  section6: {flex: 14},
 
   // 상단 버튼영역
   button_area: {
-    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     marginHorizontal: 10,
+    height: '100%',
   },
   button_empty_area: {flex: 3},
   button_image: {resizeMode: 'contain', marginLeft: 10, height: 24},
-  button_text: {fontFamily: font.beeBold, fontSize: 24, paddingHorizontal: 5},
 
   // 타이틀 영역
-  title: {fontFamily: font.beeBold, fontSize: 50, textAlign: 'center'},
+  title: {fontFamily: font.beeBold, fontSize: 30, textAlign: 'center'},
 
   // 동물 영역
   animalBox: {

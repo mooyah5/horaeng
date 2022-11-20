@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
-import {font} from '../../styles/colorAndFontTheme';
+import {font, color} from '../../styles/colorAndFontTheme';
 import {Community} from '../community/CommunityContent';
 
 const {width} = Dimensions.get('window');
@@ -16,7 +16,7 @@ const diaryHeight = ((width - 88) / 3) * 0.8;
 const styles = StyleSheet.create({
   diaryItem: {width: '100%', alignItems: 'center'},
   image: {width: '50%', height: diaryHeight, resizeMode: 'contain'},
-  text: {fontFamily: font.beeBold, fontSize: 20},
+  text: {fontFamily: font.beeMid, fontSize: 20, color: color.BLACK_3A},
 });
 
 interface Props {

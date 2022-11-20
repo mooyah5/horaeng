@@ -27,6 +27,6 @@ export const font: fontTheme = {
   preMid: 'Pretendard-Medium',
   preReg: 'Pretendard-Regular',
   preExtra: 'Pretendard-ExtraBold',
-  beeMid: 'UhBeemysen',
-  beeBold: 'UhBeemysenBold',
+  beeMid: 'UhBeepuding',
+  beeBold: 'UhBeepudingBold',
 };

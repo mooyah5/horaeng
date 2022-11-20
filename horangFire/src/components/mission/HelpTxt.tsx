@@ -15,8 +15,8 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   title: {
-    fontFamily: font.beeBold,
-    fontSize: 28,
+    fontFamily: font.beeMid,
+    fontSize: 20,
     color: color.BLACK_3A,
     marginBottom: 12,
   },
@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     paddingBottom: 8,
   },
+
   photo: {
     borderRadius: 20,
     width: '65%',
@@ -35,21 +36,27 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     overflow: 'hidden',
   },
+
   explain: {
     width: '70%',
-    height: '25%',
+    height: '35%',
     paddingVertical: '4%',
     paddingHorizontal: '4%',
-    fontFamily: font.beeBold,
-    fontSize: 16,
+    fontFamily: font.beeMid,
+    fontSize: 14,
+    color: color.BLACK_3A,
   },
+
   explainTitle: {
     fontFamily: font.beeBold,
     fontSize: 20,
+    color: color.BLACK_3A,
   },
+
   temp: {
     width: '100%',
     height: '100%',
+    resizeMode: 'cover',
   },
 });
 
