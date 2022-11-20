@@ -55,18 +55,18 @@ const CHARACTER_IMAGE = {
 
 const styles = StyleSheet.create({
   body: {width: '100%', height: '100%'},
-  area: {width: '100%', height: '100%'},
-  section1: {flex: 5, flexDirection: 'row'},
+  area: {width: '100%', height: '100%', position: 'absolute'},
+  section1: {flex: 5},
   section2: {flex: 6, justifyContent: 'flex-end'},
   section3: {flex: 16},
-  section4: {flex: 4},
+  section4: {flex: 6},
   section5: {
     flex: 16,
     marginHorizontal: 24,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  section6: {flex: 10},
+  section6: {flex: 8},
 
   // 상단 버튼영역
   button_area: {
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   button_empty_area: {flex: 3},
-  button_image: {resizeMode: 'contain'},
+  button_image: {resizeMode: 'contain', marginLeft: 10, height: 24},
   button_text: {fontFamily: font.beeBold, fontSize: 24, paddingHorizontal: 5},
 
   // 타이틀 영역
@@ -186,13 +186,17 @@ const History = ({navigation}: Props) => {
           return animal;
         });
       });
-    }, 50);
+    }, 100);
   }, []);
 
   return (
     <ImageBackground
-      source={require('../../assets/image/background/collection_background.jpeg')}
+      source={require('../../assets/image/background/history_gif.gif')}
       style={styles.body}>
+      <Image
+        style={styles.area}
+        source={require('../../assets/image/background/history_background.png')}
+      />
       <SafeAreaView style={styles.body}>
         <View style={styles.section1}>
           <TouchableOpacity
@@ -200,9 +204,8 @@ const History = ({navigation}: Props) => {
             onPress={handleBackButton}>
             <Image
               style={styles.button_image}
-              source={require('../../assets/image/leftArrow.png')}
+              source={require('../../assets/image/icon/left_arrow.png')}
             />
-            <Text style={styles.button_text}>뒤로가기</Text>
           </TouchableOpacity>
           <View style={styles.button_empty_area} />
         </View>
