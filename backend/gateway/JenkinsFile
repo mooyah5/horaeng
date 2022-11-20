@@ -43,7 +43,7 @@ pipeline {
             steps{
                 script{
                     try {
-                        dir('./backend/gateway-service'){
+                        dir('./backend/gateway'){
                             sh 'chmod +x gradlew'
                             sh './gradlew clean build'
                         }
@@ -51,7 +51,7 @@ pipeline {
                         sh 'echo "gateway-service 삭제 실패"'
                     }
                     try{
-                        sh 'docker build -t mocaa/gateway-service ./backend/gateway-service'
+                        sh 'docker build -t mocaa/gateway ./backend/gateway'
                     }catch(e){
                         sh 'echo "docker 이미지빌드중 실패"'
                     }
@@ -66,13 +66,13 @@ pipeline {
         stage('Deploy image') {
             steps {
                 script {
-                    sh 'docker push mocaa/gateway-service'
+                    sh 'docker push mocaa/gateway'
                 }
             }
         }
         stage('Cleaning up') {
             steps {
-                sh 'docker rmi mocaa/gateway-service'
+                sh 'docker rmi mocaa/gateway'
             }
         }
         stage('Deploy') {
