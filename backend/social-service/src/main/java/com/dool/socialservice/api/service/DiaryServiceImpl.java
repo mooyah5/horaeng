@@ -69,4 +69,9 @@ public class DiaryServiceImpl implements DiaryService {
         Diary diary = diaryRepository.get(id);
         diaryRepository.delete(diary);
     }
+
+    @Override
+    public String getName(String userId) {
+        return userServiceClient.getName(userId);
+    }
 }
