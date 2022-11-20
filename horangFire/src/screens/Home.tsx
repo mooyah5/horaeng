@@ -390,7 +390,9 @@ const Home = ({navigation}: Props) => {
       if (haveBackground.includes(savedBgNumber + 1)) {
         dispatch(setBackgroundNumber(savedBgNumber));
       } else {
-        dispatch(setBackgroundNumber(character?.userCharacter?.character_id));
+        dispatch(
+          setBackgroundNumber(character?.userCharacter?.character_id - 1),
+        );
       }
     }
   }, [savedBgNumber, haveBackground]);
