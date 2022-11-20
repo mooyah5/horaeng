@@ -5,12 +5,10 @@ import '../../screens/mission/index.scss';
 
 interface mission {
   id: number;
-  charactersId: number;
-  userId: string;
-  userCharacterId: number;
+  title: string;
   content: string;
-  imgUrl: string;
   type: string;
+  img: string;
 }
 
 function MissionList() {
@@ -57,7 +55,7 @@ function MissionList() {
                         state: {id: item.id},
                       })
                     }>
-                    {item.content}
+                    {item.title}
                   </button>
                 </li>
                 <li className="flex align-center justify-center preReg fs-14">

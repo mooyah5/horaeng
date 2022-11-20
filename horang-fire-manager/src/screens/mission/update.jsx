@@ -2,10 +2,31 @@ import React, {useState, useEffect, ChangeEvent} from 'react';
 import './update.scss';
 import {useLocation, useNavigate} from 'react-router-dom';
 import api from '../../api/api';
+import AWS from 'aws-sdk';
+import {S3, S3upload} from 'react-aws-s3';
+
+const S3_BUCKET = 'k7c108';
+const REGION = 'ap-northeast-2';
+
+AWS.config.update({
+  accessKeyId: 'AKIAWHLOLOLJ3T3C7JUE',
+  secretAccessKey: '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',
+});
+
+const myBucket = new AWS.S3({
+  params: {Bucket: S3_BUCKET},
+  region: REGION,
+});
 
 function MissionUpdate() {
   const location = useLocation();
   const navigate = useNavigate();
+
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [fileName, setFileName] = useState('');
+  const [fileType, setFileType] = useState('');
+  const [preImg, setPreImg] = useState('');
+  const [progress, setProgress] = useState(0);
 
   const [inputs, setInputs] = useState({
     title: '',
@@ -13,26 +34,53 @@ function MissionUpdate() {
     img: '',
   });
 
-  const {title, content} = inputs;
-  const onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const {title, content, img} = inputs;
+  const onChange = e => {
     const {name, value} = e.target;
     setInputs({
       ...inputs,
       [name]: value,
     });
-    console.log(inputs);
   };
 
-  const onChangeImage = (e?: any) => {
-    const fileUrl = URL.createObjectURL(e.target.files[0]);
-    setInputs({
-      ...inputs,
-      img: fileUrl,
-    });
-    console.log(inputs);
+  const onChangeImage = e => {
+    const imgFile = e.target.files[0];
+    const fileUrl = URL.createObjectURL(imgFile);
+    setSelectedFile(imgFile);
+    setFileName(imgFile.name);
+    setFileType(imgFile.type);
+    setPreImg(fileUrl);
+
+    const params = {
+      ACL: 'public-read',
+      Body: selectedFile,
+      Bucket: S3_BUCKET,
+      Key: fileName,
+      ContentType: fileType, // s3서버에서 url 클릭 시 다운로드 안 되고 브라우저로 뜨게 하는 목적
+    };
+    myBucket
+      .putObject(params)
+      .on('httpUploadProgress', (evt, Response) => {
+        setProgress(Math.round((evt.loaded / evt.total) * 100));
+
+        const uploadUrl =
+          'https://' +
+          Response.request.httpRequest.endpoint.host +
+          Response.request.httpRequest.path;
+
+        setInputs({
+          ...inputs,
+          img: uploadUrl,
+        });
+      })
+      .send(err => {
+        if (err) {
+          console.log(err);
+        }
+      });
   };
 
-  const readDetail = async (id: number) => {
+  const readDetail = async id => {
     try {
       const res = await api.mission.read(id);
       setInputs({
@@ -40,6 +88,7 @@ function MissionUpdate() {
         title: res.data.title,
         content: res.data.content,
       });
+      setPreImg(res.data.img);
     } catch (err) {
       console.log(err);
     }
@@ -47,14 +96,46 @@ function MissionUpdate() {
 
   useEffect(() => {
     readDetail(location.state.id);
-    console.log(inputs);
   }, []);
 
-  useEffect(() => {
-    console.log(inputs);
-  }, [inputs]);
+  useEffect(() => {}, [inputs]);
 
   const HandleSubmit = async () => {
+    // if (selectedFile !== null) {
+    //   console.log('sele', selectedFile);
+    //   const params = {
+    //     ACL: 'public-read',
+    //     Body: selectedFile,
+    //     Bucket: S3_BUCKET,
+    //     Key: fileName,
+    //     ContentType: fileType, // s3서버에서 url 클릭 시 다운로드 안 되고 브라우저로 뜨게 하는 목적
+    //   };
+    //   myBucket
+    //     .putObject(params)
+    //     .on('httpUploadProgress', (evt, Response) => {
+    //       setProgress(Math.round((evt.loaded / evt.total) * 100));
+
+    //       const uploadUrl =
+    //         'https://' +
+    //         Response.request.httpRequest.endpoint.host +
+    //         Response.request.httpRequest.path;
+
+    //       console.log('uploadUrl 1', uploadUrl);
+    //       setInputs({
+    //         ...inputs,
+    //         img: uploadUrl,
+    //       });
+    //       console.log('uploadUrl 2', uploadUrl);
+    //       console.log(inputs);
+    //     })
+    //     .send(err => {
+    //       if (err) {
+    //         console.log(err);
+    //       }
+    //     });
+    // }
+    // console.log(inputs);
+
     try {
       await api.mission.update(inputs, location.state.id);
       navigate(`/mission`);
@@ -115,7 +196,7 @@ function MissionUpdate() {
               />
               {inputs.img && (
                 <div>
-                  <img className="image_preview" src={inputs.img} alt="" />
+                  <img className="image_preview" src={preImg} alt={preImg} />
                 </div>
               )}
             </div>

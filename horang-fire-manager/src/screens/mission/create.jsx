@@ -1,4 +1,4 @@
-import React, {useState, ChangeEvent} from 'react';
+import React, {useState} from 'react';
 import './create.scss';
 import {useLocation, useNavigate} from 'react-router-dom';
 import api from '../../api/api';
@@ -42,42 +42,84 @@ function MissionCreate() {
     });
   };
 
+  const params = {
+    ACL: 'public-read',
+    Body: selectedFile,
+    Bucket: S3_BUCKET,
+    Key: fileName,
+    ContentType: fileType, // s3서버에서 url 클릭 시 다운로드 안 되고 브라우저로 뜨게 하는 목적
+  };
+
   const onChangeImage = e => {
     const imgFile = e.target.files[0];
+    const fileUrl = URL.createObjectURL(imgFile);
     setSelectedFile(imgFile);
     setFileName(imgFile.name);
     setFileType(imgFile.type);
-    setPreImg(URL.createObjectURL(imgFile));
+    setPreImg(fileUrl);
+
+    const params = {
+      ACL: 'public-read',
+      Body: selectedFile,
+      Bucket: S3_BUCKET,
+      Key: imgFile.name,
+      ContentType: imgFile.type, // s3서버에서 url 클릭 시 다운로드 안 되고 브라우저로 뜨게 하는 목적
+    };
+
+    myBucket
+      .putObject(params)
+      .on('httpUploadProgress', (evt, Response) => {
+        setProgress(Math.round((evt.loaded / evt.total) * 100));
+
+        const uploadUrl =
+          'https://' +
+          Response.request.httpRequest.endpoint.host +
+          Response.request.httpRequest.path;
+
+        setInputs({
+          ...inputs,
+          img: uploadUrl,
+        });
+      })
+      .send(err => {
+        if (err) {
+          console.log(err);
+        }
+      });
   };
 
   const HandleSubmit = async () => {
-    if (selectedFile !== null) {
-      const params = {
-        ACL: 'public-read',
-        Body: selectedFile,
-        Bucket: S3_BUCKET,
-        Key: fileName,
-        ContentType: fileType, // s3서버에서 url 클릭 시 다운로드 안 되고 브라우저로 뜨게 하는 목적
-      };
-      myBucket
-        .putObject(params)
-        .on('httpUploadProgress', (evt, Response) => {
-          setProgress(Math.round((evt.loaded / evt.total) * 100));
-          const uploadUrl =
-            'https://' +
-            Response.request.httpRequest.endpoint.host +
-            Response.request.httpRequest.path;
-          setInputs({
-            ...inputs,
-            img: uploadUrl,
-          });
-        })
-        .send(err => {
-          if (err) {
-            console.log(err);
-          }
-        });
-    }
+    // if (selectedFile !== null) {
+    //   const params = {
+    //     ACL: 'public-read',
+    //     Body: selectedFile,
+    //     Bucket: S3_BUCKET,
+    //     Key: fileName,
+    //     ContentType: fileType, // s3서버에서 url 클릭 시 다운로드 안 되고 브라우저로 뜨게 하는 목적
+    //   };
+    //   myBucket
+    //     .putObject(params)
+    //     .on('httpUploadProgress', (evt, Response) => {
+    //       setProgress(Math.round((evt.loaded / evt.total) * 100));
+
+    //       const uploadUrl =
+    //         'https://' +
+    //         Response.request.httpRequest.endpoint.host +
+    //         Response.request.httpRequest.path;
+
+    //       setInputs({
+    //         ...inputs,
+    //         img: uploadUrl,
+    //       });
+    //       console.log('uploadUrl 2', uploadUrl);
+    //     })
+    //     .send(err => {
+    //       if (err) {
+    //         console.log(err);
+    //       }
+    //     });
+    // }
+    // console.log(inputs);
 
     try {
       const res = await api.mission.create(inputs);
