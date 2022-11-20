@@ -14,7 +14,6 @@ function NoticeCreate() {
     title: '',
     content: '',
     userId: userName,
-    id: '',
   });
 
   const {title, content} = inputs;
