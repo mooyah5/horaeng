@@ -20,6 +20,7 @@ const api = {
 
   diary: {
     submit: async (diary: MissionInfo) => {
+      console.log(diary);
       const res = await axios({
         url: urls.diary.submit(),
         method: 'post',

@@ -52,12 +52,12 @@ const styles = StyleSheet.create({
     height: 430,
   },
   help: {
-    fontFamily: font.beeBold,
+    fontFamily: font.beeMid,
     alignItems: 'flex-end',
     width: '100%',
     paddingHorizontal: 50,
     paddingTop: 30,
-    marginBottom: 8,
+    // marginBottom: 8,
   },
   helpBtn: {
     paddingVertical: 8,
@@ -77,15 +77,13 @@ const MainMission = ({navigation}: Props) => {
   const dispatch = useDispatch();
   const name = useSelector(selectName);
   const charInfo = useSelector(selectCharacter)?.userCharacter;
-  // const imgUrl = useSelector(selectFile); // main 미션 이미지 url 저장
 
   const [clickHelp, setClickHelp] = useState(false); // 안내 사항 확인?
   const [mainId, setMainId] = useState(0);
   const mission = charMission[charInfo?.character_id][0];
   const [diary, setDiary] = useState('');
   const sampleImg = charMission[charInfo?.character_id][1];
-  const info =
-    '1. 예시 사진과 동일하게 종이를 아끼는 모습을 담은 사진을 찍어주세요. \n 2. 부적합한 사진 업로드시 포인트가 차감될 수 있습니다.';
+  const info = charMission[charInfo?.character_id][2];
   const [point, setPoint] = useState(0); // 포인트 적립 내역
   const image = useSelector(selectFile); // 이미지 정보
   const [loca, setLoca] = useState('');
@@ -94,6 +92,9 @@ const MainMission = ({navigation}: Props) => {
 
   const submit = async () => {
     try {
+      if (loca !== '') {
+        setPoint(point + 5);
+      }
       await api.diary.submit({
         content: diary,
         imgUrl: loca,
@@ -104,6 +105,7 @@ const MainMission = ({navigation}: Props) => {
         addPoint: point, // 포인트
         isMain: 1,
       });
+
       dispatch(reset());
       navigation.navigate('SubmitMission', {
         type: 'main',
@@ -137,15 +139,11 @@ const MainMission = ({navigation}: Props) => {
           Alert.alert('업로드 실패');
         }
       });
+      submit();
     } else {
       Alert.alert('성냥팔이 호랭이', '글을 작성해주세요!', [{text: '닫기'}]);
     }
   };
-  useEffect(() => {
-    if (loca !== '') {
-      submit();
-    }
-  }, [loca]);
 
   const goBack = () => {
     dispatch(reset());

@@ -1,6 +1,6 @@
 import {ParamListBase} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import React from 'react';
+import {React, useEffect, useState} from 'react';
 import {
   View,
   SafeAreaView,
@@ -13,9 +13,9 @@ import {
 import {videoList} from '../../script/videoList';
 import Btn from '../common/Btn_short';
 import {font, color} from '../../styles/colorAndFontTheme';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import api from '../../api/api_controller';
-import {selectUser} from '../../store/user';
+import {selectUser, setUserPoint} from '../../store/user';
 const styles = StyleSheet.create({
   body: {
     paddingHorizontal: 24,
@@ -36,18 +36,17 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   txt: {
-    fontFamily: font.beeBold,
-    fontSize: 30,
+    fontFamily: font.beeMid,
+    color: color.BLACK_3A,
+    fontSize: 20,
   },
   txt2: {
-    fontFamily: font.beeBold,
-    fontSize: 20,
+    fontFamily: font.beeMid,
+    fontSize: 18,
     color: color.RED,
   },
   btns: {
-    // flex: 0.5,
     flexDirection: 'row',
-    // marginTop: 15,
   },
   btn: {
     paddingTop: 50,
@@ -60,6 +59,13 @@ interface Props {
 
 const VideoModal = ({navigation}: Props) => {
   const user = useSelector(selectUser);
+  const dispatch = useDispatch();
+  const [click, setClick] = useState<boolean>(false);
+  const [mention, setMention] =
+    useState<string>('버튼을 누르면 영상으로 이동합니다');
+  const [alert, setAlert] = useState<string>(
+    ' - 영상을 시청하면 5개의 성냥을 드립니다 -',
+  );
 
   const goTube = async () => {
     // list 개수에 따라 랜덤 개수 조정
@@ -69,11 +75,20 @@ const VideoModal = ({navigation}: Props) => {
         userId: user.id,
         point: 5,
       });
+      const user_res = await api.user.getUserInfo(user.id);
+      dispatch(setUserPoint({point: user_res.data.point}));
+      setClick(true);
+
       Linking.openURL(videoList[randomNum]);
     } catch (err) {
       Alert.alert('적립 실패ㅜㅠ');
     }
   };
+
+  useEffect(() => {
+    setMention('시청 완료!');
+    setAlert('선물로 성냥 5개를 드릴게요~');
+  }, [click]);
   return (
     <SafeAreaView style={styles.body}>
       <View style={styles.empty} />
@@ -82,10 +97,8 @@ const VideoModal = ({navigation}: Props) => {
           source={require('../../assets/image/optionBox.png')}
           style={styles.infoBox}
         />
-        <Text style={styles.txt}>버튼을 누르면 영상으로 이동합니다!</Text>
-        <Text style={styles.txt2}>
-          (영상을 시청하면 5개의 성냥을 드립니다!)
-        </Text>
+        <Text style={styles.txt}>{mention}</Text>
+        <Text style={styles.txt2}>{alert}</Text>
         <View style={styles.btns}>
           <View style={styles.btn}>
             <Btn txt="영상 보기" clickEvent={goTube} />

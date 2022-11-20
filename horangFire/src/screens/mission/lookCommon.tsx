@@ -14,7 +14,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {ParamListBase} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
 import api from '../../api/api_controller';
-import {selectCharacter} from '../../store/character';
+import {selectCharacter, selectName} from '../../store/character';
 
 const styles = StyleSheet.create({
   container: {
@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
     flex: 5,
     width: '100%',
     alignItems: 'center',
+    // justifyContent: 'center',
     paddingBottom: 30,
   },
   btns: {
@@ -40,24 +41,31 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     flex: 1,
   },
+  imgBox: {
+    position: 'absolute',
+    width: '95%',
+    height: '95%',
+  },
   box: {
     position: 'absolute',
-    width: 307,
-    height: 430,
+    width: '100%',
+    height: '100%',
+    resizeMode: 'contain',
   },
   title: {
-    fontFamily: font.beeBold,
-    fontSize: 32,
+    fontFamily: font.beeMid,
+    fontSize: 24,
     color: color.BLACK_3A,
     marginTop: 50,
-    paddingBottom: 15,
+    paddingBottom: 10,
     flex: 1,
   },
   text: {
-    fontFamily: font.beeBold,
+    fontFamily: font.beeMid,
     fontSize: 16,
     textAlign: 'center',
-    paddingTop: 10,
+    paddingTop: 8,
+    color: color.BROWN_47,
   },
   info: {
     alignItems: 'center',
@@ -81,9 +89,9 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   list: {
-    fontFamily: font.beeBold,
+    fontFamily: font.beeMid,
     color: color.BROWN_47,
-    fontSize: 30,
+    fontSize: 18,
   },
   move: {
     backgroundColor: color.BROWN_47,
@@ -112,6 +120,7 @@ interface Props {
 
 const LookCommon = ({navigation}: Props) => {
   const charInfo = useSelector(selectCharacter)?.userCharacter;
+  const name = useSelector(selectName);
   const [commonInfo, setCommonInfo] = useState([]);
   useEffect(() => {
     // 공통 미션 정보 받아오기
@@ -120,7 +129,6 @@ const LookCommon = ({navigation}: Props) => {
       setCommonInfo(res.commonMission);
     };
     getCommon();
-    console.log(commonInfo + '0000');
   }, []);
 
   return (
@@ -137,13 +145,15 @@ const LookCommon = ({navigation}: Props) => {
           {/* </View> */}
         </TouchableOpacity>
         <View style={styles.cont1}>
-          <TitleText title="호랭이 이름" subTitle="공통 미션 수행하기" />
+          <TitleText title={name} subTitle="공통 미션 수행하기" />
         </View>
         <View style={styles.cont2}>
-          <Image
-            style={styles.box}
-            source={require('../../assets/image/box_large.png')}
-          />
+          <View style={styles.imgBox}>
+            <Image
+              style={styles.box}
+              source={require('../../assets/image/box_large.png')}
+            />
+          </View>
           <Text style={styles.title}>오늘의 공통 미션 둘러보기</Text>
           <View style={styles.info}>
             <Image
@@ -152,7 +162,7 @@ const LookCommon = ({navigation}: Props) => {
             />
             <Text style={styles.text}>
               기본 미션을 완료했더라도 {'\n'} 공통미션에 참여하면{' '}
-              <Text style={{color: color.RED}}>성냥</Text>을 얻을 수 있어!
+              <Text style={{color: color.RED}}>성냥</Text>을 얻을 수 있어 !
             </Text>
           </View>
           <View style={styles.select}>
