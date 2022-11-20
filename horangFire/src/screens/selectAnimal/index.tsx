@@ -145,7 +145,7 @@ export const animal: ANIMAL[] = [
     species: 'tiger',
     image: require('../../assets/image/character/72ppi/tiger3.png'),
     backImage: require('../../assets/image/mainbottom.png'),
-    mission: '종이 아끼기',
+    mission: '에코백 사용하기',
   },
   {
     id: 2,
@@ -161,7 +161,7 @@ export const animal: ANIMAL[] = [
     species: 'elephant',
     image: require('../../assets/image/character/72ppi/elephant3.png'),
     backImage: require('../../assets/image/mainbottom.png'),
-    mission: '화석연료 사용 줄이기',
+    mission: '대중교통 이용하기',
   },
   {
     id: 4,
@@ -169,7 +169,7 @@ export const animal: ANIMAL[] = [
     species: 'turtle',
     image: require('../../assets/image/character/72ppi/turtle3.png'),
     backImage: require('../../assets/image/mainbottom.png'),
-    mission: '플라스틱 줄이기',
+    mission: '텀블러 사용하기',
   },
   {
     id: 5,
@@ -177,7 +177,7 @@ export const animal: ANIMAL[] = [
     species: 'penguin',
     image: require('../../assets/image/character/72ppi/penguin3.png'),
     backImage: require('../../assets/image/mainbottom.png'),
-    mission: '전기 아끼기',
+    mission: '콘센트 뽑기',
   },
 ];
 

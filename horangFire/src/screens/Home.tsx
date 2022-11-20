@@ -113,6 +113,7 @@ const styles = StyleSheet.create({
       height: 1,
     },
     textShadowRadius: 0.5,
+    marginRight: 8,
   },
   buttonTouchableNone: {
     backfaceVisibility: 'hidden',
@@ -176,12 +177,11 @@ const styles = StyleSheet.create({
 });
 
 export const BACKGROUND = [
-  require('../assets/image/background/snow_background.png'),
   require('../assets/image/background/forest_background.jpeg'),
-  require('../assets/image/background/london_background.jpeg'),
-  // good
   require('../assets/image/background/greenForest_background.jpeg'),
+  require('../assets/image/background/london_background.jpeg'),
   require('../assets/image/background/ocean_background.jpeg'),
+  require('../assets/image/background/snow_background.png'),
   require('../assets/image/background/sakura_background.png'),
   require('../assets/image/background/effel2_background.jpeg'),
   require('../assets/image/background/lotte_background.jpeg'),
@@ -213,6 +213,7 @@ const Home = ({navigation}: Props) => {
   const dispatch = useDispatch();
   const [scriptNum, setScriptNum] = useState<number>(1);
   const backgroundNumber = useSelector(selectBackgroundNumber);
+
   const character = useSelector(selectCharacter);
   const nowUser = useSelector(selectUser);
   const characterSpecies = character?.userCharacter?.character_id;
@@ -532,7 +533,7 @@ const Home = ({navigation}: Props) => {
               onPress={() => navigation.navigate('MissionHome')}>
               {todayMissionStatus() ? (
                 <Text style={styles.missionBottomText3}>
-                  오늘도 지구를 구했어!🌱
+                  공통 미션 수행하기
                 </Text>
               ) : (
                 <Text style={styles.missionBottomText3}>
