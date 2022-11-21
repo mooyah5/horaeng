@@ -1,0 +1,74 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: config-service
+  cloud:
+    config:
+      server:
+        git:
+          uri: git@github.com:nomzaxs/msa-config.git
+          timeout: 4
+          ignoreLocalSshSettings: true
+          privateKey: |
+            -----BEGIN RSA PRIVATE KEY-----
+            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
+            -----END RSA PRIVATE KEY-----
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    shutdown:
+      enabled: true
