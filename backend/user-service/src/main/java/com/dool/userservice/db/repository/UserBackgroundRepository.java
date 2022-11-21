@@ -13,9 +13,16 @@ public class UserBackgroundRepository{
 
     private final EntityManager em;
 
-    public List<UserBackground> getUsersBackground(String userId){
+    public List<UserBackground> getUsersBackgroundByUserId(String userId){
         return em.createQuery("select ub from UserBackground ub where ub.user.id = :userId ")
                 .setParameter("userId", userId)
+                .getResultList();
+    }
+
+    public List<UserBackground> getUsersBackgroundByUserIdAndBackgroundId(String userId, Long backgroundId){
+        return em.createQuery("select ub from UserBackground ub where ub.user.id = :userId and ub.background =:backgroundId ")
+                .setParameter("userId", userId)
+                .setParameter("backgroundId", backgroundId)
                 .getResultList();
     }
 

@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -20,11 +21,12 @@ public class UserBackgroundServiceImpl implements UserBackgroundService {
     private final UserRepository userRepository;
     @Override
     public Iterable<UserBackground> getUsersBackground(String userId) {
-        return userBackgroundRepository.getUsersBackground(userId);
+        return userBackgroundRepository.getUsersBackgroundByUserId(userId);
     }
 
     @Override
     public void createUserBackground(BackgroundRequest request) {
+
 
         UserBackground userBackground = new UserBackground();
         userBackground.setUser(userRepository.get(request.getUserId()));

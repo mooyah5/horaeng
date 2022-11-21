@@ -130,8 +130,14 @@ public class UserController {
     }
 
     @PutMapping("/point")
-    public ResponseEntity addPoint(@RequestBody AddPointRequest request){
+    public ResponseEntity<?> addPoint(@RequestBody AddPointRequest request){
         userService.addPoint(request);
         return ResponseEntity.status(HttpStatus.OK).body(null);
+    }
+
+    @GetMapping("/name/{userId}")
+    public String getName(@PathVariable("userId") String userId){
+
+        return userService.getUserName(userId);
     }
 }

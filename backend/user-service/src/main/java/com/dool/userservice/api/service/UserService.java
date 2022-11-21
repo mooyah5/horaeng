@@ -14,6 +14,5 @@ public interface UserService {
     void inputBackground(BackgroundRequest request);
     Long addReportCnt(String id);
     void addPoint(AddPointRequest request);
-
-
+    public String getUserName(String userId);
 }
