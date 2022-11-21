@@ -51,6 +51,7 @@ public class DiaryServiceImpl implements DiaryService {
         diary.setContent(request.getContent());
         diary.setCharactersId(request.getCharactersId());
         diary.setUserCharacterId(request.getUserCharacterId());
+        diary.setIsMain(request.getIsMain());
 
         AddPointRequest addPointRequest = new AddPointRequest();
         addPointRequest.setUserId(request.getUserId());
@@ -67,5 +68,10 @@ public class DiaryServiceImpl implements DiaryService {
     public void deleteDiary(Long id) {
         Diary diary = diaryRepository.get(id);
         diaryRepository.delete(diary);
+    }
+
+    @Override
+    public String getName(String userId) {
+        return userServiceClient.getName(userId);
     }
 }
