@@ -46,8 +46,7 @@ public class DiaryController {
         List<DiaryResponse> result = new ArrayList<>();
 
         list.forEach(v->{
-            String name = diaryService.getName(v.getUserId());
-            result.add(DiaryResponse.with(v, name));
+            result.add(DiaryResponse.of(v));
         });
 
         if(list.size() == 0){
@@ -86,8 +85,7 @@ public class DiaryController {
         List<DiaryResponse> result = new ArrayList<>();
 
         list.forEach(v->{
-            String name = diaryService.getName(v.getUserId());
-            result.add(DiaryResponse.with(v, name));
+            result.add(DiaryResponse.of(v));
         });
 
         return ResponseEntity.status(HttpStatus.OK).body(result);

@@ -9,28 +9,24 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
-@Setter@Getter
-
-@Data
 @Entity
-@Table(name = "diary")
+@Data
+@Getter
+@Setter
+@Table(name = "notice")
 @NoArgsConstructor
-public class Diary {
+public class Notice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @NotNull
-    private Long charactersId;
-    @NotNull
-    private String userId;
-    @NotNull
-    private Long userCharacterId;
+    private String title;
     @NotNull
     private String content;
-    @NotNull
-    private String imgUrl;
     private LocalDateTime createDate;
+
+    @NotNull
+    private String userId;
 
     @PrePersist
     public void createDate(){

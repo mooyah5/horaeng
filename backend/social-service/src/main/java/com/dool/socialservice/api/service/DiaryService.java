@@ -14,5 +14,4 @@ public interface DiaryService {
     public List<Diary> getDiaryByUserCharacter(Long userCharacterId);
     public CreateDiaryResponse createDiary(CreateDiaryRequest request);
     public void deleteDiary(Long id);
-    public String getName(String userId);
 }

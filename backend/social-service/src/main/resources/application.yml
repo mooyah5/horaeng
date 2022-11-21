@@ -1,8 +1,24 @@
+server:
+  port: 8020
+
 spring:
-  config:
-    import: "optional:configserver:http://k7c108.p.ssafy.io:8888"
-  cloud:
-    config:
-      name: social-service
-      profile: prod
-      label: main
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://k7c108.p.ssafy.io:9020/social?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: dool
+  jpa:
+    database: mysql
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      format_sql: true
+    generate-ddl: true
+  application:
+    name: SOCIAL-SERVICE
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://eureka:8760/eureka

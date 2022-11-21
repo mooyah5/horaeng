@@ -7,9 +7,9 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@Getter @Setter
+@Setter @Getter
 @Builder
-public class DiaryResponse {
+public class CreateDiaryResponse {
     private Long id;
     private Long charactersId;
     private String userId;
@@ -17,9 +17,10 @@ public class DiaryResponse {
     private String content;
     private String imgUrl;
     private LocalDateTime createDate;
+    private boolean isCharacterMax;
 
-    static public DiaryResponse of(Diary diary){
-        DiaryResponse response = DiaryResponse.builder()
+    static public CreateDiaryResponse of(Diary diary, boolean isCharacterMax){
+        CreateDiaryResponse response = CreateDiaryResponse.builder()
                 .id(diary.getId())
                 .charactersId(diary.getCharactersId())
                 .userId(diary.getUserId())
@@ -27,6 +28,7 @@ public class DiaryResponse {
                 .content(diary.getContent())
                 .imgUrl(diary.getImgUrl())
                 .createDate(diary.getCreateDate())
+                .isCharacterMax(isCharacterMax)
                 .build();
         return response;
     }
