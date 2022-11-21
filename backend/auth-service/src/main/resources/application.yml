@@ -1,15 +1,8 @@
-server:
-  port: 8001
-
 spring:
-  application:
-    name: AUTH-SERVICE
-eureka:
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      defaultZone: http://eureka:8760/eureka
-token:
-  expiration_time: 86400000
-  secret: user_token
+  config:
+    import: "optional:configserver:http://k7c108.p.ssafy.io:8888"
+  cloud:
+    config:
+      name: auth-service
+      profile: prod
+      label: main

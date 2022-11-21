@@ -1,4 +1,42 @@
+// pipeline {
+//     agent any
+//
+//     stages {
+//         stage('build'){
+//             steps{
+//                 script{
+//                     try {
+//                         dir('./backend/auth-service'){
+//                             sh 'chmod +x ./gradlew'
+//                             sh './gradlew clean build'
+//                         }
+//
+//                         sh 'docker stop auth-service'
+//                         sh 'docker rm auth-service'
+//                         sh 'docker rmi auth-service'
+//                     } catch (e) {
+//                         sh 'echo "auth-service stop중 실패"'
+//                     }
+//                     try{
+//                         sh 'docker build -t auth-service ./backend/auth-service'
+//                     }catch(e){
+//                         sh 'echo "docker 이미지빌드중 실패"'
+//                     }
+//                 }
+//             }
+//         }
+//         stage("run"){
+//             steps {
+//                 sh 'docker run -d -p 8001:8001 --network msa -e TZ=Asia/Seoul --name auth-service auth-service'
+//             }
+//         }
+//     }
+// }
+
 pipeline {
+    environment {
+        DOCKERHUB_CREDENTIALS = credentials('docker_hub')
+    }
     agent any
 
     stages {
@@ -7,27 +45,48 @@ pipeline {
                 script{
                     try {
                         dir('./backend/auth-service'){
-                            sh 'chmod +x ./gradlew'
+                            sh 'chmod +x gradlew'
                             sh './gradlew clean build'
                         }
-
-                        sh 'docker stop auth-service'
-                        sh 'docker rm auth-service'
-                        sh 'docker rmi auth-service'
                     } catch (e) {
-                        sh 'echo "auth-service stop중 실패"'
+                        sh 'echo "auth-service 삭제 실패"'
                     }
                     try{
-                        sh 'docker build -t auth-service ./backend/auth-service'
+                        sh 'docker build -t mocaa/auth-service ./backend/auth-service'
                     }catch(e){
                         sh 'echo "docker 이미지빌드중 실패"'
                     }
                 }
             }
         }
-        stage("run"){
+        stage('Login'){
+            steps{
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+            }
+        }
+        stage('Deploy image') {
             steps {
-                sh 'docker run -d -p 8001:8001 --network msa -e TZ=Asia/Seoul --name auth-service auth-service'
+                script {
+                    sh 'docker push mocaa/auth-service'
+                }
+            }
+        }
+        stage('Cleaning up') {
+            steps {
+                sh 'docker rmi mocaa/auth-service'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'hello start'
+                sshagent (credentials: ['ssh-deploy']) {
+                    sh """
+                        ssh -o StrictHostKeyChecking=no ubuntu@43.201.97.204 '
+                        cd /home/ubuntu/deploy/auth
+                        ./dev.sh
+                        '
+                        """
+                }
             }
         }
     }
