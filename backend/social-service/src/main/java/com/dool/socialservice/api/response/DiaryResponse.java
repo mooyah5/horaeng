@@ -7,9 +7,9 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@Setter @Getter
+@Getter @Setter
 @Builder
-public class CreateDiaryResponse {
+public class DiaryResponse {
     private Long id;
     private Long charactersId;
     private String userId;
@@ -18,10 +18,10 @@ public class CreateDiaryResponse {
     private String imgUrl;
     private LocalDateTime createDate;
     private Long isMain;
-    private boolean isCharacterMax;
+    private String name;
 
-    static public CreateDiaryResponse of(Diary diary, boolean isCharacterMax){
-        CreateDiaryResponse response = CreateDiaryResponse.builder()
+    static public DiaryResponse of(Diary diary){
+        DiaryResponse response = DiaryResponse.builder()
                 .id(diary.getId())
                 .charactersId(diary.getCharactersId())
                 .userId(diary.getUserId())
@@ -29,8 +29,22 @@ public class CreateDiaryResponse {
                 .content(diary.getContent())
                 .imgUrl(diary.getImgUrl())
                 .createDate(diary.getCreateDate())
-                .isCharacterMax(isCharacterMax)
                 .isMain(diary.getIsMain())
+                .build();
+        return response;
+    }
+
+    static public DiaryResponse with(Diary diary, String name){
+        DiaryResponse response = DiaryResponse.builder()
+                .id(diary.getId())
+                .charactersId(diary.getCharactersId())
+                .userId(diary.getUserId())
+                .userCharacterId(diary.getUserCharacterId())
+                .content(diary.getContent())
+                .imgUrl(diary.getImgUrl())
+                .createDate(diary.getCreateDate())
+                .isMain(diary.getIsMain())
+                .name(name)
                 .build();
         return response;
     }

@@ -2,6 +2,7 @@ package com.dool.socialservice.api.client;
 
 import com.dool.socialservice.api.request.AddPointRequest;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,4 +14,7 @@ public interface UserServiceClient {
 
     @PutMapping("/user-service/user/point")
     void addPoint(@RequestBody AddPointRequest request);
+
+    @GetMapping("/user-service/user/name/{userId}")
+    String getName(@PathVariable("userId") String userId);
 }
