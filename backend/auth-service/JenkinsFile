@@ -1,0 +1,34 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('build'){
+            steps{
+                script{
+                    try {
+                        dir('./backend/auth-service'){
+                            sh 'chmod +x ./gradlew'
+                            sh './gradlew clean build'
+                        }
+
+                        sh 'docker stop auth-service'
+                        sh 'docker rm auth-service'
+                        sh 'docker rmi auth-service'
+                    } catch (e) {
+                        sh 'echo "auth-service stop중 실패"'
+                    }
+                    try{
+                        sh 'docker build -t auth-service ./backend/auth-service'
+                    }catch(e){
+                        sh 'echo "docker 이미지빌드중 실패"'
+                    }
+                }
+            }
+        }
+        stage("run"){
+            steps {
+                sh 'docker run -d -p 8001:8001 --network msa -e TZ=Asia/Seoul --name auth-service auth-service'
+            }
+        }
+    }
+}
