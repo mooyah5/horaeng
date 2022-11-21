@@ -9,6 +9,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {
   selectCharacter,
   selectName,
+  setCharacterLevel,
   setTodayCommon,
   setTodayMission,
 } from '../../store/character';
@@ -82,7 +83,9 @@ const SubmitMission = ({navigation, route}: Props) => {
     const user_res = await api.user.getUserInfo(user.id);
     dispatch(setUserPoint({point: user_res.data.point}));
     if (type === 'main') {
+      const lv = charInfo?.userCharacter?.characterLevel + 1;
       dispatch(setTodayMission({isDone: true}));
+      dispatch(setCharacterLevel({level: lv}));
     } else {
       dispatch(setTodayCommon({isDone: true}));
     }

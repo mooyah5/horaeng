@@ -147,6 +147,7 @@ const MainMission = ({navigation}: Props) => {
         if (res.status === 201) {
           setLoca(res.body.postResponse.location);
         } else {
+          console.log(res);
           Alert.alert('업로드 실패');
         }
       });

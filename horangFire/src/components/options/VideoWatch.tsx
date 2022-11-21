@@ -60,12 +60,8 @@ interface Props {
 const VideoModal = ({navigation}: Props) => {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
-  const [click, setClick] = useState<boolean>(false);
   const [mention, setMention] =
     useState<string>('버튼을 누르면 영상으로 이동합니다');
-  const [alert, setAlert] = useState<string>(
-    ' - 영상을 시청하면 5개의 성냥을 드립니다 -',
-  );
 
   const goTube = async () => {
     // list 개수에 따라 랜덤 개수 조정
@@ -77,21 +73,17 @@ const VideoModal = ({navigation}: Props) => {
       });
       const user_res = await api.user.getUserInfo(user.id);
       dispatch(setUserPoint({point: user_res.data.point}));
-      setClick(true);
+
       Linking.openURL(videoList[randomNum]);
     } catch (err) {
       Alert.alert('적립 실패ㅜㅠ');
     }
   };
   const close = () => {
-    setClick(false);
+    // setClick(false);
     navigation.goBack();
   };
 
-  useEffect(() => {
-    setMention('시청 완료!');
-    setAlert('선물로 성냥 5개를 드릴게요~');
-  }, [click]);
   return (
     <SafeAreaView style={styles.body}>
       <View style={styles.empty} />

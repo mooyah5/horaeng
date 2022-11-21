@@ -46,6 +46,11 @@ export const charSlice = createSlice({
         state.todayCommon = action.payload.isDone;
       }
     },
+    setCharacterLevel: (state: charType | null, action) => {
+      if (state) {
+        state.characterLevel = action.payload.level;
+      }
+    },
   },
 });
 
@@ -65,7 +70,11 @@ export const selectName = (state: {character: CharacterResponseType}) =>
 export const selectCharacter = (state: {
   character: CharacterResponseType | null;
 }) => state.character;
-export const {setMyCharacter, setTodayMission, setTodayCommon} =
-  charSlice.actions;
+export const {
+  setMyCharacter,
+  setCharacterLevel,
+  setTodayMission,
+  setTodayCommon,
+} = charSlice.actions;
 
 export default charSlice.reducer;

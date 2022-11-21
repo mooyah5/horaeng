@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
   },
   textBox: {
     width: '100%',
+    height: '100%',
     paddingHorizontal: 40,
     marginVertical: 40,
   },
@@ -49,7 +50,7 @@ const styles = StyleSheet.create({
   imgBox: {
     overflow: 'hidden',
     width: '100%',
-    height: '100%',
+    height: 200,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 20,
@@ -94,6 +95,7 @@ const DiaryDetail = ({navigation, route}: Props) => {
   const onBackButton = () => {
     navigation.goBack();
   };
+  console.log(diary.imgUrl);
 
   return (
     <SafeAreaView style={styles.body}>
@@ -110,11 +112,11 @@ const DiaryDetail = ({navigation, route}: Props) => {
             {week[date.getDay()]}요일
           </Text>
           {/* TODO S3 완료된 이후에 이미지 경로 추가 */}
-          <View style={styles.imgBox}>
-            {diary.imgUrl !== 'null' && (
+          {diary.imgUrl !== '' && (
+            <View style={styles.imgBox}>
               <Image source={{uri: diary.imgUrl}} style={styles.image} />
-            )}
-          </View>
+            </View>
+          )}
 
           <Text style={styles.text}>{diary.content}</Text>
         </ScrollView>
