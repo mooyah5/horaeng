@@ -9,9 +9,10 @@ import java.util.List;
 
 public interface DiaryService {
     public Diary getDiary(Long id);
-    public List<Diary> getDiaryByCharacters(Long charactersId);
-    public List<Diary> getAllDiary();
+    public List<Diary> getDiaryByCharacters(Long charactersId, Long lastId);
+    public List<Diary> getAllDiary(Long lastId);
     public List<Diary> getDiaryByUserCharacter(Long userCharacterId);
     public CreateDiaryResponse createDiary(CreateDiaryRequest request);
     public void deleteDiary(Long id);
+    public String getName(String userId);
 }
