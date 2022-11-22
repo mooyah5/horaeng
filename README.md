@@ -171,12 +171,12 @@
 
 **메인화면 (미션 전)**
 
-<img src = "./README.assets/16.png" width = "50%"/>
+<img src = "./README.assets/16.png" width = "30%"/>
 <br />
 
 **메인화면 (미션 후)**
 
-<img src = "./README.assets/17.png" width = "50%"/>
+<img src = "./README.assets/17.png" width = "30%"/>
 
 ### 미션
 
@@ -190,23 +190,23 @@
 
 **메인 미션**
 
-<img src = "./README.assets/8.png" width = "50%"/>
-<img src = "./README.assets/9.png" width = "50%"/>
-<img src = "./README.assets/10.png" width = "50%"/>
-<img src = "./README.assets/11.png" width = "50%"/>
-<img src = "./README.assets/12.png" width = "50%"/>
+<img src = "./README.assets/8.png" width = "30%"/>
+<img src = "./README.assets/9.png" width = "30%"/>
+<img src = "./README.assets/10.png" width = "30%"/>
+<img src = "./README.assets/11.png" width = "30%"/>
+<img src = "./README.assets/12.png" width = "30%"/>
 <br />
 
 **공통 미션**
 
-<img src = "./README.assets/6.png" width = "50%"/>
+<img src = "./README.assets/6.png" width = "30%"/>
 
 ### 일지
 
 - 메인 미션을 완료하면 작성된 사진과 일지를 일지 페이지에서 확인할 수 있습니다(공통미션 확인 불가).
 
-  <img src = "./README.assets/22.png" width = "50%"/>
-  <img src = "./README.assets/23.png" width = "50%"/>
+  <img src = "./README.assets/22.png" width = "30%"/>
+  <img src = "./README.assets/23.png" width = "30%"/>
 
 ### 도감
 
@@ -215,8 +215,8 @@
 - 그 동물을 키우면서 작성한 일지를 볼 수 있습니다.
 - 동물에 대한 상세 정보를 볼 수 있습니다.
 
-<img src = "./README.assets/20.png" width = "50%"/>
-<img src = "./README.assets/19.png" width = "50%"/>
+<img src = "./README.assets/20.png" width = "30%"/>
+<img src = "./README.assets/19.png" width = "30%"/>
 
 ### 커뮤니티 & 공지사항
 
@@ -227,14 +227,14 @@
 
 **커뮤니티**
 
-<img src = "./README.assets/5.png" width = "50%"/>
-<img src = "./README.assets/13.png" width = "50%"/>
-<img src = "./README.assets/14.png" width = "50%"/>
+<img src = "./README.assets/5.png" width = "30%"/>
+<img src = "./README.assets/13.png" width = "30%"/>
+<img src = "./README.assets/14.png" width = "30%"/>
 
 **공지사항**
 
-<img src = "./README.assets/3.png" width = "50%"/>
-<img src = "./README.assets/15.png" width = "50%"/>
+<img src = "./README.assets/3.png" width = "30%"/>
+<img src = "./README.assets/15.png" width = "30%"/>
 
 ### 설정 & 배경화면 설정
 
@@ -242,8 +242,8 @@
 - 보유한 성냥으로 배경화면을 설정 및 구매할 수 있습니다.
 - 설정 페이지에서는 인트로의 영상을 다시 시청할 수 있습니다.
 
-<img src = "./README.assets/1.png" width = "50%"/>
-<img src = "./README.assets/2.png" width = "50%"/>
+<img src = "./README.assets/1.png" width = "30%"/>
+<img src = "./README.assets/2.png" width = "30%"/>
 
 <br/>
 
