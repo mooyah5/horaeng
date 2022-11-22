@@ -62,34 +62,13 @@
 
 ## 🛠️ 기술 스택
 
-<img src="https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=Java&logoColor=#007396" style="height : auto; margin-left : 10px; margin-right : 10px;"/> 
-<img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=for-the-badge&logo=Spring Boot&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> 
-<img src="https://img.shields.io/badge/JSON Web Tokens-000000?style=for-the-badge&logo=JSON Web Tokens&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> 
-<img src="https://img.shields.io/badge/Spring Security-6DB33F?style=for-the-badge&logo=Spring Security&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/><br>
-<img src="https://img.shields.io/badge/Spring Cloud-6DB33F?style=for-the-badge&logo=Spring&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/>
-<img src="https://img.shields.io/badge/Gradle-02303A?style=for-the-badge&logo=Gradle&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> 
-<img src="https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=NGINX&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> 
-<img src="https://img.shields.io/badge/Jenkins-D24939?style=for-the-badge&logo=Jenkins&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> 
-<img src="https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=Ubuntu&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/><br>
-<img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=Docker&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> 
-<img src="https://img.shields.io/badge/RabbitMQ-FF6600?style=for-the-badge&logo=RabbitMQ&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> 
-<img src="https://img.shields.io/badge/Elasticsearch-005571?style=for-the-badge&logo=Elasticsearch&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> 
-<img src="https://img.shields.io/badge/LogStash-005571?style=for-the-badge&logo=LogStash&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> <br>
-<img src="https://img.shields.io/badge/Kibana-005571?style=for-the-badge&logo=Kibana&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> 
-<img src="https://img.shields.io/badge/Beats-005571?style=for-the-badge&logo=Beats&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/>
-<img src="https://img.shields.io/badge/Grafana-F46800?style=for-the-badge&logo=Grafana&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/>
-<img src="https://img.shields.io/badge/Prometheus-E6522C?style=for-the-badge&logo=Prometheus&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> <br/>
-<img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=MySQL&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/>
-<img src="https://img.shields.io/badge/Amazon EC2-FF9900?style=for-the-badge&logo=Amazon EC2&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/>
-<img src="https://img.shields.io/badge/ReactNative-61DAFB?style=for-the-badge&logo=React&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> 
-<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/>  <br/>
-<img src="https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=Redux&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/>
-<img src="https://img.shields.io/badge/Node.js-339939?style=for-the-badge&logo=Node.js&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> 
-<img src="https://img.shields.io/badge/AmaZon S3-569A31?style=for-the-badge&logo=Amazon S3&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/>  
-<img src="https://camo.githubusercontent.com/ecedb0571f9b8bfbc3cfa73f1c932dddffe3c4a5002b807c2fc6e7ce284fcd98/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4a6176615363726970742d4637444631452e7376673f267374796c653d666f722d7468652d6261646765266c6f676f3d4a617661536372697074266c6f676f436f6c6f723d7768697465" style="height : auto; margin-left : 10px; margin-right : 10px;"/>  <br/>
-<img src="https://img.shields.io/badge/TypeScript-3178C6?logo=TypeScript&logoColor=FFF&style=for-the-badge" style="height : auto; margin-left : 10px; margin-right : 10px;" />
-<img src="https://img.shields.io/badge/Jira-0052CC?style=for-the-badge&logo=Jira&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> 
-<img src="https://img.shields.io/badge/GitLab-FCA121?style=for-the-badge&logo=GitLab&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> <br/>
+<img src="https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=Java&logoColor=#007396" style="height : auto; margin-left : 10px; margin-right : 10px;"/> <img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=for-the-badge&logo=Spring Boot&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> <img src="https://img.shields.io/badge/JSON Web Tokens-000000?style=for-the-badge&logo=JSON Web Tokens&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> <img src="https://img.shields.io/badge/Spring Security-6DB33F?style=for-the-badge&logo=Spring Security&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/><br>
+<img src="https://img.shields.io/badge/Spring Cloud-6DB33F?style=for-the-badge&logo=Spring&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> <img src="https://img.shields.io/badge/Gradle-02303A?style=for-the-badge&logo=Gradle&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> <img src="https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=NGINX&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> <img src="https://img.shields.io/badge/Jenkins-D24939?style=for-the-badge&logo=Jenkins&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> <img src="https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=Ubuntu&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/><br>
+<img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=Docker&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> <img src="https://img.shields.io/badge/RabbitMQ-FF6600?style=for-the-badge&logo=RabbitMQ&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> <img src="https://img.shields.io/badge/Elasticsearch-005571?style=for-the-badge&logo=Elasticsearch&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> <img src="https://img.shields.io/badge/LogStash-005571?style=for-the-badge&logo=LogStash&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> <br>
+<img src="https://img.shields.io/badge/Kibana-005571?style=for-the-badge&logo=Kibana&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> <img src="https://img.shields.io/badge/Beats-005571?style=for-the-badge&logo=Beats&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> <img src="https://img.shields.io/badge/Grafana-F46800?style=for-the-badge&logo=Grafana&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/><img src="https://img.shields.io/badge/Prometheus-E6522C?style=for-the-badge&logo=Prometheus&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> <br/>
+<img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=MySQL&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/><img src="https://img.shields.io/badge/Amazon EC2-FF9900?style=for-the-badge&logo=Amazon EC2&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/><img src="https://img.shields.io/badge/ReactNative-61DAFB?style=for-the-badge&logo=React&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/>  <br/>
+<img src="https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=Redux&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> <img src="https://img.shields.io/badge/Node.js-339939?style=for-the-badge&logo=Node.js&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> <img src="https://img.shields.io/badge/AmaZon S3-569A31?style=for-the-badge&logo=Amazon S3&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> <img src="https://camo.githubusercontent.com/ecedb0571f9b8bfbc3cfa73f1c932dddffe3c4a5002b807c2fc6e7ce284fcd98/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4a6176615363726970742d4637444631452e7376673f267374796c653d666f722d7468652d6261646765266c6f676f3d4a617661536372697074266c6f676f436f6c6f723d7768697465" style="height : auto; margin-left : 10px; margin-right : 10px;"/>  <br/>
+<img src="https://img.shields.io/badge/TypeScript-3178C6?logo=TypeScript&logoColor=FFF&style=for-the-badge" style="height : auto; margin-left : 10px; margin-right : 10px;" /> <img src="https://img.shields.io/badge/Jira-0052CC?style=for-the-badge&logo=Jira&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> <img src="https://img.shields.io/badge/GitLab-FCA121?style=for-the-badge&logo=GitLab&logoColor=white" style="height : auto; margin-left : 10px; margin-right : 10px;"/> <br/>
 
 <br/>
 <b> 상세 기술스택 및 버전</b>
@@ -154,10 +133,7 @@
 - 동물은 멸종 위기 이유에 관한 에너지 절약/환경 관련 미션이 정해져 있습니다.
 - 미션을 해결하면 점차 성장하는 동물을 확인 할 수 있습니다.
 
-<img src = "./README.assets/23.gif" width = "30%"/>
-
-<img src = "./README.assets/27.png" width = "30%"/>
-<img src = "./README.assets/28.png" width = "30%"/>
+<img src = "./README.assets/23.gif" width = "30%"/> <img src = "./README.assets/27.png" width = "30%"/> <img src = "./README.assets/28.png" width = "30%"/>
 
 ### 메인화면
 
@@ -190,11 +166,7 @@
 
 **메인 미션**
 
-<img src = "./README.assets/8.png" width = "30%"/>
-<img src = "./README.assets/9.png" width = "30%"/>
-<img src = "./README.assets/10.png" width = "30%"/>
-<img src = "./README.assets/11.png" width = "30%"/>
-<img src = "./README.assets/12.png" width = "30%"/>
+<img src = "./README.assets/8.png" width = "30%"/> <img src = "./README.assets/9.png" width = "30%"/> <img src = "./README.assets/10.png" width = "30%"/> <img src = "./README.assets/11.png" width = "30%"/> <img src = "./README.assets/12.png" width = "30%"/>
 <br />
 
 **공통 미션**
@@ -205,8 +177,7 @@
 
 - 메인 미션을 완료하면 작성된 사진과 일지를 일지 페이지에서 확인할 수 있습니다(공통미션 확인 불가).
 
-  <img src = "./README.assets/22.png" width = "30%"/>
-  <img src = "./README.assets/23.png" width = "30%"/>
+<img src = "./README.assets/22.png" width = "30%"/> <img src = "./README.assets/23.png" width = "30%"/>
 
 ### 도감
 
@@ -215,8 +186,7 @@
 - 그 동물을 키우면서 작성한 일지를 볼 수 있습니다.
 - 동물에 대한 상세 정보를 볼 수 있습니다.
 
-<img src = "./README.assets/20.png" width = "30%"/>
-<img src = "./README.assets/19.png" width = "30%"/>
+<img src = "./README.assets/20.png" width = "30%"/> <img src = "./README.assets/19.png" width = "30%"/>
 
 ### 커뮤니티 & 공지사항
 
@@ -227,14 +197,11 @@
 
 **커뮤니티**
 
-<img src = "./README.assets/5.png" width = "30%"/>
-<img src = "./README.assets/13.png" width = "30%"/>
-<img src = "./README.assets/14.png" width = "30%"/>
+<img src = "./README.assets/5.png" width = "30%"/> <img src = "./README.assets/13.png" width = "30%"/> <img src = "./README.assets/14.png" width = "30%"/>
 
 **공지사항**
 
-<img src = "./README.assets/3.png" width = "30%"/>
-<img src = "./README.assets/15.png" width = "30%"/>
+<img src = "./README.assets/3.png" width = "30%"/> <img src = "./README.assets/15.png" width = "30%"/>
 
 ### 설정 & 배경화면 설정
 
@@ -242,8 +209,7 @@
 - 보유한 성냥으로 배경화면을 설정 및 구매할 수 있습니다.
 - 설정 페이지에서는 인트로의 영상을 다시 시청할 수 있습니다.
 
-<img src = "./README.assets/1.png" width = "30%"/>
-<img src = "./README.assets/2.png" width = "30%"/>
+<img src = "./README.assets/1.png" width = "30%"/> <img src = "./README.assets/2.png" width = "30%"/>
 
 <br/>
 
