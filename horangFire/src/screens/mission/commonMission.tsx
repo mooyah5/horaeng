@@ -82,6 +82,13 @@ const CommonMission = ({navigation, route}: Props) => {
   const [point, setPoint] = useState(0); // 포인트 적립 내역
   const [loca, setLoca] = useState('');
 
+  const handleSubmit = () => {
+    if (diary) {
+      checkImage();
+    } else {
+      Alert.alert('성냥팔이 호랭이', '글을 작성해주세요!', [{text: '닫기'}]);
+    }
+  };
   // 제출 함수
   const submit = async () => {
     try {
@@ -123,7 +130,6 @@ const CommonMission = ({navigation, route}: Props) => {
         },
       ).then((res: any) => {
         if (res.status === 201) {
-          console.log('업로드!!!!!');
           setLoca(res.body.postResponse.location);
         } else {
           Alert.alert('업로드 실패');
@@ -137,7 +143,7 @@ const CommonMission = ({navigation, route}: Props) => {
   };
 
   useEffect(() => {
-    if (loca !== '') {
+    if (loca !== '' && diary) {
       submit();
     }
   }, [loca]);
@@ -185,7 +191,7 @@ const CommonMission = ({navigation, route}: Props) => {
 
         <View style={styles.btns}>
           <Btn txt="이전으로" clickEvent={goBack} />
-          <Btn txt="제출하기" clickEvent={checkImage} />
+          <Btn txt="제출하기" clickEvent={handleSubmit} />
         </View>
       </View>
     </SafeAreaView>

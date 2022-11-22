@@ -10,7 +10,7 @@ import {
   View,
   Pressable,
 } from 'react-native';
-import {font} from '../../styles/colorAndFontTheme';
+import {font, color} from '../../styles/colorAndFontTheme';
 import Btn from '../common/Btn_short';
 import {Community} from '../community/CommunityContent';
 
@@ -45,11 +45,16 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginBottom: 20,
   },
-  text: {fontFamily: font.beeMid, fontSize: 16, paddingHorizontal: 20},
+  text: {
+    fontFamily: font.beeMid,
+    fontSize: 16,
+    paddingHorizontal: 20,
+    color: color.BLACK_3A,
+  },
   imgBox: {
     overflow: 'hidden',
     width: '100%',
-    height: '100%',
+    height: 200,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 20,
@@ -60,7 +65,7 @@ const styles = StyleSheet.create({
     height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    resizeMode: 'contain',
+    resizeMode: 'cover',
   },
 
   x_button: {
@@ -110,12 +115,11 @@ const DiaryDetail = ({navigation, route}: Props) => {
             {week[date.getDay()]}요일
           </Text>
           {/* TODO S3 완료된 이후에 이미지 경로 추가 */}
-          <View style={styles.imgBox}>
-            {diary.imgUrl !== 'null' && (
+          {diary.imgUrl !== '' && (
+            <View style={styles.imgBox}>
               <Image source={{uri: diary.imgUrl}} style={styles.image} />
-            )}
-          </View>
-
+            </View>
+          )}
           <Text style={styles.text}>{diary.content}</Text>
         </ScrollView>
         <Pressable style={styles.x_button} onPress={onBackButton}>

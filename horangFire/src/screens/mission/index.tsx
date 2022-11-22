@@ -172,7 +172,7 @@ const MissionHome = ({navigation}: Props) => {
   }, [specieName, characterLv, characterNum]);
 
   const canDoMain = () => {
-    if (isMainDone !== true) {
+    if (isMainDone === false) {
       navigation.navigate('MainMission');
     } else {
       setCharSays('이미 메인 미션을 완료했어 !');
@@ -184,7 +184,6 @@ const MissionHome = ({navigation}: Props) => {
       setCharSays('메인 미션 먼저 해결해줘 !');
     } else if (isCommonDone === true && isMainDone === true) {
       setCharSays('모든 미션을 해결했어 !\n내일 다시 시도해줘 !');
-      navigation.navigate('LookCommon');
     } else if (isMainDone === true && isCommonDone === false) {
       navigation.navigate('LookCommon');
     }
