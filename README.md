@@ -154,11 +154,10 @@
 - 동물은 멸종 위기 이유에 관한 에너지 절약/환경 관련 미션이 정해져 있습니다.
 - 미션을 해결하면 점차 성장하는 동물을 확인 할 수 있습니다.
 
-<img src = "./README.assets/23.gif" width = "50%"/>
-<br />
+<img src = "./README.assets/23.gif" width = "30%"/>
 
-<img src = "./README.assets/24.png" width = "50%"/>
-<img src = "./README.assets/25.png" width = "50%"/>
+<img src = "./README.assets/27.png" width = "30%"/>
+<img src = "./README.assets/28.png" width = "30%"/>
 
 ### 메인화면
 
@@ -172,12 +171,12 @@
 
 **메인화면 (미션 전)**
 
-<img src = "./README.assets/16.png" width = "30%"/>
+<img src = "./README.assets/16.png" width = "50%"/>
 <br />
 
 **메인화면 (미션 후)**
 
-<img src = "./README.assets/17.png" width = "30%"/>
+<img src = "./README.assets/17.png" width = "50%"/>
 
 ### 미션
 
@@ -191,23 +190,23 @@
 
 **메인 미션**
 
-<img src = "./README.assets/8.png" width = "30%"/>
-<img src = "./README.assets/9.png" width = "30%"/>
-<img src = "./README.assets/10.png" width = "30%"/>
-<img src = "./README.assets/11.png" width = "30%"/>
-<img src = "./README.assets/12.png" width = "30%"/>
+<img src = "./README.assets/8.png" width = "50%"/>
+<img src = "./README.assets/9.png" width = "50%"/>
+<img src = "./README.assets/10.png" width = "50%"/>
+<img src = "./README.assets/11.png" width = "50%"/>
+<img src = "./README.assets/12.png" width = "50%"/>
 <br />
 
 **공통 미션**
 
-<img src = "./README.assets/6.png" width = "30%"/>
+<img src = "./README.assets/6.png" width = "50%"/>
 
 ### 일지
 
 - 메인 미션을 완료하면 작성된 사진과 일지를 일지 페이지에서 확인할 수 있습니다(공통미션 확인 불가).
 
-  <img src = "./README.assets/22.png" width = "30%"/>
-  <img src = "./README.assets/23.png" width = "30%"/>
+  <img src = "./README.assets/22.png" width = "50%"/>
+  <img src = "./README.assets/23.png" width = "50%"/>
 
 ### 도감
 
@@ -216,8 +215,8 @@
 - 그 동물을 키우면서 작성한 일지를 볼 수 있습니다.
 - 동물에 대한 상세 정보를 볼 수 있습니다.
 
-<img src = "./README.assets/20.png" width = "30%"/>
-<img src = "./README.assets/19.png" width = "30%"/>
+<img src = "./README.assets/20.png" width = "50%"/>
+<img src = "./README.assets/19.png" width = "50%"/>
 
 ### 커뮤니티 & 공지사항
 
@@ -228,14 +227,14 @@
 
 **커뮤니티**
 
-<img src = "./README.assets/5.png" width = "30%"/>
-<img src = "./README.assets/13.png" width = "30%"/>
-<img src = "./README.assets/14.png" width = "30%"/>
+<img src = "./README.assets/5.png" width = "50%"/>
+<img src = "./README.assets/13.png" width = "50%"/>
+<img src = "./README.assets/14.png" width = "50%"/>
 
 **공지사항**
 
-<img src = "./README.assets/3.png" width = "30%"/>
-<img src = "./README.assets/15.png" width = "30%"/>
+<img src = "./README.assets/3.png" width = "50%"/>
+<img src = "./README.assets/15.png" width = "50%"/>
 
 ### 설정 & 배경화면 설정
 
@@ -243,8 +242,8 @@
 - 보유한 성냥으로 배경화면을 설정 및 구매할 수 있습니다.
 - 설정 페이지에서는 인트로의 영상을 다시 시청할 수 있습니다.
 
-<img src = "./README.assets/1.png" width = "30%"/>
-<img src = "./README.assets/2.png" width = "30%"/>
+<img src = "./README.assets/1.png" width = "50%"/>
+<img src = "./README.assets/2.png" width = "50%"/>
 
 <br/>
 

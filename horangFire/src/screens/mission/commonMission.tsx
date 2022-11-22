@@ -20,6 +20,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {selectCharacter, selectName} from '../../store/character';
 import api from '../../api/api_controller';
 import {reset, selectFile} from '../../store/mission';
+import process from 'process';
 
 const styles = StyleSheet.create({
   container: {
@@ -122,10 +123,10 @@ const CommonMission = ({navigation, route}: Props) => {
           type: image.type,
         },
         {
-          bucket: 'k7c108',
+          bucket: process.env.BUCKET_NAME,
           region: 'ap-northeast-2',
-          accessKey: 'AKIAWHLOLOLJ3T3C7JUE',
-          secretKey: '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',
+          accessKey: process.env.ACCESS_KEY,
+          secretKey: process.env.SECRET_KEY,
           successActionStatus: 201,
         },
       ).then((res: any) => {
